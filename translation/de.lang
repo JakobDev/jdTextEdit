@@ -1,0 +1,195 @@
+button.ok=OK
+button.cancel=Abbrechen
+button.close=Schließen
+button.add=Hinzufügen
+button.remove=Entfernen
+
+language.en=Englisch
+language.de=Deutsch
+
+mainWindow.menu.file=Datei
+mainWindow.menu.file.new=Neu
+mainWindow.menu.newTemplate=Neu (aus Vorlage)
+mainWindow.menu.newTemplate.empty=Keine Vorlagen verfügbar
+mainWindow.menu.file.open=Öffnen
+mainWindow.menu.file.openDirectory=Verzeichnis öffnen
+mainWindow.menu.openRecent=Zuletzt geöffnete Dateien öffnen
+mainWindow.menu.openRecent.empty=Keine zuletzt geöffneten Dateien
+mainWindow.menu.openRecent.clear=Löschen
+mainWindow.menu.openRecent.openAll=Alle öffnen
+mainWindow.menu.file.save=Speichern
+mainWindow.menu.file.saveAs=Speichern unter ...
+mainWindow.menu.file.saveAll=Alle speichern
+mainWindow.menu.file.close=Schließen
+mainWindow.menu.file.print=Drucken
+mainWindow.menu.file.exit=Beenden
+mainWindow.menu.edit=Bearbeiten
+mainWindow.menu.edit.undo=Rückgängig
+mainWindow.menu.edit.redo=Wiederherstellen
+mainWindow.menu.edit.cut=Ausschneiden
+mainWindow.menu.edit.copy=Kopieren
+mainWindow.menu.edit.paste=Einfügen
+mainWindow.menu.edit.delete=Löschen
+mainWindow.menu.edit.selectAll=Alles auswählen
+mainWindow.menu.edit.copyClipboard=In Zwischenablage kopieren
+mainWindow.menu.edit.copyClipboard.copyPath=Kopiere absoluten Pfad in Zwischenablage
+mainWindow.menu.edit.copyClipboard.copyDirectory=Kopiere Verzeichnisnamen in Zwischenablage
+mainWindow.menu.edit.copyClipboard.copyFilename=Kopiere Dateinamen in Zwischenablage
+mainWindow.menu.edit.convertCase=Ändere Schreibweise in
+mainWindow.menu.edit.convertCase.uppercase=Großbuchstaben
+mainWindow.menu.edit.convertCase.lowercase=Kleinbuchstaben
+mainWindow.menu.edit.convertCase.title=Titel
+mainWindow.menu.edit.convertCase.swap=Schreibweise tauschen
+mainWindow.menu.edit.eol=Zeilenende
+mainWindow.menu.edit.settings=Einstellungen
+mainWindow.menu.view=Ansicht
+mainWindow.menu.view.zoom=Zoom
+mainWindow.menu.view.zoom.zoomIn=Vergrößern
+mainWindow.menu.view.zoom.zoomOut=Verkleinern
+mainWindow.menu.view.fullscreen=Vollbild
+mainWindow.menu.view.sidebar=Seitenleiste
+mainWindow.menu.search=Suchen
+mainWindow.menu.search.search=Suchen ...
+mainWindow.menu.search.searchAndReplace=Suchen und Ersetzen
+mainWindow.menu.search.gotoLine=Gehe zu Zeile
+mainWindow.menu.tools=Werkzeuge
+mainWindow.menu.tools.pickColor=Farbe auswählen
+mainWindow.menu.tools.documentStatistics=Statistiken zum Dokument
+mainWindow.menu.tools.insertDateTime=Datum und Uhrzeit einfügen
+mainWindow.menu.language=Sprache
+mainWindow.menu.language.plainText=Reiner Text
+mainWindow.menu.execute=Ausführen
+mainWindow.menu.execute.executeCommand=Befehl ausführen
+mainWindow.menu.execute.editCommands=Befehle bearbeiten
+mainWindow.menu.about.openDataDir=Speicherordner öffnen
+mainWindow.menu.about.dayTip=Tipp des Tages
+mainWindow.menu.about.about=Über
+mainWindow.menu.about.aboutQt=Über Qt
+mainWindow.newTabTitle=Unbenannt
+mainWindow.statusBar.cursorPosLabel=Z. %s, Sp. %s
+mainWindow.openFileDialog.title=Öffnen
+mainWindow.openDirectoryDialog.title=Verzeichnis öffnen
+mainWindow.saveAsDialog.title=Speichern unter ...
+mainWindow.printDialog.title=Drucken
+
+closeSaveWindow.title=%s speichern
+closeSaveWindow.text="%s" wurde verändert. Möchtest du es speichern?
+closeSaveWindow.button.noSave=Schließen ohne zu speichern
+closeSaveWindow.button.save=Speichern
+closeSaveWindow.button.saveAs=Speichern unter...
+
+settingsWindow.title=Einstellungen
+settingsWindow.button.default=Zurücksetzen
+settingsWindow.general=Allgemein
+settingsWindow.general.label.languageSelect=Sprache (benötigt Neustart):
+settingsWindow.general.combobox.systemDefault=Benutze Systemsprache
+settingsWindow.general.label.maxRecentFiles=Länge der Liste der zuletzt geöffneten Dateien
+settingsWindow.general.checkBox.saveClose=Vor dem schließen einer Datei nachfragen
+settingsWindow.general.checkBox.hideTabBar=Verstecke Tableiste, wenn nur 1 Tab geöffnet ist
+settingsWindow.general.checkBox.saveSession=Sitzung speichern
+settingsWindow.general.checkBox.loadPlugins=Plugins laden
+settingsWindow.general.checkBox.useNativeIcons=Native Icons benutzen
+settingsWindow.general.checkBox.showToolbar=Werkzeugleiste zeigen
+settingsWindow.general.checkBox.dayTip=Zeige Tipp des Tages beim starten
+settingsWindow.editor=Editor
+settingsWindow.editor.label.tabWidth=Tabulatorbreite
+settingsWindow.editor.checkBox.editTabSpaces=Benutze Leerzeichen anstelle von Tabs
+settingsWindow.editor.checkBox.textWrap=Automatischen Zeilenumbruch aktivieren
+settingsWindow.editor.checkBox.showWhitespaces=Alle Zeichen anzeigen
+settingsWindow.editor.checkBox.autoIndent=Automatischer Einzug
+settingsWindow.editor.checkBox.showEol=Zeige Zeilenende
+settingsWindow.autocompletion=Autovervollständigung
+settingsWindow.autocompletion.checkbox.enableAutocompletion=Autovervollständigung aktivieren
+settingsWindow.autocompletion.checkbox.useWordsFromDocument=Benutze Wörter aus dem Dokument
+settingsWindow.autocompletion.checkbox.useAPI=Benutze API
+settingsWindow.autocompletion.checkbox.caseSensitive=Groß- und Kleinschreibung beachten
+settingsWindow.autocompletion.checkbox.replaceWord=Wort ersetzen
+settingsWindow.autocompletion.label.threshold=Autovervollständigung ab diesem Zeichen
+settingsWindow.style=Style
+settingsWindow.style.label.style=Design:
+settingsWindow.style.label.foldStyle=Einklapp Stil:
+settingsWindow.style.checkBox.font=Schriftart
+settingsWindow.style.checkBox.showLineNumbers=Zeige Zeilennummern
+settingsWindow.style.checkBox.highlightCurrentLine=Aktuelle Zeile hervorheben
+settingsWindow.contextMenu=Kontextmenü
+settingsWindow.contextMenu.button.add=Hinzufügen
+settingsWindow.contextMenu.button.remove=Entfernen
+settingsWindow.contextMenu.button.up=Nach oben
+settingsWindow.contextMenu.button.down=Nach unten
+settingsWindow.toolbar=Werkzeugleiste
+
+searchWindow.title=Suchen
+searchWindow.label.searchFor=Suchen nach:
+searchWindow.checkBox.regularExpression=Regulärer Ausdruck
+searchWindow.checkBox.caseSensitive=Groß- und Kleinschreibung beachten
+searchWindow.checkBox.wholeWord=Nur vollständige Wörter berücksichtigen
+searchWindow.checkBox.wrap=Suche beim Erreichen des Endes am Anfang fortsetzen
+searchWindow.checkBox.backwards=Rückwärts suchen
+searchWindow.checkBox.showText=Zeige Text wenn versteckt
+searchWindow.label.searchLine=Suche ab Zeile
+searchWindow.label.searchColumn=Suche ab Spalte
+searchWindow.button.search=Suche
+
+searchAndReplaceWindow.title=Suchen und Ersetzen
+searchAndReplaceWindow.label.searchFor=Suche nach:
+searchAndReplaceWindow.label.replaceWith=Ersetze durch:
+
+gotoLineWindow.title=Gehe zu Zeile
+gotoLineWindow.text=Gib  die Zeile an, zu der du springen möchtest:
+
+documentStatistics.title=Statistiken zum Dokument
+documentStatistics.document=Dokument
+documentStatistics.selection=Makierung
+documentStatistics.lines=Zeilen
+documentStatistics.words=Wörter
+documentStatistics.charactersSpaces=Zeichen (mit Leerzeichen)
+documentStatistics.charactersNoSpaces=Zeichen (ohne Leerzeichen)
+
+dateTimeWindow.title=Datum und Uhrzeit einfügen
+dateTimeWindow.radioButton.useTemplate=Folgendes Format verwenden
+dateTimeWindow.radioButton.useCustom=Benutzerdefiniertes Format verwenden
+dateTimeWindow.label.preview=Vorschau %s
+
+executeCommand.label.url=Vollständige URL zur aktuellen Datei.
+executeCommand.label.path=Vollständiger Pfad zur aktuellen Datei.
+executeCommand.label.directory=Verzeichnis der aktuellen Datei.
+executeCommand.label.filename=Name der aktuellen Datei.
+executeCommand.label.selection=Momentan markierter Text.
+
+executeCommandWindow.title=Befehl ausführen
+executeCommandWindow.runTerminal=In Terminal ausführen
+
+editCommandsWindow.title=Befehle bearbeiten
+editCommandsWindow.text=Text
+editCommandsWindow.command=Befehl
+editCommandsWindow.terminal=Terminal
+
+aboutWindow.title=Über
+aboutWindow.label.title=jdTextEdit Version %s
+aboutWindow.label.description=jdTextEdit ist ein umfangreicher, in Python geschriebener, Texteditor mit Plugin Support
+aboutWindow.label.license=Dieses Programm wurde unter GNU GPL 3 lizenziert
+aboutWindow.button.viewSource=Quelltext
+
+dayTipWindow.title=Tipp des Tages
+dayTipWindow.showStartup=Tipps beim Starten zeigen
+dayTipWindow.nextTip=Nächster Tipp
+
+noReadPermission.title=Konnte Datei nicht öffnen
+noReadPermission.text=Du hast nicht die Berechtigung, um %s zu öffnen
+
+noWritePermission.title=Konnte Datei nicht speichern
+noWritePermission.text=Du hast nicht die Berechtigung, um %s zu schreiben
+
+sidebar.notes=Notizen
+sidebar.notes.placeholderText=Du kannst dir hier Notizen machen
+sidebar.tabs=Tabs
+sidebar.files=Dateien
+sidebar.clipboard=Zwischenablage
+sidebar.clipboard.placeholderText=Momentan befindet sich nichts in der Zwischenablage
+
+dayTip.installPlugins=Du kannst Plugins installieren indem du sie in den plugins Ordner im Speicherordner kopierst.
+dayTip.multipleLanguages=jdTextEdit ist in mehreren Sprachen verfügbar. Du kannst die Sprache im Einstellungsmenü ändern.
+dayTip.openDataFolder=Du kannst den Speicherordner über das Hilfemenü öffnen.
+dayTip.changeSyntaxHighlighting=Du kannst die Syntaxhervorhebung im Sprachmenü ändern.
+dayTip.editContextToolbar=Du kannst das Kontextmenü und die Werkzeugleiste in den Einstellungen bearbeiten.
+dayTip.addTemplates=Du kannst Vorlagen zum Menü hinzufügen indem du sie in den templates Ordner im Speicherordner kopierst.
