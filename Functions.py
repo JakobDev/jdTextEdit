@@ -39,10 +39,10 @@ def getTemplates(path,templatelist):
     return templatelist
 
 def executeCommand(command,selectedTab,terminal):
-    command = command.replace("%url%","file://" + selectedTab[1])
-    command = command.replace("%path%",selectedTab[1])
-    command = command.replace("%directory%",os.path.dirname(selectedTab[1]))
-    command = command.replace("%filename%",os.path.basename(selectedTab[1]))
+    command = command.replace("%url%","file://" + selectedTab[0].getFilePath())
+    command = command.replace("%path%",selectedTab[0].getFilePath())
+    command = command.replace("%directory%",os.path.dirname(selectedTab[0].getFilePath()))
+    command = command.replace("%filename%",os.path.basename(selectedTab[0].getFilePath()))
     command = command.replace("%selection%",selectedTab[0].selectedText())
     if terminal:
         if platform.system() == 'Windows':
