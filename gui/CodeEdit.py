@@ -6,7 +6,7 @@ import os
 
 class CodeEdit(QsciScintilla):
     ARROW_MARKER_NUM = 8
-    def __init__(self,env,preview=False,isNew=False):
+    def __init__(self,env,preview=None,isNew=False):
         super().__init__()
         self.env = env
         self.isPreview = preview
@@ -15,7 +15,13 @@ class CodeEdit(QsciScintilla):
         self.apiCompletion = None
         self.searchText = ""
         self.tabid = None
+        self.usedEncoding = env.settings.defaultEncoding
+        self.filePath = ""
+        self.cursorPosString = env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1)
+        self.lexerName = env.translate("mainWindow.menu.language.plainText")
         self.foldStyles = [QsciScintilla.NoFoldStyle,QsciScintilla.PlainFoldStyle,QsciScintilla.CircledFoldStyle,QsciScintilla.BoxedFoldStyle,QsciScintilla.CircledTreeFoldStyle,QsciScintilla.BoxedTreeFoldStyle]
+        eolModeList = [QsciScintilla.EolWindows,QsciScintilla.EolUnix,QsciScintilla.EolMac]
+        self.changeEolMode(eolModeList[self.env.settings.defaultEolMode])
         self.updateSettings(env.settings)
         self.setMarginLineNumbers(0, True)
         self.setUtf8(True)
@@ -26,6 +32,17 @@ class CodeEdit(QsciScintilla):
         self.textChanged.connect(self.textEdited)
         self.selectionChanged.connect(self.editSelectionChanged)
         self.cursorPositionChanged.connect(self.updateCursor)
+        
+        #self.updateStatusBar()
+
+    def updateStatusBar(self):
+        if self.isPreview or not hasattr(self.env,"mainWindow"):
+            return
+        self.env.mainWindow.pathLabel.setText(self.filePath)
+        statusString = self.usedEncoding + " "
+        statusString = statusString + self.lexerName + " "
+        statusString = statusString + self.cursorPosString
+        self.env.mainWindow.cursorPosLabel.setText(statusString)
 
     def setSyntaxHighlighter(self, lexer, lexerList=None):
         #self.lexer() is a little bit buggy
@@ -42,6 +59,9 @@ class CodeEdit(QsciScintilla):
         else:
             self.apiCompletion = None
         self.updateSettings(self.env.settings)
+        if not self.isPreview:
+            self.lexerName = str(lexer.language())
+            self.updateStatusBar()
         
     def insertText(self, text):
         self.insert(text)
@@ -94,9 +114,12 @@ class CodeEdit(QsciScintilla):
     def updateCursor(self, line, pos):
         #self.SendScintilla(QsciScintillaBase.SCI_INDICATORFILLRANGE,0,10)
         if not self.isPreview:
-            self.env.mainWindow.cursorPosLabel.setText(self.env.translate("mainWindow.statusBar.cursorPosLabel") % (line + 1, pos + 1))
+            self.cursorPosString = self.env.translate("mainWindow.statusBar.cursorPosLabel") % (line + 1, pos + 1)
+            self.updateStatusBar()
 
     def updateEolMenu(self):
+        if self.isPreview or not hasattr(self.env,"mainWindow"):
+            return
         self.env.mainWindow.eolModeWindows.setChecked(False)
         self.env.mainWindow.eolModeUnix.setChecked(False)
         self.env.mainWindow.eolModeMac.setChecked(False)
@@ -112,14 +135,40 @@ class CodeEdit(QsciScintilla):
         self.convertEols(mode)
         self.updateEolMenu()
 
+    def setUsedEncoding(self, encoding):
+        self.usedEncoding = encoding
+        self.updateEncodingMenu()
+        self.updateStatusBar()
+
+    def getUsedEncoding(self):
+        return self.usedEncoding
+
+    def updateEncodingMenu(self):
+        for i in self.env.encodingActions:
+            if i.text() == self.usedEncoding:
+                i.setChecked(True)
+            else:
+                i.setChecked(False)
+
+    def setFilePath(self, path):
+        self.filePath = path
+        self.updateStatusBar()
+
+    def getFilePath(self):
+        return self.filePath
+
     def contextMenuEvent(self, event):
         menu = QMenu(self)
         for i in self.env.settings.editContextMenu:
             if i == "separator":
                 menu.addSeparator()
             else:
-                menu.addAction(self.env.menuActions[i])
+                if i in self.env.menuActions:
+                    menu.addAction(self.env.menuActions[i])
+        menu.setTearOffEnabled(True)
+        menu.setTitle("Test")
         menu.popup(QCursor.pos())
+        #self.env.editContextMenu.popup(QCursor.pos())
 
     def setDefaultStyle(self):
         #self.resetSelectionBackgroundColor()
@@ -192,6 +241,7 @@ class CodeEdit(QsciScintilla):
         self.setWhitespaceVisibility(settings.editShowWhitespaces)
         self.setAutoIndent(settings.editAutoIndent)
         self.setEolVisibility(settings.editShowEol)
+        self.setIndentationGuides(settings.showIndentationGuides)
         if settings.enableAutocompletion:
             if settings.autocompletionUseDocument and settings.autocompletionUseAPI:
                 self.setAutoCompletionSource(QsciScintilla.AcsAll)
@@ -211,3 +261,11 @@ class CodeEdit(QsciScintilla):
                     api = self.apiCompletion(self.currentLexer)
         else:
             self.setAutoCompletionSource(QsciScintilla.AcsNone)
+        #self.env.editContextMenu = QMenu()
+        #for i in settings.editContextMenu:
+        #    if i == "separator":
+        #        self.env.editContextMenu.addSeparator()
+        #    else:
+        #        if i in self.env.menuActions:
+        #            self.env.editContextMenu.addAction(self.env.menuActions[i])
+        #self.env.editContextMenu.setTearOffEnabled(True)

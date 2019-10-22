@@ -33,9 +33,10 @@ class EditTabWidget(QTabWidget):
     def tabChange(self, tabid):
         try:
             self.tabs[self.currentIndex()][0].updateEolMenu()
-            self.env.mainWindow.pathLabel.setText(self.tabs[self.currentIndex()][1])
-            cursor = self.tabs[self.currentIndex()][0].textCursor()
-            self.env.mainWindow.cursorPosLabel.setText(self.env.translate("mainWindow.statusBar.cursorPosLabel") % ((cursor.blockNumber() + 1), (cursor.columnNumber() + 1)) )
+            self.tabs[self.currentIndex()][0].updateStatusBar()
+            self.tabs[self.currentIndex()][0].updateEncodingMenu()
+            if self.env.settings.windowFileTitle:
+                self.env.mainWindow.setWindowTitle(self.tabText(tabid) + " - jdTextEdit")
         except Exception as e:
             pass
 

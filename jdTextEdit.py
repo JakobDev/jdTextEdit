@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from gui.MainWindow import MainWindow
 from PyQt5.QtWidgets import QApplication
-from SharedEnviroment import SharedEnviroment
+from Enviroment import Enviroment
 from gui.CloseSaveWindow import CloseSaveWindow
 from gui.SettingsWindow import SettingsWindow
 from gui.SearchWindow import SearchWindow
@@ -24,7 +24,7 @@ from gui.SidebarWidgets.FileTreeWidget import FileTreeWidget
 from gui.SidebarWidgets.ClipboardWidget import ClipboardWidget
 
 app = QApplication(sys.argv)
-env = SharedEnviroment()
+env = Enviroment()
 env.clipboard = QApplication.clipboard()
 env.closeSaveWindow = CloseSaveWindow(env)
 env.searchWindow = SearchWindow(env)
@@ -47,6 +47,6 @@ env.dockWidgtes.append([TabListWidget(env),env.translate("sidebar.tabs"),"tablis
 env.dockWidgtes.append([FileTreeWidget(env),env.translate("sidebar.files"),"files"])
 env.dockWidgtes.append([ClipboardWidget(env),env.translate("sidebar.clipboard"),"clipboard"])
 
+#env.defaultStyle = QApplication.style().metaObject().className()[1:-5]
 env.mainWindow.setup()
-env.mainWindow.show()
 sys.exit(app.exec_())

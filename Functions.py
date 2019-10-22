@@ -3,23 +3,32 @@ from PyQt5.QtGui import QIcon
 from pathlib import Path
 import subprocess
 import importlib
+import traceback
 import platform
 import sys
 import os
 
 def loadPlugins(path,env):
     if not os.path.isdir(path):
-        if not os.access(path,os.os.W_OK):
+        if not os.access(path,os.W_OK):
             return
         else:
             os.mkdir(path)
     pluginlist = os.listdir(path)
     sys.path.append(path)
     for i in pluginlist:
-        p = importlib.import_module(i)
-        plugid = p.getID()
-        env.plugins[plugid] = p
-        env.plugins[plugid].setup(env)
+        try:
+            p = importlib.import_module(i)
+            plugid = p.getID()
+            #Just to make sure these functions exists
+            p.getName()
+            p.getVersion()
+            p.getAuthor()
+            env.plugins[plugid] = p
+            if not plugid in env.settings.disabledPlugins:
+                env.plugins[plugid].main(env)
+        except Exception as e:
+            print(traceback.format_exc(),end="")
         
 def getTemplates(path,templatelist):
     if not os.path.isdir(path):

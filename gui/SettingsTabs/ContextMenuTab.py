@@ -33,15 +33,6 @@ class ContextMenuTab(QWidget):
         upButton.clicked.connect(self.upButtonClicked)
         downButton.clicked.connect(self.downButtonClicked)
 
-        for key, data in env.menuActions.items():
-            if data.text().startswith("&"):
-                item = CustomWidgetItem(data.text()[1:])
-            else:
-                item = CustomWidgetItem(data.text())
-            #item.setIcon(data.icon())
-            item.setActionName(data.data()[0])
-            self.actionsList.addItem(item)
-
         buttonLayout = QVBoxLayout()
         buttonLayout.addStretch(1)
         buttonLayout.addWidget(addButton)
@@ -88,12 +79,14 @@ class ContextMenuTab(QWidget):
     def updateTab(self, settings):
         self.contextList.clear()
         for i in settings.editContextMenu:
-            action = self.env.menuActions[i]
-            if action.text().startswith("&"):
-                item = CustomWidgetItem(action.text()[1:])
+            if i in self.env.menuActions:
+                action = self.env.menuActions[i]
+                if action.text().startswith("&"):
+                    item = CustomWidgetItem(action.text()[1:])
+                else:
+                    item = CustomWidgetItem(action.text())
             else:
-                item = CustomWidgetItem(action.text())
-            #item.setIcon(action.icon())
+                item = CustomWidgetItem(self.env.translate("settingsWindow.contextMenu.unknownAction"))
             item.setActionName(i)
             self.contextList.addItem(item)
 
@@ -102,3 +95,13 @@ class ContextMenuTab(QWidget):
         for i in range(self.contextList.count()):
             settings.editContextMenu.append(self.contextList.item(i).actionName())
         return settings
+
+    def setup(self):
+        for key, data in self.env.menuActions.items():
+            if data.text().startswith("&"):
+                item = CustomWidgetItem(data.text()[1:])
+            else:
+                item = CustomWidgetItem(data.text())
+            #item.setIcon(data.icon())
+            item.setActionName(data.data()[0])
+            self.actionsList.addItem(item)

@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import QTreeView,QFileSystemModel,QApplication
+from Functions import showMessageBox
+import os
 
 class FileTreeWidget(QTreeView):
     def __init__(self, env):
@@ -13,5 +15,8 @@ class FileTreeWidget(QTreeView):
         self.doubleClicked.connect(self.fileOpen)
 
     def fileOpen(self, signal):
-        file_path=self.model().filePath(signal)
-        self.env.mainWindow.openFile(file_path)
+        path=self.model().filePath(signal)
+        if os.path.isfile(path):
+            self.env.mainWindow.openFile(path)
+        elif not os.access(path,os.R_OK):
+            showMessageBox(self.env.translate("noReadPermission.title"),self.env.translate("noReadPermission.text") % path)

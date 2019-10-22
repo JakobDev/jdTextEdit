@@ -21,12 +21,12 @@ class StyleTab(QWidget):
         #for key, value in env.styles.items():
         #    self.styleSelect.addItem(key)
 
-        self.foldSelect.addItem("None")
-        self.foldSelect.addItem("Plain")
-        self.foldSelect.addItem("Circled")
-        self.foldSelect.addItem("Boxed")
-        self.foldSelect.addItem("CircledTree")
-        self.foldSelect.addItem("BoxedTree")
+        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.none"))
+        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.plain"))
+        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.circled"))
+        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.boxed"))
+        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.circledTree"))
+        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.boxedTree"))
 
         previewText = ("local var = true\n\n"
                        "function example(a,b)\n"
@@ -45,7 +45,7 @@ class StyleTab(QWidget):
         self.editorPreview.setSyntaxHighlighter(QsciLexerLua())
 
         gridLayout = QGridLayout()
-        gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.style")),0,0)
+        #gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.style")),0,0)
         #gridLayout.addWidget(self.styleSelect,0,1)
         gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.foldStyle")),1,0)
         gridLayout.addWidget(self.foldSelect,1,1)

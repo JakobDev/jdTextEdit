@@ -1,2 +1,3 @@
-PyQt5>=5.12.2
-QScintilla>=2.11.1
+PyQt5
+QScintilla
+chardet

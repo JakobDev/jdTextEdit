@@ -5,6 +5,8 @@ from gui.SettingsTabs.AutocompletionTab import AutocompletionTab
 from gui.SettingsTabs.StyleTab import StyleTab
 from gui.SettingsTabs.ContextMenuTab import ContextMenuTab
 from gui.SettingsTabs.ToolbarTab import ToolbarTab
+from gui.SettingsTabs.ShortcutTab import ShortcutTab
+from gui.SettingsTabs.PluginTab import PluginTab
 from Settings import Settings
 import os
 
@@ -20,6 +22,9 @@ class SettingsWindow(QWidget):
         self.newTab(StyleTab,env.translate("settingsWindow.style"))
         self.newTab(ContextMenuTab,env.translate("settingsWindow.contextMenu"))
         self.newTab(ToolbarTab,env.translate("settingsWindow.toolbar"))
+        self.newTab(ShortcutTab,env.translate("settingsWindow.shortcuts"))
+        if env.settings.loadPlugins:
+            self.newTab(PluginTab,env.translate("settingsWindow.plugins"))
 
         okButton = QPushButton(env.translate("button.ok"))
         cancelButton = QPushButton(env.translate("button.cancel"))
@@ -65,3 +70,8 @@ class SettingsWindow(QWidget):
         defaultSettings = Settings()
         for i in self.tabs:
             i.updateTab(defaultSettings)
+
+    def setup(self):
+        for i in self.tabs:
+            if hasattr(i,"setup"):
+                i.setup()

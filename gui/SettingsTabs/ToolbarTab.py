@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem
+from PyQt5.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem, QCheckBox, QComboBox, QLabel, QGridLayout
 from PyQt5.QtGui import QIcon
 
 class CustomWidgetItem(QListWidgetItem):
@@ -22,6 +22,20 @@ class ToolbarTab(QWidget):
         upButton = QPushButton(env.translate("settingsWindow.contextMenu.button.up"))
         downButton = QPushButton(env.translate("settingsWindow.contextMenu.button.down"))
         self.contextList = QListWidget()
+        self.showToolbarCheckbox = QCheckBox(env.translate("settingsWindow.toolbar.checkBox.showToolbar"))
+        self.iconStyleSelect = QComboBox()
+        self.positionComboBox = QComboBox()
+
+        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.iconOnly"))
+        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.textOnly"))
+        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.textBesideIcons"))
+        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.textUnderIcons"))
+        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.osStyle"))
+
+        self.positionComboBox.addItem(env.translate("settingsWindow.toolbar.position.up"))
+        self.positionComboBox.addItem(env.translate("settingsWindow.toolbar.position.bottom"))
+        self.positionComboBox.addItem(env.translate("settingsWindow.toolbar.position.left"))
+        self.positionComboBox.addItem(env.translate("settingsWindow.toolbar.position.right"))
 
         addButton.setIcon(QIcon.fromTheme("go-next"))
         removeButton.setIcon(QIcon.fromTheme("go-previous"))
@@ -33,15 +47,6 @@ class ToolbarTab(QWidget):
         upButton.clicked.connect(self.upButtonClicked)
         downButton.clicked.connect(self.downButtonClicked)
 
-        for key, data in env.menuActions.items():
-            if data.text().startswith("&"):
-                item = CustomWidgetItem(data.text()[1:])
-            else:
-                item = CustomWidgetItem(data.text())
-            #item.setIcon(data.icon())
-            item.setActionName(data.data()[0])
-            self.actionsList.addItem(item)
-
         buttonLayout = QVBoxLayout()
         buttonLayout.addStretch(1)
         buttonLayout.addWidget(addButton)
@@ -51,10 +56,21 @@ class ToolbarTab(QWidget):
         buttonLayout.addWidget(downButton)
         buttonLayout.addStretch(1)
         
-        mainLayout = QHBoxLayout()
-        mainLayout.addWidget(self.actionsList)
-        mainLayout.addLayout(buttonLayout)
-        mainLayout.addWidget(self.contextList)
+        menuLayout = QHBoxLayout()
+        menuLayout.addWidget(self.actionsList)
+        menuLayout.addLayout(buttonLayout)
+        menuLayout.addWidget(self.contextList)
+
+        optionsLayout = QGridLayout()
+        optionsLayout.addWidget(QLabel(env.translate("settingsWindow.toolbar.label.buttonStyle")),0,0)
+        optionsLayout.addWidget(self.iconStyleSelect,0,1)
+        optionsLayout.addWidget(QLabel(env.translate("settingsWindow.toolbar.label.position")),1,0)
+        optionsLayout.addWidget(self.positionComboBox,1,1)
+
+        mainLayout = QVBoxLayout()
+        mainLayout.addLayout(menuLayout)
+        mainLayout.addLayout(optionsLayout)
+        mainLayout.addWidget(self.showToolbarCheckbox)
 
         self.setLayout(mainLayout)
 
@@ -88,17 +104,34 @@ class ToolbarTab(QWidget):
     def updateTab(self, settings):
         self.contextList.clear()
         for i in settings.toolBar:
-            action = self.env.menuActions[i]
-            if action.text().startswith("&"):
-                item = CustomWidgetItem(action.text()[1:])
+            if i in self.env.menuActions:
+                action = self.env.menuActions[i]
+                if action.text().startswith("&"):
+                    item = CustomWidgetItem(action.text()[1:])
+                else:
+                    item = CustomWidgetItem(action.text())
             else:
-                item = CustomWidgetItem(action.text())
-            #item.setIcon(action.icon())
+                item = CustomWidgetItem(self.env.translate("settingsWindow.contextMenu.unknownAction"))
             item.setActionName(i)
             self.contextList.addItem(item)
+        self.showToolbarCheckbox.setChecked(settings.showToolbar)
+        self.iconStyleSelect.setCurrentIndex(settings.toolbarIconStyle)
+        self.positionComboBox.setCurrentIndex(settings.toolbarPosition)
 
     def getSettings(self, settings):
         settings.toolBar = []
         for i in range(self.contextList.count()):
             settings.toolBar.append(self.contextList.item(i).actionName())
+        settings.showToolbar = bool(self.showToolbarCheckbox.checkState())
+        settings.toolbarIconStyle = self.iconStyleSelect.currentIndex()
+        settings.toolbarPosition = self.positionComboBox.currentIndex()
         return settings
+
+    def setup(self):
+        for key, data in self.env.menuActions.items():
+            if data.text().startswith("&"):
+                item = CustomWidgetItem(data.text()[1:])
+            else:
+                item = CustomWidgetItem(data.text())
+            item.setActionName(data.data()[0])
+            self.actionsList.addItem(item)
