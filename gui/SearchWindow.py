@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QCheckBox, QSpinBox, QPushButton, QHBoxLayout, QVBoxLayout, QGridLayout, QLayout
-from Functions import getThemeIcon
+from Functions import getThemeIcon, restoreWindowState
 import math
 
 class SearchWindow(QWidget):

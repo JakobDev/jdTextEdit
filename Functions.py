@@ -38,12 +38,12 @@ def getTemplates(path,templatelist):
         templatelist.append([i,os.path.join(path,i)])
     return templatelist
 
-def executeCommand(command,selectedTab,terminal):
-    command = command.replace("%url%","file://" + selectedTab[0].getFilePath())
-    command = command.replace("%path%",selectedTab[0].getFilePath())
-    command = command.replace("%directory%",os.path.dirname(selectedTab[0].getFilePath()))
-    command = command.replace("%filename%",os.path.basename(selectedTab[0].getFilePath()))
-    command = command.replace("%selection%",selectedTab[0].selectedText())
+def executeCommand(command,editWidget,terminal):
+    command = command.replace("%url%","file://" + editWidget.getFilePath())
+    command = command.replace("%path%",editWidget.getFilePath())
+    command = command.replace("%directory%",os.path.dirname(editWidget.getFilePath()))
+    command = command.replace("%filename%",os.path.basename(editWidget.getFilePath()))
+    command = command.replace("%selection%",editWidget.selectedText())
     if terminal:
         if platform.system() == 'Windows':
             subprocess.call(["cmd.exe","/C",command])
@@ -91,3 +91,15 @@ def getDataPath():
             return os.path.join(os.getenv("XDG_DATA_HOME"),"jdTextEdit")
         else:
             return os.path.join(str(Path.home()),".local","share","jdTextEdit")
+
+def saveWindowState(window,windict,winid):
+    windict[winid] = {}
+    x,y,w,h = window.geometry().getRect()
+    windict[winid]["x"] = x
+    windict[winid]["y"] = y
+    windict[winid]["width"] = w
+    windict[winid]["height"] = h
+
+def restoreWindowState(window,windict,winid):
+    if winid in windict:
+        window.setGeometry(windict[winid]["x"],windict[winid]["y"],windict[winid]["width"],windict[winid]["height"])

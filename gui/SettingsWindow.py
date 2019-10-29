@@ -7,6 +7,7 @@ from gui.SettingsTabs.ContextMenuTab import ContextMenuTab
 from gui.SettingsTabs.ToolbarTab import ToolbarTab
 from gui.SettingsTabs.ShortcutTab import ShortcutTab
 from gui.SettingsTabs.PluginTab import PluginTab
+from Functions import restoreWindowState
 from Settings import Settings
 import os
 
@@ -46,6 +47,7 @@ class SettingsWindow(QWidget):
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("settingsWindow.title"))
+        restoreWindowState(self,env.windowState,"SettingsWindow")
 
     def newTab(self, win, title):
         self.tabs.append(win(self.env))
@@ -63,7 +65,7 @@ class SettingsWindow(QWidget):
         self.env.mainWindow.updateSettings(self.env.settings)
         for i in self.env.mainWindow.tabWidget.tabs:
             i[0].updateSettings(self.env.settings)
-        self.env.settings.save(os.path.join(self.env.dataDir,"settings.json"))
+        #self.env.settings.save(os.path.join(self.env.dataDir,"settings.json"))
         self.close()
 
     def defaultButtonClicked(self):

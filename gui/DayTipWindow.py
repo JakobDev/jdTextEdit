@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QTextEdit, QPushButton, QCheckBox, QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QTextBrowser, QPushButton, QCheckBox, QHBoxLayout, QVBoxLayout
+from Functions import restoreWindowState
 import random
 import os
 
@@ -6,22 +7,12 @@ class DayTipWindow(QWidget):
     def __init__(self,env):
         super().__init__()
         self.env = env
-
-        self.tips = []
-        for key,value in env.translations.strings.items():
-            if key.startswith("dayTip."):
-                self.tips.append(value)
-        self.selectedTip = None
-        #f = open(os.path.join(env.programDir,"tips.txt"),"r")
-        #self.tips = f.read().splitlines()
-        #f.close()
         
-        self.textArea = QTextEdit()
+        self.textArea =  QTextBrowser()
         self.showStartup = QCheckBox(env.translate("dayTipWindow.showStartup"))
         nextTipButton = QPushButton(env.translate("dayTipWindow.nextTip"))
         closeButton = QPushButton(env.translate("button.close"))
 
-        self.textArea.setReadOnly(True)
         nextTipButton.clicked.connect(self.nextTip)
         closeButton.clicked.connect(self.close)
 
@@ -36,6 +27,14 @@ class DayTipWindow(QWidget):
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("dayTipWindow.title"))
+        restoreWindowState(self,self.env.windowState,"DayTipWindow")
+
+    def setup(self):
+        self.tips = []
+        for key,value in self.env.translations.strings.items():
+            if key.startswith("dayTip."):
+                self.tips.append(value)
+        self.selectedTip = None
 
     def nextTip(self):
         tip = random.randint(0,len(self.tips)-1)

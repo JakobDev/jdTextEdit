@@ -31,11 +31,11 @@ class ExecuteCommandWindow(QWidget):
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("executeCommandWindow.title"))
         
-    def openWindow(self, selectedTab):
-        self.selectedTab = selectedTab
+    def openWindow(self, editWidget):
+        self.editWidget = editWidget
         self.show()
         self.setFocus(True)
 
     def okButtonClicked(self):
-        executeCommand(self.commandEdit.text(),self.selectedTab,bool(self.terminalCheckBox.checkState()))
+        executeCommand(self.commandEdit.text(),self.editWidget,bool(self.terminalCheckBox.checkState()))
         self.close()

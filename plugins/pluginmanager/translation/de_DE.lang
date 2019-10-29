@@ -9,3 +9,5 @@ pluginManagerWindow.messageBox.noInternet.text=Kann nicht zu https://gitlab.com/
 pluginManagerWindow.messageBox.error.title=Fehler
 pluginManagerWindow.messageBox.outdatedVersion.title=Outdated version
 pluginManagerWindow.messageBox.outdatedVersion.text=This plugins needs a newer version of jdTextEdit to work.
+
+dayTip.pluginmanager=Mithilfe des Pluginmanagers kannst du ganz einfach Plugins aus dem Internet herunterladen und installieren. Du findest ihn im Bearbeiten Menü.

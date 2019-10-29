@@ -15,6 +15,7 @@ class GeneralTab(QWidget):
         self.dayTipCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.dayTip"))
         self.windowTitleCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.windowFileTitle"))
         self.searchUpdatesCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.searchUpdates"))
+        self.windowStateCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveWindowState"))
         self.languageComboBox.addItem(env.translate("settingsWindow.general.combobox.systemDefault"))
         self.languageComboBox.setItemData(0,"default")
 
@@ -47,6 +48,7 @@ class GeneralTab(QWidget):
         mainLayout.addWidget(self.dayTipCheckBox)
         mainLayout.addWidget(self.windowTitleCheckBox)
         mainLayout.addWidget(self.searchUpdatesCheckBox)
+        mainLayout.addWidget(self.windowStateCheckBox)
         mainLayout.addStretch(1)
 
         self.setLayout(mainLayout)
@@ -70,6 +72,7 @@ class GeneralTab(QWidget):
         self.dayTipCheckBox.setChecked(settings.startupDayTip)
         self.windowTitleCheckBox.setChecked(settings.windowFileTitle)
         self.searchUpdatesCheckBox.setChecked(settings.searchUpdates)
+        self.windowStateCheckBox.setChecked(settings.saveWindowState)
 
     def getSettings(self, settings):
         settings.language = self.languageComboBox.itemData(self.languageComboBox.currentIndex())
@@ -86,4 +89,5 @@ class GeneralTab(QWidget):
         settings.startupDayTip = bool(self.dayTipCheckBox.checkState())
         settings.windowFileTitle = bool(self.windowTitleCheckBox.checkState())
         settings.searchUpdates = bool(self.searchUpdatesCheckBox.checkState())
+        settings.saveWindowState = bool(self.windowStateCheckBox.checkState())
         return settings

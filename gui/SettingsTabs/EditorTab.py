@@ -6,6 +6,7 @@ class EditorTab(QWidget):
         super().__init__()
         self.defaultEncodingComboBox = QComboBox()
         self.defaultEolModeComboBox = QComboBox()
+        self.defaultLanguageComboBox = QComboBox()
         self.tabWidthSpinBox = QSpinBox()
         self.tabSpaces = QCheckBox(env.translate("settingsWindow.editor.checkBox.editTabSpaces"))
         self.textWrap = QCheckBox(env.translate("settingsWindow.editor.checkBox.textWrap"))
@@ -15,6 +16,7 @@ class EditorTab(QWidget):
         self.showEol = QCheckBox(env.translate("settingsWindow.editor.checkBox.showEol"))
         self.detectEncoding = QCheckBox(env.translate("settingsWindow.editor.checkBox.detectEncoding"))
         self.detectEol = QCheckBox(env.translate("settingsWindow.editor.checkBox.detectEol"))
+        self.detectLanguage = QCheckBox(env.translate("settingsWindow.editor.checkBox.detectLanguage"))
 
         self.defaultEncodingComboBox.addItems(getEncodingList())
 
@@ -22,13 +24,19 @@ class EditorTab(QWidget):
         self.defaultEolModeComboBox.addItem("Unix")
         self.defaultEolModeComboBox.addItem("Mac")
 
+        self.defaultLanguageComboBox.addItem(env.translate("mainWindow.menu.language.plainText"))
+        for i in env.lexerList:
+            self.defaultLanguageComboBox.addItem(i["name"])
+
         gridLayout = QGridLayout()
         gridLayout.addWidget(QLabel(env.translate("settingsWindow.editor.label.defaultEncoding")),0,0)
         gridLayout.addWidget(self.defaultEncodingComboBox,0,1)
         gridLayout.addWidget(QLabel(env.translate("settingsWindow.editor.label.defaultEolMode")),1,0)
         gridLayout.addWidget(self.defaultEolModeComboBox,1,1)
-        gridLayout.addWidget(QLabel(env.translate("settingsWindow.editor.label.tabWidth")),2,0)
-        gridLayout.addWidget(self.tabWidthSpinBox,2,1)
+        gridLayout.addWidget(QLabel(env.translate("settingsWindow.editor.label.defaultLanguage")),2,0)
+        gridLayout.addWidget(self.defaultLanguageComboBox,2,1)
+        gridLayout.addWidget(QLabel(env.translate("settingsWindow.editor.label.tabWidth")),3,0)
+        gridLayout.addWidget(self.tabWidthSpinBox,3,1)
 
         mainLayout = QVBoxLayout()
         mainLayout.addLayout(gridLayout)
@@ -40,6 +48,7 @@ class EditorTab(QWidget):
         mainLayout.addWidget(self.showEol)
         mainLayout.addWidget(self.detectEncoding)
         mainLayout.addWidget(self.detectEol)
+        mainLayout.addWidget(self.detectLanguage)
         mainLayout.addStretch(1)
 
         self.setLayout(mainLayout)
@@ -49,6 +58,7 @@ class EditorTab(QWidget):
             if self.defaultEncodingComboBox.itemText(i) == settings.defaultEncoding:
                 self.defaultEncodingComboBox.setCurrentIndex(i)
         self.defaultEolModeComboBox.setCurrentIndex(settings.defaultEolMode)
+        self.defaultLanguageComboBox.setCurrentIndex(settings.defaultLanguage + 1)
         self.tabWidthSpinBox.setValue(settings.editTabWidth)
         self.tabSpaces.setChecked(settings.editTabSpaces)
         self.textWrap.setChecked(settings.editTextWrap)
@@ -58,10 +68,12 @@ class EditorTab(QWidget):
         self.showEol.setChecked(settings.editShowEol)
         self.detectEncoding.setChecked(settings.detectEncoding)
         self.detectEol.setChecked(settings.detectEol)
+        self.detectLanguage.setChecked(settings.detectLanguage)
 
     def getSettings(self, settings):
         settings.defaultEncoding = self.defaultEncodingComboBox.currentText()
         settings.defaultEolMode = self.defaultEolModeComboBox.currentIndex()
+        settings.defaultLanguage = self.defaultLanguageComboBox.currentIndex() - 1
         settings.editTabWidth = self.tabWidthSpinBox.value()
         settings.editTabSpaces = bool(self.tabSpaces.checkState())
         settings.editTextWrap = bool(self.textWrap.checkState())
@@ -71,4 +83,5 @@ class EditorTab(QWidget):
         settings.editShowEol = bool(self.showEol.checkState())
         settings.detectEncoding = bool(self.detectEncoding.checkState())
         settings.detectEol = bool(self.detectEol.checkState())
+        settings.detectLanguage = bool(self.detectLanguage.checkState())
         return settings

@@ -15,10 +15,12 @@ class Settings():
         self.loadPlugins = True
         self.useNativeIcons = True
         self.windowFileTitle = True
+        self.saveWindowState = True
         self.showToolbar = True
         self.toolbarPosition = 0
         self.toolbarIconStyle = 4
         self.defaultEncoding = "UTF-8"
+        self.defaultLanguage = -1
         self.editStyle = "Default"
         self.useCustomFont = False
         self.startupDayTip = True
@@ -33,6 +35,7 @@ class Settings():
         self.showIndentationGuides = False
         self.detectEncoding = True
         self.detectEol = True
+        self.detectLanguage = True
         self.highlightCurrentLine = True
         self.editFoldStyle = 0
         self.enableAutocompletion = True
@@ -69,6 +72,9 @@ class Settings():
             "find": QKeySequence(QKeySequence.Find).toString(),
             "findReplaceWindow": QKeySequence(QKeySequence.Replace).toString(),
             "gotoLine": "Ctrl+L",
+            "addRemoveBookmark": "Ctrl+F2",
+            "nextBookmark": "F2",
+            "previousBookmark": "Shift+F2",
             "about": QKeySequence(QKeySequence.HelpContents).toString(),
         }
         if platform.system() == 'Windows':

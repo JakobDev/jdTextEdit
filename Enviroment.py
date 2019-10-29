@@ -11,7 +11,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "2.1"
+        self.version = "3.0"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = OptionParser()
@@ -41,6 +41,14 @@ class Enviroment():
                     self.recentFiles = json.load(f)
             except:
                 print("Can't read recentfiles.json")
+
+        self.windowState = {}
+        if os.path.isfile(os.path.join(self.dataDir,"windowstate.json")):
+            try:
+                with open(os.path.join(self.dataDir,"windowstate.json"),"r",encoding="utf-8") as f:
+                    self.windowState = json.load(f)
+            except:
+                print("Can't read windowstate.json")
 
         #self.styles = {}
         #styleList = os.listdir(os.path.join(self.programDir,"styles"))

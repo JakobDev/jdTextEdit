@@ -14,7 +14,7 @@ class EditTabWidget(QTabWidget):
         self.currentChanged.connect(self.tabChange)
         self.tabs = []
 
-    def createTab(self,title,focus=False):
+    def createTab(self,title,focus=None):
         textEdit = CodeEdit(self.env,isNew=True)
         
         tabid = self.addTab(textEdit,title)
@@ -27,6 +27,7 @@ class EditTabWidget(QTabWidget):
 
         if focus:
             self.setCurrentIndex(tabid)
+            self.env.mainWindow.updateWindowTitle()
 
         self.tabsChanged.emit()
 
@@ -35,18 +36,17 @@ class EditTabWidget(QTabWidget):
             self.tabs[self.currentIndex()][0].updateEolMenu()
             self.tabs[self.currentIndex()][0].updateStatusBar()
             self.tabs[self.currentIndex()][0].updateEncodingMenu()
-            if self.env.settings.windowFileTitle:
-                self.env.mainWindow.setWindowTitle(self.tabText(tabid) + " - jdTextEdit")
+            self.env.mainWindow.updateWindowTitle()
         except Exception as e:
             pass
 
-    def tabCloseClicked(self,tabid):
+    def tabCloseClicked(self,tabid,notCloseProgram=None):
         if self.tabs[tabid][0].isModified() and self.env.settings.saveClose:
             self.env.closeSaveWindow.openWindow(tabid)
         else:
             del self.tabs[tabid]
             self.removeTab(tabid)
-            if len(self.tabs) == 0:
+            if len(self.tabs) == 0 and not notCloseProgram:
                 sys.exit(0)
         for count, i in enumerate(self.tabs):
             i[0].tabid = count

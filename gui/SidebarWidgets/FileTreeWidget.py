@@ -18,5 +18,3 @@ class FileTreeWidget(QTreeView):
         path=self.model().filePath(signal)
         if os.path.isfile(path):
             self.env.mainWindow.openFile(path)
-        elif not os.access(path,os.R_OK):
-            showMessageBox(self.env.translate("noReadPermission.title"),self.env.translate("noReadPermission.text") % path)

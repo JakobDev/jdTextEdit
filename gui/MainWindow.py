@@ -1,13 +1,15 @@
-from PyQt5.QtWidgets import QMainWindow, QMenu, QAction, QApplication, QLabel, QFileDialog, QStyleFactory, QStyle, QColorDialog, QMessageBox, QPushButton
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QTextDocument
+from PyQt5.QtWidgets import QMainWindow, QMenu, QAction, QApplication, QLabel, QFileDialog, QStyleFactory, QStyle, QColorDialog
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
+from PyQt5.QtGui import QIcon, QTextDocument
+from PyQt5.QtCore import Qt
 from gui.DockWidget import DockWidget
 from gui.EditTabWidget import EditTabWidget
 from string import ascii_uppercase
-from PyQt5.Qsci import QsciScintilla
-from Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox
+from PyQt5.Qsci import QsciScintilla, QsciScintillaBase
+from Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState,restoreWindowState
 from EncodingList import getEncodingList
+from Updater import searchForUpdates
+import traceback
 import webbrowser
 import requests
 import tempfile
@@ -28,8 +30,11 @@ class MainWindow(QMainWindow):
         if os.path.isfile(os.path.join(env.dataDir,"session.json")):
             try:
                 self.restoreSession()
-            except:
-                showMessageBox("Error","Could not restore session")
+            except Exception as e:
+                print(traceback.format_exc(),end="")
+                showMessageBox("Error","Could not restore session. If jdTextEdit crashes just restart it.")
+                os.remove(os.path.join(self.env.dataDir,"session.json"))
+                shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
             if len(env.args) == 1:
                 self.tabWidget.createTab("",focus=True)
                 self.openFile(os.path.abspath(env.args[0]))
@@ -39,7 +44,10 @@ class MainWindow(QMainWindow):
                 self.openFile(os.path.abspath(env.args[0]))
         self.toolbar = self.addToolBar("toolbar")
         self.setCentralWidget(self.tabWidget)
-        self.setWindowTitle("jdTextEdit")
+        if "MainWindow" in env.windowState:
+            restoreWindowState(self,env.windowState,"MainWindow")
+        else:
+            self.setGeometry(0, 0, 800, 600)
  
     def setup(self):
         #This is called, after all at least
@@ -55,32 +63,25 @@ class MainWindow(QMainWindow):
         self.getTextEditWidget().updateEolMenu()
         self.getTextEditWidget().updateEncodingMenu()
         self.env.settingsWindow.setup()
+        self.env.dayTipWindow.setup()
         self.updateSettings(self.env.settings)
         if self.env.settings.searchUpdates:
-            try:
-                releaseList = requests.get("https://gitlab.com/api/v4/projects/14519914/releases").json()
-                if releaseList[0]["name"] != self.env.version:
-                    msgBox = QMessageBox()
-                    msgBox.setWindowTitle(self.env.translate("mainWindow.messageBox.newVersion.title"))
-                    msgBox.setText(self.env.translate("mainWindow.messageBox.newVersion.text") % releaseList[0]["name"])
-                    msgBox.addButton(QPushButton(self.env.translate("button.yes")), QMessageBox.YesRole)
-                    msgBox.addButton(QPushButton(self.env.translate("button.no")), QMessageBox.NoRole)
-                    answer = msgBox.exec_()
-                    if answer == 0:
-                        webbrowser.open("https://gitlab.com/JakobDev/jdTextEdit/-/releases/")
-            except:
-                print("Error while searching for updates")
+            searchForUpdates(self.env,True)
         self.show()
         if self.env.settings.startupDayTip:
             self.env.dayTipWindow.openWindow()
 
     def getTextEditWidget(self):
-        return self.getSelectedTab()[0]
+        return self.tabWidget.currentWidget()
 
     def setupStatusBar(self):
         self.pathLabel = QLabel()
         self.cursorPosLabel = QLabel(self.env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1))
+        self.lexerLabel = QLabel()
+        self.encodingLabel = QLabel()
         self.statusBar().addWidget(self.pathLabel)
+        self.statusBar().addPermanentWidget(self.encodingLabel)
+        self.statusBar().addPermanentWidget(self.lexerLabel)
         self.statusBar().addPermanentWidget(self.cursorPosLabel)
 
     def setupMenubar(self):
@@ -145,6 +146,12 @@ class MainWindow(QMainWindow):
         closeTab.triggered.connect(lambda: self.tabWidget.tabCloseClicked(self.tabWidget.currentIndex()))
         closeTab.setData(["closeTab"])
         self.filemenu.addAction(closeTab)
+        
+        closeAllTabsAction = QAction(self.env.translate("mainWindow.menu.file.closeAllTabs"),self)
+        closeAllTabsAction.setIcon(QIcon(os.path.join(self.env.programDir,"icons","document-close-all.png")))
+        closeAllTabsAction.triggered.connect(self.closeAllTabs)
+        closeAllTabsAction.setData(["closeAllTabs"])
+        self.filemenu.addAction(closeAllTabsAction)
 
         printMenuItem = QAction("&" + self.env.translate("mainWindow.menu.file.print"),self)
         printMenuItem.setIcon(getThemeIcon(self.env,"document-print"))
@@ -216,17 +223,17 @@ class MainWindow(QMainWindow):
         self.clipboardCopyMenu = QMenu(self.env.translate("mainWindow.menu.edit.copyClipboard"),self)
         
         copyPath = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyPath"),self)
-        copyPath.triggered.connect(lambda: self.env.clipboard.setText(self.getSelectedTab()[1]))
+        copyPath.triggered.connect(lambda: self.env.clipboard.setText(self.getTextEditWidget().getFilePath()))
         copyPath.setData(["copyPath"])
         self.clipboardCopyMenu.addAction(copyPath)
 
         copyDirectory = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyDirectory"),self)
-        copyDirectory.triggered.connect(lambda: self.env.clipboard.setText(os.path.dirname(self.getSelectedTab()[1])))
+        copyDirectory.triggered.connect(lambda: self.env.clipboard.setText(os.path.dirname(self.getTextEditWidget().getFilePath())))
         copyDirectory.setData(["copyDirectory"])
         self.clipboardCopyMenu.addAction(copyDirectory)
 
         copyFilename = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyFilename"),self)
-        copyFilename.triggered.connect(lambda: self.env.clipboard.setText(os.path.basename(self.getSelectedTab()[1])))
+        copyFilename.triggered.connect(lambda: self.env.clipboard.setText(os.path.basename(self.getTextEditWidget().getFilePath())))
         copyFilename.setData(["copyFilename"])
         self.clipboardCopyMenu.addAction(copyFilename)
 
@@ -320,6 +327,18 @@ class MainWindow(QMainWindow):
         self.toggleSidebarAction.setCheckable(True)
         self.viewMenu.addAction(self.toggleSidebarAction)
 
+        self.viewMenu.addSeparator()
+
+        foldAllAction = QAction(self.env.translate("mainWindow.menu.view.foldAll"),self)
+        foldAllAction.triggered.connect(lambda: self.getTextEditWidget().SendScintilla(QsciScintillaBase.SCI_FOLDALL,0))
+        foldAllAction.setData(["foldAll"])
+        self.viewMenu.addAction(foldAllAction)
+
+        unfoldAllAction = QAction(self.env.translate("mainWindow.menu.view.unfoldAll"),self)
+        unfoldAllAction.triggered.connect(lambda: self.getTextEditWidget().SendScintilla(QsciScintillaBase.SCI_FOLDALL,1))
+        unfoldAllAction.setData(["unfoldAll"])
+        self.viewMenu.addAction(unfoldAllAction)
+
         self.searchmenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.search"))
 
         search = QAction("&" + self.env.translate("mainWindow.menu.search.search"),self)
@@ -363,6 +382,28 @@ class MainWindow(QMainWindow):
         self.encodingMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.encoding"))
         self.updateEncodingMenu()
 
+        self.bookmarkMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.bookmarks"))
+
+        addRemoveBookmarkAction = QAction(self.env.translate("mainWindow.menu.bookmarks.addRemoveBookmark"),self)
+        addRemoveBookmarkAction.triggered.connect(self.addRemoveBookmark)
+        addRemoveBookmarkAction.setData(["addRemoveBookmark"])
+        self.bookmarkMenu.addAction(addRemoveBookmarkAction)
+
+        nextBookmarkAction = QAction(self.env.translate("mainWindow.menu.bookmarks.nextBookmark"),self)
+        nextBookmarkAction.triggered.connect(self.nextBookmark)
+        nextBookmarkAction.setData(["nextBookmark"])
+        self.bookmarkMenu.addAction(nextBookmarkAction)
+
+        previousBookmarkAction = QAction(self.env.translate("mainWindow.menu.bookmarks.previousBookmark"),self)
+        previousBookmarkAction.triggered.connect(self.previousBookmark)
+        previousBookmarkAction.setData(["previousBookmark"])
+        self.bookmarkMenu.addAction(previousBookmarkAction)
+
+        clearBookmarksAction = QAction(self.env.translate("mainWindow.menu.bookmarks.clearBookmarks"),self)
+        clearBookmarksAction.triggered.connect(self.clearBookmarks)
+        clearBookmarksAction.setData(["clearBookmarks"])
+        self.bookmarkMenu.addAction(clearBookmarksAction)
+
         self.executeMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.execute"))
         self.updateExecuteMenu()
         
@@ -377,6 +418,11 @@ class MainWindow(QMainWindow):
         openProgramFolder.triggered.connect(lambda: openFileDefault(self.env.programDir))
         openProgramFolder.setData(["openProgramFolder"])
         self.aboutMenu.addAction(openProgramFolder)
+
+        searchForUpdatesAction = QAction(self.env.translate("mainWindow.menu.about.searchForUpdates"),self)
+        searchForUpdatesAction.triggered.connect(lambda: searchForUpdates(self.env,False))
+        searchForUpdatesAction.setData(["searchForUpdates"])
+        self.aboutMenu.addAction(searchForUpdatesAction)
 
         showDayTip = QAction(self.env.translate("mainWindow.menu.about.dayTip"),self)
         showDayTip.triggered.connect(lambda: self.env.dayTipWindow.openWindow())
@@ -423,7 +469,7 @@ class MainWindow(QMainWindow):
     def languageActionClicked(self):
         action = self.sender()
         if action:
-            lexer = action.data()[0]()
+            lexer = action.data()["lexer"]()
             self.getTextEditWidget().setSyntaxHighlighter(lexer,lexerList=action.data())
 
     def languagePlainTextClicked(self):
@@ -452,8 +498,6 @@ class MainWindow(QMainWindow):
         action = self.sender()
         if action:
             self.openFile(action.data()[1],template=True)
-            self.getSelectedTab()[1] = ""
-            self.pathLabel.setText("")
             
     def updateRecentFilesMenu(self):
         self.recentFilesMenu.clear()
@@ -496,7 +540,7 @@ class MainWindow(QMainWindow):
         self.languageMenu.clear()
         alphabet = {}
         for i in self.env.lexerList:
-            startLetter = i[1][0]
+            startLetter = i["name"][0]
             if not startLetter in alphabet:
                 alphabet[startLetter] = []
             alphabet[startLetter].append(i)
@@ -504,7 +548,7 @@ class MainWindow(QMainWindow):
             if c in alphabet:
                 letterMenu = QMenu(c,self)
                 for i in alphabet[c]:
-                    languageAction = QAction(i[1],self)
+                    languageAction = QAction(i["name"],self)
                     languageAction.setData(i)
                     languageAction.triggered.connect(self.languageActionClicked)
                     letterMenu.addAction(languageAction)
@@ -546,7 +590,7 @@ class MainWindow(QMainWindow):
         self.executeMenu.clear()
         
         executeCommandMenu = QAction(self.env.translate("mainWindow.menu.execute.executeCommand"),self)
-        executeCommandMenu.triggered.connect(lambda: self.env.executeCommandWindow.openWindow(self.getSelectedTab()))
+        executeCommandMenu.triggered.connect(lambda: self.env.executeCommandWindow.openWindow(self.getTextEditWidget()))
         executeCommandMenu.setData(["executeCommand"])
         self.executeMenu.addAction(executeCommandMenu)
 
@@ -555,7 +599,7 @@ class MainWindow(QMainWindow):
             for i in self.env.commands:
                 command = QAction(i[0],self)
                 command.setData([False,i[1],i[2]])
-                command.triggered.connect(lambda sender: executeCommand(self.sender().data()[1],self.getSelectedTab(),self.sender().data()[2]))
+                command.triggered.connect(lambda sender: executeCommand(self.sender().data()[1],self.getTextEditWidget(),self.sender().data()[2]))
                 self.executeMenu.addAction(command)
 
         self.executeMenu.addSeparator()
@@ -567,15 +611,20 @@ class MainWindow(QMainWindow):
 
     def openFile(self, path, template=None):
         for count, i in enumerate(self.tabWidget.tabs):
-            if i[1] == path:
+            if i[0].getFilePath() == path:
                 self.tabWidget.setCurrentIndex(count)
                 return
         if not os.path.isfile(path):
             return
-        if not os.access(path,os.R_OK):
+        try:
+            filehandle = open(path,"rb")
+        except PermissionError:
             showMessageBox(self.env.translate("noReadPermission.title"),self.env.translate("noReadPermission.text") % path)
             return
-        filehandle = open(path,"rb")
+        except Exception as e:
+            print(e)
+            showMessageBox(self.env.translate("unknownError.title"),self.env.translate("unknownError.text"))
+            return
         fileBytes = filehandle.read()
         if self.env.settings.detectEncoding:
             encoding = chardet.detect(fileBytes)["encoding"]
@@ -595,8 +644,7 @@ class MainWindow(QMainWindow):
         self.tabWidget.tabsChanged.emit()
         if not template:
             self.getTextEditWidget().setFilePath(path)
-        if self.env.settings.windowFileTitle:
-            self.setWindowTitle(os.path.basename(path) + " - jdTextEdit")
+        self.updateWindowTitle()
         if self.env.settings.detectEol:
             firstLine = fileContent.splitlines(True)[0]
             if firstLine.endswith("\r\n"):
@@ -616,18 +664,29 @@ class MainWindow(QMainWindow):
             self.env.recentFiles.insert(0,path)
             self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
             self.updateRecentFilesMenu()
-        try:
-            part = path.split(".")
-            fileType = part[len(part)-1]
+        if self.env.settings.detectLanguage:
             for i in self.env.lexerList:
-                if i[2] == fileType:
-                    lexer = i[0]()
+                for e in i["extension"]:
+                    lexer = i["lexer"]()
                     self.getTextEditWidget().setSyntaxHighlighter(lexer,lexerList=i)
-        except:
-            pass
 
-    def getSelectedTab(self):
-        return self.tabWidget.tabs[self.tabWidget.currentIndex()]
+    def saveFile(self, tabid):
+        editWidget = self.tabWidget.tabs[tabid][0]
+        text = editWidget.text()
+        text = text.encode(editWidget.getUsedEncoding(),errors="replace")
+        try:
+            filehandle = open(editWidget.getFilePath(),"wb")
+        except PermissionError:
+            showMessageBox(self.env.translate("noWritePermission.title"),self.env.translate("noWritePermission.text") % editWidget.getFilePath())
+            return
+        except Exception as e:
+            print(e)
+            showMessageBox(self.env.translate("unknownError.title"),self.env.translate("unknownError.text"))
+            return
+        filehandle.write(text)
+        filehandle.close()
+        editWidget.setModified(False)
+        self.updateWindowTitle()
     
     def newMenuBarClicked(self):
         self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
@@ -650,15 +709,7 @@ class MainWindow(QMainWindow):
         if self.getTextEditWidget().getFilePath() == "":
             self.saveAsMenuBarClicked(tabid)
         else:
-            if not os.access(self.tabWidget.tabs[tabid][1],os.W_OK):
-                showMessageBox(self.env.translate("noWritePermission.title"),self.env.translate("noWritePermission.text") % self.tabWidget.tabs[tabid][1])
-                return
-            filehandle = open(self.getTextEditWidget().getFilePath(),"wb")
-            text = self.getTextEditWidget().text()
-            text = text.encode(self.getTextEditWidget().getUsedEncoding(),errors="replace")
-            filehandle.write(text)
-            filehandle.close()
-            self.getTextEditWidget().setModified(False)
+            self.saveFile(tabid)
 
     def deleteMenuBarClicked(self):
         lastText = self.env.clipboard.text()
@@ -669,25 +720,20 @@ class MainWindow(QMainWindow):
         path = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"))
         
         if path[0]:
-            #if not os.access(path[0],os.W_OK):
-            #    showMessageBox(self.env.translate("noWritePermission.title"),self.env.translate("noWritePermission.text") % path[0])
-             #   return
-            filehandle = open(path[0],"wb")
-            text = self.tabWidget.tabs[tabid][0].text()
-            text = text.encode(self.getTextEditWidget().getUsedEncoding(),errors="replace")
-            filehandle.write(text)
-            filehandle.close()
             self.getTextEditWidget().setFilePath(path[0])
+            self.saveFile(tabid)
             self.tabWidget.setTabText(tabid,os.path.basename(path[0]))
             self.tabWidget.tabsChanged.emit()
-            self.pathLabel.setText(path[0])
-            self.getTextEditWidget().setModified(False)
-            if self.env.settings.windowFileTitle:
-                self.setWindowTitle(path[0] + " - jdTextEdit")
+            self.updateWindowTitle()
 
     def saveAllMenuBarClicked(self):
         for i in range(len(self.tabWidget.tabs)):
             self.saveMenuBarClicked(i)
+
+    def closeAllTabs(self):
+        for i in range(self.tabWidget.count()-1,-1,-1):
+            self.tabWidget.tabCloseClicked(i,notCloseProgram=True)
+        self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
 
     def printMenuBarClicked(self):
         printer = QPrinter()  
@@ -707,7 +753,7 @@ class MainWindow(QMainWindow):
             self.showFullScreen()
 
     def searchAndReplaceMenuBarClicked(self):
-        self.env.searchReplaceWindow.display(self.getSelectedTab()[0])
+        self.env.searchReplaceWindow.display(self.getTextEditWidget())
 
     def pickColorClicked(self):
         col = QColorDialog.getColor()
@@ -722,7 +768,42 @@ class MainWindow(QMainWindow):
             self.env.sidepane.enabled = True
             self.env.sidepane.show()
         self.toggleSidebarAction.setChecked(self.env.sidepane.enabled)
-            
+
+    def addRemoveBookmark(self):
+        editWidget = self.getTextEditWidget()
+        line = editWidget.cursorPosLine
+        editWidget.addRemoveBookmark(line)
+
+    def nextBookmark(self):
+        editWidget = self.getTextEditWidget()
+        if len(editWidget.bookmarkList) == 0:
+            return
+        line = editWidget.cursorPosLine
+        for i in editWidget.bookmarkList:
+            if i > line:
+                editWidget.setCursorPosition(i,0)
+                return
+        editWidget.setCursorPosition(editWidget.bookmarkList[0],0)
+
+    def previousBookmark(self):
+        editWidget = self.getTextEditWidget()
+        if len(editWidget.bookmarkList) == 0:
+            return
+        line = editWidget.cursorPosLine
+        oldBookmark = editWidget.bookmarkList[-1]
+        for i in editWidget.bookmarkList:
+            if i >= line:
+                editWidget.setCursorPosition(oldBookmark,0)
+                return
+            oldBookmark = i
+        #editWidget.setCursorPosition(editWidget.bookmarkList[-1],0)
+
+    def clearBookmarks(self):
+        editWidget = self.getTextEditWidget()
+        for i in editWidget.bookmarkList:
+            editWidget.markerDelete(i,0)
+        editWidget.bookmarkList = []
+          
     def updateSettings(self, settings):
         self.tabWidget.tabBar().setAutoHide(settings.hideTabBar)
         self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
@@ -739,35 +820,43 @@ class MainWindow(QMainWindow):
             QApplication.setStyle(QStyleFactory.create(self.env.defaultStyle))
         else:
             QApplication.setStyle(QStyleFactory.create(settings.applicationStyle))
-        if settings.windowFileTitle:
-            self.setWindowTitle(self.tabWidget.tabText(self.tabWidget.currentIndex()) + " - jdTextEdit")
-        else:
-            self.setWindowTitle("jdTextEdit")
         for key, value in self.env.menuActions.items():
             if key in settings.shortcut:
                 value.setShortcut(settings.shortcut[key])
             else:
                 value.setShortcut("")
+        self.updateWindowTitle()
+
+    def updateWindowTitle(self):
+        if self.env.settings.windowFileTitle:
+            self.setWindowTitle(self.tabWidget.tabText(self.tabWidget.currentIndex()) + " - jdTextEdit")
+        else:
+            self.setWindowTitle("jdTextEdit")
 
     def restoreSession(self):
         with open(os.path.join(self.env.dataDir,"session.json"),"r",encoding="utf-8") as f:
             data = json.load(f)
         for count, i in enumerate(data["tabs"]):
-            if i[0] == "":
+            if i["path"] == "":
                 self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"))
             else:
-                self.tabWidget.createTab(os.path.basename(i[0]))
-                self.tabWidget.tabs[count][0].setFilePath(i[0])
+                self.tabWidget.createTab(os.path.basename(i["path"]))
+                self.tabWidget.widget(count).setFilePath(i["path"])
+            editWidget = self.tabWidget.widget(count)
             f = open(os.path.join(self.env.dataDir,"session_data",str(count)),"rb")
-            text = f.read().decode(i[3],errors="replace")
-            self.tabWidget.tabs[count][0].setText(text)
+            text = f.read().decode(i["encoding"],errors="replace")
+            editWidget.setText(text)
             f.close()
-            self.tabWidget.tabs[count][0].setModified(i[1])
-            self.tabWidget.tabs[count][0].setUsedEncoding(i[3])
+            editWidget.setModified(i["modified"])
+            editWidget.setUsedEncoding(i["encoding"])
             for l in self.env.lexerList:
-                s = l[0]()
-                if s.language() == i[2]:
-                    self.tabWidget.tabs[count][0].setSyntaxHighlighter(s,lexerList=l)
+                s = l["lexer"]()
+                if s.language() == i["language"]:                    
+                    editWidget.setSyntaxHighlighter(s,lexerList=l)
+            editWidget.bookmarkList = i["bookmarks"]
+            for line in editWidget.bookmarkList:
+                editWidget.markerAdd(line,0)
+            editWidget.setCursorPosition(i["cursorPosLine"],i["cursorPosIndex"])
         self.tabWidget.setCurrentIndex(data["selectedTab"])
         os.remove(os.path.join(self.env.dataDir,"session.json"))
         shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
@@ -776,21 +865,36 @@ class MainWindow(QMainWindow):
         self.env.settings.showSidepane = self.env.sidepane.enabled
         self.env.settings.sidepaneWidget = self.env.sidepane.content.getSelectedWidget()
         self.env.settings.save(os.path.join(self.env.dataDir,"settings.json"))
+        if self.env.settings.saveWindowState:
+            windowState = {}
+            saveWindowState(self,windowState,"MainWindow")
+            saveWindowState(self.env.settingsWindow,windowState,"SettingsWindow")
+            saveWindowState(self.env.dayTipWindow,windowState,"DayTipWindow")
+            saveWindowState(self.env.editCommandsWindow,windowState,"EditCommandsWindow")
+            saveWindowState(self.env.dateTimeWindow,windowState,"DateTimeWindow")
+            with open(os.path.join(self.env.dataDir,"windowstate.json"), 'w', encoding='utf-8') as f:
+                json.dump(windowState, f, ensure_ascii=False, indent=4)
+        else:
+            try:
+                os.remove(os.path.join(self.env.dataDir,"windowstate.json"))
+            except:
+                pass
         if self.env.settings.saveSession:
             if not os.path.isdir(os.path.join(self.env.dataDir,"session_data")):
                 os.mkdir(os.path.join(self.env.dataDir,"session_data"))
             data = {}
             data["selectedTab"] = self.tabWidget.currentIndex()
             data["tabs"] = []
-            for count, i in enumerate(self.tabWidget.tabs):
-                f = open(os.path.join(self.env.dataDir,"session_data",str(count)),"wb")
-                f.write(i[0].text().encode(i[0].getUsedEncoding(),errors="replace"))
+            for i in range(self.tabWidget.count()):
+                widget = self.tabWidget.widget(i)
+                f = open(os.path.join(self.env.dataDir,"session_data",str(i)),"wb")
+                f.write(widget.text().encode(widget.getUsedEncoding(),errors="replace"))
                 f.close()
-                if i[0].currentLexer:
-                    syntax = i[0].currentLexer.language()
+                if widget.currentLexer:
+                    syntax = widget.currentLexer.language()
                 else:
                     syntax = ""
-                data["tabs"].append([i[0].getFilePath(),i[0].isModified(),syntax,i[0].getUsedEncoding()])
+                data["tabs"].append({"path":widget.getFilePath(),"modified":widget.isModified(),"language":syntax,"encoding":widget.getUsedEncoding(),"bookmarks":widget.bookmarkList,"cursorPosLine":widget.cursorPosLine,"cursorPosIndex":widget.cursorPosIndex})
             with open(os.path.join(self.env.dataDir,"session.json"), 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
             sys.exit(0)

@@ -27,34 +27,31 @@ class CloseSaveWindow(QWidget):
         self.setLayout(mainLayout)
 
     def closeFile(self):
-        del self.tabWidget.tabs[self.tabid]
         self.tabWidget.removeTab(self.tabid)
-        if len(self.tabWidget.tabs) == 0:
+        if self.tabWidget.count() == 0:
             sys.exit(0)
         self.close()
 
     def saveFile(self):
-        if self.tabWidget.tabs[self.tabid][1] == "":
-            pickedPath = QFileDialog.getSaveFileName(self,"Pick File")
+        if self.tabWidget.widget(self.tabid).getFilePath() == "":
+            pickedPath = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"))
             if pickedPath[0]:
                 path = pickedPath[0]
             else:
                 self.closeFile()
         else:
-            path = self.tabWidget.tabs[self.tabid][1]
-        f = open(path,"w")
-        f.write(self.fileContent)
-        f.close()
+            path = self.tabWidget.widget(self.tabid)
+        self.tabWidget.widget(self.tabid).setFilePath(path)
+        self.env.mainWindow.saveFile(self.tabid)
         self.closeFile()
 
     def openWindow(self, tabid):
         self.tabid = tabid
         self.tabWidget = self.env.mainWindow.tabWidget
-        self.fileContent = self.env.mainWindow.getTextEditWidget().text()
         filename = self.tabWidget.tabText(tabid)
         self.text.setText(self.env.translate("closeSaveWindow.text") % filename)
         self.setWindowTitle(self.env.translate("closeSaveWindow.title") % filename)
-        if self.tabWidget.tabs[self.tabid][1] == "":
+        if self.tabWidget.widget(self.tabid).getFilePath() == "":
             self.saveButton.setText(self.env.translate("closeSaveWindow.button.saveAs"))
         else:
             self.saveButton.setText(self.env.translate("closeSaveWindow.button.save"))

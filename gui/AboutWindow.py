@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
-from Functions import getThemeIcon
+from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QLayout
+from Functions import getThemeIcon, restoreWindowState
 import webbrowser
 
 class AboutWindow(QWidget):
@@ -22,6 +22,7 @@ class AboutWindow(QWidget):
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(text)
         mainLayout.addLayout(buttonLayout)
+        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("aboutWindow.title"))

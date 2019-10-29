@@ -2,10 +2,10 @@ from PyQt5.QtWidgets import QMenu
 from PyQt5.Qsci import QsciScintilla, QsciLexer, QsciAPIs, QsciScintillaBase
 from PyQt5.QtGui import QColor, QFontMetrics, QFont, QCursor
 from AutocompleteXML import AutocompleteXML
+from LexerList import getLexerList
 import os
 
 class CodeEdit(QsciScintilla):
-    ARROW_MARKER_NUM = 8
     def __init__(self,env,preview=None,isNew=False):
         super().__init__()
         self.env = env
@@ -17,6 +17,9 @@ class CodeEdit(QsciScintilla):
         self.tabid = None
         self.usedEncoding = env.settings.defaultEncoding
         self.filePath = ""
+        self.cursorPosLine = 0
+        self.cursorPosIndex = 0
+        self.bookmarkList = []
         self.cursorPosString = env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1)
         self.lexerName = env.translate("mainWindow.menu.language.plainText")
         self.foldStyles = [QsciScintilla.NoFoldStyle,QsciScintilla.PlainFoldStyle,QsciScintilla.CircledFoldStyle,QsciScintilla.BoxedFoldStyle,QsciScintilla.CircledTreeFoldStyle,QsciScintilla.BoxedTreeFoldStyle]
@@ -26,36 +29,44 @@ class CodeEdit(QsciScintilla):
         self.setMarginLineNumbers(0, True)
         self.setUtf8(True)
         self.modificationChanged.connect(self.modificationStateChange)
+        self.marginClicked.connect(self.marginClickCallback)
+        self.setMarginSensitivity(1,True)
         #self.modificationStateChange(False)
         #self.setMarginsBackgroundColor(QColor("#cccccc"))
 
         self.textChanged.connect(self.textEdited)
         self.selectionChanged.connect(self.editSelectionChanged)
         self.cursorPositionChanged.connect(self.updateCursor)
-        
-        #self.updateStatusBar()
+
+        if self.env.settings.defaultLanguage != -1:
+            lexerList = getLexerList()
+            self.setSyntaxHighlighter(lexerList[self.env.settings.defaultLanguage]["lexer"](),lexerList[self.env.settings.defaultLanguage])
+
+        self.setMarginType(1, QsciScintilla.SymbolMargin)
+        sym_4 = QsciScintilla.Circle
+        self.markerDefine(sym_4, 0)
+        #self.setMarginWidth(1, 10)
 
     def updateStatusBar(self):
         if self.isPreview or not hasattr(self.env,"mainWindow"):
             return
         self.env.mainWindow.pathLabel.setText(self.filePath)
-        statusString = self.usedEncoding + " "
-        statusString = statusString + self.lexerName + " "
-        statusString = statusString + self.cursorPosString
-        self.env.mainWindow.cursorPosLabel.setText(statusString)
+        self.env.mainWindow.encodingLabel.setText(self.usedEncoding)
+        self.env.mainWindow.lexerLabel.setText(self.lexerName)
+        self.env.mainWindow.cursorPosLabel.setText(self.cursorPosString)
 
     def setSyntaxHighlighter(self, lexer, lexerList=None):
         #self.lexer() is a little bit buggy
         self.currentLexer = lexer
         self.setLexer(lexer)
         if lexerList:
-            if isinstance(lexerList[3], str):
-                if os.path.isfile(os.path.join(self.env.programDir,"autocompletion",lexerList[3] + ".xml")):
-                    self.apiCompletion = os.path.join(self.env.programDir,"autocompletion",lexerList[3] + ".xml")               
+            if isinstance(lexerList["xmlapi"], str):
+                if os.path.isfile(os.path.join(self.env.programDir,"autocompletion",lexerList["xmlapi"] + ".xml")):
+                    self.apiCompletion = os.path.join(self.env.programDir,"autocompletion",lexerList["xmlapi"] + ".xml")               
                 else:
                     self.apiCompletion = None
             else:
-                self.apiCompletion = lexerList[3]
+                self.apiCompletion = lexerList["xmlapi"]
         else:
             self.apiCompletion = None
         self.updateSettings(self.env.settings)
@@ -113,9 +124,23 @@ class CodeEdit(QsciScintilla):
         
     def updateCursor(self, line, pos):
         #self.SendScintilla(QsciScintillaBase.SCI_INDICATORFILLRANGE,0,10)
+        self.cursorPosLine = line
+        self.cursorPosIndex = pos
         if not self.isPreview:
             self.cursorPosString = self.env.translate("mainWindow.statusBar.cursorPosLabel") % (line + 1, pos + 1)
             self.updateStatusBar()
+
+    def marginClickCallback(self, margin, line):
+        if margin == 1:
+            self.addRemoveBookmark(line)
+
+    def addRemoveBookmark(self, line):
+        if line in self.bookmarkList:
+            self.markerDelete(line,0)
+            self.bookmarkList.remove(line)
+        else:
+            self.markerAdd(line, 0)
+            self.bookmarkList.append(line)
 
     def updateEolMenu(self):
         if self.isPreview or not hasattr(self.env,"mainWindow"):
@@ -158,7 +183,7 @@ class CodeEdit(QsciScintilla):
         return self.filePath
 
     def contextMenuEvent(self, event):
-        menu = QMenu(self)
+        menu = QMenu("jdTextEdit",self)
         for i in self.env.settings.editContextMenu:
             if i == "separator":
                 menu.addSeparator()
@@ -166,9 +191,7 @@ class CodeEdit(QsciScintilla):
                 if i in self.env.menuActions:
                     menu.addAction(self.env.menuActions[i])
         menu.setTearOffEnabled(True)
-        menu.setTitle("Test")
         menu.popup(QCursor.pos())
-        #self.env.editContextMenu.popup(QCursor.pos())
 
     def setDefaultStyle(self):
         #self.resetSelectionBackgroundColor()
@@ -219,6 +242,7 @@ class CodeEdit(QsciScintilla):
         if settings.editShowLineNumbers:
             self.setMarginWidth(0, fontmetrics.width("00000") + 6)
         else:
+            pass
             self.setMarginWidth(0,0)
         if self.currentLexer:
             self.currentLexer.setFont(font)
@@ -261,11 +285,3 @@ class CodeEdit(QsciScintilla):
                     api = self.apiCompletion(self.currentLexer)
         else:
             self.setAutoCompletionSource(QsciScintilla.AcsNone)
-        #self.env.editContextMenu = QMenu()
-        #for i in settings.editContextMenu:
-        #    if i == "separator":
-        #        self.env.editContextMenu.addSeparator()
-        #    else:
-        #        if i in self.env.menuActions:
-        #            self.env.editContextMenu.addAction(self.env.menuActions[i])
-        #self.env.editContextMenu.setTearOffEnabled(True)

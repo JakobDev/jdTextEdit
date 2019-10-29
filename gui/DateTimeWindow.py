@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QApplication, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QHeaderView, QAbstractItemView, QRadioButton, QLineEdit, QLabel, QPushButton
+from Functions import restoreWindowState
 from PyQt5.QtCore import Qt
 import time
 import sys
@@ -67,7 +68,8 @@ class DateTimeWindow(QWidget):
        
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("dateTimeWindow.title"))
-
+        restoreWindowState(self,env.windowState,"DateTimeWindow")
+        self.updateTemplateList()
 
     def updateTemplateList(self):
         count = 0
@@ -101,6 +103,5 @@ class DateTimeWindow(QWidget):
 
     def openWindow(self, editWidget):
         self.editWidget = editWidget
-        self.updateTemplateList()
         self.show()
         self.setFocus()

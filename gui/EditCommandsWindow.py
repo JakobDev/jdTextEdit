@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QTableWidget, QPushButton, QCheckBox, QTableWidgetItem, QHBoxLayout, QVBoxLayout, QHeaderView
+from Functions import restoreWindowState
 import json
 import os
 
@@ -39,6 +40,7 @@ class EditCommandsWindow(QWidget):
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("editCommandsWindow.title"))
+        restoreWindowState(self,env.windowState,"EditCommandsWindow")
 
     def openWindow(self):
         while (self.commandsTable.rowCount() > 0):
