@@ -11,7 +11,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "3.0"
+        self.version = "3.1"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = OptionParser()

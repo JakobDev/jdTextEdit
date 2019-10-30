@@ -667,8 +667,9 @@ class MainWindow(QMainWindow):
         if self.env.settings.detectLanguage:
             for i in self.env.lexerList:
                 for e in i["extension"]:
-                    lexer = i["lexer"]()
-                    self.getTextEditWidget().setSyntaxHighlighter(lexer,lexerList=i)
+                    if path.endswith(e):
+                        lexer = i["lexer"]()
+                        self.getTextEditWidget().setSyntaxHighlighter(lexer,lexerList=i)
 
     def saveFile(self, tabid):
         editWidget = self.tabWidget.tabs[tabid][0]
