@@ -1,0 +1,43 @@
+#Dosen't work at the moment
+name: jdtextedit
+version: 4.0
+summary: jdTextEdit
+description: |
+  jdTextEdit is a powerful texteditor with a lot of features 
+base: core18
+confinement: strict
+grade: stable
+
+parts:
+  locales-launch:
+
+  jdtextedit:
+    after: [desktop-qt5]
+    plugin: python
+    python-version: python3
+    source: .
+    build-packages:
+      - python3
+      - python3-pyqt5
+      - python3-pyqt5.qtopengl
+      - python3-setuptools
+      - python3-pip
+    stage-packages:
+      - python3
+      - python3-pyqt5
+      - python3-pyqt5.qtopengl
+    python-packages:
+      - QScintilla
+      - chardet
+
+apps:
+  jdtextedit:
+    command: locales-launch desktop-launch $SNAP/bin/jdTextEdit
+    plugs:
+      - desktop
+      - desktop-legacy
+      - home
+      - opengl
+      - removable-media
+      - wayland
+      - x11

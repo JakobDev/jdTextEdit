@@ -1,0 +1,5 @@
+include jdTextEdit/icons/*
+include jdTextEdit/translation/*
+include jdTextEdit/autocompletion/*
+include jdTextEdit/templates/*
+include jdTextEdit/plugins/pluginmanager/translation/*
