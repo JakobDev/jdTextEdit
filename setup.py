@@ -13,6 +13,7 @@ setup(name='jdTextEdit',
         'PyQt5',
         'QScintilla',
         'chardet'
+        'requests'
     ],
     packages=find_packages(),
     entry_points={

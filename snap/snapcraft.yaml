@@ -29,6 +29,7 @@ parts:
     python-packages:
       - QScintilla
       - chardet
+      - requests
 
 apps:
   jdtextedit:
