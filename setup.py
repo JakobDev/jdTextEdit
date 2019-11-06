@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(name='jdTextEdit',
     version='4.0',
-    description=' A powerful texteditor with a lot of features .',
+    description=' A powerful texteditor with a lot of features.',
     author='JakobDev',
     author_email='jakobdev@gmx.de',
     url='https://gitlab.com/JakobDev/jdTextEdit',
@@ -12,8 +12,8 @@ setup(name='jdTextEdit',
     install_requires=[
         'PyQt5',
         'QScintilla',
-        'chardet'
-        'requests'
+        'chardet',
+        'requests',
     ],
     packages=find_packages(),
     entry_points={
