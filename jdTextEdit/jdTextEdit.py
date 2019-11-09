@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 from jdTextEdit.gui.MainWindow import MainWindow
 from jdTextEdit.Enviroment import Enviroment
@@ -56,6 +57,8 @@ def main():
         f = open(os.path.join(env.dataDir,"userChrome.css"),"r",encoding="utf-8")
         app.setStyleSheet(f.read())
         f.close()
+
+    app.setWindowIcon(QIcon(os.path.join(env.programDir,"Logo.png")))
 
     env.mainWindow.setup()
     sys.exit(app.exec_())

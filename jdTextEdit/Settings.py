@@ -17,6 +17,7 @@ class Settings():
         self.windowFileTitle = True
         self.saveWindowState = True
         self.eolFileEnd = False
+        self.exitLastTab = True
         self.showToolbar = True
         self.toolbarPosition = 0
         self.toolbarIconStyle = 4

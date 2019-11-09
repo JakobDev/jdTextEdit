@@ -12,7 +12,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "4.0"
+        self.version = "5.0"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = OptionParser()

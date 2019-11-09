@@ -1,11 +1,17 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QLayout
 from jdTextEdit.Functions import getThemeIcon, restoreWindowState
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt
 import webbrowser
+import os
 
 class AboutWindow(QWidget):
     def __init__(self, env):
         super().__init__()
-        text = QLabel("<center>" + (env.translate("aboutWindow.label.title") % env.version) + "<br><br>" + env.translate("aboutWindow.label.description") + "<br><br>" + env.translate("aboutWindow.label.license") + "<br><br>Copyright © 2019 JakobDev</center>")
+        logo = QLabel()
+        logo.setPixmap(QPixmap(os.path.join(env.programDir,"Logo.png")).scaled(100,100))
+        logo.setAlignment(Qt.AlignCenter)
+        text = QLabel("<center>" + (env.translate("aboutWindow.label.title") % env.version) + "<br><br>" + env.translate("aboutWindow.label.description") + "<br><br>"+ env.translate("aboutWindow.label.license") + "<br><br>"  + env.translate("aboutWindow.label.logoAuthor") + "<br><br>Copyright © 2019 JakobDev</center>")
         viewSourceButton = QPushButton(env.translate("aboutWindow.button.viewSource"))
         closeButton = QPushButton(env.translate("button.close"))
 
@@ -20,6 +26,7 @@ class AboutWindow(QWidget):
         buttonLayout.addWidget(closeButton)
 
         mainLayout = QVBoxLayout()
+        mainLayout.addWidget(logo)
         mainLayout.addWidget(text)
         mainLayout.addLayout(buttonLayout)
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)

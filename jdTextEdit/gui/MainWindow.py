@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
                 os.remove(os.path.join(self.env.dataDir,"session.json"))
                 shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
             if len(env.args) == 1:
-                self.tabWidget.createTab("",focus=True)
+                #self.tabWidget.createTab("",focus=True)
                 self.openFile(os.path.abspath(env.args[0]))
         else:
             self.tabWidget.createTab(env.translate("mainWindow.newTabTitle"))
@@ -56,8 +56,9 @@ class MainWindow(QMainWindow):
         self.env.sidepane = DockWidget(self.env)
         self.env.sidepane.hide()
         self.addDockWidget(Qt.LeftDockWidgetArea,self.env.sidepane)
-        for i in self.tabWidget.tabs:
-            i[0].modificationStateChange(i[0].isModified())
+        for i in range(self.tabWidget.count()):
+            widget = self.tabWidget.widget(i)
+            widget.modificationStateChange(widget.isModified())
         if self.env.settings.showSidepane:
             self.toggleSidebarClicked()
         self.env.sidepane.content.setCurrentWidget(self.env.settings.sidepaneWidget)
@@ -662,9 +663,9 @@ class MainWindow(QMainWindow):
         self.executeMenu.addAction(editCommands)
 
     def openFile(self, path, template=None):
-        for count, i in enumerate(self.tabWidget.tabs):
-            if i[0].getFilePath() == path:
-                self.tabWidget.setCurrentIndex(count)
+        for i in range(self.tabWidget.count()):
+            if self.tabWidget.widget(i).getFilePath() == path:
+                self.tabWidget.setCurrentIndex(i)
                 return
         if not os.path.isfile(path):
             return
@@ -728,14 +729,15 @@ class MainWindow(QMainWindow):
                         self.getTextEditWidget().setSyntaxHighlighter(lexer,lexerList=i)
 
     def saveFile(self, tabid):
-        editWidget = self.tabWidget.tabs[tabid][0]
+        editWidget = self.getTextEditWidget()
         text = editWidget.text()
         if self.env.settings.eolFileEnd:
             if not text.endswith(editWidget.getEolChar()):
                 text = text + editWidget.getEolChar()
         text = text.encode(editWidget.getUsedEncoding(),errors="replace")
+        path = editWidget.getFilePath()
         try:
-            filehandle = open(editWidget.getFilePath(),"wb")
+            filehandle = open(path,"wb")
         except PermissionError:
             showMessageBox(self.env.translate("noWritePermission.title"),self.env.translate("noWritePermission.text") % editWidget.getFilePath())
             return
@@ -747,12 +749,18 @@ class MainWindow(QMainWindow):
         filehandle.close()
         editWidget.setModified(False)
         self.updateWindowTitle()
-    
+        if self.env.settings.detectLanguage:
+            for i in self.env.lexerList:
+                for e in i["extension"]:
+                    if path.endswith(e):
+                        lexer = i["lexer"]()
+                        self.getTextEditWidget().setSyntaxHighlighter(lexer,lexerList=i)
+
     def newMenuBarClicked(self):
         self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
             
     def openMenuBarClicked(self):
-        path = QFileDialog.getOpenFileName(self,self.env.translate("mainWindow.openFileDialog.title"))       
+        path = QFileDialog.getOpenFileName(self,self.env.translate("mainWindow.openFileDialog.title"))
         if path[0]:
             self.openFile(path[0])
 
@@ -805,7 +813,7 @@ class MainWindow(QMainWindow):
             document = QTextDocument()
             document.setPlainText(self.getTextEditWidget().text())
             document.print(printer)
- 
+
     def fullscreenMenuBarClicked(self):
         if self.isFullScreen():
             self.showNormal()
@@ -950,8 +958,8 @@ class MainWindow(QMainWindow):
             self.saveMacroAction.setEnabled(True)
         os.remove(os.path.join(self.env.dataDir,"session.json"))
         shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
-            
-    def closeEvent(self, event):
+
+    def saveDataClose(self):
         self.env.settings.showSidepane = self.env.sidepane.enabled
         self.env.settings.sidepaneWidget = self.env.sidepane.content.getSelectedWidget()
         self.env.settings.save(os.path.join(self.env.dataDir,"settings.json"))
@@ -970,6 +978,9 @@ class MainWindow(QMainWindow):
                 os.remove(os.path.join(self.env.dataDir,"windowstate.json"))
             except:
                 pass
+
+    def closeEvent(self, event):
+        self.saveDataClose()
         if self.env.settings.saveSession:
             if not os.path.isdir(os.path.join(self.env.dataDir,"session_data")):
                 os.mkdir(os.path.join(self.env.dataDir,"session_data"))
@@ -993,7 +1004,7 @@ class MainWindow(QMainWindow):
             sys.exit(0)
         else:
             for i in range(self.tabWidget.count()-1,-1,-1):
-                self.tabWidget.tabCloseClicked(i)
+                self.tabWidget.tabCloseClicked(i,forceExit=True)
             event.ignore()
 
     def contextMenuEvent(self, event):

@@ -17,6 +17,7 @@ class GeneralTab(QWidget):
         self.searchUpdatesCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.searchUpdates"))
         self.windowStateCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveWindowState"))
         self.eolFileEndCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.eolFileEnd"))
+        self.lastTabCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.exitLastTab"))
         self.languageComboBox.addItem(env.translate("settingsWindow.general.combobox.systemDefault"))
         self.languageComboBox.setItemData(0,"default")
 
@@ -51,6 +52,7 @@ class GeneralTab(QWidget):
         mainLayout.addWidget(self.searchUpdatesCheckBox)
         mainLayout.addWidget(self.windowStateCheckBox)
         mainLayout.addWidget(self.eolFileEndCheckBox)
+        mainLayout.addWidget(self.lastTabCheckBox)
         mainLayout.addStretch(1)
 
         self.setLayout(mainLayout)
@@ -76,6 +78,7 @@ class GeneralTab(QWidget):
         self.searchUpdatesCheckBox.setChecked(settings.searchUpdates)
         self.windowStateCheckBox.setChecked(settings.saveWindowState)
         self.eolFileEndCheckBox.setChecked(settings.eolFileEnd)
+        self.lastTabCheckBox.setChecked(settings.exitLastTab)
 
     def getSettings(self, settings):
         settings.language = self.languageComboBox.itemData(self.languageComboBox.currentIndex())
@@ -94,4 +97,5 @@ class GeneralTab(QWidget):
         settings.searchUpdates = bool(self.searchUpdatesCheckBox.checkState())
         settings.saveWindowState = bool(self.windowStateCheckBox.checkState())
         settings.eolFileEnd = bool(self.eolFileEndCheckBox.checkState())
+        settings.exitLastTab = bool(self.lastTabCheckBox.checkState())
         return settings

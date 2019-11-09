@@ -63,8 +63,8 @@ class SettingsWindow(QWidget):
         for i in self.tabs:
             self.env.settings = i.getSettings(self.env.settings)
         self.env.mainWindow.updateSettings(self.env.settings)
-        for i in self.env.mainWindow.tabWidget.tabs:
-            i[0].updateSettings(self.env.settings)
+        for i in range(self.env.mainWindow.tabWidget.count()):
+            self.env.mainWindow.tabWidget.widget(i).updateSettings(self.env.settings)
         #self.env.settings.save(os.path.join(self.env.dataDir,"settings.json"))
         self.close()
 

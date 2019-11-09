@@ -10,10 +10,11 @@ class EditTabWidget(QTabWidget):
     def __init__(self,env):
         super().__init__()
         self.env = env
+        self.setMovable(True)
         self.setTabsClosable(True)
         self.tabCloseRequested.connect(self.tabCloseClicked)
         self.currentChanged.connect(self.tabChange)
-        self.tabs = []
+        #self.tabs = []
 
     def createTab(self,title,focus=None):
         textEdit = CodeEdit(self.env,isNew=True)
@@ -21,14 +22,15 @@ class EditTabWidget(QTabWidget):
         tabid = self.addTab(textEdit,title)
         textEdit.tabid = tabid
         textEdit.modificationStateChange(False)
-        tabcontent = []
-        tabcontent.append(textEdit)
-        tabcontent.append("")
-        self.tabs.append(tabcontent)
+        #tabcontent = []
+        #tabcontent.append(textEdit)
+        #tabcontent.append("")
+        #self.tabs.append(tabcontent)
 
         if focus:
             self.setCurrentIndex(tabid)
-            self.env.mainWindow.updateWindowTitle()
+            if hasattr(self.env,"mainWindow"):
+                self.env.mainWindow.updateWindowTitle()
 
         self.tabsChanged.emit()
 
@@ -48,14 +50,15 @@ class EditTabWidget(QTabWidget):
             pass
             #print(e)
 
-    def tabCloseClicked(self,tabid,notCloseProgram=None):
-        if self.tabs[tabid][0].isModified() and self.env.settings.saveClose:
+    def tabCloseClicked(self,tabid,notCloseProgram=None,forceExit=None):
+        if self.widget(tabid).isModified() and self.env.settings.saveClose:
             self.env.closeSaveWindow.openWindow(tabid)
         else:
-            del self.tabs[tabid]
             self.removeTab(tabid)
-            if len(self.tabs) == 0 and not notCloseProgram:
-                sys.exit(0)
-        for count, i in enumerate(self.tabs):
-            i[0].tabid = count
+            if self.count() == 0 and not notCloseProgram:
+                if self.env.settings.exitLastTab or forceExit:
+                    self.env.mainWindow.saveDataClose()
+                    sys.exit(0)
+                else:
+                    self.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
         self.tabsChanged.emit()

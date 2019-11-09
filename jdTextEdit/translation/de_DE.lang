@@ -124,6 +124,7 @@ settingsWindow.general.checkBox.windowFileTitle=Dateiname in Fenstertitel zeigen
 settingsWindow.general.checkBox.searchUpdates=Beim starten nach Updates suchen
 settingsWindow.general.checkBox.saveWindowState=Status der Fenster speichern
 settingsWindow.general.checkBox.eolFileEnd=Beim speichern Zeilenende am Dateiende einfügen
+settingsWindow.general.checkBox.exitLastTab=jdTextEdit beenden wenn der letzte Tab geschlossen wird
 settingsWindow.editor=Editor
 settingsWindow.editor.label.defaultEncoding=Standardkodierung:
 settingsWindow.editor.label.defaultEolMode=Standardzeilenende:
@@ -239,6 +240,7 @@ aboutWindow.title=Über
 aboutWindow.label.title=jdTextEdit Version %s
 aboutWindow.label.description=jdTextEdit ist ein umfangreicher, in Python geschriebener, Texteditor mit Plugin Support
 aboutWindow.label.license=Dieses Programm wurde unter GNU GPL 3 lizenziert
+aboutWindow.label.logoAuthor=Das Logo wurde von Axel-Erfurt erstellt
 aboutWindow.button.viewSource=Quelltext
 
 updater.noUpdates.title=Keine Updates verfügbar
