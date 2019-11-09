@@ -4,4 +4,4 @@ include jdTextEdit/icons/*
 include jdTextEdit/translation/*
 include jdTextEdit/autocompletion/*
 include jdTextEdit/templates/*
-recursive-include jdTextEdit/plugins/*
+include jdTextEdit/plugins/pluginmanager/translation/*
