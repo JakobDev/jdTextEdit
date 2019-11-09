@@ -11,3 +11,11 @@ pip_deploy:
         - twine upload -u "$PYPI_USERNAME" -p "$PYPI_PASSWORD" dist/*
     only:
         - tags
+
+sourceforge_deploy:
+    stage: deploy
+    script:
+        - pip install pysftp
+        - python deploy/sourceforge.py
+    only:
+        - tags
