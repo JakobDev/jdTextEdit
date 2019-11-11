@@ -1,4 +1,6 @@
 # jdTextEdit
+[![Download jdTextEdit](https://img.shields.io/pypi/dm/jdTextEdit.svg)]()
+[![Download jdTextEdit](https://img.shields.io/sourceforge/dt/jdtextedit.svg)](https://sourceforge.net/projects/jdtextedit/files/latest/download)
 
 jdTextEdit is a powerful texteditor with a lot of features.
 
