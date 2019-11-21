@@ -3,7 +3,7 @@
 from setuptools import find_packages, setup
 
 setup(name='jdTextEdit',
-    version='5.1',
+    version='5.2',
     description=' A powerful texteditor with a lot of features',
     long_description=open("README.md").read(),
     long_description_content_type='text/markdown',
@@ -17,6 +17,7 @@ setup(name='jdTextEdit',
         'QScintilla',
         'chardet',
         'requests',
+        'jdTranslationHelper',
     ],
     packages=find_packages(),
     entry_points={

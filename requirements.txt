@@ -2,3 +2,4 @@ PyQt5
 QScintilla
 chardet
 requests
+jdTranslationHelper

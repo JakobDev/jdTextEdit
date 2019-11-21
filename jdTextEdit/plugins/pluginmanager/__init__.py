@@ -4,7 +4,7 @@ import os
 
 def main(env):
     currentDir = os.path.dirname(os.path.realpath(__file__))
-    env.translations.readDirectory(os.path.join(currentDir,"translation"))
+    env.translations.loadDirectory(os.path.join(currentDir,"translation"))
     env.pluginManagerWindow = PluginManagerWindow(env)
     
     openPluginManager = QAction(env.translate("pluginManagerWindow.title"),env.mainWindow)

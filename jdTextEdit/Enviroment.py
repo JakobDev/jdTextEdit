@@ -1,4 +1,4 @@
-from jdTextEdit.TranslationHelper import TranslationHelper
+from jdTranslationHelper import jdTranslationHelper
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QLocale
 from PyQt5.QtGui import QIcon
@@ -12,7 +12,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "5.1"
+        self.version = "5.2"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = OptionParser()
@@ -35,9 +35,10 @@ class Enviroment():
             self.settings.load(os.path.join(self.dataDir,"settings.json"))
         
         if self.settings.language == "default":
-            self.translations = TranslationHelper(QLocale.system().name())
+            self.translations = jdTranslationHelper(lang=QLocale.system().name())
         else:
-            self.translations = TranslationHelper(self.settings.language)
+            self.translations = jdTranslationHelper(lang=self.settings.language)
+        self.translations.loadDirectory(os.path.join(self.programDir,"translation"))
 
         self.recentFiles = []
         if os.path.isfile(os.path.join(self.dataDir,"recentfiles.json")):
