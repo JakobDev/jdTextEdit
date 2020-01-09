@@ -2,8 +2,13 @@ from PyQt5.QtWidgets import QMessageBox, QPushButton
 from jdTextEdit.Functions import showMessageBox
 import webbrowser
 import requests
+import os
 
 def searchForUpdates(env,startup):
+    if os.getenv("SNAP"):
+        if not startup:
+            showMessageBox(env.translate("updater.snap.title"),env.translate("updater.snap.text"))
+        return
     try:
         releaseList = requests.get("https://gitlab.com/api/v4/projects/14519914/releases").json()
     except requests.exceptions.RequestException:

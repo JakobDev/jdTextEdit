@@ -1,4 +1,4 @@
-image: "python:3.5"
+image: "python:latest"
 
 stages:
     - deploy
@@ -17,5 +17,21 @@ sourceforge_deploy:
     script:
         - pip install pysftp
         - python deploy/sourceforge.py
+    only:
+        - tags
+
+snapcraft_deploy:
+    stage: deploy
+    image: "ubuntu:latest"
+    script:
+        - apt update
+        - apt install -y snapcraft
+        - snapcraft
+        - snapcraft login --with $SNAPCRAFT_LOGIN_DATA
+        - snapcraft push --release=stable jdtextedit_$CI_COMMIT_TAG_amd64.snap
+    artifacts:
+        paths:
+            - jdtextedit_$CI_COMMIT_TAG_amd64.snap
+        expire_in: 1 week
     only:
         - tags

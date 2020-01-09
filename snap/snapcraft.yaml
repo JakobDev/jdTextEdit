@@ -1,6 +1,5 @@
-#Dosen't work at the moment
 name: jdtextedit
-version: "5.2"
+version: "5.3"
 summary: jdTextEdit
 description: |
   jdTextEdit is a powerful texteditor with a lot of features 
@@ -27,6 +26,7 @@ parts:
       - python3-pyqt5
       - python3-pyqt5.qtopengl
       - python3-pyqt5.qsci
+      - xterm
 
 apps:
   jdtextedit:
@@ -39,3 +39,4 @@ apps:
       - removable-media
       - wayland
       - x11
+      - network

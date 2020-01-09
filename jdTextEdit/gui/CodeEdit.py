@@ -55,6 +55,12 @@ class CodeEdit(QsciScintilla):
         self.env.mainWindow.encodingLabel.setText(self.usedEncoding)
         self.env.mainWindow.lexerLabel.setText(self.lexerName)
         self.env.mainWindow.cursorPosLabel.setText(self.cursorPosString)
+        if self.eolMode() == QsciScintilla.EolWindows:
+            self.env.mainWindow.eolLabel.setText("CRLF")
+        elif self.eolMode() == QsciScintilla.EolUnix:
+            self.env.mainWindow.eolLabel.setText("LF")
+        elif self.eolMode() == QsciScintilla.EolMac:
+            self.env.mainWindow.eolLabel.setText("CR")
 
     def setSyntaxHighlighter(self, lexer, lexerList=None):
         #self.lexer() is a little bit buggy
@@ -166,6 +172,7 @@ class CodeEdit(QsciScintilla):
         self.setEolMode(mode)
         self.convertEols(mode)
         self.updateEolMenu()
+        self.updateStatusBar()
 
     def getEolChar(self):
         if self.eolMode() == QsciScintilla.EolWindows:

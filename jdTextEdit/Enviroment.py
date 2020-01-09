@@ -5,20 +5,21 @@ from PyQt5.QtGui import QIcon
 from jdTextEdit.Settings import Settings
 from jdTextEdit.LexerList import getLexerList
 from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox
-from optparse import OptionParser
+import argparse
 import json
 import sys
 import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "5.2"
+        self.version = "5.3"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
-        parser = OptionParser()
-        parser.add_option("-p", "--portable",action="store_true", dest="portable", default=False,help="Portable")
-        self.options, self.args = parser.parse_args()
-        if self.options.portable:
+        parser = argparse.ArgumentParser()
+        parser.add_argument("filename",nargs="*")
+        parser.add_argument("-p", "--portable",action="store_true", dest="portable",help="Portable")
+        self.args = parser.parse_args().__dict__
+        if self.args["portable"]:
             self.dataDir = os.path.join(self.programDir,"data")
         else:
             self.dataDir = getDataPath()

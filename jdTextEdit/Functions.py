@@ -53,6 +53,8 @@ def executeCommand(command,editWidget,terminal):
         elif platform.system() == 'Darwin':
             #subprocess.call(('open', filepath))
             pass
+        elif os.getenv("SNAP"):
+            subprocess.call([os.path.join(os.getenv("SNAP"),"usr","bin","xterm"),"-e",command])
         else:
             subprocess.call(["x-terminal-emulator","-e",command])
     else:

@@ -13,7 +13,6 @@ class Settings():
         self.maxRecentFiles = 10
         self.saveSession = True
         self.loadPlugins = True
-        self.useNativeIcons = True
         self.windowFileTitle = True
         self.saveWindowState = True
         self.eolFileEnd = False
@@ -85,8 +84,10 @@ class Settings():
         else:
             self.defaultEolMode = 1
         if os.getenv("SNAP"):
+            self.useNativeIcons = False
             self.searchUpdates = False
         else:
+            self.useNativeIcons = True
             self.searchUpdates = True
 
     def load(self, path):

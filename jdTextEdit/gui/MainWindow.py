@@ -36,13 +36,13 @@ class MainWindow(QMainWindow):
                 showMessageBox("Error","Could not restore session. If jdTextEdit crashes just restart it.")
                 os.remove(os.path.join(self.env.dataDir,"session.json"))
                 shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
-            if len(env.args) == 1:
+            if len(env.args["filename"]) == 1:
                 #self.tabWidget.createTab("",focus=True)
-                self.openFile(os.path.abspath(env.args[0]))
+                self.openFile(os.path.abspath(env.args["filename"][0]))
         else:
             self.tabWidget.createTab(env.translate("mainWindow.newTabTitle"))
-            if len(env.args) == 1:
-                self.openFile(os.path.abspath(env.args[0]))
+            if len(env.args["filename"]) == 1:
+                self.openFile(os.path.abspath(env.args["filename"][0]))
         self.toolbar = self.addToolBar("toolbar")
         self.setCentralWidget(self.tabWidget)
         if "MainWindow" in env.windowState:
@@ -81,7 +81,9 @@ class MainWindow(QMainWindow):
         self.cursorPosLabel = QLabel(self.env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1))
         self.lexerLabel = QLabel()
         self.encodingLabel = QLabel()
+        self.eolLabel = QLabel()
         self.statusBar().addWidget(self.pathLabel)
+        self.statusBar().addPermanentWidget(self.eolLabel)
         self.statusBar().addPermanentWidget(self.encodingLabel)
         self.statusBar().addPermanentWidget(self.lexerLabel)
         self.statusBar().addPermanentWidget(self.cursorPosLabel)
@@ -456,6 +458,11 @@ class MainWindow(QMainWindow):
         showDayTip.triggered.connect(lambda: self.env.dayTipWindow.openWindow())
         showDayTip.setData(["showDayTip"])
         self.aboutMenu.addAction(showDayTip)
+
+        reportBugAction = QAction(self.env.translate("mainWindow.menu.about.reportBug"),self)
+        reportBugAction.triggered.connect(lambda: webbrowser.open("https://gitlab.com/JakobDev/jdTextEdit/issues/new"))
+        reportBugAction.setData(["reportBug"])
+        self.aboutMenu.addAction(reportBugAction)
 
         self.aboutMenu.addSeparator()
 

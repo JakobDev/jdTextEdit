@@ -36,6 +36,8 @@ class EditCommandsWindow(QWidget):
         mainLayout.addWidget(QLabel("%filename% - " + env.translate("executeCommand.label.filename")))
         mainLayout.addWidget(QLabel("%selection% - " + env.translate("executeCommand.label.selection")))
         mainLayout.addWidget(self.commandsTable)
+        if os.getenv("SNAP"):
+            mainLayout.addWidget(QLabel(env.translate("executeCommand.label.snap")))
         mainLayout.addLayout(buttonLayout)
 
         self.setLayout(mainLayout)
