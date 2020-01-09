@@ -28,10 +28,10 @@ snapcraft_deploy:
         - apt install -y snapcraft
         - snapcraft
         - snapcraft login --with $SNAPCRAFT_LOGIN_DATA
-        - snapcraft push --release=stable jdtextedit_$CI_COMMIT_TAG_amd64.snap
+        - snapcraft push --release=stable jdtextedit_5.3_amd64.snap
     artifacts:
         paths:
-            - jdtextedit_$CI_COMMIT_TAG_amd64.snap
+            - jdtextedit_5.3_amd64.snap
         expire_in: 1 week
     only:
         - tags
