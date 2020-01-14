@@ -6,13 +6,14 @@ from jdTextEdit.Settings import Settings
 from jdTextEdit.LexerList import getLexerList
 from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox
 import argparse
+import shutil
 import json
 import sys
 import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "5.3"
+        self.version = "5.4"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = argparse.ArgumentParser()
@@ -26,7 +27,10 @@ class Enviroment():
 
         if not os.path.isdir(self.dataDir):
             try:
-                os.mkdir(self.dataDir)
+                if os.path.isdir(os.path.join(self.programDir,"default_data")):
+                    shutil.copytree(os.path.join(self.programDir,"default_data"), self.dataDir)
+                else:
+                    os.mkdir(self.dataDir)
             except:
                 showMessageBox("Unable to create data folder","jdTextEdit is unable to create his data folder. Maybe you've installed it in a system directory and try to run it in portable mode")
                 sys.exit(2)

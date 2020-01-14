@@ -9,4 +9,4 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     w = MyWindow()
     w.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

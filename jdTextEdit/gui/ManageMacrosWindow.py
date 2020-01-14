@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QPushButton, QKeySequenceEdit, QHBoxLayout, QVBoxLayout, QGridLayout
-from jdTextEdit.Functions import restoreWindowState
+from jdTextEdit.Functions import restoreWindowState, showMessageBox
 import json
 import os
 
@@ -65,6 +65,9 @@ class ManageMacrosWindow(QWidget):
         self.close()
 
     def openWindow(self):
+        if len(self.env.macroList) == 0:
+            showMessageBox(self.env.translate("manageMacrosWindow.noMacros.title"),self.env.translate("manageMacrosWindow.noMacros.text"))
+            return
         while (self.macroTable.rowCount() > 0):
             self.macroTable.removeRow(0)
         for count, i in enumerate(self.env.macroList):

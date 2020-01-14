@@ -48,15 +48,15 @@ def executeCommand(command,editWidget,terminal):
     command = command.replace("%selection%",editWidget.selectedText())
     if terminal:
         if platform.system() == 'Windows':
-            subprocess.call(["cmd.exe","/C",command])
+            subprocess.Popen(["cmd.exe","/C",command])
             pass
         elif platform.system() == 'Darwin':
             #subprocess.call(('open', filepath))
             pass
         elif os.getenv("SNAP"):
-            subprocess.call([os.path.join(os.getenv("SNAP"),"usr","bin","xterm"),"-e",command])
+            subprocess.Popen([os.path.join(os.getenv("SNAP"),"usr","bin","xterm"),"-e",command])
         else:
-            subprocess.call(["x-terminal-emulator","-e",command])
+            subprocess.Popen(["x-terminal-emulator","-e",command])
     else:
         os.popen(command)
 

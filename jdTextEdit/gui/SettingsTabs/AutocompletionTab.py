@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QCheckBox, QSpinBox, QLabel, QVBoxLayout, QGridLayout
+from PyQt5.QtWidgets import QWidget, QCheckBox, QSpinBox, QLabel, QVBoxLayout, QHBoxLayout
 
 class AutocompletionTab(QWidget):
     def __init__(self, env):
@@ -10,9 +10,9 @@ class AutocompletionTab(QWidget):
         self.replaceWord = QCheckBox(env.translate("settingsWindow.autocompletion.checkbox.replaceWord"))
         self.thresholdSpinBox = QSpinBox()
 
-        gridLayout = QGridLayout()
-        gridLayout.addWidget(QLabel(env.translate("settingsWindow.autocompletion.label.threshold")),0,0)
-        gridLayout.addWidget(self.thresholdSpinBox,0,1)
+        thresholdLayout = QHBoxLayout()
+        thresholdLayout.addWidget(QLabel(env.translate("settingsWindow.autocompletion.label.threshold")))
+        thresholdLayout.addWidget(self.thresholdSpinBox)
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(self.enableAutocompletionCheckBox)
@@ -20,7 +20,7 @@ class AutocompletionTab(QWidget):
         mainLayout.addWidget(self.useAPI)
         mainLayout.addWidget(self.caseSensitive)
         mainLayout.addWidget(self.replaceWord)
-        mainLayout.addLayout(gridLayout)
+        mainLayout.addLayout(thresholdLayout)
         mainLayout.addStretch(1)
 
         self.setLayout(mainLayout)

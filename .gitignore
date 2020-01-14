@@ -7,3 +7,6 @@ jdTextEdit.egg-info/
 
 #portable mode
 jdTextEdit/data
+
+#Default data
+jdTextEdit/default_data

@@ -2,7 +2,7 @@
 from setuptools import find_packages, setup
 
 setup(name='jdTextEdit',
-    version='5.3',
+    version='5.4',
     description=' A powerful texteditor with a lot of features',
     long_description=open("README.md").read(),
     long_description_content_type='text/markdown',
@@ -29,7 +29,7 @@ setup(name='jdTextEdit',
         'Intended Audience :: Developers',
         'Intended Audience :: End Users/Desktop',
         'Environment :: Other Environment',
-		'Environment :: X11 Applications :: Qt',
+        'Environment :: X11 Applications :: Qt',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Natural Language :: English',
         'Natural Language :: German',

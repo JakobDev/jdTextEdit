@@ -80,6 +80,9 @@ class CodeEdit(QsciScintilla):
         if not self.isPreview:
             self.lexerName = str(lexer.language())
             self.updateStatusBar()
+            if not hasattr(self.env,"mainWindow"):
+                return
+            self.env.mainWindow.updateSelectedLanguage()
  
     def removeSyntaxHighlighter(self):
         self.setLexer(None)
@@ -217,6 +220,9 @@ class CodeEdit(QsciScintilla):
             self.env.mainWindow.redoMenubarItem.setEnabled(False)
         self.editSelectionChanged()
         self.updateEncodingMenu()
+        if not hasattr(self.env,"mainWindow"):
+            return
+        self.env.mainWindow.updateSelectedLanguage()
 
     def contextMenuEvent(self, event):
         menu = QMenu("jdTextEdit",self)

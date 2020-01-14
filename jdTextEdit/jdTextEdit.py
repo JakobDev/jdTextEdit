@@ -61,4 +61,4 @@ def main():
     app.setWindowIcon(QIcon(os.path.join(env.programDir,"Logo.png")))
 
     env.mainWindow.setup()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

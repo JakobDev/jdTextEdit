@@ -1,20 +1,21 @@
-from PyQt5.QtWidgets import QMainWindow, QMenu, QAction, QApplication, QLabel, QFileDialog, QStyleFactory, QStyle, QColorDialog, QInputDialog
-from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
-from PyQt5.QtGui import QIcon, QTextDocument
-from PyQt5.QtCore import Qt
-from jdTextEdit.gui.DockWidget import DockWidget
-from jdTextEdit.gui.EditTabWidget import EditTabWidget
-from string import ascii_uppercase
+from PyQt5.QtWidgets import QMainWindow, QMenu, QAction, QApplication, QLabel, QFileDialog, QStyleFactory, QStyle, QDialog, QColorDialog, QInputDialog
 from PyQt5.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro
+from PyQt5.QtGui import QIcon, QTextDocument
+from PyQt5.QtPrintSupport import QPrintDialog
+from PyQt5.Qsci import QsciPrinter
+from PyQt5.QtCore import Qt
 from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState,restoreWindowState
+from jdTextEdit.gui.EditTabWidget import EditTabWidget
 from jdTextEdit.EncodingList import getEncodingList
+from jdTextEdit.gui.DockWidget import DockWidget
 from jdTextEdit.Updater import searchForUpdates
-import traceback
+from string import ascii_uppercase
 import webbrowser
+import traceback
 import requests
 import tempfile
-import shutil
 import chardet
+import shutil
 import json
 import sys
 import os
@@ -49,7 +50,7 @@ class MainWindow(QMainWindow):
             restoreWindowState(self,env.windowState,"MainWindow")
         else:
             self.setGeometry(0, 0, 800, 600)
- 
+
     def setup(self):
         #This is called, after all at least
         self.getMenuActions(self.menubar)
@@ -94,7 +95,7 @@ class MainWindow(QMainWindow):
         self.recentFilesMenu.setIcon(getThemeIcon(self.env,"document-open-recent"))
 
         self.filemenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.file"))
-        
+
         new = QAction("&" + self.env.translate("mainWindow.menu.file.new"),self)
         new.setIcon(getThemeIcon(self.env,"document-new"))
         new.triggered.connect(self.newMenuBarClicked)
@@ -105,7 +106,7 @@ class MainWindow(QMainWindow):
         self.templateMenu.setIcon(getThemeIcon(self.env,"document-new"))
         self.updateTemplateMenu()
         self.filemenu.addMenu(self.templateMenu)
-        
+
         self.filemenu.addSeparator()
 
         openmenu = QAction("&" + self.env.translate("mainWindow.menu.file.open"),self)
@@ -113,7 +114,7 @@ class MainWindow(QMainWindow):
         openmenu.triggered.connect(self.openMenuBarClicked)
         openmenu.setData(["openFile"])
         self.filemenu.addAction(openmenu)
-        
+
         openDirectoryMenu = QAction(self.env.translate("mainWindow.menu.file.openDirectory"),self)
         openDirectoryMenu.setIcon(getThemeIcon(self.env,"folder-open"))
         openDirectoryMenu.triggered.connect(self.openDirectoryMenuBarClicked)
@@ -149,7 +150,7 @@ class MainWindow(QMainWindow):
         closeTab.triggered.connect(lambda: self.tabWidget.tabCloseClicked(self.tabWidget.currentIndex()))
         closeTab.setData(["closeTab"])
         self.filemenu.addAction(closeTab)
-        
+
         closeAllTabsAction = QAction(self.env.translate("mainWindow.menu.file.closeAllTabs"),self)
         closeAllTabsAction.setIcon(QIcon(os.path.join(self.env.programDir,"icons","document-close-all.png")))
         closeAllTabsAction.triggered.connect(self.closeAllTabs)
@@ -167,7 +168,7 @@ class MainWindow(QMainWindow):
         exit.triggered.connect(self.close)
         exit.setData(["exit"])
         self.filemenu.addAction(exit)
-        
+
         self.editMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.edit"))
 
         self.undoMenubarItem = QAction("&" + self.env.translate("mainWindow.menu.edit.undo"),self)
@@ -222,9 +223,9 @@ class MainWindow(QMainWindow):
         self.editMenu.addAction(selectAll)
 
         self.editMenu.addSeparator()
- 
+
         self.clipboardCopyMenu = QMenu(self.env.translate("mainWindow.menu.edit.copyClipboard"),self)
-        
+
         copyPath = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyPath"),self)
         copyPath.triggered.connect(lambda: self.env.clipboard.setText(self.getTextEditWidget().getFilePath()))
         copyPath.setData(["copyPath"])
@@ -267,7 +268,7 @@ class MainWindow(QMainWindow):
         self.editMenu.addMenu(self.convertCase)
 
         self.eolModeMenu = QMenu(self.env.translate("mainWindow.menu.edit.eol"),self)
-    
+
         self.eolModeWindows = QAction("Windows",self)
         self.eolModeWindows.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolWindows))
         self.eolModeWindows.setData(["eolModeWindows"])
@@ -298,7 +299,7 @@ class MainWindow(QMainWindow):
         self.viewMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.view"))
 
         self.zoomMenu = QMenu(self.env.translate("mainWindow.menu.view.zoom"),self)
-        
+
         zoomIn = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomIn"),self)
         zoomIn.triggered.connect(lambda: self.getTextEditWidget().zoomIn())
         zoomIn.setData(["zoomIn"])
@@ -323,7 +324,7 @@ class MainWindow(QMainWindow):
         fullscreen.setData(["fullscreen"])
         fullscreen.setCheckable(True)
         self.viewMenu.addAction(fullscreen)
-        
+
         self.toggleSidebarAction = QAction(self.env.translate("mainWindow.menu.view.sidebar"),self)
         self.toggleSidebarAction.triggered.connect(self.toggleSidebarClicked)
         self.toggleSidebarAction.setData(["toggleSidebar"])
@@ -349,13 +350,13 @@ class MainWindow(QMainWindow):
         search.triggered.connect(lambda: self.env.searchWindow.openWindow(self.getTextEditWidget()))
         search.setData(["find"])
         self.searchmenu.addAction(search)
-        
+
         searchAndReplace = QAction("&" + self.env.translate("mainWindow.menu.search.searchAndReplace"),self)
         searchAndReplace.setIcon(getThemeIcon(self.env,"edit-find-replace"))
         searchAndReplace.triggered.connect(self.searchAndReplaceMenuBarClicked)
         searchAndReplace.setData(["findReplaceWindow"])
         self.searchmenu.addAction(searchAndReplace)
-        
+
         gotoLine = QAction(self.env.translate("mainWindow.menu.search.gotoLine"),self)
         gotoLine.triggered.connect(lambda: self.env.gotoLineWindow.openWindow(self.getTextEditWidget()))
         gotoLine.setData(["gotoLine"])
@@ -377,6 +378,23 @@ class MainWindow(QMainWindow):
         insertDateTime.triggered.connect(lambda: self.env.dateTimeWindow.openWindow(self.getTextEditWidget()))
         insertDateTime.setData(["insertDateTime"])
         self.toolsMenu.addAction(insertDateTime)
+
+        self.toolsMenu.addSeparator()
+
+        stripSpacesAction = QAction(self.env.translate("mainWindow.menu.tools.stripSpaces"),self)
+        stripSpacesAction.triggered.connect(self.stripSpaces)
+        stripSpacesAction.setData(["stripSpaces"])
+        self.toolsMenu.addAction(stripSpacesAction)
+
+        replaceTabSpacesAction = QAction(self.env.translate("mainWindow.menu.tools.replaceTabSpaces"),self)
+        replaceTabSpacesAction.triggered.connect(self.replaceTabSpaces)
+        replaceTabSpacesAction.setData(["replaceTabSpaces"])
+        self.toolsMenu.addAction(replaceTabSpacesAction)
+
+        replaceSpacesTabAction = QAction(self.env.translate("mainWindow.menu.tools.replaceSpacesTab"),self)
+        replaceSpacesTabAction.triggered.connect(self.replaceSpacesTab)
+        replaceSpacesTabAction.setData(["replaceSpacesTab"])
+        self.toolsMenu.addAction(replaceSpacesTabAction)
 
         self.languageMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.language"))
 
@@ -408,7 +426,7 @@ class MainWindow(QMainWindow):
         self.bookmarkMenu.addAction(clearBookmarksAction)
 
         self.macroMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.macro"))
-        
+
         self.recordMacroAction = QAction(self.env.translate("mainWindow.menu.macro.startRecording"),self)
         self.recordMacroAction.triggered.connect(self.startMacroRecording)
         self.recordMacroAction.setData(["recordMacro"])
@@ -435,8 +453,17 @@ class MainWindow(QMainWindow):
         self.updateMacroMenu()
 
         self.executeMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.execute"))
+
+        self.executeCommandAction = QAction(self.env.translate("mainWindow.menu.execute.executeCommand"),self)
+        self.executeCommandAction.triggered.connect(lambda: self.env.executeCommandWindow.openWindow(self.getTextEditWidget()))
+        self.executeCommandAction.setData(["executeCommand"])
+
+        self.editCommandsAction = QAction(self.env.translate("mainWindow.menu.execute.editCommands"),self)
+        self.editCommandsAction.triggered.connect(lambda: self.env.editCommandsWindow.openWindow())
+        self.editCommandsAction.setData(["editCommands"])
+
         self.updateExecuteMenu()
-        
+
         self.aboutMenu = self.menubar.addMenu("&?")
 
         openDataFolder = QAction(self.env.translate("mainWindow.menu.about.openDataDir"),self)
@@ -470,7 +497,7 @@ class MainWindow(QMainWindow):
         about.triggered.connect(lambda: self.env.aboutWindow.show())
         about.setData(["about"])
         self.aboutMenu.addAction(about)
-    
+
         aboutQt = QAction(self.env.translate("mainWindow.menu.about.aboutQt"),self)
         aboutQt.triggered.connect(QApplication.instance().aboutQt)
         aboutQt.setData(["aboutQt"])
@@ -490,7 +517,7 @@ class MainWindow(QMainWindow):
             else:
                 if i in self.env.menuActions:
                     self.toolbar.addAction(self.env.menuActions[i])
-                
+
     def getMenuActions(self, menu):
         for action in menu.actions():
             try:
@@ -518,7 +545,7 @@ class MainWindow(QMainWindow):
 
     def updateTemplateMenu(self):
         self.templateMenu.clear()
-        
+
         if len(self.env.templates) == 0:
             empty = QAction(self.env.translate("mainWindow.menu.newTemplate.empty"),self)
             empty.setEnabled(False)
@@ -534,10 +561,10 @@ class MainWindow(QMainWindow):
         action = self.sender()
         if action:
             self.openFile(action.data()[1],template=True)
-            
+
     def updateRecentFilesMenu(self):
         self.recentFilesMenu.clear()
-        
+
         if len(self.env.recentFiles) == 0:
             empty = QAction(self.env.translate("mainWindow.menu.openRecent.empty"),self)
             empty.setEnabled(False)
@@ -558,7 +585,7 @@ class MainWindow(QMainWindow):
             openAll.triggered.connect(self.openAllRecentFiles)
             self.recentFilesMenu.addAction(openAll)
         self.env.saveRecentFiles()
-    
+
     def openRecentFile(self):
         action = self.sender()
         if action:
@@ -573,6 +600,7 @@ class MainWindow(QMainWindow):
             self.openFile(i)
 
     def updateLanguageMenu(self):
+        self.env.languageActionList = []
         self.languageMenu.clear()
         alphabet = {}
         for i in self.env.lexerList:
@@ -586,13 +614,29 @@ class MainWindow(QMainWindow):
                 for i in alphabet[c]:
                     languageAction = QAction(i["name"],self)
                     languageAction.setData(i)
+                    languageAction.setCheckable(True)
                     languageAction.triggered.connect(self.languageActionClicked)
                     letterMenu.addAction(languageAction)
+                    self.env.languageActionList.append(languageAction)
                 self.languageMenu.addMenu(letterMenu)
         self.languageMenu.addSeparator()
         noneAction = QAction(self.env.translate("mainWindow.menu.language.plainText"),self)
         noneAction.triggered.connect(self.languagePlainTextClicked)
+        noneAction.setCheckable(True)
+        self.env.languagePlainTextAction = noneAction
         self.languageMenu.addAction(noneAction)
+
+    def updateSelectedLanguage(self):
+        editWidget = self.getTextEditWidget()
+        for i in self.env.languageActionList:
+            if i.data()["name"] == editWidget.lexerName:
+                i.setChecked(True)
+            else:
+                i.setChecked(False)
+        if editWidget.lexerName == self.env.translate("mainWindow.menu.language.plainText"):
+            self.env.languagePlainTextAction.setChecked(True)
+        else:
+            self.env.languagePlainTextAction.setChecked(False)
 
     def updateEncodingMenu(self):
         self.encodingMenu.clear()
@@ -620,7 +664,7 @@ class MainWindow(QMainWindow):
     def changeEncoding(self):
         action = self.sender()
         if action:
-            self.getTextEditWidget().setUsedEncoding(action.text())        
+            self.getTextEditWidget().setUsedEncoding(action.text())
 
     def updateMacroMenu(self):
         self.macroMenu.clear()
@@ -648,26 +692,22 @@ class MainWindow(QMainWindow):
 
     def updateExecuteMenu(self):
         self.executeMenu.clear()
-        
-        executeCommandMenu = QAction(self.env.translate("mainWindow.menu.execute.executeCommand"),self)
-        executeCommandMenu.triggered.connect(lambda: self.env.executeCommandWindow.openWindow(self.getTextEditWidget()))
-        executeCommandMenu.setData(["executeCommand"])
-        self.executeMenu.addAction(executeCommandMenu)
+
+        self.executeMenu.addAction(self.executeCommandAction)
 
         if len(self.env.commands) != 0:
             self.executeMenu.addSeparator()
             for i in self.env.commands:
                 command = QAction(i[0],self)
                 command.setData([False,i[1],i[2]])
+                if len(i) == 4:
+                    command.setShortcut(i[3])
                 command.triggered.connect(lambda sender: executeCommand(self.sender().data()[1],self.getTextEditWidget(),self.sender().data()[2]))
                 self.executeMenu.addAction(command)
 
         self.executeMenu.addSeparator()
 
-        editCommands = QAction(self.env.translate("mainWindow.menu.execute.editCommands"),self)
-        editCommands.triggered.connect(lambda: self.env.editCommandsWindow.openWindow())
-        editCommands.setData(["editCommands"])
-        self.executeMenu.addAction(editCommands)
+        self.executeMenu.addAction(self.editCommandsAction)
 
     def openFile(self, path, template=None):
         for i in range(self.tabWidget.count()):
@@ -716,7 +756,7 @@ class MainWindow(QMainWindow):
                 elif firstLine.endswith("\n"):
                     self.getTextEditWidget().setEolMode(QsciScintilla.EolUnix)
                 elif firstLine.endswith("\r"):
-                    self.getTextEditWidget().setEolMode(QsciScintilla.EolMac)            
+                    self.getTextEditWidget().setEolMode(QsciScintilla.EolMac)
         self.getTextEditWidget().updateEolMenu()
         self.getTextEditWidget().setUsedEncoding(encoding)
         if not template:
@@ -751,7 +791,7 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(e)
             showMessageBox(self.env.translate("unknownError.title"),self.env.translate("unknownError.text"))
-            return            
+            return
         filehandle.write(text)
         filehandle.close()
         editWidget.setModified(False)
@@ -765,7 +805,7 @@ class MainWindow(QMainWindow):
 
     def newMenuBarClicked(self):
         self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
-            
+
     def openMenuBarClicked(self):
         path = QFileDialog.getOpenFileName(self,self.env.translate("mainWindow.openFileDialog.title"))
         if path[0]:
@@ -793,7 +833,7 @@ class MainWindow(QMainWindow):
 
     def saveAsMenuBarClicked(self,tabid):
         path = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"))
-        
+
         if path[0]:
             self.getTextEditWidget().setFilePath(path[0])
             self.saveFile(tabid)
@@ -811,15 +851,12 @@ class MainWindow(QMainWindow):
         self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
 
     def printMenuBarClicked(self):
-        printer = QPrinter()  
-        dialog  = QPrintDialog( printer);  
-        dialog.setWindowTitle(self.env.translate("mainWindow.printDialog.title"));  
-        if dialog.exec() == QDialog.Accepted:  
-            #self.getTextEditWidget().document().print(printer);  
-            #printer.printRange(self)
-            document = QTextDocument()
-            document.setPlainText(self.getTextEditWidget().text())
-            document.print(printer)
+        printer = QsciPrinter()
+        dialog  = QPrintDialog( printer);
+        dialog.setWindowTitle(self.env.translate("mainWindow.printDialog.title"));
+        if dialog.exec() == QDialog.Accepted:
+            editWidget = self.getTextEditWidget()
+            printer.printRange(editWidget)
 
     def fullscreenMenuBarClicked(self):
         if self.isFullScreen():
@@ -834,6 +871,57 @@ class MainWindow(QMainWindow):
         col = QColorDialog.getColor()
         if col.isValid():
             self.getTextEditWidget().insertText(col.name())
+
+    def stripSpaces(self):
+        editWidget = self.getTextEditWidget()
+        eolChar = editWidget.getEolChar()
+        if editWidget.selectedText() == "":
+            text = editWidget.text()
+        else:
+            text = editWidget.selectedText()
+        new_text = ""
+        for i in text.splitlines():
+            new_text = new_text + i.rstrip() + eolChar
+        if not text.endswith(eolChar):
+            new_text = new_text[:-1]
+        line = editWidget.cursorPosLine
+        if editWidget.selectedText() == "":
+            editWidget.setText(new_text)
+        else:
+            editWidget.replaceSelectedText(new_text)
+        editWidget.setCursorPosition(line,0)
+
+    def replaceTabSpaces(self):
+        editWidget = self.getTextEditWidget()
+        spaceString = ""
+        for i in range(self.env.settings.editTabWidth):
+            spaceString = spaceString + " "
+        line = editWidget.cursorPosLine
+        if editWidget.selectedText() == "":
+            text = editWidget.text()
+            text = text.replace("\t",spaceString)
+            editWidget.setText(text)
+        else:
+            text = editWidget.selectedText()
+            text = text.replace("\t",spaceString)
+            editWidget.replaceSelectedText(text)
+        editWidget.setCursorPosition(line,0)
+
+    def replaceSpacesTab(self):
+        editWidget = self.getTextEditWidget()
+        spaceString = ""
+        for i in range(self.env.settings.editTabWidth):
+            spaceString = spaceString + " "
+        line = editWidget.cursorPosLine
+        if editWidget.selectedText() == "":
+            text = editWidget.text()
+            text = text.replace(spaceString,"\t")
+            editWidget.setText(text)
+        else:
+            text = editWidget.selectedText()
+            text = text.replace(spaceString,"\t")
+            editWidget.replaceSelectedText(text)
+        editWidget.setCursorPosition(line,0)
 
     def toggleSidebarClicked(self):
         if self.env.sidepane.enabled:
@@ -903,7 +991,7 @@ class MainWindow(QMainWindow):
         self.updateMacroMenu()
         with open(os.path.join(self.env.dataDir,"macros.json"), 'w', encoding='utf-8') as f:
             json.dump(self.env.macroList, f, ensure_ascii=False, indent=4)
-             
+
     def updateSettings(self, settings):
         self.tabWidget.tabBar().setAutoHide(settings.hideTabBar)
         self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
@@ -951,7 +1039,7 @@ class MainWindow(QMainWindow):
             editWidget.setUsedEncoding(i["encoding"])
             for l in self.env.lexerList:
                 s = l["lexer"]()
-                if s.language() == i["language"]:                    
+                if s.language() == i["language"]:
                     editWidget.setSyntaxHighlighter(s,lexerList=l)
             editWidget.bookmarkList = i["bookmarks"]
             for line in editWidget.bookmarkList:
@@ -963,6 +1051,7 @@ class MainWindow(QMainWindow):
             self.currentMacro.load(data["currentMacro"])
             self.playMacroAction.setEnabled(True)
             self.saveMacroAction.setEnabled(True)
+        self.updateSelectedLanguage()
         os.remove(os.path.join(self.env.dataDir,"session.json"))
         shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
 
@@ -1015,4 +1104,4 @@ class MainWindow(QMainWindow):
             event.ignore()
 
     def contextMenuEvent(self, event):
-        pass              
+        pass
