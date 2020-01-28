@@ -2,7 +2,7 @@
 from setuptools import find_packages, setup
 
 setup(name='jdTextEdit',
-    version='5.4',
+    version='6.0',
     description=' A powerful texteditor with a lot of features',
     long_description=open("README.md").read(),
     long_description_content_type='text/markdown',
@@ -10,6 +10,7 @@ setup(name='jdTextEdit',
     author_email='jakobdev@gmx.de',
     url='https://gitlab.com/JakobDev/jdTextEdit',
     download_url='https://gitlab.com/JakobDev/jdTextEdit/-/releases',
+    python_requires='>=3.5',
     include_package_data=True,
     install_requires=[
         'PyQt5',
@@ -17,6 +18,8 @@ setup(name='jdTextEdit',
         'chardet',
         'requests',
         'jdTranslationHelper',
+        'charset_normalizer',
+        'cchardet'
     ],
     packages=find_packages(),
     entry_points={

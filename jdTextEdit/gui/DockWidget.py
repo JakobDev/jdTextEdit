@@ -10,7 +10,7 @@ class DockWidget(QDockWidget):
 
     def closeEvent(self,event):
         self.enabled = False
-        self.env.mainWindow.toggleSidepaneAction.setChecked(False)
+        self.env.mainWindow.toggleSidebarAction.setChecked(False)
         event.accept()
     
 class DockWidgetContent(QWidget):

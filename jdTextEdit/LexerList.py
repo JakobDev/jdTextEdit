@@ -12,7 +12,7 @@ def getLexerList():
     lexerList.append({"lexer":QsciLexerIDL,"name":"IDL","extension":[".idl"],"xmlapi":""})
     lexerList.append({"lexer":QsciLexerJava,"name":"Java","extension":[".java"],"xmlapi":"java"})
     lexerList.append({"lexer":QsciLexerJavaScript,"name":"JavaScript","extension":[".js",".jsm",".jsx",".ts",".tsx"],"xmlapi":"javascript"})
-    lexerList.append({"lexer":QsciLexerCSS,"name":"CSS","extension":[".css"],"xmlapi":"css"})
+    lexerList.append({"lexer":QsciLexerCSS,"name":"CSS","extension":[".css",".qss"],"xmlapi":"css"})
     lexerList.append({"lexer":QsciLexerD,"name":"D","extension":[".d"],"xmlapi":""})
     lexerList.append({"lexer":QsciLexerDiff,"name":"Diff","extension":[".diff",".patch"],"xmlapi":""})
     lexerList.append({"lexer":QsciLexerFortran,"name":"Fortran","extension":[".f90",".f95",".f03"],"xmlapi":""})

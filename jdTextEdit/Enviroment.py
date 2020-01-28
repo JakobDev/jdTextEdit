@@ -5,6 +5,9 @@ from PyQt5.QtGui import QIcon
 from jdTextEdit.Settings import Settings
 from jdTextEdit.LexerList import getLexerList
 from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox
+import charset_normalizer
+import cchardet
+import chardet
 import argparse
 import shutil
 import json
@@ -13,7 +16,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "5.4"
+        self.version = "6.0"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = argparse.ArgumentParser()
@@ -68,17 +71,21 @@ class Enviroment():
                     self.macroList = json.load(f)
             except:
                 print("Can't read macros.json")
-        #self.styles = {}
-        #styleList = os.listdir(os.path.join(self.programDir,"styles"))
-        #for i in styleList:
-        #    with open(os.path.join(self.programDir,"styles",i)) as f:
-        #        self.styles[i[:-5]] = json.load(f)
-    
+
+        #self.themes = {}
+        #self.loadThemeDirectory(os.path.join(self.programDir,"themes"))
+        #user_themes = os.path.join(self.dataDir,"themes")
+        #if os.path.isdir(user_themes):
+        #    self.loadThemeDirectory(user_themes)
+        #else:
+        #    os.mkdir(user_themes)
+        #self.themes["default"] = {"meta":{"name":self.translate("settingsWindow.style.theme.default"),"id":"default"},"colors":{}}
+
         self.lexerList = getLexerList()
         self.templates = []
         self.templates = getTemplates(os.path.join(self.programDir,"templates"),self.templates)
         self.templates = getTemplates(os.path.join(self.dataDir,"templates"),self.templates)
- 
+
         self.commands = []
         if os.path.isfile(os.path.join(self.dataDir,"commands.json")):
             try:
@@ -86,11 +93,17 @@ class Enviroment():
                     self.commands = json.load(f)
             except:
                 print("Can't read commands.json")
-       
+
         self.dockWidgtes = []
         self.menuActions = {}
         self.encodingAction = []
         self.plugins = {}
+
+        self.encodingDetectFunctions = {
+            "chardet": chardet.detect,
+            "charset_normalizer": charset_normalizer.detect,
+            "cChardet": cchardet.detect
+        }
 
         self.documentSavedIcon = QIcon(os.path.join(self.programDir,"icons","document-saved.png"))
         self.documentUnsavedIcon = QIcon(os.path.join(self.programDir,"icons","document-unsaved.png"))
@@ -100,6 +113,13 @@ class Enviroment():
     def translate(self, string):
         #Just a litle shortcut
         return self.translations.translate(string)
+
+    def loadThemeDirectory(self,path):
+        themeList = os.listdir(path)
+        for i in themeList:
+            with open(os.path.join(path,i)) as f:
+                singleTheme = json.load(f)
+                self.themes[singleTheme["meta"]["id"]] = singleTheme
 
     def saveRecentFiles(self):
         with open(os.path.join(self.dataDir,"recentfiles.json"), 'w', encoding='utf-8') as f:

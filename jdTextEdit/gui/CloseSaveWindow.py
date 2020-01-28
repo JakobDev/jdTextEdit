@@ -34,7 +34,7 @@ class CloseSaveWindow(QWidget):
 
     def saveFile(self):
         if self.tabWidget.widget(self.tabid).getFilePath() == "":
-            pickedPath = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"))
+            pickedPath = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"),None,self.env.fileNameFilters)
             if pickedPath[0]:
                 path = pickedPath[0]
             else:

@@ -5,6 +5,8 @@ import subprocess
 import importlib
 import traceback
 import platform
+import tempfile
+import getpass
 import sys
 import os
 
@@ -107,3 +109,11 @@ def saveWindowState(window,windict,winid):
 def restoreWindowState(window,windict,winid):
     if winid in windict:
         window.setGeometry(windict[winid]["x"],windict[winid]["y"],windict[winid]["width"],windict[winid]["height"])
+
+def getTempOpenFilePath():
+    return os.path.join(tempfile.gettempdir(),"jdTextEdit_" + getpass.getuser() + ".tmp")
+
+def selectComboBoxItem(comboBox, item):
+    for i in range(comboBox.count()):
+        if comboBox.itemText(i) == item:
+            comboBox.setCurrentIndex(i)

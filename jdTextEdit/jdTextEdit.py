@@ -15,7 +15,7 @@ from jdTextEdit.gui.ManageMacrosWindow import ManageMacrosWindow
 from jdTextEdit.gui.EditCommandsWindow import EditCommandsWindow
 from jdTextEdit.gui.DayTipWindow import DayTipWindow
 from jdTextEdit.gui.AboutWindow import AboutWindow
-from jdTextEdit.Functions import loadPlugins
+from jdTextEdit.Functions import loadPlugins, getTempOpenFilePath
 import time
 import sys
 import os
@@ -27,6 +27,19 @@ from jdTextEdit.gui.SidebarWidgets.ClipboardWidget import ClipboardWidget
 from jdTextEdit.gui.SidebarWidgets.CharacterMapWidget import CharacterMapWidget
 
 def main():
+    temp_open_path = getTempOpenFilePath()
+    if os.path.isfile(temp_open_path):
+        with open(temp_open_path,"w") as f:
+            if len(sys.argv) == 2:
+                f.write("openFile" + "\n" + os.path.abspath(sys.argv[1]))
+            else:
+                f.write("focus")
+        time.sleep(0.5)
+        if os.path.getsize(temp_open_path) == 0:
+            sys.exit(0)
+        else:
+            os.remove(temp_open_path)
+
     app = QApplication(sys.argv)
     env = Enviroment()
     env.clipboard = QApplication.clipboard()

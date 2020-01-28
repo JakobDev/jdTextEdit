@@ -3,8 +3,8 @@ from PyQt5.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro
 from PyQt5.QtGui import QIcon, QTextDocument
 from PyQt5.QtPrintSupport import QPrintDialog
 from PyQt5.Qsci import QsciPrinter
-from PyQt5.QtCore import Qt
-from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState,restoreWindowState
+from PyQt5.QtCore import Qt, QFileSystemWatcher
+from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState,restoreWindowState, getTempOpenFilePath
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
 from jdTextEdit.EncodingList import getEncodingList
 from jdTextEdit.gui.DockWidget import DockWidget
@@ -16,6 +16,7 @@ import requests
 import tempfile
 import chardet
 import shutil
+import atexit
 import json
 import sys
 import os
@@ -70,12 +71,29 @@ class MainWindow(QMainWindow):
         self.updateSettings(self.env.settings)
         if self.env.settings.searchUpdates:
             searchForUpdates(self.env,True)
+        if self.env.settings.useIPC:
+            open(getTempOpenFilePath(),"w").close()
+            self.tempFileOpenWatcher = QFileSystemWatcher()
+            self.tempFileOpenWatcher.addPath(getTempOpenFilePath())
+            self.tempFileOpenWatcher.fileChanged.connect(self.openTempFileSignal)
+            atexit.register(self.removeTempOpenFile)
         self.show()
         if self.env.settings.startupDayTip:
             self.env.dayTipWindow.openWindow()
 
     def getTextEditWidget(self):
         return self.tabWidget.currentWidget()
+
+    def openTempFileSignal(self,path):
+        if os.path.getsize(path) == 0:
+            return
+        with open(path) as f:
+            lines = f.read().splitlines()
+        if lines[0] == "openFile":
+            self.openFile(lines[1])
+        open(path,"w").close()
+        self.tempFileOpenWatcher.addPath(path)
+        QApplication.setActiveWindow(self)
 
     def setupStatusBar(self):
         self.pathLabel = QLabel()
@@ -312,18 +330,55 @@ class MainWindow(QMainWindow):
 
         self.zoomMenu.addSeparator()
 
+        zoom0 = QAction("0%",self)
+        zoom0.triggered.connect(lambda: self.getTextEditWidget().zoomTo(-10))
+        zoom0.setData(["zoom0"])
+        self.zoomMenu.addAction(zoom0)
+
+        zoom50 = QAction("50%",self)
+        zoom50.triggered.connect(lambda: self.getTextEditWidget().zoomTo(-5))
+        zoom50.setData(["zoom50"])
+        self.zoomMenu.addAction(zoom50)
+
         zoom100 = QAction("100%",self)
-        zoom100.triggered.connect(lambda: self.getTextEditWidget().zoomTo(1))
+        zoom100.triggered.connect(lambda: self.getTextEditWidget().zoomTo(0))
         zoom100.setData(["zoom100"])
         self.zoomMenu.addAction(zoom100)
 
+        zoom150 = QAction("150%",self)
+        zoom150.triggered.connect(lambda: self.getTextEditWidget().zoomTo(5))
+        zoom150.setData(["zoom150"])
+        self.zoomMenu.addAction(zoom150)
+
+        zoom200 = QAction("200%",self)
+        zoom200.triggered.connect(lambda: self.getTextEditWidget().zoomTo(10))
+        zoom200.setData(["zoom200"])
+        self.zoomMenu.addAction(zoom200)
+
+        zoom250 = QAction("250%",self)
+        zoom250.triggered.connect(lambda: self.getTextEditWidget().zoomTo(15))
+        zoom250.setData(["zoom250"])
+        self.zoomMenu.addAction(zoom250)
+
+        zoom300 = QAction("300%",self)
+        zoom300.triggered.connect(lambda: self.getTextEditWidget().zoomTo(20))
+        zoom300.setData(["zoom300"])
+        self.zoomMenu.addAction(zoom300)
+
+        self.zoomMenu.addSeparator()
+
+        zoomDefault = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomDefault"),self)
+        zoomDefault.triggered.connect(lambda: self.getTextEditWidget().zoomTo(self.env.settings.defaultZoom))
+        zoomDefault.setData(["zoomDefault"])
+        self.zoomMenu.addAction(zoomDefault)
+
         self.viewMenu.addMenu(self.zoomMenu)
 
-        fullscreen = QAction(self.env.translate("mainWindow.menu.view.fullscreen"),self)
-        fullscreen.triggered.connect(self.fullscreenMenuBarClicked)
-        fullscreen.setData(["fullscreen"])
-        fullscreen.setCheckable(True)
-        self.viewMenu.addAction(fullscreen)
+        self.fullscreenAction = QAction(self.env.translate("mainWindow.menu.view.fullscreen"),self)
+        self.fullscreenAction.triggered.connect(self.fullscreenMenuBarClicked)
+        self.fullscreenAction.setData(["fullscreen"])
+        self.fullscreenAction.setCheckable(True)
+        self.viewMenu.addAction(self.fullscreenAction)
 
         self.toggleSidebarAction = QAction(self.env.translate("mainWindow.menu.view.sidebar"),self)
         self.toggleSidebarAction.triggered.connect(self.toggleSidebarClicked)
@@ -601,6 +656,7 @@ class MainWindow(QMainWindow):
 
     def updateLanguageMenu(self):
         self.env.languageActionList = []
+        self.env.fileNameFilters = self.env.translate("mainWindow.fileNameFilter.allFiles") + " (*);;"
         self.languageMenu.clear()
         alphabet = {}
         for i in self.env.lexerList:
@@ -618,6 +674,13 @@ class MainWindow(QMainWindow):
                     languageAction.triggered.connect(self.languageActionClicked)
                     letterMenu.addAction(languageAction)
                     self.env.languageActionList.append(languageAction)
+                    self.env.fileNameFilters = self.env.fileNameFilters + i["name"]
+                    if len(i["extension"]) != 0:
+                        self.env.fileNameFilters = self.env.fileNameFilters + " ("
+                        for e in i["extension"]:
+                            self.env.fileNameFilters = self.env.fileNameFilters + "*" + e + " "
+                        self.env.fileNameFilters = self.env.fileNameFilters[:-1] + ")"
+                    self.env.fileNameFilters = self.env.fileNameFilters + ";;"
                 self.languageMenu.addMenu(letterMenu)
         self.languageMenu.addSeparator()
         noneAction = QAction(self.env.translate("mainWindow.menu.language.plainText"),self)
@@ -625,6 +688,7 @@ class MainWindow(QMainWindow):
         noneAction.setCheckable(True)
         self.env.languagePlainTextAction = noneAction
         self.languageMenu.addAction(noneAction)
+        self.env.fileNameFilters = self.env.fileNameFilters + self.env.translate("mainWindow.menu.language.plainText") + " (*.txt)"
 
     def updateSelectedLanguage(self):
         editWidget = self.getTextEditWidget()
@@ -648,15 +712,15 @@ class MainWindow(QMainWindow):
         self.encodingMenu.addMenu(utfMenu)
         self.encodingMenu.addMenu(windowsMenu)
         for i in getEncodingList():
-            encodingAction = QAction(i,self)
+            encodingAction = QAction(i[0],self)
             encodingAction.triggered.connect(self.changeEncoding)
             encodingAction.setCheckable(True)
             self.env.encodingActions.append(encodingAction)
-            if i.startswith("ISO"):
+            if i[0].startswith("ISO"):
                 isoMenu.addAction(encodingAction)
-            elif i.startswith("UTF"):
+            elif i[0].startswith("UTF"):
                 utfMenu.addAction(encodingAction)
-            elif i.startswith("windows"):
+            elif i[0].startswith("windows"):
                 windowsMenu.addAction(encodingAction)
             else:
                 self.encodingMenu.addAction(encodingAction)
@@ -727,13 +791,14 @@ class MainWindow(QMainWindow):
             return
         fileBytes = filehandle.read()
         if self.env.settings.detectEncoding:
-            encoding = chardet.detect(fileBytes)["encoding"]
+            encoding = self.env.encodingDetectFunctions[self.env.settings.encodingDetectLib](fileBytes)["encoding"]
             if not encoding:
                 encoding = "UTF-8"
             elif encoding == "ascii":
                 encoding = "UTF-8"
-            elif encoding.startswith("utf"):
-                encoding = encoding.upper()
+            for i in getEncodingList():
+                if encoding in i:
+                    encoding = i[0]
         else:
             encoding = self.env.settings.defaultEncoding
         fileContent = fileBytes.decode(encoding,errors="replace")
@@ -807,7 +872,9 @@ class MainWindow(QMainWindow):
         self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
 
     def openMenuBarClicked(self):
-        path = QFileDialog.getOpenFileName(self,self.env.translate("mainWindow.openFileDialog.title"))
+        #fileDialog = QFileDialog(self)
+        #fileDialog.set
+        path = QFileDialog.getOpenFileName(self,self.env.translate("mainWindow.openFileDialog.title"),None,self.env.fileNameFilters)
         if path[0]:
             self.openFile(path[0])
 
@@ -832,7 +899,7 @@ class MainWindow(QMainWindow):
         self.env.clipboard.setText(lastText)
 
     def saveAsMenuBarClicked(self,tabid):
-        path = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"))
+        path = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"),None,self.env.fileNameFilters)
 
         if path[0]:
             self.getTextEditWidget().setFilePath(path[0])
@@ -863,6 +930,7 @@ class MainWindow(QMainWindow):
             self.showNormal()
         else:
             self.showFullScreen()
+        self.fullscreenAction.setChecked(self.isFullScreen())
 
     def searchAndReplaceMenuBarClicked(self):
         self.env.searchReplaceWindow.display(self.getTextEditWidget())
@@ -1045,6 +1113,7 @@ class MainWindow(QMainWindow):
             for line in editWidget.bookmarkList:
                 editWidget.markerAdd(line,0)
             editWidget.setCursorPosition(i["cursorPosLine"],i["cursorPosIndex"])
+            editWidget.zoomTo(i.get("zoom",self.env.settings.defaultZoom))
         self.tabWidget.setCurrentIndex(data["selectedTab"])
         if "currentMacro" in data:
             self.currentMacro = QsciMacro(self.getTextEditWidget())
@@ -1090,11 +1159,12 @@ class MainWindow(QMainWindow):
                 f = open(os.path.join(self.env.dataDir,"session_data",str(i)),"wb")
                 f.write(widget.text().encode(widget.getUsedEncoding(),errors="replace"))
                 f.close()
-                if widget.currentLexer:
-                    syntax = widget.currentLexer.language()
-                else:
-                    syntax = ""
-                data["tabs"].append({"path":widget.getFilePath(),"modified":widget.isModified(),"language":syntax,"encoding":widget.getUsedEncoding(),"bookmarks":widget.bookmarkList,"cursorPosLine":widget.cursorPosLine,"cursorPosIndex":widget.cursorPosIndex})
+                #if widget.currentLexer:
+                #    syntax = widget.currentLexer.language()
+                #else:
+                #    syntax = ""
+                #data["tabs"].append({"path":widget.getFilePath(),"modified":widget.isModified(),"language":syntax,"encoding":widget.getUsedEncoding(),"bookmarks":widget.bookmarkList,"cursorPosLine":widget.cursorPosLine,"cursorPosIndex":widget.cursorPosIndex})
+                data["tabs"].append(widget.getSaveMetaData())
             with open(os.path.join(self.env.dataDir,"session.json"), 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
             sys.exit(0)
@@ -1102,6 +1172,23 @@ class MainWindow(QMainWindow):
             for i in range(self.tabWidget.count()-1,-1,-1):
                 self.tabWidget.tabCloseClicked(i,forceExit=True)
             event.ignore()
+
+    def removeTempOpenFile(self):
+        try:
+            os.remove(getTempOpenFilePath())
+        except:
+            pass
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls:
+            event.accept()
+        else:
+            event.ingore()
+
+    def dropEvent(self, event):
+        for i in event.mimeData().urls():
+            if i.url().startswith("file://"):
+                self.openFile(i.url()[7:])
 
     def contextMenuEvent(self, event):
         pass

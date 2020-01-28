@@ -3,3 +3,5 @@ QScintilla
 chardet
 requests
 jdTranslationHelper
+charset_normalizer
+cchardet

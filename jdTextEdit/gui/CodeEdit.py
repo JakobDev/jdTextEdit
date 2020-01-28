@@ -20,6 +20,7 @@ class CodeEdit(QsciScintilla):
         self.cursorPosLine = 0
         self.cursorPosIndex = 0
         self.bookmarkList = []
+        self.settings = self.env.settings
         self.cursorPosString = env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1)
         self.lexerName = env.translate("mainWindow.menu.language.plainText")
         self.foldStyles = [QsciScintilla.NoFoldStyle,QsciScintilla.PlainFoldStyle,QsciScintilla.CircledFoldStyle,QsciScintilla.BoxedFoldStyle,QsciScintilla.CircledTreeFoldStyle,QsciScintilla.BoxedTreeFoldStyle]
@@ -39,14 +40,16 @@ class CodeEdit(QsciScintilla):
         self.selectionChanged.connect(self.editSelectionChanged)
         self.cursorPositionChanged.connect(self.updateCursor)
 
-        if self.env.settings.defaultLanguage != -1:
+        if self.settings.defaultLanguage != -1:
             lexerList = getLexerList()
-            self.setSyntaxHighlighter(lexerList[self.env.settings.defaultLanguage]["lexer"](),lexerList[self.env.settings.defaultLanguage])
+            self.setSyntaxHighlighter(lexerList[self.settings.defaultLanguage]["lexer"](),lexerList[self.settings.defaultLanguage])
 
         self.setMarginType(1, QsciScintilla.SymbolMargin)
         sym_4 = QsciScintilla.Circle
         self.markerDefine(sym_4, 0)
         #self.setMarginWidth(1, 10)
+
+        self.zoomTo(self.settings.defaultZoom)
 
     def updateStatusBar(self):
         if self.isPreview or not hasattr(self.env,"mainWindow"):
@@ -77,6 +80,7 @@ class CodeEdit(QsciScintilla):
         else:
             self.apiCompletion = None
         self.updateSettings(self.env.settings)
+        #self.setLexerColor(lexer,self.env.themes[self.settings.editTheme]["colors"])
         if not self.isPreview:
             self.lexerName = str(lexer.language())
             self.updateStatusBar()
@@ -235,47 +239,124 @@ class CodeEdit(QsciScintilla):
         menu.setTearOffEnabled(True)
         menu.popup(QCursor.pos())
 
-    def setDefaultStyle(self):
-        #self.resetSelectionBackgroundColor()
-        #self.resetSelectionForegroundColor()
-        self.setColor(QColor("#000000"))
-        self.setPaper(QColor("#FFFFFF"))
-        self.setSelectionForegroundColor(QColor("#FFFFFF"))
-        self.setSelectionBackgroundColor(QColor("#308CC6"))
-        self.setMarginsBackgroundColor(QColor("#cccccc"))
-        self.setCaretLineBackgroundColor(QColor("#FFFF00"))
-        #self.resetMarginsBackgroundColor()
-        #self.resetCaretLineBackgroundColor()
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls:
+            event.accept()
+        else:
+            event.ingore()
 
-    def setSingleColor(self,func,style,name,styleNum=None):
-        if name in style:
+    def dropEvent(self, event):
+        for i in event.mimeData().urls():
+            if i.url().startswith("file://"):
+                self.env.mainWindow.openFile(i.url()[7:])
+        if event.mimeData().text() != "" and len(event.mimeData().urls()) == 0:
+            self.insertText(event.mimeData().text())
+
+    def setSingleLexerColor(self,lexer,color,name):
+        if isinstance(name,list):
+            for i in name:
+                try:
+                    lexer.setColor(QColor(color), getattr(lexer,i))
+                except:
+                    pass
+        else:
             try:
-                c = QColor(style[name])
-                c.setAlpha(255)
-                if styleNum:
-                    func(c,styleNum)
-                else:
-                    func(c)
-            except Exception as e:
-                print(e)
+                lexer.setColor(QColor(color), getattr(lexer,name))
+            except:
+                print(lexer,name)
+                pass
+
+    def getSaveMetaData(self):
+        if self.currentLexer:
+            syntax = self.currentLexer.language()
+        else:
+            syntax = ""
+        return {
+            "path": self.getFilePath(),
+            "modified": self.isModified(),
+            "language": syntax,
+            "encoding": self.getUsedEncoding(),
+            "bookmarks": self.bookmarkList,
+            "cursorPosLine": self.cursorPosLine,
+            "cursorPosIndex": self.cursorPosIndex,
+            "zoom": self.SendScintilla(QsciScintillaBase.SCI_GETZOOM)
+        }
+
+    def setLexerColor_Old(self,lexer,style):
+        #return
+        lexer.setPaper(QColor(style.get("paperColor","#FFFFFF")))
+        lexer.setDefaultPaper(QColor(style.get("paperColor","#FFFFFF")))
+        lexer.setDefaultColor(QColor(style.get("textColor","#000000")))
+        #vars(lexer) just returns a empty dict
+        self.setSingleLexerColor(lexer,style.get("textColor","#000000"),[
+        "Default",
+        "JavaScriptDefault",
+        "JavaScriptWord"
+        ])
+        self.setSingleLexerColor(lexer,style.get("classNameColor","#0000ff"),"ClassName")
+        self.setSingleLexerColor(lexer,style.get("keywordColor","#00007f"),[
+        "Keyword",
+        "JavaScriptKeyword"
+        ])
+        self.setSingleLexerColor(lexer,style.get("commentColor","#007f00"),[
+            "Comment",
+            "LineComment",
+            "JavaScriptComment",
+            "JavaScriptCommentDoc",
+            "JavaScriptCommentLine",
+            "HTMLComment"
+        ])
+        self.setSingleLexerColor(lexer,style.get("numberColor","#007f7f"),[
+        "Number",
+        "JavaScriptNumber"
+        ])
+        self.setSingleLexerColor(lexer,style.get("stringColor","#7f007f"),[
+            "String",
+            "UnclosedString",
+            "DoubleQuotedString",
+            "TripleSingleQuotedString",
+            "TripleDoubleQuotedString",
+            "PHPSingleQuotedString",
+            "PHPDoubleQuotedString",
+            "HTMLSingleQuotedString",
+            "HTMLDoubleQuotedString",
+            "JavaScriptSingleQuotedString",
+            "JavaScriptDoubleQuotedString",
+            "JavaScriptUnclosedString"
+        ])
+        self.setSingleLexerColor(lexer,style.get("functionNameColor","#007f7f"),[
+            "BasicFunctions",
+            "FunctionMethodName"
+        ])
+        self.setSingleLexerColor(lexer,style.get("operatorColor","#000000"),"Operator")
+        self.setSingleLexerColor(lexer,style.get("identifierColor","#000000"),"Identifier")
+        self.setSingleLexerColor(lexer,style.get("tagColor","#cc0000"),"Tag")
+        '''
+        try:
+            lexer.setColor(QColor("#F1E607"), lexer.CommentBlock)
+        except:
+            pass
+        try:
+            lexer.setColor(QColor("#F1E607"), lexer.HighlightedIdentifier)
+        except:
+            pass
+        try:
+            lexer.setColor(QColor("#F1E607"), lexer.Decorator)
+        except:
+            pass
+        '''
 
     def setCustomStyle(self,style):
-        self.setSingleColor(self.setColor,style,"textColor")
-        self.setSingleColor(self.setPaper,style,"paperColor")
-        self.setSingleColor(self.setSelectionForegroundColor,style,"selectionForegroundColor")
-        self.setSingleColor(self.setSelectionBackgroundColor,style,"selectionBackgroundColor")
-        #self.setSelectionBackgroundColor(QColor(100,100,100,100))
-        self.setSingleColor(self.setMarginsBackgroundColor,style,"marginsBackgroundColor")
-        self.setSingleColor(self.setCaretLineBackgroundColor,style,"caretLineBackgroundColor")
-        #self.setMarginsBackgroundColor(QColor(style["marginsBackgroundColor"]))
-        #self.setCaretLineBackgroundColor(QColor(style["caretLineBackgroundColor"]))
+        #return
+        self.setColor(QColor(style.get("textColor","#000000")))
+        self.setPaper(QColor(style.get("paperColor","#FFFFFF")))
+        self.setSelectionForegroundColor(QColor(style.get("selectionForegroundColor","#FFFFFF")))
+        self.setSelectionBackgroundColor(QColor(style.get("selectionBackgroundColor","#308CC6")))
+        self.setMarginsBackgroundColor(QColor(style.get("marginsBackgroundColor","#cccccc")))
+        self.setMarginsForegroundColor(QColor(style.get("marginsForegroundColor","#000000")))
+        self.setCaretLineBackgroundColor(QColor(style.get("caretLineBackgroundColor","#ffff00")))
         if self.currentLexer:
-            self.setSingleColor(self.currentLexer.setDefaultColor,style,"textColor")
-            self.setSingleColor(self.currentLexer.setDefaultPaper,style,"paperColor")
-            self.setSingleColor(self.currentLexer.setColor,style,"textColor",styleNum=0)
-            self.setSingleColor(self.currentLexer.setColor,style,"selectionBackgroundColor",styleNum=1)
-            self.setSingleColor(self.currentLexer.setPaper,style,"paperColor",styleNum=0)
-            #self.currentLexer.setDefaultColor()
+           self.setLexerColor(self.currentLexer,style)
 
     def changeFont(self,font,settings):
         self.setFont(font)
@@ -291,10 +372,7 @@ class CodeEdit(QsciScintilla):
             self.currentLexer.setDefaultFont(font)
 
     def updateSettings(self, settings):
-        #if settings.editStyle == "Default":
-        #    self.setDefaultStyle()
-        #else:
-        #    self.setCustomStyle(self.env.styles[settings.editStyle])
+        #self.setCustomStyle(self.env.themes[settings.editTheme]["colors"])
         if settings.useCustomFont:
             self.changeFont(settings.editFont,settings)
         else:
@@ -327,3 +405,4 @@ class CodeEdit(QsciScintilla):
                     api = self.apiCompletion(self.currentLexer)
         else:
             self.setAutoCompletionSource(QsciScintilla.AcsNone)
+        self.settings = settings

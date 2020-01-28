@@ -17,12 +17,13 @@ class Settings():
         self.saveWindowState = True
         self.eolFileEnd = False
         self.exitLastTab = True
+        self.useIPC = True
         self.showToolbar = True
         self.toolbarPosition = 0
         self.toolbarIconStyle = 4
         self.defaultEncoding = "UTF-8"
         self.defaultLanguage = -1
-        self.editStyle = "Default"
+        #self.editTheme = "default"
         self.useCustomFont = False
         self.startupDayTip = True
         self.editFont = QFont()
@@ -37,8 +38,10 @@ class Settings():
         self.detectEncoding = True
         self.detectEol = True
         self.detectLanguage = True
+        self.encodingDetectLib = "chardet"
         self.highlightCurrentLine = True
         self.editFoldStyle = 0
+        self.defaultZoom = 0
         self.enableAutocompletion = True
         self.autocompletionUseDocument = True
         self.autocompletionUseAPI = True

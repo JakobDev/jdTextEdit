@@ -14,11 +14,9 @@ class EditorTab(QWidget):
         self.autoIndent = QCheckBox(env.translate("settingsWindow.editor.checkBox.autoIndent"))
         self.showIndentationGuides = QCheckBox(env.translate("settingsWindow.editor.checkBox.showIndentationGuides"))
         self.showEol = QCheckBox(env.translate("settingsWindow.editor.checkBox.showEol"))
-        self.detectEncoding = QCheckBox(env.translate("settingsWindow.editor.checkBox.detectEncoding"))
-        self.detectEol = QCheckBox(env.translate("settingsWindow.editor.checkBox.detectEol"))
-        self.detectLanguage = QCheckBox(env.translate("settingsWindow.editor.checkBox.detectLanguage"))
 
-        self.defaultEncodingComboBox.addItems(getEncodingList())
+        for i in getEncodingList():
+            self.defaultEncodingComboBox.addItem(i[0])
 
         self.defaultEolModeComboBox.addItem("Windows")
         self.defaultEolModeComboBox.addItem("Unix")
@@ -46,9 +44,6 @@ class EditorTab(QWidget):
         mainLayout.addWidget(self.autoIndent)
         mainLayout.addWidget(self.showIndentationGuides)
         mainLayout.addWidget(self.showEol)
-        mainLayout.addWidget(self.detectEncoding)
-        mainLayout.addWidget(self.detectEol)
-        mainLayout.addWidget(self.detectLanguage)
         mainLayout.addStretch(1)
 
         self.setLayout(mainLayout)
@@ -66,9 +61,7 @@ class EditorTab(QWidget):
         self.autoIndent.setChecked(settings.editAutoIndent)
         self.showIndentationGuides.setChecked(settings.showIndentationGuides)
         self.showEol.setChecked(settings.editShowEol)
-        self.detectEncoding.setChecked(settings.detectEncoding)
-        self.detectEol.setChecked(settings.detectEol)
-        self.detectLanguage.setChecked(settings.detectLanguage)
+
 
     def getSettings(self, settings):
         settings.defaultEncoding = self.defaultEncodingComboBox.currentText()
@@ -81,7 +74,4 @@ class EditorTab(QWidget):
         settings.editAutoIndent = bool(self.autoIndent.checkState())
         settings.showIndentationGuides = bool(self.showIndentationGuides.checkState())
         settings.editShowEol = bool(self.showEol.checkState())
-        settings.detectEncoding = bool(self.detectEncoding.checkState())
-        settings.detectEol = bool(self.detectEol.checkState())
-        settings.detectLanguage = bool(self.detectLanguage.checkState())
         return settings
