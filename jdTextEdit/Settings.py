@@ -39,6 +39,8 @@ class Settings():
         self.detectEol = True
         self.detectLanguage = True
         self.encodingDetectLib = "chardet"
+        self.saveBackupEnabled = False
+        self.saveBackupExtension = ".bak"
         self.highlightCurrentLine = True
         self.editFoldStyle = 0
         self.defaultZoom = 0
@@ -52,6 +54,11 @@ class Settings():
         self.toolBar = ["newFile","openFile","saveFile","separator","cut","copy","paste","delete","separator","undo","redo"]
         self.showSidepane = False
         self.sidepaneWidget = "files"
+        self.showFileChangedBanner = True
+        self.showEncodingBanner = True
+        self.showEolBanner = True
+        self.enableAutoSave = False
+        self.autoSaveInterval = 30
         self.disabledPlugins = []
         self.shortcut = {
             "newFile": QKeySequence(QKeySequence.New).toString(),

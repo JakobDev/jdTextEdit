@@ -32,7 +32,7 @@ def getEncodingList():
         ["TIS-620"],
         ["UTF-32","utf_32","utf_32_le"],
         ["UTF-16","utf_16"],
-        ["UTF-8","utf_8"],
+        ["UTF-8","utf_8","utf-8"],
         ["UTF-7","utf_7"],
         ["ASCII","ascii"],
     ]

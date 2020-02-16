@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QTextBrowser, QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, QAbstractItemView, QHeaderView
-from jdTextEdit.Functions import showMessageBox
+from jdTextEdit.Functions import showMessageBox, readJsonFile
 from PyQt5.QtCore import Qt
 import requests
 import shutil
@@ -52,11 +52,7 @@ class PluginManagerWindow(QWidget):
         if not self.setupDone:
             if not self.setupPluginList():
                 return
-            try:
-                with open(os.path.join(self.env.dataDir,"installedPlugins.json"),"r") as f:
-                    self.installedList = json.load(f)
-            except:
-                self.installedList = {}
+            self.installedList = readJsonFile(os.path.join(self.env.dataDir,"installedPlugins.json"),{})
             self.setupDone = True
         for i in range(self.pluginTable.rowCount()):
             if self.pluginList[i]["id"] in self.installedList:

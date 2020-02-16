@@ -33,15 +33,15 @@ class CloseSaveWindow(QWidget):
         self.close()
 
     def saveFile(self):
-        if self.tabWidget.widget(self.tabid).getFilePath() == "":
+        if self.tabWidget.widget(self.tabid).getCodeEditWidget().getFilePath() == "":
             pickedPath = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"),None,self.env.fileNameFilters)
             if pickedPath[0]:
                 path = pickedPath[0]
             else:
                 self.closeFile()
         else:
-            path = self.tabWidget.widget(self.tabid)
-        self.tabWidget.widget(self.tabid).setFilePath(path)
+            path = self.tabWidget.widget(self.tabid).getCodeEditWidget().getFilePath()
+        self.tabWidget.widget(self.tabid).getCodeEditWidget().setFilePath(path)
         self.env.mainWindow.saveFile(self.tabid)
         self.closeFile()
 
@@ -51,9 +51,9 @@ class CloseSaveWindow(QWidget):
         filename = self.tabWidget.tabText(tabid)
         self.text.setText(self.env.translate("closeSaveWindow.text") % filename)
         self.setWindowTitle(self.env.translate("closeSaveWindow.title") % filename)
-        if self.tabWidget.widget(self.tabid).getFilePath() == "":
+        if self.tabWidget.widget(self.tabid).getCodeEditWidget().getFilePath() == "":
             self.saveButton.setText(self.env.translate("closeSaveWindow.button.saveAs"))
         else:
             self.saveButton.setText(self.env.translate("closeSaveWindow.button.save"))
         self.show()
-        QApplication.setActiveWindow(self)          
+        QApplication.setActiveWindow(self)

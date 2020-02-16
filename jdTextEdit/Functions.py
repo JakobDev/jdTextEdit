@@ -7,6 +7,7 @@ import traceback
 import platform
 import tempfile
 import getpass
+import json
 import sys
 import os
 
@@ -117,3 +118,15 @@ def selectComboBoxItem(comboBox, item):
     for i in range(comboBox.count()):
         if comboBox.itemText(i) == item:
             comboBox.setCurrentIndex(i)
+
+def readJsonFile(path,default):
+    if os.path.isfile(path):
+        try:
+            with open(path,"r",encoding="utf-8") as f:
+                data = json.load(f)
+                return data
+        except:
+            print("Can't read " + os.path.basename(path))
+            return default
+    else:
+        return default

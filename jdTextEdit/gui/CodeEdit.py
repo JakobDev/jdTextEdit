@@ -1,11 +1,13 @@
 from PyQt5.QtWidgets import QMenu
 from PyQt5.Qsci import QsciScintilla, QsciLexer, QsciAPIs, QsciScintillaBase
 from PyQt5.QtGui import QColor, QFontMetrics, QFont, QCursor
+from PyQt5.QtCore import pyqtSignal
 from jdTextEdit.AutocompleteXML import AutocompleteXML
 from jdTextEdit.LexerList import getLexerList
 import os
 
 class CodeEdit(QsciScintilla):
+    pathChanged = pyqtSignal("QString")
     def __init__(self,env,preview=None,isNew=False):
         super().__init__()
         self.env = env
@@ -25,7 +27,7 @@ class CodeEdit(QsciScintilla):
         self.lexerName = env.translate("mainWindow.menu.language.plainText")
         self.foldStyles = [QsciScintilla.NoFoldStyle,QsciScintilla.PlainFoldStyle,QsciScintilla.CircledFoldStyle,QsciScintilla.BoxedFoldStyle,QsciScintilla.CircledTreeFoldStyle,QsciScintilla.BoxedTreeFoldStyle]
         eolModeList = [QsciScintilla.EolWindows,QsciScintilla.EolUnix,QsciScintilla.EolMac]
-        self.changeEolMode(eolModeList[self.env.settings.defaultEolMode])
+        self.changeEolMode(eolModeList[self.settings.defaultEolMode])
         self.updateSettings(env.settings)
         self.setMarginLineNumbers(0, True)
         self.setUtf8(True)
@@ -207,6 +209,7 @@ class CodeEdit(QsciScintilla):
     def setFilePath(self, path):
         self.filePath = path
         self.updateStatusBar()
+        self.pathChanged.emit(path)
 
     def getFilePath(self):
         return self.filePath
@@ -230,7 +233,7 @@ class CodeEdit(QsciScintilla):
 
     def contextMenuEvent(self, event):
         menu = QMenu("jdTextEdit",self)
-        for i in self.env.settings.editContextMenu:
+        for i in self.settings.editContextMenu:
             if i == "separator":
                 menu.addSeparator()
             else:
@@ -281,6 +284,20 @@ class CodeEdit(QsciScintilla):
             "cursorPosIndex": self.cursorPosIndex,
             "zoom": self.SendScintilla(QsciScintillaBase.SCI_GETZOOM)
         }
+
+    def restoreSaveMetaData(self,data):
+        self.setFilePath(data.get("path",""))
+        self.setModified(data["modified"])
+        self.setUsedEncoding(data.get("encoding",self.settings.defaultEncoding))
+        for l in self.env.lexerList:
+            s = l["lexer"]()
+            if s.language() == data["language"]:
+                self.setSyntaxHighlighter(s,lexerList=l)
+        self.bookmarkList = data.get("bookmarks",[])
+        for line in self.bookmarkList:
+            self.markerAdd(line,0)
+        self.setCursorPosition(data["cursorPosLine"],data["cursorPosIndex"])
+        self.zoomTo(data.get("zoom",self.settings.defaultZoom))
 
     def setLexerColor_Old(self,lexer,style):
         #return

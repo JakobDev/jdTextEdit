@@ -8,6 +8,8 @@ class OpenTab(QWidget):
         self.detectLanguage = QCheckBox(env.translate("settingsWindow.open.checkBox.detectLanguage"))
         self.detectEol = QCheckBox(env.translate("settingsWindow.open.checkBox.detectEol"))
         self.detectEncoding = QCheckBox(env.translate("settingsWindow.open.checkBox.detectEncoding"))
+        self.encodingBannerCheckBox = QCheckBox(env.translate("settingsWindow.open.checkBox.showEncodingBanner"))
+        self.eolBannerCheckBox = QCheckBox(env.translate("settingsWindow.open.checkBox.showEolBanner"))
         self.detectLibComboBox = QComboBox()
 
         for key, value in env.encodingDetectFunctions.items():
@@ -22,6 +24,8 @@ class OpenTab(QWidget):
         mainLayout.addWidget(self.detectLanguage)
         mainLayout.addWidget(self.detectEol)
         mainLayout.addWidget(self.detectEncoding)
+        mainLayout.addWidget(self.encodingBannerCheckBox)
+        mainLayout.addWidget(self.eolBannerCheckBox)
         mainLayout.addLayout(detectLibLayout)
         mainLayout.addStretch(1)
 
@@ -32,6 +36,8 @@ class OpenTab(QWidget):
         self.detectLanguage.setChecked(settings.detectLanguage)
         self.detectEol.setChecked(settings.detectEol)
         self.detectEncoding.setChecked(settings.detectEncoding)
+        self.encodingBannerCheckBox.setChecked(settings.showEncodingBanner)
+        self.eolBannerCheckBox.setChecked(settings.showEolBanner)
         selectComboBoxItem(self.detectLibComboBox,settings.encodingDetectLib)
 
     def getSettings(self, settings):
@@ -39,5 +45,7 @@ class OpenTab(QWidget):
         settings.detectLanguage = bool(self.detectLanguage.checkState())
         settings.detectEncoding = bool(self.detectEncoding.checkState())
         settings.detectEol = bool(self.detectEol.checkState())
+        settings.showEncodingBanner = bool(self.encodingBannerCheckBox.checkState())
+        settings.showEolBanner = bool(self.eolBannerCheckBox.checkState())
         settings.encodingDetectLib = self.detectLibComboBox.itemText(self.detectLibComboBox.currentIndex())
         return settings

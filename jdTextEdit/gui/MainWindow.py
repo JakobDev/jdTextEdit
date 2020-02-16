@@ -3,12 +3,14 @@ from PyQt5.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro
 from PyQt5.QtGui import QIcon, QTextDocument
 from PyQt5.QtPrintSupport import QPrintDialog
 from PyQt5.Qsci import QsciPrinter
-from PyQt5.QtCore import Qt, QFileSystemWatcher
+from PyQt5.QtCore import Qt, QFileSystemWatcher, QTimer
 from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState,restoreWindowState, getTempOpenFilePath
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
 from jdTextEdit.EncodingList import getEncodingList
 from jdTextEdit.gui.DockWidget import DockWidget
 from jdTextEdit.Updater import searchForUpdates
+from jdTextEdit.gui.BannerWidgets.WrongEncodingBanner import WrongEncodingBanner
+from jdTextEdit.gui.BannerWidgets.WrongEolBanner import WrongEolBanner
 from string import ascii_uppercase
 import webbrowser
 import traceback
@@ -47,6 +49,9 @@ class MainWindow(QMainWindow):
                 self.openFile(os.path.abspath(env.args["filename"][0]))
         self.toolbar = self.addToolBar("toolbar")
         self.setCentralWidget(self.tabWidget)
+        self.autoSaveTimer = QTimer()
+        #self.autoSaveTimer.setInterval(2147483647)
+        self.autoSaveTimer.timeout.connect(self.autoSaveTimeout)
         if "MainWindow" in env.windowState:
             restoreWindowState(self,env.windowState,"MainWindow")
         else:
@@ -59,7 +64,7 @@ class MainWindow(QMainWindow):
         self.env.sidepane.hide()
         self.addDockWidget(Qt.LeftDockWidgetArea,self.env.sidepane)
         for i in range(self.tabWidget.count()):
-            widget = self.tabWidget.widget(i)
+            widget = self.tabWidget.widget(i).getCodeEditWidget()
             widget.modificationStateChange(widget.isModified())
         if self.env.settings.showSidepane:
             self.toggleSidebarClicked()
@@ -82,7 +87,7 @@ class MainWindow(QMainWindow):
             self.env.dayTipWindow.openWindow()
 
     def getTextEditWidget(self):
-        return self.tabWidget.currentWidget()
+        return self.tabWidget.currentWidget().getCodeEditWidget()
 
     def openTempFileSignal(self,path):
         if os.path.getsize(path) == 0:
@@ -738,20 +743,28 @@ class MainWindow(QMainWindow):
         self.macroMenu.addAction(self.saveMacroAction)
         self.macroMenu.addAction(self.manageMacrosAction)
 
-        if len(self.env.macroList) != 0:
+        if len(self.env.macroList) != 0 or len(self.env.global_macroList):
             self.macroMenu.addSeparator()
+
         for count, i in enumerate(self.env.macroList):
             singleMacroAction = QAction(i["name"],self)
             singleMacroAction.triggered.connect(self.playMenuMacro)
             singleMacroAction.setShortcut(i["shortcut"])
-            singleMacroAction.setData([None,count])
+            singleMacroAction.setData([None,i["macro"]])
+            self.macroMenu.addAction(singleMacroAction)
+
+        for count, i in enumerate(self.env.global_macroList):
+            singleMacroAction = QAction(i["name"],self)
+            singleMacroAction.triggered.connect(self.playMenuMacro)
+            singleMacroAction.setShortcut(i["shortcut"])
+            singleMacroAction.setData([None,i["macro"]])
             self.macroMenu.addAction(singleMacroAction)
 
     def playMenuMacro(self):
         action = self.sender()
         if action:
             macro = QsciMacro(self.getTextEditWidget())
-            macro.load(self.env.macroList[action.data()[1]]["macro"])
+            macro.load(action.data()[1])
             macro.play()
 
     def updateExecuteMenu(self):
@@ -759,27 +772,39 @@ class MainWindow(QMainWindow):
 
         self.executeMenu.addAction(self.executeCommandAction)
 
-        if len(self.env.commands) != 0:
+        if len(self.env.commands) != 0 or len(self.env.global_commands):
             self.executeMenu.addSeparator()
-            for i in self.env.commands:
-                command = QAction(i[0],self)
-                command.setData([False,i[1],i[2]])
-                if len(i) == 4:
-                    command.setShortcut(i[3])
-                command.triggered.connect(lambda sender: executeCommand(self.sender().data()[1],self.getTextEditWidget(),self.sender().data()[2]))
-                self.executeMenu.addAction(command)
+
+        for i in self.env.commands:
+            command = QAction(i[0],self)
+            command.setData([False,i[1],i[2]])
+            if len(i) == 4:
+                command.setShortcut(i[3])
+            command.triggered.connect(lambda sender: executeCommand(self.sender().data()[1],self.getTextEditWidget(),self.sender().data()[2]))
+            self.executeMenu.addAction(command)
+
+        for i in self.env.global_commands:
+            command = QAction(i[0],self)
+            command.setData([False,i[1],i[2]])
+            command.triggered.connect(lambda sender: executeCommand(self.sender().data()[1],self.getTextEditWidget(),self.sender().data()[2]))
+            self.executeMenu.addAction(command)
 
         self.executeMenu.addSeparator()
 
         self.executeMenu.addAction(self.editCommandsAction)
 
-    def openFile(self, path, template=None):
-        for i in range(self.tabWidget.count()):
-            if self.tabWidget.widget(i).getFilePath() == path:
-                self.tabWidget.setCurrentIndex(i)
-                return
+    def openFile(self, path, template=None, reload=None):
+        #Check if the file is already open
+        if not template:
+            for i in range(self.tabWidget.count()):
+                if self.tabWidget.widget(i).getCodeEditWidget().getFilePath() == path:
+                    self.tabWidget.setCurrentIndex(i)
+                    if not reload:
+                        return
+        #Check if the file exists
         if not os.path.isfile(path):
             return
+        #Open the file and show error, if it fails
         try:
             filehandle = open(path,"rb")
         except PermissionError:
@@ -803,27 +828,29 @@ class MainWindow(QMainWindow):
             encoding = self.env.settings.defaultEncoding
         fileContent = fileBytes.decode(encoding,errors="replace")
         filehandle.close()
-        if not self.getTextEditWidget().isNew:
+        if (not self.getTextEditWidget().isNew) and (not reload):
             self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
-        self.getTextEditWidget().setText(fileContent)
-        self.getTextEditWidget().setModified(False)
-        self.tabWidget.setTabText(self.tabWidget.currentIndex(),os.path.basename(path))
+        containerWidget = self.tabWidget.currentWidget()
+        editWidget = containerWidget.getCodeEditWidget()
+        editWidget.setText(fileContent)
+        editWidget.setModified(False)
         self.tabWidget.tabsChanged.emit()
         if not template:
-            self.getTextEditWidget().setFilePath(path)
+            editWidget.setFilePath(path)
+            self.tabWidget.setTabText(self.tabWidget.currentIndex(),os.path.basename(path))
         self.updateWindowTitle()
         if self.env.settings.detectEol:
             lines = fileContent.splitlines(True)
             if len(lines) != 0:
                 firstLine = lines[0]
                 if firstLine.endswith("\r\n"):
-                    self.getTextEditWidget().setEolMode(QsciScintilla.EolWindows)
+                    editWidget.setEolMode(QsciScintilla.EolWindows)
                 elif firstLine.endswith("\n"):
-                    self.getTextEditWidget().setEolMode(QsciScintilla.EolUnix)
+                    editWidget.setEolMode(QsciScintilla.EolUnix)
                 elif firstLine.endswith("\r"):
-                    self.getTextEditWidget().setEolMode(QsciScintilla.EolMac)
-        self.getTextEditWidget().updateEolMenu()
-        self.getTextEditWidget().setUsedEncoding(encoding)
+                    editWidget.setEolMode(QsciScintilla.EolMac)
+        editWidget.updateEolMenu()
+        editWidget.setUsedEncoding(encoding)
         if not template:
             count = 0
             for i in self.env.recentFiles:
@@ -838,16 +865,30 @@ class MainWindow(QMainWindow):
                 for e in i["extension"]:
                     if path.endswith(e):
                         lexer = i["lexer"]()
-                        self.getTextEditWidget().setSyntaxHighlighter(lexer,lexerList=i)
+                        editWidget.setSyntaxHighlighter(lexer,lexerList=i)
+        containerWidget.clearBanner()
+        if self.env.settings.defaultEncoding != encoding and self.env.settings.showEncodingBanner:
+            containerWidget.showBanner(WrongEncodingBanner(self.env,containerWidget))
+        if self.env.settings.showEolBanner:
+            if editWidget.eolMode() == QsciScintilla.EolWindows and self.env.settings.defaultEolMode != 0:
+                containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
+            elif editWidget.eolMode() == QsciScintilla.EolUnix and self.env.settings.defaultEolMode != 1:
+                containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
+            elif editWidget.eolMode() == QsciScintilla.EolMac and self.env.settings.defaultEolMode != 2:
+                containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
 
     def saveFile(self, tabid):
-        editWidget = self.getTextEditWidget()
+        containerWidget = self.tabWidget.widget(tabid)
+        editWidget = containerWidget.getCodeEditWidget()
+        path = editWidget.getFilePath()
+        containerWidget.fileWatcher.removePath(path)
+        if os.path.isfile(path) and self.env.settings.saveBackupEnabled:
+            shutil.copyfile(path,path + self.env.settings.saveBackupExtension)
         text = editWidget.text()
         if self.env.settings.eolFileEnd:
             if not text.endswith(editWidget.getEolChar()):
                 text = text + editWidget.getEolChar()
         text = text.encode(editWidget.getUsedEncoding(),errors="replace")
-        path = editWidget.getFilePath()
         try:
             filehandle = open(path,"wb")
         except PermissionError:
@@ -859,6 +900,7 @@ class MainWindow(QMainWindow):
             return
         filehandle.write(text)
         filehandle.close()
+        containerWidget.fileWatcher.addPath(path)
         editWidget.setModified(False)
         self.updateWindowTitle()
         if self.env.settings.detectLanguage:
@@ -866,7 +908,7 @@ class MainWindow(QMainWindow):
                 for e in i["extension"]:
                     if path.endswith(e):
                         lexer = i["lexer"]()
-                        self.getTextEditWidget().setSyntaxHighlighter(lexer,lexerList=i)
+                        editWidget.setSyntaxHighlighter(lexer,lexerList=i)
 
     def newMenuBarClicked(self):
         self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
@@ -909,7 +951,7 @@ class MainWindow(QMainWindow):
             self.updateWindowTitle()
 
     def saveAllMenuBarClicked(self):
-        for i in range(len(self.tabWidget.tabs)):
+        for i in range(self.tabWidget.count()):
             self.saveMenuBarClicked(i)
 
     def closeAllTabs(self):
@@ -1060,6 +1102,13 @@ class MainWindow(QMainWindow):
         with open(os.path.join(self.env.dataDir,"macros.json"), 'w', encoding='utf-8') as f:
             json.dump(self.env.macroList, f, ensure_ascii=False, indent=4)
 
+    def autoSaveTimeout(self):
+        if self.autoSaveTimer.timeout == 0 or not self.env.settings.enableAutoSave:
+            return
+        for i in range(self.tabWidget.count()):
+            if self.tabWidget.widget(i).getCodeEditWidget().getFilePath() != "":
+                self.saveFile(i)
+
     def updateSettings(self, settings):
         self.tabWidget.tabBar().setAutoHide(settings.hideTabBar)
         self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
@@ -1081,6 +1130,12 @@ class MainWindow(QMainWindow):
                 value.setShortcut(settings.shortcut[key])
             else:
                 value.setShortcut("")
+        if self.autoSaveTimer.interval()/1000 != settings.autoSaveInterval:
+            self.autoSaveTimer.setInterval(settings.autoSaveInterval * 1000)
+        if settings.enableAutoSave:
+            self.autoSaveTimer.start()
+        else:
+            self.autoSaveTimer.stop()
         self.updateWindowTitle()
 
     def updateWindowTitle(self):
@@ -1097,23 +1152,12 @@ class MainWindow(QMainWindow):
                 self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"))
             else:
                 self.tabWidget.createTab(os.path.basename(i["path"]))
-                self.tabWidget.widget(count).setFilePath(i["path"])
-            editWidget = self.tabWidget.widget(count)
+            editWidget = self.tabWidget.widget(count).getCodeEditWidget()
             f = open(os.path.join(self.env.dataDir,"session_data",str(count)),"rb")
             text = f.read().decode(i["encoding"],errors="replace")
             editWidget.setText(text)
             f.close()
-            editWidget.setModified(i["modified"])
-            editWidget.setUsedEncoding(i["encoding"])
-            for l in self.env.lexerList:
-                s = l["lexer"]()
-                if s.language() == i["language"]:
-                    editWidget.setSyntaxHighlighter(s,lexerList=l)
-            editWidget.bookmarkList = i["bookmarks"]
-            for line in editWidget.bookmarkList:
-                editWidget.markerAdd(line,0)
-            editWidget.setCursorPosition(i["cursorPosLine"],i["cursorPosIndex"])
-            editWidget.zoomTo(i.get("zoom",self.env.settings.defaultZoom))
+            editWidget.restoreSaveMetaData(i)
         self.tabWidget.setCurrentIndex(data["selectedTab"])
         if "currentMacro" in data:
             self.currentMacro = QsciMacro(self.getTextEditWidget())
@@ -1155,7 +1199,7 @@ class MainWindow(QMainWindow):
                 data["currentMacro"] = self.currentMacro.save()
             data["tabs"] = []
             for i in range(self.tabWidget.count()):
-                widget = self.tabWidget.widget(i)
+                widget = self.tabWidget.widget(i).getCodeEditWidget()
                 f = open(os.path.join(self.env.dataDir,"session_data",str(i)),"wb")
                 f.write(widget.text().encode(widget.getUsedEncoding(),errors="replace"))
                 f.close()

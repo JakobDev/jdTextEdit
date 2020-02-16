@@ -4,11 +4,9 @@ from PyQt5.QtCore import QLocale
 from PyQt5.QtGui import QIcon
 from jdTextEdit.Settings import Settings
 from jdTextEdit.LexerList import getLexerList
-from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox
-import charset_normalizer
-import cchardet
-import chardet
+from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox, readJsonFile
 import argparse
+import chardet
 import shutil
 import json
 import sys
@@ -16,7 +14,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "6.0"
+        self.version = "7.0"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = argparse.ArgumentParser()
@@ -48,29 +46,15 @@ class Enviroment():
             self.translations = jdTranslationHelper(lang=self.settings.language)
         self.translations.loadDirectory(os.path.join(self.programDir,"translation"))
 
-        self.recentFiles = []
-        if os.path.isfile(os.path.join(self.dataDir,"recentfiles.json")):
-            try:
-                with open(os.path.join(self.dataDir,"recentfiles.json"),"r",encoding="utf-8") as f:
-                    self.recentFiles = json.load(f)
-            except:
-                print("Can't read recentfiles.json")
+        self.recentFiles = readJsonFile(os.path.join(self.dataDir,"recentfiles.json"),[])
 
-        self.windowState = {}
-        if os.path.isfile(os.path.join(self.dataDir,"windowstate.json")):
-            try:
-                with open(os.path.join(self.dataDir,"windowstate.json"),"r",encoding="utf-8") as f:
-                    self.windowState = json.load(f)
-            except:
-                print("Can't read windowstate.json")
+        self.windowState = readJsonFile(os.path.join(self.dataDir,"windowstate.json"),{})
 
-        self.macroList = []
-        if os.path.isfile(os.path.join(self.dataDir,"macros.json")):
-            try:
-                with open(os.path.join(self.dataDir,"macros.json"),"r",encoding="utf-8") as f:
-                    self.macroList = json.load(f)
-            except:
-                print("Can't read macros.json")
+        self.macroList = readJsonFile(os.path.join(self.dataDir,"macros.json"),[])
+        self.global_macroList = readJsonFile(os.path.join(self.programDir,"macros.json"),[])
+
+        self.commands = readJsonFile(os.path.join(self.dataDir,"commands.json"),[])
+        self.global_commands = readJsonFile(os.path.join(self.programDir,"commands.json"),[])
 
         #self.themes = {}
         #self.loadThemeDirectory(os.path.join(self.programDir,"themes"))
@@ -86,24 +70,26 @@ class Enviroment():
         self.templates = getTemplates(os.path.join(self.programDir,"templates"),self.templates)
         self.templates = getTemplates(os.path.join(self.dataDir,"templates"),self.templates)
 
-        self.commands = []
-        if os.path.isfile(os.path.join(self.dataDir,"commands.json")):
-            try:
-                with open(os.path.join(self.dataDir,"commands.json"),"r",encoding="utf-8") as f:
-                    self.commands = json.load(f)
-            except:
-                print("Can't read commands.json")
-
         self.dockWidgtes = []
         self.menuActions = {}
         self.encodingAction = []
         self.plugins = {}
 
         self.encodingDetectFunctions = {
-            "chardet": chardet.detect,
-            "charset_normalizer": charset_normalizer.detect,
-            "cChardet": cchardet.detect
+            "chardet": chardet.detect
         }
+
+        try:
+            import charset_normalizer
+            self.encodingDetectFunctions["charset_normalizer"] =  charset_normalizer.detect
+        except ImportError:
+            pass
+
+        try:
+            import cchardet
+            self.encodingDetectFunctions["cChardet"] = cchardet.detect
+        except ImportError:
+            pass
 
         self.documentSavedIcon = QIcon(os.path.join(self.programDir,"icons","document-saved.png"))
         self.documentUnsavedIcon = QIcon(os.path.join(self.programDir,"icons","document-unsaved.png"))

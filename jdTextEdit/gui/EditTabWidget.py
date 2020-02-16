@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QTabWidget
 from PyQt5.QtCore import pyqtSignal
-from jdTextEdit.gui.CodeEdit import CodeEdit
+from jdTextEdit.gui.EditContainer import EditContainer
 from PyQt5.Qsci import QsciMacro
 import sys
 
@@ -17,15 +17,12 @@ class EditTabWidget(QTabWidget):
         #self.tabs = []
 
     def createTab(self,title,focus=None):
-        textEdit = CodeEdit(self.env,isNew=True)
+        textEdit = EditContainer(self.env)
         
         tabid = self.addTab(textEdit,title)
-        textEdit.tabid = tabid
-        textEdit.modificationStateChange(False)
-        #tabcontent = []
-        #tabcontent.append(textEdit)
-        #tabcontent.append("")
-        #self.tabs.append(tabcontent)
+        codeEdit = textEdit.getCodeEditWidget()
+        codeEdit.tabid = tabid
+        codeEdit.modificationStateChange(False)
 
         if focus:
             self.setCurrentIndex(tabid)
@@ -35,7 +32,7 @@ class EditTabWidget(QTabWidget):
         self.tabsChanged.emit()
 
     def tabChange(self, tabid):
-        currentEditWidget = self.widget(self.currentIndex())
+        currentEditWidget = self.widget(self.currentIndex()).getCodeEditWidget()
         try:
             currentEditWidget.updateEolMenu()
             currentEditWidget.updateStatusBar()
@@ -51,7 +48,7 @@ class EditTabWidget(QTabWidget):
             #print(e)
 
     def tabCloseClicked(self,tabid,notCloseProgram=None,forceExit=None):
-        if self.widget(tabid).isModified() and self.env.settings.saveClose:
+        if self.widget(tabid).getCodeEditWidget().isModified() and self.env.settings.saveClose:
             self.env.closeSaveWindow.openWindow(tabid)
         else:
             self.removeTab(tabid)

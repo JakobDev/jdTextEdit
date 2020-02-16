@@ -5,6 +5,8 @@ button.add=Hinzufügen
 button.remove=Entfernen
 button.yes=Ja
 button.no=Nein
+button.ignore=Ignorieren
+button.changeTo=Zu %s wechseln
 
 language.en_GB=Englisch
 language.de_DE=Deutsch
@@ -129,8 +131,8 @@ settingsWindow.general.checkBox.dayTip=Zeige Tipp des Tages beim starten
 settingsWindow.general.checkBox.windowFileTitle=Dateiname in Fenstertitel zeigen
 settingsWindow.general.checkBox.searchUpdates=Beim starten nach Updates suchen
 settingsWindow.general.checkBox.saveWindowState=Status der Fenster speichern
-settingsWindow.general.checkBox.eolFileEnd=Beim speichern Zeilenende am Dateiende einfügen
 settingsWindow.general.checkBox.exitLastTab=jdTextEdit beenden wenn der letzte Tab geschlossen wird
+settingsWindow.general.checkBox.showFileChangedBanner=Geöffnete Dateien auf Änderungen überwachen
 settingsWindow.editor=Editor
 settingsWindow.editor.label.defaultEncoding=Standardkodierung:
 settingsWindow.editor.label.defaultEolMode=Standardzeilenende:
@@ -148,7 +150,7 @@ settingsWindow.autocompletion.checkbox.useWordsFromDocument=Benutze Wörter aus 
 settingsWindow.autocompletion.checkbox.useAPI=Benutze API
 settingsWindow.autocompletion.checkbox.caseSensitive=Groß- und Kleinschreibung beachten
 settingsWindow.autocompletion.checkbox.replaceWord=Wort ersetzen
-settingsWindow.autocompletion.label.threshold=Autovervollständigung ab diesem Zeichen
+settingsWindow.autocompletion.label.threshold=Autovervollständigung ab diesem Zeichen:
 settingsWindow.style=Style
 settingsWindow.style.label.theme=Editordesign:
 settingsWindow.style.theme.default=Standard
@@ -169,6 +171,14 @@ settingsWindow.open.checkBox.detectLanguage=Sprache automatisch erkennen
 settingsWindow.open.checkBox.detectEol=Zeilenende automatisch erkennen
 settingsWindow.open.checkBox.detectEncoding=Kodierung automatisch erkennen
 settingsWindow.open.label.encodingDetectLib=Erkenne Kodierung mit:
+settingsWindow.open.checkBox.showEncodingBanner=Warnen, wenn Zeichenkodierung nicht den Standardeinstellungen entspricht
+settingsWindow.open.checkBox.showEolBanner=Warnen, wenn Zeilenende nicht den Standardeinstellungen entspricht
+settingsWindow.save=Speichern
+settingsWindow.save.checkBox.eolFileEnd=Beim speichern Zeilenende am Dateiende einfügen
+settingsWindow.save.checkBox.enableBackup=Vor dem Speichern ein Backup erstellen
+settingsWindow.save.label.backupExtension=Backupdateiendung:
+settingsWindow.save.checkBox.enableAutoSave=Automatisches speichern aktivieren
+settingsWindow.save.label.autoSaveInterval=Speicherintervall in Sekunden:
 settingsWindow.contextMenu=Kontextmenü
 settingsWindow.contextMenu.button.add=Hinzufügen
 settingsWindow.contextMenu.button.remove=Entfernen
@@ -268,6 +278,13 @@ updater.newVersion.text=Version %s von jdTextEdit ist jetzt verfügbar. Möchtes
 dayTipWindow.title=Tipp des Tages
 dayTipWindow.showStartup=Tipps beim Starten zeigen
 dayTipWindow.nextTip=Nächster Tipp
+
+fileChangedBanner.text=Die Datei wurde auf dem Laufwerk geändert
+fileChangedBanner.button.reload=Neu laden
+
+wrongEncodingBanner.text=Die Zeichenkodierung entspricht nicht den Standardeinstellungen
+
+wrongEolBanner.text=Das Zeilenende entspricht nicht den Standardeinstellungen
 
 noReadPermission.title=Konnte Datei nicht öffnen
 noReadPermission.text=Du hast nicht die Berechtigung, um %s zu öffnen

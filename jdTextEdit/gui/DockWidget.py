@@ -12,7 +12,7 @@ class DockWidget(QDockWidget):
         self.enabled = False
         self.env.mainWindow.toggleSidebarAction.setChecked(False)
         event.accept()
-    
+
 class DockWidgetContent(QWidget):
     def __init__(self, env):
         super().__init__()
@@ -25,7 +25,7 @@ class DockWidgetContent(QWidget):
         layout.addWidget(env.dockWidgtes[0][0])
         self.widgetChooser.currentIndexChanged.connect(self.widgetChanged)
         self.setLayout(layout)
-    
+
     def widgetChanged(self, index):
         self.layout().itemAt(1).widget().setParent(None)
         self.layout().addWidget(self.env.dockWidgtes[index][0])

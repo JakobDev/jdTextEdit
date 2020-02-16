@@ -8,5 +8,7 @@ jdTextEdit.egg-info/
 #portable mode
 jdTextEdit/data
 
-#Default data
+#options
+jdTextEdit/commands.json
 jdTextEdit/default_data
+jdTextEdit/macros.json

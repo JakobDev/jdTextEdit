@@ -4,6 +4,7 @@ from jdTextEdit.gui.SettingsTabs.EditorTab import EditorTab
 from jdTextEdit.gui.SettingsTabs.AutocompletionTab import AutocompletionTab
 from jdTextEdit.gui.SettingsTabs.StyleTab import StyleTab
 from jdTextEdit.gui.SettingsTabs.OpenTab import OpenTab
+from jdTextEdit.gui.SettingsTabs.SaveTab import SaveTab
 from jdTextEdit.gui.SettingsTabs.ContextMenuTab import ContextMenuTab
 from jdTextEdit.gui.SettingsTabs.ToolbarTab import ToolbarTab
 from jdTextEdit.gui.SettingsTabs.ShortcutTab import ShortcutTab
@@ -23,6 +24,7 @@ class SettingsWindow(QWidget):
         self.newTab(AutocompletionTab,env.translate("settingsWindow.autocompletion"))
         self.newTab(StyleTab,env.translate("settingsWindow.style"))
         self.newTab(OpenTab,env.translate("settingsWindow.open"))
+        self.newTab(SaveTab,env.translate("settingsWindow.save"))
         self.newTab(ContextMenuTab,env.translate("settingsWindow.contextMenu"))
         self.newTab(ToolbarTab,env.translate("settingsWindow.toolbar"))
         self.newTab(ShortcutTab,env.translate("settingsWindow.shortcuts"))
@@ -66,7 +68,7 @@ class SettingsWindow(QWidget):
             self.env.settings = i.getSettings(self.env.settings)
         self.env.mainWindow.updateSettings(self.env.settings)
         for i in range(self.env.mainWindow.tabWidget.count()):
-            self.env.mainWindow.tabWidget.widget(i).updateSettings(self.env.settings)
+            self.env.mainWindow.tabWidget.widget(i).getCodeEditWidget().updateSettings(self.env.settings)
         #self.env.settings.save(os.path.join(self.env.dataDir,"settings.json"))
         self.close()
 

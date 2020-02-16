@@ -5,6 +5,8 @@ button.add=Add
 button.remove=Remove
 button.yes=Yes
 button.no=No
+button.ignore=Ignore
+button.changeTo=Change to %s
 
 language.en_GB=English
 language.de_DE=German
@@ -129,8 +131,8 @@ settingsWindow.general.checkBox.dayTip=Show tip of the day at startup
 settingsWindow.general.checkBox.windowFileTitle=Show filename in window title
 settingsWindow.general.checkBox.searchUpdates=Check for updates at startup
 settingsWindow.general.checkBox.saveWindowState=Save window status
-settingsWindow.general.checkBox.eolFileEnd=Insert end of line at end of file when saving
 settingsWindow.general.checkBox.exitLastTab=Exit jdTextEdit when the last tab is closed
+settingsWindow.general.checkBox.showFileChangedBanner=Monitor open files for changes
 settingsWindow.editor=Editor
 settingsWindow.editor.label.defaultEncoding=Default encoding:
 settingsWindow.editor.label.defaultEolMode=Default end of line:
@@ -148,7 +150,7 @@ settingsWindow.autocompletion.checkbox.useWordsFromDocument=Use Words from Docum
 settingsWindow.autocompletion.checkbox.useAPI=Use API
 settingsWindow.autocompletion.checkbox.caseSensitive=Case Sensitive
 settingsWindow.autocompletion.checkbox.replaceWord=Replace Word
-settingsWindow.autocompletion.label.threshold=Autocomplete at this char
+settingsWindow.autocompletion.label.threshold=Autocomplete at this char:
 settingsWindow.style=Style
 settingsWindow.style.label.theme=Editortheme:
 settingsWindow.style.theme.default=Default
@@ -169,6 +171,14 @@ settingsWindow.open.checkBox.detectLanguage=Detect language
 settingsWindow.open.checkBox.detectEol=Detect end of line
 settingsWindow.open.checkBox.detectEncoding=Detect encoding
 settingsWindow.open.label.encodingDetectLib=Detect encoding with:
+settingsWindow.open.checkBox.showEncodingBanner=Warn when encoding is not the default setting
+settingsWindow.open.checkBox.showEolBanner=Warn when end of line is not the default setting
+settingsWindow.save=Save
+settingsWindow.save.checkBox.eolFileEnd=Insert end of line at end of file when saving
+settingsWindow.save.checkBox.enableBackup=Create a backup copy of files before saving
+settingsWindow.save.label.backupExtension=Backup extension:
+settingsWindow.save.checkBox.enableAutoSave=Enable automatic saving
+settingsWindow.save.label.autoSaveInterval=Saving interval in seconds:
 settingsWindow.contextMenu=Context menu
 settingsWindow.contextMenu.button.add=Add
 settingsWindow.contextMenu.button.remove=Remove
@@ -268,6 +278,13 @@ updater.newVersion.text=Version %s of jdTextEdit is now aviable. Do you wnat do 
 dayTipWindow.title=Tip of the day
 dayTipWindow.showStartup=Show tips on startup
 dayTipWindow.nextTip=Next tip
+
+fileChangedBanner.text=The file was changed on the drive
+fileChangedBanner.button.reload=Reload
+
+wrongEncodingBanner.text=The encoding does not correspond to the default settings
+
+wrongEolBanner.text=The end of line does not correspond to the default settings
 
 noReadPermission.title=Can't open file
 noReadPermission.text=You don't have the permission to open %s

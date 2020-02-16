@@ -17,4 +17,4 @@ jdTextEdit is a powerful texteditor with a lot of features.
 You need [Python](https://www.python.org/) to run jdTextEdit.
 
 Install all needed dependencies before the first run:
-`pip install -r requirements.txt`
+`pip install -U -r requirements.txt`
