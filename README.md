@@ -18,3 +18,5 @@ You need [Python](https://www.python.org/) to run jdTextEdit.
 
 Install all needed dependencies before the first run:
 `pip install -U -r requirements.txt`
+
+You can download Windows builds from [SourceForge](https://sourceforge.net/projects/jdtextedit/files/).
