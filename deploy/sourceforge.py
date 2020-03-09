@@ -25,7 +25,7 @@ shutil.make_archive(zipOutput,'zip',workdir)
 zipOutput = zipOutput + ".zip"
 
 #Create windows zip
-exe_dir_name = os.lisdir(os.path.join(rootDir,"build"))[0]
+exe_dir_name = os.listdir(os.path.join(rootDir,"build"))[0]
 exe_dir_path = os.path.join(rootDir,"build",exe_dir_name)
 
 windowsOutput = os.path.join(rootDir,"output","jdTextEdit-" + version + "-Windows")
