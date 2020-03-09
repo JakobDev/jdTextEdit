@@ -116,4 +116,4 @@ class StyleTab(QWidget):
         return settings
 
     def updatePreviewEdit(self):
-        self.editorPreview.updateSettings(self.getSettings(Settings()))
+        self.editorPreview.setSettings(self.getSettings(Settings()))

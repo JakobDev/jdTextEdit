@@ -13,6 +13,7 @@ jdTextEdit is a powerful texteditor with a lot of features.
 - Pluginsupport
 - Bookmarks
 - Macros
+- Support for [.editorconfig](https://editorconfig.org/)
 
 You need [Python](https://www.python.org/) to run jdTextEdit.
 

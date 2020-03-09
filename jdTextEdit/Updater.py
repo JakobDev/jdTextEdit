@@ -1,8 +1,40 @@
 from PyQt5.QtWidgets import QMessageBox, QPushButton
 from jdTextEdit.Functions import showMessageBox
 import webbrowser
+import tempfile
 import requests
+import zipfile
+import urllib
 import os
+
+#This cause problems when a new package from pip is needed
+def installUpdates(env,version):
+    if os.access(env.programDir,os.W_OK):
+        showMessageBox(env.translate("updater.readOnly.title"),env.translate("updater.readOnly.text"))
+        webbrowser.open("https://sourceforge.net/projects/jdtextedit/files")
+        return
+    update_download_path = os.path.join(tempfile.gettempdir(),"jdTextEdit-Update.zip")
+    try:
+        urllib.request.urlretrieve("https://gitlab.com/JakobDev/jdTextEdit/-/archive/" + version + "/jdTextEdit-" + version + ".zip",update_download_path)
+    except urllib.error.URLError:
+        showMessageBox(env.translate("noInternetConnection.title"),env.translate("noInternetConnection.text"))
+    except:
+        showMessageBox(env.translate("unknownError.title"),env.translate("unknownError.text"))
+    zip_file = zipfile.ZipFile(update_download_path)
+    #Extract zip file
+    for filename in zip_file.namelist():
+        if filename.startswith("jdTextEdit-" +  version + "/jdTextEdit/"):
+            file_bytes = zip_file.read(filename)
+            write_path = os.path.join(env.programDir,filename[23+len(version):])
+            try:
+                os.makedirs(os.path.dirname(write_path))
+            except:
+                pass
+            if os.path.isdir(write_path) or write_path.endswith("/"):
+                continue
+            with open(write_path,"wb") as f:
+                f.write(file_bytes)
+    zip_file.close()
 
 def searchForUpdates(env,startup):
     if os.getenv("SNAP"):
@@ -30,6 +62,7 @@ def searchForUpdates(env,startup):
         msgBox.addButton(QPushButton(env.translate("button.no")), QMessageBox.NoRole)
         answer = msgBox.exec_()
         if answer == 0:
-            webbrowser.open("https://gitlab.com/JakobDev/jdTextEdit/-/releases/")
+            webbrowser.open("https://sourceforge.net/projects/jdtextedit/files")
+            #installUpdates(env,releaseList[0]["name"])
     elif not startup:
         showMessageBox(env.translate("updater.noUpdates.title"),env.translate("updater.noUpdates.text"))

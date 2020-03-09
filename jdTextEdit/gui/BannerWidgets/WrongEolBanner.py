@@ -6,9 +6,10 @@ class WrongEolBanner(QWidget):
         super().__init__()
         self.env = env
         self.parent = parent
+        self.editWidget = parent.getCodeEditWidget()
 
         eolNames = ["Windows","Unix","Mac"]
-        reloadButton = QPushButton(env.translate("button.changeTo") % eolNames[self.env.settings.defaultEolMode])
+        reloadButton = QPushButton(env.translate("button.changeTo") % eolNames[self.editWidget.settings.defaultEolMode])
         reloadButton.clicked.connect(self.changeEol)
 
         ignoreButton = QPushButton(env.translate("button.ignore"))
@@ -24,5 +25,5 @@ class WrongEolBanner(QWidget):
 
     def changeEol(self):
         eolModeList = [QsciScintilla.EolWindows,QsciScintilla.EolUnix,QsciScintilla.EolMac]
-        self.parent.getCodeEditWidget().changeEolMode(eolModeList[self.env.settings.defaultEolMode])
+        self.editWidget.changeEolMode(eolModeList[self.editWidget.settings.defaultEolMode])
         self.parent.removeBanner(self)

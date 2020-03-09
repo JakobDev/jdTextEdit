@@ -4,6 +4,8 @@ from PyQt5.QtGui import QColor, QFontMetrics, QFont, QCursor
 from PyQt5.QtCore import pyqtSignal
 from jdTextEdit.AutocompleteXML import AutocompleteXML
 from jdTextEdit.LexerList import getLexerList
+import editorconfig
+import copy
 import os
 
 class CodeEdit(QsciScintilla):
@@ -22,13 +24,14 @@ class CodeEdit(QsciScintilla):
         self.cursorPosLine = 0
         self.cursorPosIndex = 0
         self.bookmarkList = []
-        self.settings = self.env.settings
+        self.settings = copy.copy(self.env.settings)
+        self.custom_settings = {}
         self.cursorPosString = env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1)
         self.lexerName = env.translate("mainWindow.menu.language.plainText")
         self.foldStyles = [QsciScintilla.NoFoldStyle,QsciScintilla.PlainFoldStyle,QsciScintilla.CircledFoldStyle,QsciScintilla.BoxedFoldStyle,QsciScintilla.CircledTreeFoldStyle,QsciScintilla.BoxedTreeFoldStyle]
         eolModeList = [QsciScintilla.EolWindows,QsciScintilla.EolUnix,QsciScintilla.EolMac]
         self.changeEolMode(eolModeList[self.settings.defaultEolMode])
-        self.updateSettings(env.settings)
+        self.updateSettings(self.settings)
         self.setMarginLineNumbers(0, True)
         self.setUtf8(True)
         self.modificationChanged.connect(self.modificationStateChange)
@@ -81,7 +84,7 @@ class CodeEdit(QsciScintilla):
                 self.apiCompletion = lexerList["xmlapi"]
         else:
             self.apiCompletion = None
-        self.updateSettings(self.env.settings)
+        self.updateSettings(self.settings)
         #self.setLexerColor(lexer,self.env.themes[self.settings.editTheme]["colors"])
         if not self.isPreview:
             self.lexerName = str(lexer.language())
@@ -93,7 +96,7 @@ class CodeEdit(QsciScintilla):
     def removeSyntaxHighlighter(self):
         self.setLexer(None)
         self.currentLexer = None
-        self.updateSettings(self.env.settings)
+        self.updateSettings(self.settings)
         self.lexerName = self.env.translate("mainWindow.menu.language.plainText")
         self.updateStatusBar()
 
@@ -282,7 +285,8 @@ class CodeEdit(QsciScintilla):
             "bookmarks": self.bookmarkList,
             "cursorPosLine": self.cursorPosLine,
             "cursorPosIndex": self.cursorPosIndex,
-            "zoom": self.SendScintilla(QsciScintillaBase.SCI_GETZOOM)
+            "zoom": self.SendScintilla(QsciScintillaBase.SCI_GETZOOM),
+            "customSettings": self.custom_settings
         }
 
     def restoreSaveMetaData(self,data):
@@ -298,6 +302,47 @@ class CodeEdit(QsciScintilla):
             self.markerAdd(line,0)
         self.setCursorPosition(data["cursorPosLine"],data["cursorPosIndex"])
         self.zoomTo(data.get("zoom",self.settings.defaultZoom))
+        self.custom_settings = data.get("customSettings",{})
+        self.settings.loadDict(self.custom_settings)
+        if len(self.custom_settings) != 0:
+            self.updateSettings(self.settings)
+
+    def loadEditorConfig(self):
+        try:
+            config = editorconfig.get_properties(self.getFilePath())
+        except:
+            print("Error occurred while getting .editorconfig properties")
+            return
+        if "indent_style" in config:
+            if config["indent_style"] == "space":
+                self.custom_settings["editTabSpaces"] = True
+            elif config["indent_style"] == "tab":
+                self.custom_settings["editTabSpaces"] = False
+        try:
+            self.custom_settings["editTabWidth"] = int(config["indent_size"])
+        except:
+            pass
+        if "tab_width" in config:
+            self.custom_settings["editTabWidth"] = int(config["tab_width"])
+        if "end_of_line" in config:
+            if config["end_of_line"] == "crlf":
+                self.custom_settings["defaultEolMode"] = 0
+            elif config["end_of_line"] == "lf":
+                self.custom_settings["defaultEolMode"] = 1
+            elif config["end_of_line"] == "cr":
+                self.custom_settings["defaultEolMode"] = 2
+        if "trim_trailing_whitespace" in config:
+            if config["trim_trailing_whitespace"] == "true":
+                self.custom_settings["stripSpacesSave"] = True
+            elif config["trim_trailing_whitespace"] == "false":
+                self.custom_settings["stripSpacesSave"] = False
+        if "insert_final_newline" in config:
+            if config["insert_final_newline"] == "true":
+                self.custom_settings["eolFileEnd"] = True
+            elif config["insert_final_newline"] == "false":
+                self.custom_settings["eolFileEnd"] = False
+        self.settings.loadDict(self.custom_settings)
+        self.updateSettings(self.settings)
 
     def setLexerColor_Old(self,lexer,style):
         #return
@@ -387,6 +432,11 @@ class CodeEdit(QsciScintilla):
         if self.currentLexer:
             self.currentLexer.setFont(font)
             self.currentLexer.setDefaultFont(font)
+
+    def setSettings(self, settings):
+        settings = copy.copy(settings)
+        settings.loadDict(self.custom_settings)
+        self.updateSettings(settings)
 
     def updateSettings(self, settings):
         #self.setCustomStyle(self.env.themes[settings.editTheme]["colors"])

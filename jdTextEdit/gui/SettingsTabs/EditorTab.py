@@ -14,6 +14,7 @@ class EditorTab(QWidget):
         self.autoIndent = QCheckBox(env.translate("settingsWindow.editor.checkBox.autoIndent"))
         self.showIndentationGuides = QCheckBox(env.translate("settingsWindow.editor.checkBox.showIndentationGuides"))
         self.showEol = QCheckBox(env.translate("settingsWindow.editor.checkBox.showEol"))
+        self.useEditorConfig = QCheckBox(env.translate("settingsWindow.editor.checkBox.useEditorConfig"))
 
         for i in getEncodingList():
             self.defaultEncodingComboBox.addItem(i[0])
@@ -44,6 +45,7 @@ class EditorTab(QWidget):
         mainLayout.addWidget(self.autoIndent)
         mainLayout.addWidget(self.showIndentationGuides)
         mainLayout.addWidget(self.showEol)
+        mainLayout.addWidget(self.useEditorConfig)
         mainLayout.addStretch(1)
 
         self.setLayout(mainLayout)
@@ -61,6 +63,7 @@ class EditorTab(QWidget):
         self.autoIndent.setChecked(settings.editAutoIndent)
         self.showIndentationGuides.setChecked(settings.showIndentationGuides)
         self.showEol.setChecked(settings.editShowEol)
+        self.useEditorConfig.setChecked(settings.useEditorConfig)
 
 
     def getSettings(self, settings):
@@ -74,4 +77,5 @@ class EditorTab(QWidget):
         settings.editAutoIndent = bool(self.autoIndent.checkState())
         settings.showIndentationGuides = bool(self.showIndentationGuides.checkState())
         settings.editShowEol = bool(self.showEol.checkState())
+        settings.useEditorConfig = bool(self.useEditorConfig.checkState())
         return settings

@@ -10,11 +10,10 @@ target = Executable(
     icon="deploy\icon-windows.ico"
 )
 
-setup(  
+setup(
     name = "jdTextEdit",
-    version = "7.0",
+    version = "7.1",
     description = "A powerful texteditor with a lot of features'",
     options = {"build_exe": build_exe_options},
     executables = [target]
 )
-

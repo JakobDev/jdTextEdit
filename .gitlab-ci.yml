@@ -9,7 +9,7 @@ build_exe:
     script:
         - Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.7.6/python-3.7.6-amd64.exe -OutFile python-installer.exe
         - .\python-installer.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0 | Out-Null
-        - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
+        - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
         - pip install -r requirements.txt
         - pip install cx-Freeze
         - python build_exe.py build
@@ -32,7 +32,7 @@ pip_deploy:
 
 sourceforge_deploy:
     stage: deploy
-    dependencies: 
+    dependencies:
         - build_exe
     script:
         - pip install pysftp
@@ -48,9 +48,9 @@ snapcraft_deploy:
         - apt install -y snapcraft
         - snapcraft
         - snapcraft login --with $SNAPCRAFT_LOGIN_DATA
-        - snapcraft push --release=stable jdtextedit_7.0_amd64.snap
+        - snapcraft push --release=stable jdtextedit_7.1_amd64.snap
     artifacts:
         paths:
-            - jdtextedit_7.0_amd64.snap
+            - jdtextedit_7.1_amd64.snap
     only:
         - tags

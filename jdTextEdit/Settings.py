@@ -16,11 +16,13 @@ class Settings():
         self.windowFileTitle = True
         self.saveWindowState = True
         self.eolFileEnd = False
+        self.stripSpacesSave = False
         self.exitLastTab = True
         self.useIPC = True
         self.showToolbar = True
         self.toolbarPosition = 0
         self.toolbarIconStyle = 4
+        self.useEditorConfig = True
         self.defaultEncoding = "UTF-8"
         self.defaultLanguage = -1
         #self.editTheme = "default"
@@ -100,13 +102,7 @@ class Settings():
             self.useNativeIcons = True
             self.searchUpdates = True
 
-    def load(self, path):
-        try:
-            with open(path,"r",encoding="utf-8") as f:
-                data = json.load(f)
-        except:
-            showMessageBox("Can't load settings","The settings can't be loaded. jdTextEdit will use the default settings.")
-            return
+    def loadDict(self, data):
         settings = vars(self)
         for key, value in data.items():
             settings[key] = value
@@ -114,7 +110,14 @@ class Settings():
             font = QFont()
             font.fromString(settings["editFont"])
             settings["editFont"] = font
-        
+
+    def load(self, path):
+        try:
+            with open(path,"r",encoding="utf-8") as f:
+                self.loadDict(json.load(f))
+        except:
+            showMessageBox("Can't load settings","The settings can't be loaded. jdTextEdit will use the default settings.")
+
     def save(self, path):
         data = vars(self)
         font = self.editFont

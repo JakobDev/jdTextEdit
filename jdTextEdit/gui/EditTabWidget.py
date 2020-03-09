@@ -32,7 +32,10 @@ class EditTabWidget(QTabWidget):
         self.tabsChanged.emit()
 
     def tabChange(self, tabid):
-        currentEditWidget = self.widget(self.currentIndex()).getCodeEditWidget()
+        try:
+            currentEditWidget = self.widget(self.currentIndex()).getCodeEditWidget()
+        except:
+            return
         try:
             currentEditWidget.updateEolMenu()
             currentEditWidget.updateStatusBar()

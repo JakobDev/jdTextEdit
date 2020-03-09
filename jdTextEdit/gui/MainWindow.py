@@ -40,13 +40,8 @@ class MainWindow(QMainWindow):
                 showMessageBox("Error","Could not restore session. If jdTextEdit crashes just restart it.")
                 os.remove(os.path.join(self.env.dataDir,"session.json"))
                 shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
-            if len(env.args["filename"]) == 1:
-                #self.tabWidget.createTab("",focus=True)
-                self.openFile(os.path.abspath(env.args["filename"][0]))
         else:
             self.tabWidget.createTab(env.translate("mainWindow.newTabTitle"))
-            if len(env.args["filename"]) == 1:
-                self.openFile(os.path.abspath(env.args["filename"][0]))
         self.toolbar = self.addToolBar("toolbar")
         self.setCentralWidget(self.tabWidget)
         self.autoSaveTimer = QTimer()
@@ -59,6 +54,8 @@ class MainWindow(QMainWindow):
 
     def setup(self):
         #This is called, after all at least
+        if len(self.env.args["filename"]) == 1:
+            self.openFileCommandline(os.path.abspath(self.env.args["filename"][0]))
         self.getMenuActions(self.menubar)
         self.env.sidepane = DockWidget(self.env)
         self.env.sidepane.hide()
@@ -86,6 +83,27 @@ class MainWindow(QMainWindow):
         if self.env.settings.startupDayTip:
             self.env.dayTipWindow.openWindow()
 
+    def openFileCommandline(self, path):
+        if os.path.isfile(path):
+            self.openFile(path)
+        else:
+            #Check if the file is already open but do not exists anymore
+            found = False
+            for i in range(self.tabWidget.count()):
+                if self.tabWidget.widget(i).getCodeEditWidget().getFilePath() == path:
+                    self.tabWidget.setCurrentIndex(i)
+                    found = True
+            if not found:
+                if os.path.isdir(path):
+                    print("Can't open directory")
+                else:
+                    self.tabWidget.createTab(os.path.basename(path),focus=True)
+                    editWidget = self.getTextEditWidget()
+                    editWidget.setFilePath(path)
+                    editWidget.isNew = False
+                    if self.env.settings.useEditorConfig:
+                        editWidget.loadEditorConfig()
+
     def getTextEditWidget(self):
         return self.tabWidget.currentWidget().getCodeEditWidget()
 
@@ -95,7 +113,7 @@ class MainWindow(QMainWindow):
         with open(path) as f:
             lines = f.read().splitlines()
         if lines[0] == "openFile":
-            self.openFile(lines[1])
+            self.openFileCommandline(lines[1])
         open(path,"w").close()
         self.tempFileOpenWatcher.addPath(path)
         QApplication.setActiveWindow(self)
@@ -866,15 +884,22 @@ class MainWindow(QMainWindow):
                     if path.endswith(e):
                         lexer = i["lexer"]()
                         editWidget.setSyntaxHighlighter(lexer,lexerList=i)
+                if "startswith" in i:
+                    for e in i["startswith"]:
+                        if fileContent.startswith(e):
+                            lexer = i["lexer"]()
+                            editWidget.setSyntaxHighlighter(lexer,lexerList=i)
+        if self.env.settings.useEditorConfig:
+            editWidget.loadEditorConfig()
         containerWidget.clearBanner()
-        if self.env.settings.defaultEncoding != encoding and self.env.settings.showEncodingBanner:
+        if editWidget.settings.defaultEncoding != encoding and self.env.settings.showEncodingBanner:
             containerWidget.showBanner(WrongEncodingBanner(self.env,containerWidget))
         if self.env.settings.showEolBanner:
-            if editWidget.eolMode() == QsciScintilla.EolWindows and self.env.settings.defaultEolMode != 0:
+            if editWidget.eolMode() == QsciScintilla.EolWindows and editWidget.settings.defaultEolMode != 0:
                 containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
-            elif editWidget.eolMode() == QsciScintilla.EolUnix and self.env.settings.defaultEolMode != 1:
+            elif editWidget.eolMode() == QsciScintilla.EolUnix and editWidget.settings.defaultEolMode != 1:
                 containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
-            elif editWidget.eolMode() == QsciScintilla.EolMac and self.env.settings.defaultEolMode != 2:
+            elif editWidget.eolMode() == QsciScintilla.EolMac and editWidget.settings.defaultEolMode != 2:
                 containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
 
     def saveFile(self, tabid):
@@ -885,9 +910,17 @@ class MainWindow(QMainWindow):
         if os.path.isfile(path) and self.env.settings.saveBackupEnabled:
             shutil.copyfile(path,path + self.env.settings.saveBackupExtension)
         text = editWidget.text()
-        if self.env.settings.eolFileEnd:
-            if not text.endswith(editWidget.getEolChar()):
-                text = text + editWidget.getEolChar()
+        eolChar = editWidget.getEolChar()
+        if editWidget.settings.eolFileEnd:
+            if not text.endswith(eolChar):
+                text = text + eolChar
+        if editWidget.settings.stripSpacesSave:
+            new_text = ""
+            for i in text.splitlines():
+                new_text = new_text + i.rstrip() + eolChar
+            if not text.endswith(eolChar):
+                new_text = new_text[:-1]
+            text = new_text
         text = text.encode(editWidget.getUsedEncoding(),errors="replace")
         try:
             filehandle = open(path,"wb")
