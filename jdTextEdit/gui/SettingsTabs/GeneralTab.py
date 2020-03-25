@@ -8,7 +8,6 @@ class GeneralTab(QWidget):
         self.styleSelectComboBox = QComboBox()
         self.recentFilesSpinBox = QSpinBox()
         self.saveCloseCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveClose"))
-        self.hideTabBarCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.hideTabBar"))
         self.saveSessionCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveSession"))
         self.pluginsCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.loadPlugins"))
         self.nativeIconsCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.useNativeIcons"))
@@ -16,7 +15,6 @@ class GeneralTab(QWidget):
         self.windowTitleCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.windowFileTitle"))
         self.searchUpdatesCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.searchUpdates"))
         self.windowStateCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveWindowState"))
-        self.lastTabCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.exitLastTab"))
         self.fileChangedBannerCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.showFileChangedBanner"))
         self.languageComboBox.addItem(env.translate("settingsWindow.general.combobox.systemDefault"))
         self.languageComboBox.setItemData(0,"default")
@@ -43,7 +41,6 @@ class GeneralTab(QWidget):
         mainLayout = QVBoxLayout()
         mainLayout.addLayout(gridLayout)
         mainLayout.addWidget(self.saveCloseCheckBox)
-        mainLayout.addWidget(self.hideTabBarCheckBox)
         mainLayout.addWidget(self.saveSessionCheckBox)
         mainLayout.addWidget(self.pluginsCheckBox)
         mainLayout.addWidget(self.nativeIconsCheckBox)
@@ -51,7 +48,6 @@ class GeneralTab(QWidget):
         mainLayout.addWidget(self.windowTitleCheckBox)
         mainLayout.addWidget(self.searchUpdatesCheckBox)
         mainLayout.addWidget(self.windowStateCheckBox)
-        mainLayout.addWidget(self.lastTabCheckBox)
         mainLayout.addWidget(self.fileChangedBannerCheckBox)
         mainLayout.addStretch(1)
 
@@ -69,7 +65,6 @@ class GeneralTab(QWidget):
                     self.styleSelectComboBox.setCurrentIndex(i)
         self.recentFilesSpinBox.setValue(settings.maxRecentFiles)
         self.saveCloseCheckBox.setChecked(settings.saveClose)
-        self.hideTabBarCheckBox.setChecked(settings.hideTabBar)
         self.saveSessionCheckBox.setChecked(settings.saveSession)
         self.pluginsCheckBox.setChecked(settings.loadPlugins)
         self.nativeIconsCheckBox.setChecked(settings.useNativeIcons)
@@ -77,7 +72,6 @@ class GeneralTab(QWidget):
         self.windowTitleCheckBox.setChecked(settings.windowFileTitle)
         self.searchUpdatesCheckBox.setChecked(settings.searchUpdates)
         self.windowStateCheckBox.setChecked(settings.saveWindowState)
-        self.lastTabCheckBox.setChecked(settings.exitLastTab)
         self.fileChangedBannerCheckBox.setChecked(settings.showFileChangedBanner)
 
     def getSettings(self, settings):
@@ -88,7 +82,6 @@ class GeneralTab(QWidget):
             settings.applicationStyle = self.styleSelectComboBox.itemText(self.styleSelectComboBox.currentIndex())
         settings.maxRecentFiles = self.recentFilesSpinBox.value()
         settings.saveClose = bool(self.saveCloseCheckBox.checkState())
-        settings.hideTabBar = bool(self.hideTabBarCheckBox.checkState())
         settings.saveSession = bool(self.saveSessionCheckBox.checkState())
         settings.loadPlugins = bool(self.pluginsCheckBox.checkState())
         settings.useNativeIcons = bool(self.nativeIconsCheckBox.checkState())
@@ -96,6 +89,5 @@ class GeneralTab(QWidget):
         settings.windowFileTitle = bool(self.windowTitleCheckBox.checkState())
         settings.searchUpdates = bool(self.searchUpdatesCheckBox.checkState())
         settings.saveWindowState = bool(self.windowStateCheckBox.checkState())
-        settings.exitLastTab = bool(self.lastTabCheckBox.checkState())
         settings.showFileChangedBanner = bool(self.fileChangedBannerCheckBox.checkState())
         return settings

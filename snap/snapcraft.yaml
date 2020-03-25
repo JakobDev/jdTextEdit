@@ -1,8 +1,8 @@
 name: jdtextedit
-version: "7.1"
+version: "7.2"
 summary: jdTextEdit
 description: |
-  jdTextEdit is a powerful texteditor with a lot of features 
+  jdTextEdit is a powerful texteditor with a lot of features
 base: core18
 confinement: strict
 grade: stable

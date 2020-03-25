@@ -3,6 +3,7 @@ from jdTextEdit.gui.SettingsTabs.GeneralTab import GeneralTab
 from jdTextEdit.gui.SettingsTabs.EditorTab import EditorTab
 from jdTextEdit.gui.SettingsTabs.AutocompletionTab import AutocompletionTab
 from jdTextEdit.gui.SettingsTabs.StyleTab import StyleTab
+from jdTextEdit.gui.SettingsTabs.TabBarTab import TabBarTab
 from jdTextEdit.gui.SettingsTabs.OpenTab import OpenTab
 from jdTextEdit.gui.SettingsTabs.SaveTab import SaveTab
 from jdTextEdit.gui.SettingsTabs.ContextMenuTab import ContextMenuTab
@@ -23,6 +24,7 @@ class SettingsWindow(QWidget):
         self.newTab(EditorTab,env.translate("settingsWindow.editor"))
         self.newTab(AutocompletionTab,env.translate("settingsWindow.autocompletion"))
         self.newTab(StyleTab,env.translate("settingsWindow.style"))
+        self.newTab(TabBarTab,env.translate("settingsWindow.tabBar"))
         self.newTab(OpenTab,env.translate("settingsWindow.open"))
         self.newTab(SaveTab,env.translate("settingsWindow.save"))
         self.newTab(ContextMenuTab,env.translate("settingsWindow.contextMenu"))

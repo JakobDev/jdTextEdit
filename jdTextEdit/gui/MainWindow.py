@@ -80,6 +80,7 @@ class MainWindow(QMainWindow):
             self.tempFileOpenWatcher.fileChanged.connect(self.openTempFileSignal)
             atexit.register(self.removeTempOpenFile)
         self.show()
+        #self.getTextEditWidget().ensureCursorVisible()
         if self.env.settings.startupDayTip:
             self.env.dayTipWindow.openWindow()
 
@@ -1143,7 +1144,6 @@ class MainWindow(QMainWindow):
                 self.saveFile(i)
 
     def updateSettings(self, settings):
-        self.tabWidget.tabBar().setAutoHide(settings.hideTabBar)
         self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
         self.updateRecentFilesMenu()
         self.updateToolbar(settings)
@@ -1169,6 +1169,7 @@ class MainWindow(QMainWindow):
             self.autoSaveTimer.start()
         else:
             self.autoSaveTimer.stop()
+        self.tabWidget.updateSettings(settings)
         self.updateWindowTitle()
 
     def updateWindowTitle(self):

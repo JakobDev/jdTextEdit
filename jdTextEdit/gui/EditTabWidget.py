@@ -10,10 +10,9 @@ class EditTabWidget(QTabWidget):
     def __init__(self,env):
         super().__init__()
         self.env = env
-        self.setMovable(True)
-        self.setTabsClosable(True)
         self.tabCloseRequested.connect(self.tabCloseClicked)
         self.currentChanged.connect(self.tabChange)
+        self.tabBarDoubleClicked.connect(self.tabDoubleClicked)
         #self.tabs = []
 
     def createTab(self,title,focus=None):
@@ -62,3 +61,20 @@ class EditTabWidget(QTabWidget):
                 else:
                     self.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
         self.tabsChanged.emit()
+
+    def tabDoubleClicked(self,tabid):
+        if self.env.settings.tabDoubleClickClose:
+            self.tabCloseClicked(tabid)
+
+    def updateSettings(self, settings):
+        if settings.tabBarPosition == 0:
+            self.setTabPosition(QTabWidget.TabPosition.North)
+        elif settings.tabBarPosition == 1:
+            self.setTabPosition(QTabWidget.TabPosition.South)
+        elif settings.tabBarPosition == 2:
+            self.setTabPosition(QTabWidget.TabPosition.West)
+        elif settings.tabBarPosition == 3:
+            self.setTabPosition(QTabWidget.TabPosition.East)
+        self.tabBar().setAutoHide(settings.hideTabBar)
+        self.setTabsClosable(settings.closeButtonTab)
+        self.setMovable(settings.allowTabMove)

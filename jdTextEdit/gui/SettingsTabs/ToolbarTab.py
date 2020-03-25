@@ -32,10 +32,10 @@ class ToolbarTab(QWidget):
         self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.textUnderIcons"))
         self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.osStyle"))
 
-        self.positionComboBox.addItem(env.translate("settingsWindow.toolbar.position.up"))
-        self.positionComboBox.addItem(env.translate("settingsWindow.toolbar.position.bottom"))
-        self.positionComboBox.addItem(env.translate("settingsWindow.toolbar.position.left"))
-        self.positionComboBox.addItem(env.translate("settingsWindow.toolbar.position.right"))
+        self.positionComboBox.addItem(env.translate("position.up"))
+        self.positionComboBox.addItem(env.translate("position.bottom"))
+        self.positionComboBox.addItem(env.translate("position.left"))
+        self.positionComboBox.addItem(env.translate("position.right"))
 
         addButton.setIcon(QIcon.fromTheme("go-next"))
         removeButton.setIcon(QIcon.fromTheme("go-previous"))

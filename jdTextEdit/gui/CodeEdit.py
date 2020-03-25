@@ -286,7 +286,8 @@ class CodeEdit(QsciScintilla):
             "cursorPosLine": self.cursorPosLine,
             "cursorPosIndex": self.cursorPosIndex,
             "zoom": self.SendScintilla(QsciScintillaBase.SCI_GETZOOM),
-            "customSettings": self.custom_settings
+            "customSettings": self.custom_settings,
+            "overwriteMode": self.overwriteMode()
         }
 
     def restoreSaveMetaData(self,data):
@@ -306,6 +307,7 @@ class CodeEdit(QsciScintilla):
         self.settings.loadDict(self.custom_settings)
         if len(self.custom_settings) != 0:
             self.updateSettings(self.settings)
+        self.setOverwriteMode(data.get("overwriteMode",False))
 
     def loadEditorConfig(self):
         try:
@@ -344,7 +346,7 @@ class CodeEdit(QsciScintilla):
         self.settings.loadDict(self.custom_settings)
         self.updateSettings(self.settings)
 
-    def setLexerColor_Old(self,lexer,style):
+    def setLexerColor(self,lexer,style):
         #return
         lexer.setPaper(QColor(style.get("paperColor","#FFFFFF")))
         lexer.setDefaultPaper(QColor(style.get("paperColor","#FFFFFF")))

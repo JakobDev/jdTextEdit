@@ -14,7 +14,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "7.1"
+        self.version = "7.2"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = argparse.ArgumentParser()
@@ -39,7 +39,7 @@ class Enviroment():
         self.settings = Settings()
         if os.path.isfile(os.path.join(self.dataDir,"settings.json")):
             self.settings.load(os.path.join(self.dataDir,"settings.json"))
-        
+
         if self.settings.language == "default":
             self.translations = jdTranslationHelper(lang=QLocale.system().name())
         else:

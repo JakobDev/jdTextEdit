@@ -10,6 +10,10 @@ class Settings():
         self.applicationStyle = "default"
         self.saveClose = True
         self.hideTabBar = False
+        self.tabBarPosition = 0
+        self.closeButtonTab = True
+        self.allowTabMove = True
+        self.tabDoubleClickClose = False
         self.maxRecentFiles = 10
         self.saveSession = True
         self.loadPlugins = True
