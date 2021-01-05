@@ -5,7 +5,7 @@ import json
 import os
 
 class Settings():
-    def __init__(self):
+    def __init__(self,defaultSettings=None):
         self.language = "default"
         self.applicationStyle = "default"
         self.saveClose = True
@@ -65,6 +65,17 @@ class Settings():
         self.showEolBanner = True
         self.enableAutoSave = False
         self.autoSaveInterval = 30
+        self.enableBigFileLimit = True
+        self.bigFileSize = 10485760
+        self.bigFileDisableHighlight = True
+        self.bigFileDisableEncodingDetect = True
+        self.bigFileShowBanner = True
+        self.editorConfigUseIndentStyle = True
+        self.editorConfigTabWidth = True
+        self.editorConfigEndOfLine = True
+        self.editorConfigTrimWhitespace = True
+        self.editorConfigInsertNewline = True
+        self.editorConfigShowBanner = False
         self.disabledPlugins = []
         self.shortcut = {
             "newFile": QKeySequence(QKeySequence.New).toString(),
@@ -105,8 +116,11 @@ class Settings():
         else:
             self.useNativeIcons = True
             self.searchUpdates = True
+        if defaultSettings:
+            for i in defaultSettings:
+                setattr(self,i[0],i[1])
 
-    def loadDict(self, data):
+    def loadDict(self, data: dict):
         settings = vars(self)
         for key, value in data.items():
             settings[key] = value
@@ -115,17 +129,27 @@ class Settings():
             font.fromString(settings["editFont"])
             settings["editFont"] = font
 
-    def load(self, path):
+    def load(self, path: str):
         try:
             with open(path,"r",encoding="utf-8") as f:
                 self.loadDict(json.load(f))
         except:
             showMessageBox("Can't load settings","The settings can't be loaded. jdTextEdit will use the default settings.")
 
-    def save(self, path):
+    def save(self, path: str):
         data = vars(self)
         font = self.editFont
         data["editFont"] = self.editFont.toString()
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
         self.editFont = font
+
+    def get(self, key: str):
+        return vars(self)[key]
+
+    def set(self,key: str, value: str):
+        vars(self)[key] = value
+
+    def register(self,key: str,value: str):
+        if not hasattr(self,key):
+            setattr(self,key,value)

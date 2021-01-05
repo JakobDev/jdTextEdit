@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QCheckBox, QHeaderView, QAbstractItemView
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from PyQt5.QtCore import Qt
 
-class PluginTab(QTableWidget):
+class PluginTab(QTableWidget,SettingsTabBase):
     def __init__(self, env):
         super().__init__(0,4)
         self.env = env
@@ -31,7 +32,6 @@ class PluginTab(QTableWidget):
         for i in range(self.rowCount()):
             if not self.cellWidget(i,0).checkState():
                 settings.disabledPlugins.append(self.pluginID[i])
-        return settings
 
     def setup(self):
         count = 0
@@ -50,3 +50,6 @@ class PluginTab(QTableWidget):
             self.setItem(count,3,authorItem)
             self.pluginID.append(key)
             count += 1
+
+    def title(self):
+        return self.env.translate("settingsWindow.plugins")

@@ -12,3 +12,7 @@ jdTextEdit/data
 jdTextEdit/commands.json
 jdTextEdit/default_data
 jdTextEdit/macros.json
+jdTextEdit/distribution.json
+
+#documentation
+doc/build

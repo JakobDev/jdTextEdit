@@ -12,6 +12,7 @@ class SearchWindow(QWidget):
         self.wrap = QCheckBox(env.translate("searchWindow.checkBox.wrap"))
         self.backward = QCheckBox(env.translate("searchWindow.checkBox.backwards"))
         self.showText = QCheckBox(env.translate("searchWindow.checkBox.showText"))
+        self.searchRange = QCheckBox("Test")
         self.lineSpinBox = QSpinBox()
         self.indexSpinBox = QSpinBox()
         self.closeButton = QPushButton(env.translate("button.close"))
@@ -35,7 +36,7 @@ class SearchWindow(QWidget):
         searchTextLayout = QHBoxLayout()
         searchTextLayout.addWidget(QLabel(env.translate("searchWindow.label.searchFor")))
         searchTextLayout.addWidget(self.searchEdit)
-        
+
         numberLayout = QGridLayout()
         numberLayout.addWidget(QLabel(env.translate("searchWindow.label.searchLine")),0,0)
         numberLayout.addWidget(self.lineSpinBox,0,1)
@@ -55,6 +56,7 @@ class SearchWindow(QWidget):
         mainLayout.addWidget(self.wrap)
         mainLayout.addWidget(self.backward)
         mainLayout.addWidget(self.showText)
+        mainLayout.addWidget(self.searchRange)
         mainLayout.addLayout(numberLayout)
         mainLayout.addLayout(buttonLayout)
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
@@ -63,7 +65,18 @@ class SearchWindow(QWidget):
         self.setWindowTitle(env.translate("searchWindow.title"))
 
     def searchButtonClicked(self):
-        self.editWidget.findFirst(self.searchEdit.text(),self.regEx.checkState(),self.caseSensitive.checkState(),self.wholeWord.checkState(),self.wrap.checkState(),not bool(self.backward.checkState()),self.lineSpinBox.value(),self.indexSpinBox.value(),self.showText.checkState())
+
+        self.editWidget.findFirst(
+            self.searchEdit.text(),
+            self.regEx.checkState(),
+            self.caseSensitive.checkState(),
+            self.wholeWord.checkState(),
+            self.wrap.checkState(),
+            not bool(self.backward.checkState())
+            ,self.lineSpinBox.value(),
+            self.indexSpinBox.value(),
+            self.showText.checkState()
+        )
 
     def openWindow(self, editWidget):
         self.editWidget = editWidget

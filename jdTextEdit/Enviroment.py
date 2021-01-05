@@ -5,6 +5,10 @@ from PyQt5.QtGui import QIcon
 from jdTextEdit.Settings import Settings
 from jdTextEdit.LexerList import getLexerList
 from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox, readJsonFile
+from jdTextEdit.core.BuiltinLanguage import BuiltinLanguage
+from jdTextEdit.core.api.EditorSignals import EditorSignals
+from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
+from jdTextEdit.core.api.PluginAPI import PluginAPI
 import argparse
 import chardet
 import shutil
@@ -14,17 +18,24 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "7.2"
+        self.version = "8.0"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = argparse.ArgumentParser()
         parser.add_argument("filename",nargs="*")
         parser.add_argument("-p", "--portable",action="store_true", dest="portable",help="Portable")
+        parser.add_argument("--data-dir", dest="dataDir",help="Sets the data directory")
+        parser.add_argument("--disable-plugins",action="store_true", dest="disablePlugins",help="Disable Plugins")
+        parser.add_argument("--no-session-restore",action="store_true", dest="disableSessionRestore",help="Disable Session Restore")
+        parser.add_argument("--disable-updater",action="store_true", dest="disableUpdater",help="Disable the Updater")
         self.args = parser.parse_args().__dict__
+
+        self.distributionSettings = readJsonFile(os.path.join(self.programDir,"distribution.json"),{})
+
         if self.args["portable"]:
             self.dataDir = os.path.join(self.programDir,"data")
         else:
-            self.dataDir = getDataPath()
+            self.dataDir = getDataPath(self)
 
         if not os.path.isdir(self.dataDir):
             try:
@@ -35,6 +46,11 @@ class Enviroment():
             except:
                 showMessageBox("Unable to create data folder","jdTextEdit is unable to create his data folder. Maybe you've installed it in a system directory and try to run it in portable mode")
                 sys.exit(2)
+
+        if not(self.distributionSettings.get("enableUpdater",False)) or self.args["disableUpdater"] or os.getenv("SNAP"):
+            self.enableUpdater = False
+        else:
+            self.enableUpdater = True
 
         self.settings = Settings()
         if os.path.isfile(os.path.join(self.dataDir,"settings.json")):
@@ -65,7 +81,15 @@ class Enviroment():
         #    os.mkdir(user_themes)
         #self.themes["default"] = {"meta":{"name":self.translate("settingsWindow.style.theme.default"),"id":"default"},"colors":{}}
 
+        self.menuList = []
+
         self.lexerList = getLexerList()
+
+        self.languageList = []
+        for i in self.lexerList:
+            lang = BuiltinLanguage(self,i)
+            self.languageList.append(lang)
+
         self.templates = []
         self.templates = getTemplates(os.path.join(self.programDir,"templates"),self.templates)
         self.templates = getTemplates(os.path.join(self.dataDir,"templates"),self.templates)
@@ -95,6 +119,13 @@ class Enviroment():
         self.documentUnsavedIcon = QIcon(os.path.join(self.programDir,"icons","document-unsaved.png"))
 
         self.defaultStyle = QApplication.style().metaObject().className()[1:-5]
+
+        self.editorSignals = EditorSignals()
+        self.applicationSignals = ApplicationSignals()
+        self.customSettingsTabs = []
+        self.customBigFilesSettings = []
+        self.defaultSettings = []
+        self.pluginAPI = PluginAPI(self)
 
     def translate(self, string):
         #Just a litle shortcut

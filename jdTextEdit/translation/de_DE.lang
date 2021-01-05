@@ -69,6 +69,7 @@ mainWindow.menu.view.foldAll=Alle einklappen
 mainWindow.menu.view.unfoldAll=Alle ausklappen
 mainWindow.menu.search=Suchen
 mainWindow.menu.search.search=Suchen ...
+mainWindow.menu.search.advancedSearch=Erweiterte Suche
 mainWindow.menu.search.searchAndReplace=Suchen und Ersetzen
 mainWindow.menu.search.gotoLine=Gehe zu Zeile
 mainWindow.menu.tools=Werkzeuge
@@ -133,7 +134,7 @@ settingsWindow.general.checkBox.loadPlugins=Plugins laden
 settingsWindow.general.checkBox.useNativeIcons=Native Icons benutzen
 settingsWindow.general.checkBox.dayTip=Zeige Tipp des Tages beim starten
 settingsWindow.general.checkBox.windowFileTitle=Dateiname in Fenstertitel zeigen
-settingsWindow.general.checkBox.searchUpdates=Beim starten nach Updates suchen
+settingsWindow.general.checkBox.searchUpdates=Beim Starten nach Updates suchen
 settingsWindow.general.checkBox.saveWindowState=Status der Fenster speichern
 settingsWindow.general.checkBox.showFileChangedBanner=Geöffnete Dateien auf Änderungen überwachen
 settingsWindow.editor=Editor
@@ -147,7 +148,6 @@ settingsWindow.editor.checkBox.showWhitespaces=Alle Zeichen anzeigen
 settingsWindow.editor.checkBox.autoIndent=Automatischer Einzug
 settingsWindow.editor.checkBox.showIndentationGuides=Zeige Einrückhilfen
 settingsWindow.editor.checkBox.showEol=Zeige Zeilenende
-settingsWindow.editor.checkBox.useEditorConfig=Benutze .editorconfig wenn vorhanden
 settingsWindow.autocompletion=Autovervollständigung
 settingsWindow.autocompletion.checkbox.enableAutocompletion=Autovervollständigung aktivieren
 settingsWindow.autocompletion.checkbox.useWordsFromDocument=Benutze Wörter aus dem Dokument
@@ -191,6 +191,21 @@ settingsWindow.save.checkBox.enableBackup=Vor dem Speichern ein Backup erstellen
 settingsWindow.save.label.backupExtension=Backupdateiendung:
 settingsWindow.save.checkBox.enableAutoSave=Automatisches speichern aktivieren
 settingsWindow.save.label.autoSaveInterval=Speicherintervall in Sekunden:
+settingsWindow.bigFiles=Große Dateien
+settingsWindow.bigFiles.checkBox.enableBigFiles=Große Dateien limitieren
+settingsWindow.bigFiles.label.filesFrom=Dateien ab
+settingsWindow.bigFiles.label.bytes=Bytes
+settingsWindow.bigFiles.checkBox.disableHighlight=Syntaxhervorhebung deaktivieren
+settingsWindow.bigFiles.disableEncodingDetect=Erknennen der Kodierung deaktivieren
+settingsWindow.bigFiles.showBanner=Hinweis zeigen
+settingsWindow.editorconfig=Editorconfig
+settingsWindow.editorconfig.checkBox.useEditorConfig=Benutze .editorconfig wenn vorhanden
+settingsWindow.editorconfig.checkBox.useIndentStyle=Benutze Einrückstil aus .editorconfig
+settingsWindow.editorconfig.checkBox.tabWidth=Benutze Tabulatorbreite aus .editorconfig
+settingsWindow.editorconfig.checkBox.endOfLine=Benutze Zeilenende aus .editorconfig
+settingsWindow.editorconfig.checkBox.trimWhitespace=Benutze Einstellung zum Enfernen von Leerzeichen aus .editorconfig
+settingsWindow.editorconfig.checkBox.insertNewline=Benutze Einstellung zum Einfügen vom Zeilenende aus .editorconfig
+settingsWindow.editorconfig.checkBox.showBanner=Zeige Hinweis wenn .editorconfig benutzt wird
 settingsWindow.contextMenu=Kontextmenü
 settingsWindow.contextMenu.button.add=Hinzufügen
 settingsWindow.contextMenu.button.remove=Entfernen
@@ -289,12 +304,20 @@ dayTipWindow.title=Tipp des Tages
 dayTipWindow.showStartup=Tipps beim Starten zeigen
 dayTipWindow.nextTip=Nächster Tipp
 
+searchBar.label.search=Suche:
+searchBar.tooltip.findNext=Zur nächsten Übereinstimmung springen
+searchBar.tooltip.findFirst=Zur ersten Übereinstimmung springen
+
 fileChangedBanner.text=Die Datei wurde auf dem Laufwerk geändert
 fileChangedBanner.button.reload=Neu laden
 
 wrongEncodingBanner.text=Die Zeichenkodierung entspricht nicht den Standardeinstellungen
 
 wrongEolBanner.text=Das Zeilenende entspricht nicht den Standardeinstellungen
+
+bigFileBanner.text=Aufgrund der Größe der Datei wurden einige Features deaktiviert
+
+editorconfigBanner.text=Es werden einige Einstellungen aus einer .editorconfig benutzt
 
 noReadPermission.title=Konnte Datei nicht öffnen
 noReadPermission.text=Du hast nicht die Berechtigung, um %s zu öffnen

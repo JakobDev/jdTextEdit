@@ -6,6 +6,8 @@ from jdTextEdit.gui.SettingsTabs.StyleTab import StyleTab
 from jdTextEdit.gui.SettingsTabs.TabBarTab import TabBarTab
 from jdTextEdit.gui.SettingsTabs.OpenTab import OpenTab
 from jdTextEdit.gui.SettingsTabs.SaveTab import SaveTab
+from jdTextEdit.gui.SettingsTabs.BigFilesTab import BigFilesTab
+from jdTextEdit.gui.SettingsTabs.EditorconfigTab import EditorconfigTab
 from jdTextEdit.gui.SettingsTabs.ContextMenuTab import ContextMenuTab
 from jdTextEdit.gui.SettingsTabs.ToolbarTab import ToolbarTab
 from jdTextEdit.gui.SettingsTabs.ShortcutTab import ShortcutTab
@@ -20,18 +22,20 @@ class SettingsWindow(QWidget):
         self.env = env
         self.tabWidget = QTabWidget()
         self.tabs = []
-        self.newTab(GeneralTab,env.translate("settingsWindow.general"))
-        self.newTab(EditorTab,env.translate("settingsWindow.editor"))
-        self.newTab(AutocompletionTab,env.translate("settingsWindow.autocompletion"))
-        self.newTab(StyleTab,env.translate("settingsWindow.style"))
-        self.newTab(TabBarTab,env.translate("settingsWindow.tabBar"))
-        self.newTab(OpenTab,env.translate("settingsWindow.open"))
-        self.newTab(SaveTab,env.translate("settingsWindow.save"))
-        self.newTab(ContextMenuTab,env.translate("settingsWindow.contextMenu"))
-        self.newTab(ToolbarTab,env.translate("settingsWindow.toolbar"))
-        self.newTab(ShortcutTab,env.translate("settingsWindow.shortcuts"))
-        if env.settings.loadPlugins:
-            self.newTab(PluginTab,env.translate("settingsWindow.plugins"))
+        #self.newTab(GeneralTab(env))
+        #self.newTab(EditorTab(env))
+        #self.newTab(AutocompletionTab(env))
+        #self.newTab(StyleTab(self.env))
+        #self.newTab(TabBarTab(env))
+        #self.newTab(OpenTab(env))
+        #self.newTab(SaveTab(env))
+        #self.newTab(BigFilesTab(env))
+        #self.newTab(EditorconfigTab(env))
+        #self.newTab(ContextMenuTab(env))
+        #self.newTab(ToolbarTab(env))
+        #self.newTab(ShortcutTab(env))
+        #if env.settings.loadPlugins:
+           #self.newTab(PluginTab(env))
 
         okButton = QPushButton(env.translate("button.ok"))
         cancelButton = QPushButton(env.translate("button.cancel"))
@@ -40,7 +44,7 @@ class SettingsWindow(QWidget):
         okButton.clicked.connect(self.okButtonClicked)
         cancelButton.clicked.connect(self.close)
         defaultButton.clicked.connect(self.defaultButtonClicked)
-        
+
         buttonLayout = QHBoxLayout()
         buttonLayout.addWidget(defaultButton)
         buttonLayout.addStretch(1)
@@ -55,9 +59,9 @@ class SettingsWindow(QWidget):
         self.setWindowTitle(env.translate("settingsWindow.title"))
         restoreWindowState(self,env.windowState,"SettingsWindow")
 
-    def newTab(self, win, title):
-        self.tabs.append(win(self.env))
-        self.tabWidget.addTab(self.tabs[-1],title)
+    def newTab(self,tab):
+        self.tabs.append(tab)
+        self.tabWidget.addTab(tab,tab.title())
 
     def openWindow(self):
         for i in self.tabs:
@@ -67,19 +71,35 @@ class SettingsWindow(QWidget):
 
     def okButtonClicked(self):
         for i in self.tabs:
-            self.env.settings = i.getSettings(self.env.settings)
+            i.getSettings(self.env.settings)
         self.env.mainWindow.updateSettings(self.env.settings)
+        self.env.applicationSignals.settingsChanged.emit(self.env.settings)
         for i in range(self.env.mainWindow.tabWidget.count()):
             self.env.mainWindow.tabWidget.widget(i).getCodeEditWidget().setSettings(self.env.settings)
-        #self.env.settings.save(os.path.join(self.env.dataDir,"settings.json"))
         self.close()
 
     def defaultButtonClicked(self):
-        defaultSettings = Settings()
+        defaultSettings = Settings(defaultSettings=self.env.defaultSettings)
         for i in self.tabs:
             i.updateTab(defaultSettings)
 
     def setup(self):
+        self.newTab(GeneralTab(self.env))
+        self.newTab(EditorTab(self.env))
+        self.newTab(AutocompletionTab(self.env))
+        self.newTab(StyleTab(self.env))
+        self.newTab(TabBarTab(self.env))
+        self.newTab(OpenTab(self.env))
+        self.newTab(SaveTab(self.env))
+        self.newTab(BigFilesTab(self.env))
+        self.newTab(EditorconfigTab(self.env))
+        self.newTab(ContextMenuTab(self.env))
+        self.newTab(ToolbarTab(self.env))
+        self.newTab(ShortcutTab(self.env))
+        for i in self.env.customSettingsTabs:
+            self.newTab(i)
+        if self.env.settings.loadPlugins:
+            self.newTab(PluginTab(self.env))
         for i in self.tabs:
             if hasattr(i,"setup"):
                 i.setup()

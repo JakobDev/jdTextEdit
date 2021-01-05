@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem, QCheckBox, QComboBox, QLabel, QGridLayout
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from PyQt5.QtGui import QIcon
 
 class CustomWidgetItem(QListWidgetItem):
@@ -12,10 +13,11 @@ class CustomWidgetItem(QListWidgetItem):
     def actionName(self):
         return self.actionNameString
 
-class ToolbarTab(QWidget):
+class ToolbarTab(QWidget,SettingsTabBase):
     def __init__(self,env):
         super().__init__()
         self.env = env
+
         self.actionsList = QListWidget()
         addButton = QPushButton(env.translate("settingsWindow.contextMenu.button.add"))
         removeButton = QPushButton(env.translate("settingsWindow.contextMenu.button.remove"))
@@ -55,7 +57,7 @@ class ToolbarTab(QWidget):
         buttonLayout.addWidget(upButton)
         buttonLayout.addWidget(downButton)
         buttonLayout.addStretch(1)
-        
+
         menuLayout = QHBoxLayout()
         menuLayout.addWidget(self.actionsList)
         menuLayout.addLayout(buttonLayout)
@@ -125,7 +127,6 @@ class ToolbarTab(QWidget):
         settings.showToolbar = bool(self.showToolbarCheckbox.checkState())
         settings.toolbarIconStyle = self.iconStyleSelect.currentIndex()
         settings.toolbarPosition = self.positionComboBox.currentIndex()
-        return settings
 
     def setup(self):
         for key, data in self.env.menuActions.items():
@@ -135,3 +136,6 @@ class ToolbarTab(QWidget):
                 item = CustomWidgetItem(data.text())
             item.setActionName(data.data()[0])
             self.actionsList.addItem(item)
+
+    def title(self):
+        return self.env.translate("settingsWindow.toolbar")

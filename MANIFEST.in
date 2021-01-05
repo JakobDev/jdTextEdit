@@ -5,3 +5,4 @@ include jdTextEdit/translation/*
 include jdTextEdit/autocompletion/*
 include jdTextEdit/templates/*
 include jdTextEdit/plugins/pluginmanager/translation/*
+include jdTextEdit/plugins/SpellChecker/translation/*

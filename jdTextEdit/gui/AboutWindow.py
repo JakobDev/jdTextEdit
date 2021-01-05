@@ -11,7 +11,16 @@ class AboutWindow(QWidget):
         logo = QLabel()
         logo.setPixmap(QPixmap(os.path.join(env.programDir,"Logo.png")).scaled(100,100))
         logo.setAlignment(Qt.AlignCenter)
-        text = QLabel("<center>" + (env.translate("aboutWindow.label.title") % env.version) + "<br><br>" + env.translate("aboutWindow.label.description") + "<br><br>"+ env.translate("aboutWindow.label.license") + "<br><br>"  + env.translate("aboutWindow.label.logoAuthor") + "<br><br>Copyright © 2019-2020 JakobDev</center>")
+        text = "<center>"
+        text += (env.translate("aboutWindow.label.title") % env.version) + "<br><br>"
+        text += env.translate("aboutWindow.label.description") + "<br><br>"
+        text +=  env.translate("aboutWindow.label.license") + "<br><br>"
+        text += env.translate("aboutWindow.label.logoAuthor") + "<br><br>"
+        if "aboutMessage" in env.distributionSettings:
+            text += env.distributionSettings["aboutMessage"] +  "<br><br>"
+        text += "Copyright © 2019-2021 JakobDev</center>"
+        label = QLabel(text)
+        #label = QLabel("<center>" + (env.translate("aboutWindow.label.title") % env.version) + "<br><br>" + env.translate("aboutWindow.label.description") + "<br><br>"+ env.translate("aboutWindow.label.license") + "<br><br>"  + env.translate("aboutWindow.label.logoAuthor") + "<br><br>Copyright © 2019-2021 JakobDev</center>")
         viewSourceButton = QPushButton(env.translate("aboutWindow.button.viewSource"))
         closeButton = QPushButton(env.translate("button.close"))
 
@@ -27,7 +36,7 @@ class AboutWindow(QWidget):
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(logo)
-        mainLayout.addWidget(text)
+        mainLayout.addWidget(label)
         mainLayout.addLayout(buttonLayout)
         mainLayout.setSizeConstraint(QLayout.SetFixedSize)
 

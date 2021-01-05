@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QScrollArea, QKeySequenceEdit, QGridLayout
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 
 class ClearResetButton(QPushButton):
@@ -7,8 +8,8 @@ class ClearResetButton(QPushButton):
         self.keySequenceEdit = keySequenceEdit
         self.defaultKeySequence = defaultKeySequence
         self.clicked.connect(lambda: self.keySequenceEdit.setKeySequence(self.defaultKeySequence))
-        
-class ShortcutTab(QScrollArea):
+
+class ShortcutTab(QScrollArea,SettingsTabBase):
     def __init__(self, env):
         super().__init__()
         self.env = env
@@ -26,7 +27,6 @@ class ShortcutTab(QScrollArea):
                 settings.shortcut[i[0]] = i[1].keySequence().toString()
             elif i[0] in settings.shortcut:
                 del settings.shortcut[i[0]]
-        return settings
 
     def setup(self):
         self.shortcutList = []
@@ -55,3 +55,6 @@ class ShortcutTab(QScrollArea):
         self.scrollWidget.setLayout(mainLayout)
         self.setWidget(self.scrollWidget)
         self.setWidgetResizable(True)
+
+    def title(self):
+        return self.env.translate("settingsWindow.shortcuts")

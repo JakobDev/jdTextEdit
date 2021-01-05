@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from PyQt5.QtGui import QIcon
 
 class CustomWidgetItem(QListWidgetItem):
@@ -12,7 +13,7 @@ class CustomWidgetItem(QListWidgetItem):
     def actionName(self):
         return self.actionNameString
 
-class ContextMenuTab(QWidget):
+class ContextMenuTab(QWidget,SettingsTabBase):
     def __init__(self,env):
         super().__init__()
         self.env = env
@@ -41,7 +42,7 @@ class ContextMenuTab(QWidget):
         buttonLayout.addWidget(upButton)
         buttonLayout.addWidget(downButton)
         buttonLayout.addStretch(1)
-        
+
         mainLayout = QHBoxLayout()
         mainLayout.addWidget(self.actionsList)
         mainLayout.addLayout(buttonLayout)
@@ -94,7 +95,6 @@ class ContextMenuTab(QWidget):
         settings.editContextMenu = []
         for i in range(self.contextList.count()):
             settings.editContextMenu.append(self.contextList.item(i).actionName())
-        return settings
 
     def setup(self):
         for key, data in self.env.menuActions.items():
@@ -105,3 +105,6 @@ class ContextMenuTab(QWidget):
             #item.setIcon(data.icon())
             item.setActionName(data.data()[0])
             self.actionsList.addItem(item)
+
+    def title(self):
+        return self.env.translate("settingsWindow.contextMenu")

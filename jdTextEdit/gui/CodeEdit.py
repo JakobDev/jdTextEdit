@@ -3,18 +3,20 @@ from PyQt5.Qsci import QsciScintilla, QsciLexer, QsciAPIs, QsciScintillaBase
 from PyQt5.QtGui import QColor, QFontMetrics, QFont, QCursor
 from PyQt5.QtCore import pyqtSignal
 from jdTextEdit.AutocompleteXML import AutocompleteXML
-from jdTextEdit.LexerList import getLexerList
+from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
+from jdTextEdit.api.LanguageBase import LanguageBase
 import editorconfig
 import copy
 import os
 
 class CodeEdit(QsciScintilla):
     pathChanged = pyqtSignal("QString")
-    def __init__(self,env,preview=None,isNew=False):
+    def __init__(self,env,preview=None,isNew=False,container=None):
         super().__init__()
         self.env = env
         self.isPreview = preview
         self.isNew = isNew
+        self.container = container
         self.currentLexer = None
         self.apiCompletion = None
         self.searchText = ""
@@ -26,8 +28,11 @@ class CodeEdit(QsciScintilla):
         self.bookmarkList = []
         self.settings = copy.copy(self.env.settings)
         self.custom_settings = {}
+        self.language = None
+        self.bigFile = False
+        self.currentIdicatorNumber = 0
         self.cursorPosString = env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1)
-        self.lexerName = env.translate("mainWindow.menu.language.plainText")
+        self.languageName = env.translate("mainWindow.menu.language.plainText")
         self.foldStyles = [QsciScintilla.NoFoldStyle,QsciScintilla.PlainFoldStyle,QsciScintilla.CircledFoldStyle,QsciScintilla.BoxedFoldStyle,QsciScintilla.CircledTreeFoldStyle,QsciScintilla.BoxedTreeFoldStyle]
         eolModeList = [QsciScintilla.EolWindows,QsciScintilla.EolUnix,QsciScintilla.EolMac]
         self.changeEolMode(eolModeList[self.settings.defaultEolMode])
@@ -45,9 +50,15 @@ class CodeEdit(QsciScintilla):
         self.selectionChanged.connect(self.editSelectionChanged)
         self.cursorPositionChanged.connect(self.updateCursor)
 
-        if self.settings.defaultLanguage != -1:
-            lexerList = getLexerList()
-            self.setSyntaxHighlighter(lexerList[self.settings.defaultLanguage]["lexer"](),lexerList[self.settings.defaultLanguage])
+        self.linesChanged.connect(lambda: self.env.editorSignals.linesChanged.emit(self))
+        self.textChanged.connect(lambda: self.env.editorSignals.textChanged.emit(self))
+        self.indicatorClicked.connect(lambda line,index,keys: self.env.editorSignals.indicatorClicked.emit(self,line,index,keys))
+        self.indicatorReleased.connect(lambda line,index,keys: self.env.editorSignals.indicatorReleased.emit(self,line,index,keys))
+
+        if self.settings.defaultLanguage != "plain":
+            for l in self.env.languageList:
+                if l.getID() == self.settings.defaultLanguage:
+                    self.setLanguage(l)
 
         self.setMarginType(1, QsciScintilla.SymbolMargin)
         sym_4 = QsciScintilla.Circle
@@ -56,12 +67,14 @@ class CodeEdit(QsciScintilla):
 
         self.zoomTo(self.settings.defaultZoom)
 
+        self.env.editorSignals.editorInit.emit(self)
+
     def updateStatusBar(self):
         if self.isPreview or not hasattr(self.env,"mainWindow"):
             return
         self.env.mainWindow.pathLabel.setText(self.filePath)
         self.env.mainWindow.encodingLabel.setText(self.usedEncoding)
-        self.env.mainWindow.lexerLabel.setText(self.lexerName)
+        self.env.mainWindow.lexerLabel.setText(self.languageName)
         self.env.mainWindow.cursorPosLabel.setText(self.cursorPosString)
         if self.eolMode() == QsciScintilla.EolWindows:
             self.env.mainWindow.eolLabel.setText("CRLF")
@@ -77,7 +90,7 @@ class CodeEdit(QsciScintilla):
         if lexerList:
             if isinstance(lexerList["xmlapi"], str):
                 if os.path.isfile(os.path.join(self.env.programDir,"autocompletion",lexerList["xmlapi"] + ".xml")):
-                    self.apiCompletion = os.path.join(self.env.programDir,"autocompletion",lexerList["xmlapi"] + ".xml")               
+                    self.apiCompletion = os.path.join(self.env.programDir,"autocompletion",lexerList["xmlapi"] + ".xml")
                 else:
                     self.apiCompletion = None
             else:
@@ -92,10 +105,24 @@ class CodeEdit(QsciScintilla):
             if not hasattr(self.env,"mainWindow"):
                 return
             self.env.mainWindow.updateSelectedLanguage()
- 
-    def removeSyntaxHighlighter(self):
+
+    def setLanguage(self,lang: LanguageBase):
+        lexer = lang.getLexer()
+        self.currentLexer = lexer
+        self.setLexer(lexer)
+        self.language = lang
+        if not self.isPreview:
+            self.languageName = lang.getName()
+            self.updateStatusBar()
+            if not hasattr(self.env,"mainWindow"):
+                return
+            self.env.mainWindow.updateSelectedLanguage()
+        self.updateSettings(self.settings)
+
+    def removeLanguage(self):
         self.setLexer(None)
         self.currentLexer = None
+        self.language = None
         self.updateSettings(self.settings)
         self.lexerName = self.env.translate("mainWindow.menu.language.plainText")
         self.updateStatusBar()
@@ -146,7 +173,7 @@ class CodeEdit(QsciScintilla):
                 self.env.mainWindow.deleteMenubarItem.setEnabled(False)
         except:
             pass
-        
+
     def updateCursor(self, line, pos):
         #self.SendScintilla(QsciScintillaBase.SCI_INDICATORFILLRANGE,0,10)
         self.cursorPosLine = line
@@ -235,6 +262,11 @@ class CodeEdit(QsciScintilla):
         self.env.mainWindow.updateSelectedLanguage()
 
     def contextMenuEvent(self, event):
+        event.setAccepted(False)
+        self.env.editorSignals.contextMenu.emit(self,event)
+        if event.isAccepted():
+            return
+        event.accept()
         menu = QMenu("jdTextEdit",self)
         for i in self.settings.editContextMenu:
             if i == "separator":
@@ -273,12 +305,21 @@ class CodeEdit(QsciScintilla):
                 pass
 
     def getSaveMetaData(self):
-        if self.currentLexer:
-            syntax = self.currentLexer.language()
+        if self.language:
+            syntax = self.language.getID()
         else:
             syntax = ""
+        path = self.getFilePath()
+        if path == "":
+            modificationTime = 0
+        else:
+            try:
+                modificationTime = os.path.getmtime(path)
+            except:
+                modificationTime = 0
+        fileChangedBannerVisible = self.container.isFileChangedBannerVisible()
         return {
-            "path": self.getFilePath(),
+            "path": path,
             "modified": self.isModified(),
             "language": syntax,
             "encoding": self.getUsedEncoding(),
@@ -287,17 +328,21 @@ class CodeEdit(QsciScintilla):
             "cursorPosIndex": self.cursorPosIndex,
             "zoom": self.SendScintilla(QsciScintillaBase.SCI_GETZOOM),
             "customSettings": self.custom_settings,
-            "overwriteMode": self.overwriteMode()
+            "overwriteMode": self.overwriteMode(),
+            "fileChangedBannerVisible": fileChangedBannerVisible,
+            "modificationTime": modificationTime
         }
 
     def restoreSaveMetaData(self,data):
-        self.setFilePath(data.get("path",""))
+        path = data.get("path","")
+        self.setFilePath(path)
         self.setModified(data["modified"])
         self.setUsedEncoding(data.get("encoding",self.settings.defaultEncoding))
-        for l in self.env.lexerList:
-            s = l["lexer"]()
-            if s.language() == data["language"]:
-                self.setSyntaxHighlighter(s,lexerList=l)
+        syntax = data.get("language","")
+        if syntax != "":
+            for l in self.env.languageList:
+                if  l.getID() == syntax:
+                    self.setLanguage(l)
         self.bookmarkList = data.get("bookmarks",[])
         for line in self.bookmarkList:
             self.markerAdd(line,0)
@@ -308,6 +353,13 @@ class CodeEdit(QsciScintilla):
         if len(self.custom_settings) != 0:
             self.updateSettings(self.settings)
         self.setOverwriteMode(data.get("overwriteMode",False))
+        modificationTime = data.get("modificationTime",0)
+        if self.container:
+            if data.get( "fileChangedBannerVisible",False):
+                self.container.showFileChangedBanner()
+            elif modificationTime != 0:
+                if modificationTime != os.path.getmtime(path):
+                    self.container.showFileChangedBanner()
 
     def loadEditorConfig(self):
         try:
@@ -315,36 +367,39 @@ class CodeEdit(QsciScintilla):
         except:
             print("Error occurred while getting .editorconfig properties")
             return
-        if "indent_style" in config:
+        if "indent_style" in config and self.settings.editorConfigUseIndentStyle:
             if config["indent_style"] == "space":
                 self.custom_settings["editTabSpaces"] = True
             elif config["indent_style"] == "tab":
                 self.custom_settings["editTabSpaces"] = False
-        try:
-            self.custom_settings["editTabWidth"] = int(config["indent_size"])
-        except:
-            pass
-        if "tab_width" in config:
+        if self.settings.editorConfigTabWidth:
+            try:
+                self.custom_settings["editTabWidth"] = int(config["indent_size"])
+            except:
+                pass
+        if "tab_width" in config and self.settings.editorConfigTabWidth:
             self.custom_settings["editTabWidth"] = int(config["tab_width"])
-        if "end_of_line" in config:
+        if "end_of_line" in config and self.settings.editorConfigEndOfLine:
             if config["end_of_line"] == "crlf":
                 self.custom_settings["defaultEolMode"] = 0
             elif config["end_of_line"] == "lf":
                 self.custom_settings["defaultEolMode"] = 1
             elif config["end_of_line"] == "cr":
                 self.custom_settings["defaultEolMode"] = 2
-        if "trim_trailing_whitespace" in config:
+        if "trim_trailing_whitespace" in config and self.settings.editorConfigTrimWhitespace:
             if config["trim_trailing_whitespace"] == "true":
                 self.custom_settings["stripSpacesSave"] = True
             elif config["trim_trailing_whitespace"] == "false":
                 self.custom_settings["stripSpacesSave"] = False
-        if "insert_final_newline" in config:
+        if "insert_final_newline" in config and self.settings.editorConfigInsertNewline:
             if config["insert_final_newline"] == "true":
                 self.custom_settings["eolFileEnd"] = True
             elif config["insert_final_newline"] == "false":
                 self.custom_settings["eolFileEnd"] = False
         self.settings.loadDict(self.custom_settings)
         self.updateSettings(self.settings)
+        if self.container and self.settings.editorConfigShowBanner:
+            self.container.showBanner(EditorconfigBanner(self.env,self.container))
 
     def setLexerColor(self,lexer,style):
         #return
@@ -439,6 +494,7 @@ class CodeEdit(QsciScintilla):
         settings = copy.copy(settings)
         settings.loadDict(self.custom_settings)
         self.updateSettings(settings)
+        self.env.editorSignals.settingsChanged.emit(self,settings)
 
     def updateSettings(self, settings):
         #self.setCustomStyle(self.env.themes[settings.editTheme]["colors"])
@@ -467,11 +523,24 @@ class CodeEdit(QsciScintilla):
             self.setAutoCompletionCaseSensitivity(settings.autocompletionCaseSensitive)
             self.setAutoCompletionThreshold(settings.autocompleteThreshold)
             self.setAutoCompletionReplaceWord(settings.autocompletionReplaceWord)
-            if self.currentLexer and settings.autocompletionUseAPI and self.apiCompletion:
-                if isinstance(self.apiCompletion, str):
-                    api = AutocompleteXML(self.currentLexer,self.apiCompletion)
-                else:
-                    api = self.apiCompletion(self.currentLexer)
+            if self.currentLexer and settings.autocompletionUseAPI and self.language:
+                api = self.language.getAPI(self.currentLexer)
+                #if api:
+                    #com
+                #if isinstance(self.apiCompletion, str):
+                    #api = AutocompleteXML(self.currentLexer,self.apiCompletion)
+                #else:
+                    #api = self.apiCompletion(self.currentLexer)
         else:
             self.setAutoCompletionSource(QsciScintilla.AcsNone)
         self.settings = settings
+
+    def positionFromPoint(self,point):
+        return self.SendScintilla(QsciScintilla.SCI_POSITIONFROMPOINTCLOSE,point.x(), point.y())
+
+    def isBigFile(self):
+        return self.bigFile
+
+    def getIndicatorNumber(self):
+        self.currentIdicatorNumber += 1
+        return self.currentIdicatorNumber - 1

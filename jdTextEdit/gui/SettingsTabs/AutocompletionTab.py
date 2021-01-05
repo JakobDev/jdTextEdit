@@ -1,8 +1,11 @@
 from PyQt5.QtWidgets import QWidget, QCheckBox, QSpinBox, QLabel, QVBoxLayout, QHBoxLayout
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 
-class AutocompletionTab(QWidget):
+class AutocompletionTab(QWidget,SettingsTabBase):
     def __init__(self, env):
         super().__init__()
+        self.env = env
+
         self.enableAutocompletionCheckBox = QCheckBox(env.translate("settingsWindow.autocompletion.checkbox.enableAutocompletion"))
         self.useWordsFromDocument = QCheckBox(env.translate("settingsWindow.autocompletion.checkbox.useWordsFromDocument"))
         self.useAPI = QCheckBox(env.translate("settingsWindow.autocompletion.checkbox.useAPI"))
@@ -40,4 +43,6 @@ class AutocompletionTab(QWidget):
         settings.autocompletionCaseSensitive = bool(self.caseSensitive.checkState())
         settings.autocompletionReplaceWord = bool(self.replaceWord.checkState())
         settings.autocompleteThreshold = self.thresholdSpinBox.value()
-        return settings
+
+    def title(self):
+        return self.env.translate("settingsWindow.autocompletion")

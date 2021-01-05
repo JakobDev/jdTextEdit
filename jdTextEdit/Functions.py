@@ -34,7 +34,7 @@ def loadPlugins(path,env):
                 env.plugins[plugid].main(env)
         except Exception as e:
             print(traceback.format_exc(),end="")
-        
+
 def getTemplates(path,templatelist):
     if not os.path.isdir(path):
         os.mkdir(path)
@@ -68,7 +68,7 @@ def getThemeIcon(env,name):
         return QIcon.fromTheme(name)
     else:
         return QIcon(os.path.join(env.programDir,"icons/" + name + ".png"))
-  
+
 def openFileDefault(filepath):
     if platform.system() == 'Windows':
         os.startfile(filepath)
@@ -84,9 +84,13 @@ def showMessageBox(title, text):
     messageBox.setStandardButtons(QMessageBox.Ok)
     messageBox.exec_()
 
-def getDataPath():
-    if os.getenv("JDTEXTEDIT_DATA_PATH"):
+def getDataPath(env):
+    if env.args["dataDir"]:
+        return env.args["dataDir"]
+    elif os.getenv("JDTEXTEDIT_DATA_PATH"):
         return os.getenv("JDTEXTEDIT_DATA_PATH")
+    elif "dataDirectory" in env.distributionSettings:
+        return env.distributionSettings["dataDirectory"].replace("~",str(Path.home()))
     elif os.getenv("SNAP_USER_DATA"):
         return os.path.join(os.getenv("SNAP_USER_DATA"),"jdTextEdit")
     elif platform.system() == 'Windows':

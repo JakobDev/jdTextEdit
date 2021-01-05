@@ -1,9 +1,12 @@
 from PyQt5.QtWidgets import QWidget, QCheckBox, QComboBox, QLabel, QHBoxLayout, QVBoxLayout
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Functions import selectComboBoxItem
 
-class OpenTab(QWidget):
+class OpenTab(QWidget,SettingsTabBase):
     def __init__(self, env):
         super().__init__()
+        self.env = env
+
         self.useIPCCheckBox = QCheckBox(env.translate("settingsWindow.open.checkBox.useIPC"))
         self.detectLanguage = QCheckBox(env.translate("settingsWindow.open.checkBox.detectLanguage"))
         self.detectEol = QCheckBox(env.translate("settingsWindow.open.checkBox.detectEol"))
@@ -48,4 +51,6 @@ class OpenTab(QWidget):
         settings.showEncodingBanner = bool(self.encodingBannerCheckBox.checkState())
         settings.showEolBanner = bool(self.eolBannerCheckBox.checkState())
         settings.encodingDetectLib = self.detectLibComboBox.itemText(self.detectLibComboBox.currentIndex())
-        return settings
+
+    def title(self):
+        return self.env.translate("settingsWindow.open")

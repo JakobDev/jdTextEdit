@@ -1,9 +1,12 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QCheckBox, QSpinBox, QComboBox, QGridLayout, QVBoxLayout
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.EncodingList import getEncodingList
 
-class EditorTab(QWidget):
+class EditorTab(QWidget,SettingsTabBase):
     def __init__(self,env):
         super().__init__()
+        self.env = env
+
         self.defaultEncodingComboBox = QComboBox()
         self.defaultEolModeComboBox = QComboBox()
         self.defaultLanguageComboBox = QComboBox()
@@ -14,7 +17,6 @@ class EditorTab(QWidget):
         self.autoIndent = QCheckBox(env.translate("settingsWindow.editor.checkBox.autoIndent"))
         self.showIndentationGuides = QCheckBox(env.translate("settingsWindow.editor.checkBox.showIndentationGuides"))
         self.showEol = QCheckBox(env.translate("settingsWindow.editor.checkBox.showEol"))
-        self.useEditorConfig = QCheckBox(env.translate("settingsWindow.editor.checkBox.useEditorConfig"))
 
         for i in getEncodingList():
             self.defaultEncodingComboBox.addItem(i[0])
@@ -23,9 +25,7 @@ class EditorTab(QWidget):
         self.defaultEolModeComboBox.addItem("Unix")
         self.defaultEolModeComboBox.addItem("Mac")
 
-        self.defaultLanguageComboBox.addItem(env.translate("mainWindow.menu.language.plainText"))
-        for i in env.lexerList:
-            self.defaultLanguageComboBox.addItem(i["name"])
+        self.defaultLanguageComboBox.addItem(env.translate("mainWindow.menu.language.plainText"),"plain")
 
         gridLayout = QGridLayout()
         gridLayout.addWidget(QLabel(env.translate("settingsWindow.editor.label.defaultEncoding")),0,0)
@@ -45,7 +45,6 @@ class EditorTab(QWidget):
         mainLayout.addWidget(self.autoIndent)
         mainLayout.addWidget(self.showIndentationGuides)
         mainLayout.addWidget(self.showEol)
-        mainLayout.addWidget(self.useEditorConfig)
         mainLayout.addStretch(1)
 
         self.setLayout(mainLayout)
@@ -55,7 +54,11 @@ class EditorTab(QWidget):
             if self.defaultEncodingComboBox.itemText(i) == settings.defaultEncoding:
                 self.defaultEncodingComboBox.setCurrentIndex(i)
         self.defaultEolModeComboBox.setCurrentIndex(settings.defaultEolMode)
-        self.defaultLanguageComboBox.setCurrentIndex(settings.defaultLanguage + 1)
+        pos = self.defaultLanguageComboBox.findData(settings.defaultLanguage)
+        if pos == -1:
+            self.defaultLanguageComboBox.setCurrentIndex(0)
+        else:
+            self.defaultLanguageComboBox.setCurrentIndex(pos)
         self.tabWidthSpinBox.setValue(settings.editTabWidth)
         self.tabSpaces.setChecked(settings.editTabSpaces)
         self.textWrap.setChecked(settings.editTextWrap)
@@ -63,13 +66,12 @@ class EditorTab(QWidget):
         self.autoIndent.setChecked(settings.editAutoIndent)
         self.showIndentationGuides.setChecked(settings.showIndentationGuides)
         self.showEol.setChecked(settings.editShowEol)
-        self.useEditorConfig.setChecked(settings.useEditorConfig)
 
 
     def getSettings(self, settings):
         settings.defaultEncoding = self.defaultEncodingComboBox.currentText()
         settings.defaultEolMode = self.defaultEolModeComboBox.currentIndex()
-        settings.defaultLanguage = self.defaultLanguageComboBox.currentIndex() - 1
+        settings.defaultLanguage = self.defaultLanguageComboBox.currentData()
         settings.editTabWidth = self.tabWidthSpinBox.value()
         settings.editTabSpaces = bool(self.tabSpaces.checkState())
         settings.editTextWrap = bool(self.textWrap.checkState())
@@ -77,5 +79,10 @@ class EditorTab(QWidget):
         settings.editAutoIndent = bool(self.autoIndent.checkState())
         settings.showIndentationGuides = bool(self.showIndentationGuides.checkState())
         settings.editShowEol = bool(self.showEol.checkState())
-        settings.useEditorConfig = bool(self.useEditorConfig.checkState())
-        return settings
+
+    def setup(self):
+        for i in self.env.languageList:
+            self.defaultLanguageComboBox.addItem(i.getName(),i.getID())
+
+    def title(self):
+        return self.env.translate("settingsWindow.editor")

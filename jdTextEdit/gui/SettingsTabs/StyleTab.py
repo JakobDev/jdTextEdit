@@ -1,14 +1,16 @@
 from PyQt5.QtWidgets import QWidget, QCheckBox, QPushButton, QFontDialog, QGridLayout, QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QSlider
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
 from PyQt5.Qsci import QsciLexerLua
 
-class StyleTab(QWidget):
+class StyleTab(QWidget,SettingsTabBase):
     def __init__(self,env):
         super().__init__()
         self.font = QFont()
+        self.env = env
 
         #self.themeSelect = QComboBox()
         self.foldSelect = QComboBox()
@@ -49,7 +51,7 @@ class StyleTab(QWidget):
         self.lineNumberCheckBox.stateChanged.connect(self.updatePreviewEdit)
         self.highlightLineCheckBox.stateChanged.connect(self.updatePreviewEdit)
         self.editorPreview.setText(previewText)
-        self.editorPreview.setSyntaxHighlighter(QsciLexerLua())
+        self.editorPreview.setLexer(QsciLexerLua())
 
         gridLayout = QGridLayout()
         #gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.theme")),0,0)
@@ -87,6 +89,9 @@ class StyleTab(QWidget):
             self.font = font
             self.updatePreviewEdit()
 
+    def updatePreviewEdit(self):
+        self.editorPreview.setSettings(self.getSettings(Settings(defaultSettings=self.env.defaultSettings)))
+
     def updateTab(self, settings):
         #for i in range(self.themeSelect.count()):
         #    if self.themeSelect.itemData(i) == settings.editTheme:
@@ -115,5 +120,5 @@ class StyleTab(QWidget):
         settings.defaultZoom = self.zoomSlider.value()
         return settings
 
-    def updatePreviewEdit(self):
-        self.editorPreview.setSettings(self.getSettings(Settings()))
+    def title(self):
+        return self.env.translate("settingsWindow.style")

@@ -1,9 +1,12 @@
 from PyQt5.QtWidgets import QWidget, QComboBox, QLabel, QCheckBox, QGridLayout, QVBoxLayout, QSpinBox, QStyleFactory
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 import os
 
-class GeneralTab(QWidget):
+class GeneralTab(QWidget,SettingsTabBase):
     def __init__(self,env):
         super().__init__()
+        self.env = env
+
         self.languageComboBox = QComboBox()
         self.styleSelectComboBox = QComboBox()
         self.recentFilesSpinBox = QSpinBox()
@@ -46,7 +49,8 @@ class GeneralTab(QWidget):
         mainLayout.addWidget(self.nativeIconsCheckBox)
         mainLayout.addWidget(self.dayTipCheckBox)
         mainLayout.addWidget(self.windowTitleCheckBox)
-        mainLayout.addWidget(self.searchUpdatesCheckBox)
+        if env.enableUpdater:
+            mainLayout.addWidget(self.searchUpdatesCheckBox)
         mainLayout.addWidget(self.windowStateCheckBox)
         mainLayout.addWidget(self.fileChangedBannerCheckBox)
         mainLayout.addStretch(1)
@@ -90,4 +94,6 @@ class GeneralTab(QWidget):
         settings.searchUpdates = bool(self.searchUpdatesCheckBox.checkState())
         settings.saveWindowState = bool(self.windowStateCheckBox.checkState())
         settings.showFileChangedBanner = bool(self.fileChangedBannerCheckBox.checkState())
-        return settings
+
+    def title(self):
+        return self.env.translate("settingsWindow.general")

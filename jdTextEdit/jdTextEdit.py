@@ -56,7 +56,7 @@ def main():
     env.editCommandsWindow = EditCommandsWindow(env)
     env.dayTipWindow = DayTipWindow(env)
     env.aboutWindow = AboutWindow(env)
-    if env.settings.loadPlugins:
+    if env.settings.loadPlugins and not env.args["disablePlugins"]:
         loadPlugins(os.path.join(env.programDir,"plugins"),env)
         loadPlugins(os.path.join(env.dataDir,"plugins"),env)
 

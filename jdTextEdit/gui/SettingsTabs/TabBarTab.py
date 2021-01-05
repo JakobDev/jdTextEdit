@@ -1,8 +1,11 @@
 from PyQt5.QtWidgets import QWidget, QComboBox, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
+from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 
-class TabBarTab(QWidget):
+class TabBarTab(QWidget,SettingsTabBase):
     def __init__(self, env):
         super().__init__()
+        self.env = env
+
         self.positionComboBox = QComboBox()
         self.hideTabBarCheckBox = QCheckBox(env.translate("settingsWindow.tabBar.checkBox.hideTabBar"))
         self.lastTabCheckBox = QCheckBox(env.translate("settingsWindow.tabBar.checkBox.exitLastTab"))
@@ -45,4 +48,6 @@ class TabBarTab(QWidget):
         settings.closeButtonTab = bool(self.closeButtonCheckBox.checkState())
         settings.allowTabMove = bool(self.allowTabMoveCheckBox.checkState())
         settings.tabDoubleClickClose = bool(self.tabDoubleClickCloseCheckBox.checkState())
-        return settings
+
+    def title(self):
+        return self.env.translate("settingsWindow.tabBar")

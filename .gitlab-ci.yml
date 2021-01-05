@@ -7,7 +7,7 @@ stages:
 build_exe:
     stage: build
     script:
-        - Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe -OutFile python-installer.exe
+        - Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.9.1/python-3.9.1-amd64.exe -OutFile python-installer.exe
         - .\python-installer.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0 | Out-Null
         - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
         - pip install -r requirements.txt
@@ -40,17 +40,17 @@ sourceforge_deploy:
     only:
         - tags
 
-snapcraft_deploy:
-    stage: deploy
-    image: "ubuntu:latest"
-    script:
-        - apt update
-        - apt install -y snapcraft
-        - snapcraft
-        - snapcraft login --with $SNAPCRAFT_LOGIN_DATA
-        - snapcraft push --release=stable jdtextedit_7.2_amd64.snap
-    artifacts:
-        paths:
-            - jdtextedit_7.2_amd64.snap
-    only:
-        - tags
+#snapcraft_deploy:
+#    stage: deploy
+#    image: "ubuntu:latest"
+#    script:
+#        - apt update
+#        - apt install -y snapcraft
+#        - snapcraft
+#        - snapcraft login --with $SNAPCRAFT_LOGIN_DATA
+#        - snapcraft push --release=stable jdtextedit_7.2_amd64.snap
+#    artifacts:
+#        paths:
+#           - jdtextedit_7.2_amd64.snap
+#    only:
+ #       - tags

@@ -9,6 +9,7 @@ jdTextEdit is a powerful texteditor with a lot of features.
 - Different encodings are supported
 - The session can be saved
 - User interface in German and English
+- Spell Checking
 - Portable mode
 - Pluginsupport
 - Bookmarks

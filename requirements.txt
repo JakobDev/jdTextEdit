@@ -6,3 +6,4 @@ jdTranslationHelper
 charset_normalizer
 cchardet
 EditorConfig
+pyenchant

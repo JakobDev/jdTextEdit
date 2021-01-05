@@ -69,6 +69,7 @@ mainWindow.menu.view.foldAll=Fold All
 mainWindow.menu.view.unfoldAll=Unfold All
 mainWindow.menu.search=Search
 mainWindow.menu.search.search=Find
+mainWindow.menu.search.advancedSearch=Advanced Search
 mainWindow.menu.search.searchAndReplace=Find and Replace
 mainWindow.menu.search.gotoLine=Goto Line
 mainWindow.menu.tools=Tools
@@ -147,7 +148,6 @@ settingsWindow.editor.checkBox.showWhitespaces=Show Whitespaces
 settingsWindow.editor.checkBox.autoIndent=Automatic indentation
 settingsWindow.editor.checkBox.showIndentationGuides=Show indentation guides
 settingsWindow.editor.checkBox.showEol=Show end of line
-settingsWindow.editor.checkBox.useEditorConfig=Use .editorconfig if available
 settingsWindow.autocompletion=Autocompletion
 settingsWindow.autocompletion.checkbox.enableAutocompletion=Enable Autocompletion
 settingsWindow.autocompletion.checkbox.useWordsFromDocument=Use Words from Document
@@ -191,6 +191,21 @@ settingsWindow.save.checkBox.enableBackup=Create a backup copy of files before s
 settingsWindow.save.label.backupExtension=Backup extension:
 settingsWindow.save.checkBox.enableAutoSave=Enable automatic saving
 settingsWindow.save.label.autoSaveInterval=Saving interval in seconds:
+settingsWindow.bigFiles=Big Files
+settingsWindow.bigFiles.checkBox.enableBigFiles=Limit big files
+settingsWindow.bigFiles.label.filesFrom=Files from
+settingsWindow.bigFiles.label.bytes=bytes
+settingsWindow.bigFiles.checkBox.disableHighlight=Disable syntax highlighting
+settingsWindow.bigFiles.disableEncodingDetect=Disable encoding detect
+settingsWindow.bigFiles.showBanner=Show banner
+settingsWindow.editorconfig=Editorconfig
+settingsWindow.editorconfig.checkBox.useEditorConfig=Use .editorconfig if available
+settingsWindow.editorconfig.checkBox.useIndentStyle=Use indentation style from .editorconfig
+settingsWindow.editorconfig.checkBox.tabWidth=Use tab width from .editorconfig
+settingsWindow.editorconfig.checkBox.endOfLine=Use end of line from .editorconfig
+settingsWindow.editorconfig.checkBox.trimWhitespace=Use setting to remove spaces from .editorconfig
+settingsWindow.editorconfig.checkBox.insertNewline=Use setting to insert end of line from .editorconfig
+settingsWindow.editorconfig.checkBox.showBanner=Show notice when .editorconfig is used
 settingsWindow.contextMenu=Context menu
 settingsWindow.contextMenu.button.add=Add
 settingsWindow.contextMenu.button.remove=Remove
@@ -289,12 +304,20 @@ dayTipWindow.title=Tip of the day
 dayTipWindow.showStartup=Show tips on startup
 dayTipWindow.nextTip=Next tip
 
+searchBar.label.search=Search:
+searchBar.tooltip.findNext=Jump to next match
+searchBar.tooltip.findFirst=Jump to first match
+
 fileChangedBanner.text=The file was changed on the drive
 fileChangedBanner.button.reload=Reload
 
 wrongEncodingBanner.text=The encoding does not correspond to the default settings
 
 wrongEolBanner.text=The end of line does not correspond to the default settings
+
+bigFileBanner.text=Due to the size of the file some features have been disabled
+
+editorconfigBanner.text=Some settings from an .editorconfig are used
 
 noReadPermission.title=Can't open file
 noReadPermission.text=You don't have the permission to open %s
