@@ -2,7 +2,7 @@
 distribution.json
 ==========================
 
-distribution.json is a JSOn file which is placed in the Program Directory. It has some options for people who are bulding packages. Currenty the follwoing options are aviable:
+distribution.json is a JSON file which is placed in the Program Directory. It has some options for people who are building packages. Currently the following options are available:
 
 .. code:: json
 
