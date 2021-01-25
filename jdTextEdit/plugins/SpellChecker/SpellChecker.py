@@ -30,10 +30,8 @@ class SpellChecker(QObject):
         startpos = 0
         for w in words:
             w = w.replace("\n","")
-            if len(w) < self.settings.spellCheckingMinimumWordLength:
-                continue
             endpos = startpos + len(w)
-            if w != "":
+            if w != "" and not (len(w) < self.settings.spellCheckingMinimumWordLength):
                 if not self.dict.check(w):
                     editor.fillIndicatorRange(linenum,startpos,linenum,endpos,editor.spell_checker_indicator)
                     editor.spell_line_data[linenum].append([startpos,endpos,w,linenum,editor])
@@ -50,6 +48,12 @@ class SpellChecker(QObject):
         editor.spell_line_data = {}
 
     def open_file_function(self,editor):
+        if editor.isBigFile():
+            return
+        for linenum in range(0,editor.lines()):
+            self.check_line(editor,linenum)
+
+    def restore_session_function(self,editor,data):
         if editor.isBigFile():
             return
         for linenum in range(0,editor.lines()):
@@ -72,6 +76,12 @@ class SpellChecker(QObject):
         editor.spell_checking_custom_pwl_path != self.settings.spellCheckingCustomPwlPath:
             for linenum in range(0,editor.lines()):
                 self.check_line(editor,linenum)
+
+    def language_changed_function(self,editor,langauge):
+        if editor.isBigFile():
+            return
+        for linenum in range(0,editor.lines()):
+            self.check_line(editor,linenum)
 
     def context_menu_function(self,editor,event):
         if editor.hasSelectedText():

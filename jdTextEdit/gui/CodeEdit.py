@@ -6,6 +6,7 @@ from jdTextEdit.AutocompleteXML import AutocompleteXML
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase
 import editorconfig
+import traceback
 import copy
 import os
 
@@ -118,6 +119,7 @@ class CodeEdit(QsciScintilla):
                 return
             self.env.mainWindow.updateSelectedLanguage()
         self.updateSettings(self.settings)
+        self.env.editorSignals.languageChanged.emit(self,lang)
 
     def removeLanguage(self):
         self.setLexer(None)
@@ -126,6 +128,7 @@ class CodeEdit(QsciScintilla):
         self.updateSettings(self.settings)
         self.lexerName = self.env.translate("mainWindow.menu.language.plainText")
         self.updateStatusBar()
+        self.env.editorSignals.languageChanged.emit(self,None)
 
     def insertText(self, text):
         self.insert(text)
@@ -318,7 +321,7 @@ class CodeEdit(QsciScintilla):
             except:
                 modificationTime = 0
         fileChangedBannerVisible = self.container.isFileChangedBannerVisible()
-        return {
+        data = {
             "path": path,
             "modified": self.isModified(),
             "language": syntax,
@@ -332,6 +335,8 @@ class CodeEdit(QsciScintilla):
             "fileChangedBannerVisible": fileChangedBannerVisible,
             "modificationTime": modificationTime
         }
+        self.env.editorSignals.saveSession.emit(self,data)
+        return data
 
     def restoreSaveMetaData(self,data):
         path = data.get("path","")
@@ -360,6 +365,7 @@ class CodeEdit(QsciScintilla):
             elif modificationTime != 0:
                 if modificationTime != os.path.getmtime(path):
                     self.container.showFileChangedBanner()
+        self.env.editorSignals.restoreSession.emit(self,data)
 
     def loadEditorConfig(self):
         try:
@@ -498,6 +504,10 @@ class CodeEdit(QsciScintilla):
 
     def updateSettings(self, settings):
         #self.setCustomStyle(self.env.themes[settings.editTheme]["colors"])
+        try:
+            self.env.themes[settings.editTheme].applyTheme(self,self.currentLexer)
+        except Exception as e:
+            print(traceback.format_exc(),end="")
         if settings.useCustomFont:
             self.changeFont(settings.editFont,settings)
         else:
@@ -544,3 +554,6 @@ class CodeEdit(QsciScintilla):
     def getIndicatorNumber(self):
         self.currentIdicatorNumber += 1
         return self.currentIdicatorNumber - 1
+
+    def getLanguage(self):
+        return self.language

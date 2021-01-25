@@ -5,7 +5,7 @@
 jdTextEdit is a powerful texteditor with a lot of features.
 
 - Syntaxhighlighting
-- Very well configurable
+- Highly customizable
 - Different encodings are supported
 - The session can be saved
 - User interface in German and English
@@ -22,3 +22,5 @@ Install all needed dependencies before the first run:
 `pip install -U -r requirements.txt`
 
 You can download Windows builds from [SourceForge](https://sourceforge.net/projects/jdtextedit/files/).
+
+[View the Documentation](https://jdtextedit.readthedocs.io)

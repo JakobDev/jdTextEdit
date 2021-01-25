@@ -11,6 +11,7 @@ W.I.P.
 .. toctree::
    :maxdepth: 2
 
+   General/index.rst
    PluginDevelopment/index.rst
    Distribution/index.rst
 

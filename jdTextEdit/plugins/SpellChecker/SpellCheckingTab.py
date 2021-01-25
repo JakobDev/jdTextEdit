@@ -8,22 +8,28 @@ class SpellCheckingTab(QWidget,SettingsTabBase):
         self.env = env
 
         self.enableCheckBox = QCheckBox(env.translate("plugin.spellChecker.settingsTab.enableSpellChecking"))
+        self.dictonaryLabel = QLabel(env.translate("plugin.spellChecker.settingsTab.dictonary"))
         self.languageComboBox = QComboBox()
+        self.minimumWordLengthLabel = QLabel(env.translate("plugin.spellChecker.settingsTab.minimumWordLength"))
         self.minimumWordLengthSpinBox = QSpinBox()
         self.customPwlCheckBox = QCheckBox(env.translate("plugin.spellChecker.settingsTab.enableCustomPwl"))
         self.customPwlEdit = QLineEdit()
+        self.customPwlLabel = QLabel(env.translate("plugin.spellChecker.settingsTab.customPwlPath"))
 
         for i in enchant.list_languages():
             self.languageComboBox.addItem(i,i)
 
+        self.enableCheckBox.stateChanged.connect(self.updateSettingsEnabled)
+        self.customPwlCheckBox.stateChanged.connect(self.updateCustomPwlEnabled)
+
         grid_layout = QGridLayout()
-        grid_layout.addWidget(QLabel(env.translate("plugin.spellChecker.settingsTab.dictonary")),0,0)
+        grid_layout.addWidget(self.dictonaryLabel,0,0)
         grid_layout.addWidget(self.languageComboBox,0,1)
-        grid_layout.addWidget(QLabel(env.translate("plugin.spellChecker.settingsTab.minimumWordLength")),1,0)
+        grid_layout.addWidget(self.minimumWordLengthLabel,1,0)
         grid_layout.addWidget(self.minimumWordLengthSpinBox)
 
         pwl_layout = QHBoxLayout()
-        pwl_layout.addWidget(QLabel(env.translate("plugin.spellChecker.settingsTab.customPwlPath")))
+        pwl_layout.addWidget(self.customPwlLabel)
         pwl_layout.addWidget(self.customPwlEdit)
 
         main_layout = QVBoxLayout()
@@ -35,6 +41,20 @@ class SpellCheckingTab(QWidget,SettingsTabBase):
 
         self.setLayout(main_layout)
 
+    def updateSettingsEnabled(self):
+        enabled = bool(self.enableCheckBox.checkState())
+        self.dictonaryLabel.setEnabled(enabled)
+        self.languageComboBox.setEnabled(enabled)
+        self.minimumWordLengthLabel.setEnabled(enabled)
+        self.minimumWordLengthSpinBox.setEnabled(enabled)
+        self.customPwlCheckBox.setEnabled(enabled)
+        self.updateCustomPwlEnabled()
+
+    def updateCustomPwlEnabled(self):
+        enabled = bool(self.enableCheckBox.checkState()) and bool(self.customPwlCheckBox.checkState())
+        self.customPwlEdit.setEnabled(enabled)
+        self.customPwlLabel.setEnabled(enabled)
+
     def updateTab(self,settings):
         self.enableCheckBox.setChecked(settings.spellCheckingEnabled)
         pos = self.languageComboBox.findData(settings.spellCheckingLanguage)
@@ -45,6 +65,7 @@ class SpellCheckingTab(QWidget,SettingsTabBase):
         self.minimumWordLengthSpinBox.setValue(settings.spellCheckingMinimumWordLength)
         self.customPwlCheckBox.setChecked(settings.spellCheckingEnableCustomPwl)
         self.customPwlEdit.setText(settings.spellCheckingCustomPwlPath)
+        self.updateSettingsEnabled()
 
     def getSettings(self,settings):
         settings.spellCheckingEnabled = bool(self.enableCheckBox.checkState())

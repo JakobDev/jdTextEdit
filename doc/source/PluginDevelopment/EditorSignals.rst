@@ -58,3 +58,24 @@ settingsChanged
     Arguments
         - CodeEdit: The Widget where the settings are changed
         - Settings: The new settings
+
+languageChanged
+    Emited when a the Language is changed.
+
+    Arguments
+        - CodeEdit: The Widget where the Language is changed
+        - LanguageBase: The Language. None if the Language is removed.
+
+saveSession
+    Emiited when the session is saved.
+
+    Arguments
+        - CodeEdit: The Widget where the session is saved
+        - dict: A dict in which you can put your custom properties
+
+restoreSession
+    Emiited when the session is restored.
+
+    Arguments
+        - CodeEdit: The Widget where the session is restored
+        - dict: Contains all the session properties

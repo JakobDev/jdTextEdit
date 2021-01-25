@@ -10,3 +10,6 @@ class EditorSignals():
         self.indicatorReleased = SignalBase()
         self.contextMenu = SignalBase()
         self.settingsChanged = SignalBase()
+        self.languageChanged = SignalBase()
+        self.saveSession = SignalBase()
+        self.restoreSession = SignalBase()

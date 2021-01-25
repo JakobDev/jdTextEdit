@@ -9,6 +9,7 @@ from jdTextEdit.core.BuiltinLanguage import BuiltinLanguage
 from jdTextEdit.core.api.EditorSignals import EditorSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
 from jdTextEdit.core.api.PluginAPI import PluginAPI
+from jdTextEdit.core.DefaultTheme import DefaultTheme
 import argparse
 import chardet
 import shutil
@@ -18,7 +19,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "8.0"
+        self.version = "8.1"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = argparse.ArgumentParser()
@@ -47,7 +48,7 @@ class Enviroment():
                 showMessageBox("Unable to create data folder","jdTextEdit is unable to create his data folder. Maybe you've installed it in a system directory and try to run it in portable mode")
                 sys.exit(2)
 
-        if not(self.distributionSettings.get("enableUpdater",False)) or self.args["disableUpdater"] or os.getenv("SNAP"):
+        if not(self.distributionSettings.get("enableUpdater",True)) or self.args["disableUpdater"] or os.getenv("SNAP") or os.getenv("JDTEXTEDIT_DISABLE_UPDATER"):
             self.enableUpdater = False
         else:
             self.enableUpdater = True
@@ -72,7 +73,7 @@ class Enviroment():
         self.commands = readJsonFile(os.path.join(self.dataDir,"commands.json"),[])
         self.global_commands = readJsonFile(os.path.join(self.programDir,"commands.json"),[])
 
-        #self.themes = {}
+        self.themes = {}
         #self.loadThemeDirectory(os.path.join(self.programDir,"themes"))
         #user_themes = os.path.join(self.dataDir,"themes")
         #if os.path.isdir(user_themes):
@@ -127,6 +128,10 @@ class Enviroment():
         self.defaultSettings = []
         self.pluginAPI = PluginAPI(self)
 
+        self.pluginAPI.addTheme(DefaultTheme(self))
+
+        #self.loadThemeDirectory(os.path.join(self.programDir,"themes"))
+
     def translate(self, string):
         #Just a litle shortcut
         return self.translations.translate(string)
@@ -134,9 +139,8 @@ class Enviroment():
     def loadThemeDirectory(self,path):
         themeList = os.listdir(path)
         for i in themeList:
-            with open(os.path.join(path,i)) as f:
-                singleTheme = json.load(f)
-                self.themes[singleTheme["meta"]["id"]] = singleTheme
+            theme = FileTheme(os.path.join(path,i))
+            self.pluginAPI.addTheme(theme)
 
     def saveRecentFiles(self):
         with open(os.path.join(self.dataDir,"recentfiles.json"), 'w', encoding='utf-8') as f:

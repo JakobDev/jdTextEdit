@@ -8,3 +8,5 @@ plugin.spellChecker.settingsTab.enableCustomPwl=Enable custom word list
 plugin.spellChecker.settingsTab.customPwlPath=Custom word list:
 
 plugin.spellChecker.bigFilesSetting=Disable Spell Checking
+
+dayTip.spellChecker=jdTextEdit has a spell checker. You can activate it via the settings.

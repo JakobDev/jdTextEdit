@@ -29,7 +29,7 @@ class Settings():
         self.useEditorConfig = True
         self.defaultEncoding = "UTF-8"
         self.defaultLanguage = -1
-        #self.editTheme = "default"
+        self.editTheme = "builtin.default"
         self.useCustomFont = False
         self.startupDayTip = True
         self.editFont = QFont()

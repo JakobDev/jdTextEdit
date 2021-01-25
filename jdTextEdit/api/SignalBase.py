@@ -1,3 +1,5 @@
+import traceback
+
 class SignalBase():
     def __init__(self):
         self.function_list = []
@@ -7,4 +9,7 @@ class SignalBase():
 
     def emit(self,*arg):
         for i in self.function_list:
-            i(*arg)
+            try:
+                i(*arg)
+            except Exception as e:
+                print(traceback.format_exc(),end="")

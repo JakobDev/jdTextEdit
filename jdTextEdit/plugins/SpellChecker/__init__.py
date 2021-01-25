@@ -20,13 +20,15 @@ def main(env):
     application_signals = env.pluginAPI.getApplicationSignals()
 
     s = SpellChecker(env,env.settings)
-    slots = env.pluginAPI.getEditorSignals()
-    slots.editorInit.connect(s.editor_init_function)
-    slots.openFile.connect(s.open_file_function)
-    slots.textChanged.connect(s.text_changed_function)
+    editor_signals = env.pluginAPI.getEditorSignals()
+    editor_signals.editorInit.connect(s.editor_init_function)
+    editor_signals.openFile.connect(s.open_file_function)
+    editor_signals.restoreSession.connect(s.restore_session_function)
+    editor_signals.textChanged.connect(s.text_changed_function)
     application_signals.settingsChanged.connect(s.application_settings_updated)
-    slots.settingsChanged.connect(s.editor_settings_updated)
-    slots.contextMenu.connect(s.context_menu_function)
+    editor_signals.settingsChanged.connect(s.editor_settings_updated)
+    editor_signals.languageChanged.connect(s.language_changed_function)
+    editor_signals.contextMenu.connect(s.context_menu_function)
 
 def getID():
     return "builtin.spellchecker"
@@ -35,7 +37,7 @@ def getName():
     return "SpellChecker"
 
 def getVersion():
-    return "1.0"
+    return "1.1"
 
 def getAuthor():
     return "JakobDev"

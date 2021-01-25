@@ -8,3 +8,5 @@ plugin.spellChecker.settingsTab.enableCustomPwl=Benutzerdefinierte Wortliste akt
 plugin.spellChecker.settingsTab.customPwlPath=Benutzerdefinierte Wortliste:
 
 plugin.spellChecker.bigFilesSetting=Rechtschreibprüfung deaktivieren
+
+dayTip.spellChecker=jdTextEdit verfügt über eine Rechtschreibprüfung. Du kannst sie über die Einstellungen aktivieren.

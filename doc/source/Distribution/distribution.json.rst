@@ -4,6 +4,8 @@ distribution.json
 
 distribution.json is a JSON file which is placed in the Program Directory. It has some options for people who are building packages. Currently the following options are available:
 
+You don't need to set all options. Just set the options you need and remove the others from the file.
+
 .. code:: json
 
     {

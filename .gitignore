@@ -16,3 +16,6 @@ jdTextEdit/distribution.json
 
 #documentation
 doc/build
+
+#Trash
+*.kate-swp

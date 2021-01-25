@@ -12,7 +12,9 @@ class SearchWindow(QWidget):
         self.wrap = QCheckBox(env.translate("searchWindow.checkBox.wrap"))
         self.backward = QCheckBox(env.translate("searchWindow.checkBox.backwards"))
         self.showText = QCheckBox(env.translate("searchWindow.checkBox.showText"))
-        self.searchRange = QCheckBox("Test")
+        self.searchRange = QCheckBox(env.translate("searchWindow.checkBox.searchRange"))
+        self.lineLabel = QLabel(env.translate("searchWindow.label.searchLine"))
+        self.indexLabel = QLabel(env.translate("searchWindow.label.searchColumn"))
         self.lineSpinBox = QSpinBox()
         self.indexSpinBox = QSpinBox()
         self.closeButton = QPushButton(env.translate("button.close"))
@@ -21,15 +23,16 @@ class SearchWindow(QWidget):
         self.wrap.setChecked(True)
         self.showText.setChecked(True)
 
-        self.lineSpinBox.setRange(-1,2147483647)
-        self.indexSpinBox.setRange(-1,2147483647)
+        self.lineSpinBox.setRange(0,2147483647)
+        self.indexSpinBox.setRange(0,2147483647)
 
-        self.lineSpinBox.setValue(-1)
-        self.indexSpinBox.setValue(-1)
+        self.lineSpinBox.setValue(0)
+        self.indexSpinBox.setValue(0)
 
         self.closeButton.setIcon(getThemeIcon(env,"window-close"))
         self.searchButton.setIcon(getThemeIcon(env,"edit-find"))
 
+        self.searchRange.stateChanged.connect(self.searchRangeEnableUpdated)
         self.closeButton.clicked.connect(self.close)
         self.searchButton.clicked.connect(self.searchButtonClicked)
 
@@ -38,9 +41,9 @@ class SearchWindow(QWidget):
         searchTextLayout.addWidget(self.searchEdit)
 
         numberLayout = QGridLayout()
-        numberLayout.addWidget(QLabel(env.translate("searchWindow.label.searchLine")),0,0)
+        numberLayout.addWidget(self.lineLabel,0,0)
         numberLayout.addWidget(self.lineSpinBox,0,1)
-        numberLayout.addWidget(QLabel(env.translate("searchWindow.label.searchColumn")),1,0)
+        numberLayout.addWidget(self.indexLabel,1,0)
         numberLayout.addWidget(self.indexSpinBox,1,1)
 
         buttonLayout = QHBoxLayout()
@@ -65,6 +68,12 @@ class SearchWindow(QWidget):
         self.setWindowTitle(env.translate("searchWindow.title"))
 
     def searchButtonClicked(self):
+        if bool(self.searchRange.checkState()):
+            line = self.lineSpinBox.value()
+            index = self.indexSpinBox.value()
+        else:
+            line = -1
+            index = -1
 
         self.editWidget.findFirst(
             self.searchEdit.text(),
@@ -72,13 +81,21 @@ class SearchWindow(QWidget):
             self.caseSensitive.checkState(),
             self.wholeWord.checkState(),
             self.wrap.checkState(),
-            not bool(self.backward.checkState())
-            ,self.lineSpinBox.value(),
-            self.indexSpinBox.value(),
+            not bool(self.backward.checkState()),
+            line,
+            index,
             self.showText.checkState()
         )
 
+    def searchRangeEnableUpdated(self):
+        enabled =  bool(self.searchRange.checkState())
+        self.lineLabel.setEnabled(enabled)
+        self.indexLabel.setEnabled(enabled)
+        self.lineSpinBox.setEnabled(enabled)
+        self.indexSpinBox.setEnabled(enabled)
+
     def openWindow(self, editWidget):
         self.editWidget = editWidget
+        self.searchRangeEnableUpdated()
         self.show()
         QApplication.setActiveWindow(self)

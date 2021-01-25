@@ -12,7 +12,7 @@ class StyleTab(QWidget,SettingsTabBase):
         self.font = QFont()
         self.env = env
 
-        #self.themeSelect = QComboBox()
+        self.themeSelect = QComboBox()
         self.foldSelect = QComboBox()
         self.fontCheckBox = QCheckBox(env.translate("settingsWindow.style.checkBox.font"))
         self.fontButton = QPushButton()
@@ -21,8 +21,8 @@ class StyleTab(QWidget,SettingsTabBase):
         self.zoomSlider = QSlider(Qt.Horizontal)
         self.editorPreview = CodeEdit(env,preview=True)
 
-        #for key, value in env.themes.items():
-        #    self.themeSelect.addItem(value["meta"]["name"],key)
+        for key, value in env.themes.items():
+            self.themeSelect.addItem(value.getName(),key)
 
         self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.none"))
         self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.plain"))
@@ -44,7 +44,7 @@ class StyleTab(QWidget,SettingsTabBase):
                        "    else\n"
                        "        return 0\nend")
 
-        #self.themeSelect.currentIndexChanged.connect(lambda: self.updatePreviewEdit())
+        self.themeSelect.currentIndexChanged.connect(lambda: self.updatePreviewEdit())
         self.foldSelect.currentIndexChanged.connect(self.updatePreviewEdit)
         self.fontCheckBox.stateChanged.connect(self.fontCheckBoxChanged)
         self.fontButton.clicked.connect(self.fontButtonClicked)
@@ -54,8 +54,8 @@ class StyleTab(QWidget,SettingsTabBase):
         self.editorPreview.setLexer(QsciLexerLua())
 
         gridLayout = QGridLayout()
-        #gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.theme")),0,0)
-        #gridLayout.addWidget(self.themeSelect,0,1)
+        gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.theme")),0,0)
+        gridLayout.addWidget(self.themeSelect,0,1)
         gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.foldStyle")),1,0)
         gridLayout.addWidget(self.foldSelect,1,1)
         gridLayout.addWidget(self.fontCheckBox,2,0)
@@ -93,9 +93,9 @@ class StyleTab(QWidget,SettingsTabBase):
         self.editorPreview.setSettings(self.getSettings(Settings(defaultSettings=self.env.defaultSettings)))
 
     def updateTab(self, settings):
-        #for i in range(self.themeSelect.count()):
-        #    if self.themeSelect.itemData(i) == settings.editTheme:
-        #        self.themeSelect.setCurrentIndex(i)
+        for i in range(self.themeSelect.count()):
+            if self.themeSelect.itemData(i) == settings.editTheme:
+                self.themeSelect.setCurrentIndex(i)
         self.foldSelect.setCurrentIndex(settings.editFoldStyle)
         self.font = settings.editFont
         self.fontCheckBox.setChecked(settings.useCustomFont)
@@ -111,7 +111,7 @@ class StyleTab(QWidget,SettingsTabBase):
         self.updatePreviewEdit()
 
     def getSettings(self, settings):
-        #settings.editTheme = self.themeSelect.itemData(self.themeSelect.currentIndex())
+        settings.editTheme = self.themeSelect.itemData(self.themeSelect.currentIndex())
         settings.editFoldStyle = self.foldSelect.currentIndex()
         settings.useCustomFont = bool(self.fontCheckBox.checkState())
         settings.editFont = self.font

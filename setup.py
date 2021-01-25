@@ -2,7 +2,7 @@
 from setuptools import find_packages, setup
 
 setup(name='jdTextEdit',
-    version='8.0',
+    version='8.1',
     description=' A powerful texteditor with a lot of features',
     long_description=open("README.md").read(),
     long_description_content_type='text/markdown',
@@ -20,7 +20,8 @@ setup(name='jdTextEdit',
         'jdTranslationHelper',
         'charset_normalizer',
         'cchardet',
-        'EditorConfig'
+        'EditorConfig',
+        'pyenchant'
     ],
     packages=find_packages(),
     entry_points={
@@ -28,6 +29,11 @@ setup(name='jdTextEdit',
     },
     license='GPL v3',
     keywords=['JakobDev','QScintilla','PyQt','PyQt5','Editor','Texteditor','Macro'],
+    project_urls={
+        'Issue tracker': 'https://gitlab.com/JakobDev/jdTextEdit/-/issues',
+        'Documentation': 'https://jdtextedit.readthedocs.io'
+    },
+
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',

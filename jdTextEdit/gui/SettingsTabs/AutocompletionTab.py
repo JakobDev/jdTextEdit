@@ -11,10 +11,13 @@ class AutocompletionTab(QWidget,SettingsTabBase):
         self.useAPI = QCheckBox(env.translate("settingsWindow.autocompletion.checkbox.useAPI"))
         self.caseSensitive = QCheckBox(env.translate("settingsWindow.autocompletion.checkbox.caseSensitive"))
         self.replaceWord = QCheckBox(env.translate("settingsWindow.autocompletion.checkbox.replaceWord"))
+        self.thresholdLabel = QLabel(env.translate("settingsWindow.autocompletion.label.threshold"))
         self.thresholdSpinBox = QSpinBox()
 
+        self.enableAutocompletionCheckBox.stateChanged.connect(self.updateSettingsEnabled)
+
         thresholdLayout = QHBoxLayout()
-        thresholdLayout.addWidget(QLabel(env.translate("settingsWindow.autocompletion.label.threshold")))
+        thresholdLayout.addWidget(self.thresholdLabel)
         thresholdLayout.addWidget(self.thresholdSpinBox)
 
         mainLayout = QVBoxLayout()
@@ -28,6 +31,15 @@ class AutocompletionTab(QWidget,SettingsTabBase):
 
         self.setLayout(mainLayout)
 
+    def updateSettingsEnabled(self):
+        enabled = bool(self.enableAutocompletionCheckBox.checkState())
+        self.useWordsFromDocument.setEnabled(enabled)
+        self.useAPI.setEnabled(enabled)
+        self.caseSensitive.setEnabled(enabled)
+        self.replaceWord.setEnabled(enabled)
+        self.thresholdLabel.setEnabled(enabled)
+        self.thresholdSpinBox.setEnabled(enabled)
+
     def updateTab(self, settings):
         self.enableAutocompletionCheckBox.setChecked(settings.enableAutocompletion)
         self.useWordsFromDocument.setChecked(settings.autocompletionUseDocument)
@@ -35,6 +47,7 @@ class AutocompletionTab(QWidget,SettingsTabBase):
         self.caseSensitive.setChecked(settings.autocompletionCaseSensitive)
         self.replaceWord.setChecked(settings.autocompletionReplaceWord)
         self.thresholdSpinBox.setValue(settings.autocompleteThreshold)
+        self.updateSettingsEnabled()
 
     def getSettings(self, settings):
         settings.enableAutocompletion = bool(self.enableAutocompletionCheckBox.checkState())

@@ -2,7 +2,7 @@ from jdTextEdit.api.LanguageBase import LanguageBase
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.core.api.EditorSignals import EditorSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
-
+from jdTextEdit.api.ThemeBase import ThemeBase
 
 class PluginAPI():
     def __init__(self,env):
@@ -29,3 +29,6 @@ class PluginAPI():
 
     def addBigFilesCheckBox(self,setting: str, text:str):
         self.env.customBigFilesSettings.append([setting,text])
+
+    def addTheme(self, theme: ThemeBase):
+        self.env.themes[theme.getID()] = theme

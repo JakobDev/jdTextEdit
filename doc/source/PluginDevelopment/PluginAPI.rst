@@ -45,3 +45,9 @@ Adds a directory which contains translations.
     addBigFilesCheckBox(setting: str, text:str)
 
 Adds a Checkbox to the Big files Settings Tab.
+
+.. code:: python
+
+    addTheme(theme: ThemeBase)
+
+Adds a Theme.

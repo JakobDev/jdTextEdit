@@ -138,8 +138,7 @@ class MainWindow(QMainWindow):
         self.recentFilesMenu = QMenu(self.env.translate("mainWindow.menu.openRecent"))
         self.recentFilesMenu.setIcon(getThemeIcon(self.env,"document-open-recent"))
 
-        #self.filemenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.file"))
-        self.filemenu = QMenu("Files")
+        self.filemenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.file"))
 
         new = QAction("&" + self.env.translate("mainWindow.menu.file.new"),self)
         new.setIcon(getThemeIcon(self.env,"document-new"))
@@ -579,6 +578,11 @@ class MainWindow(QMainWindow):
         reportBugAction.triggered.connect(lambda: webbrowser.open("https://gitlab.com/JakobDev/jdTextEdit/issues/new"))
         reportBugAction.setData(["reportBug"])
         self.aboutMenu.addAction(reportBugAction)
+
+        viewDocumentationAction = QAction(self.env.translate("mainWindow.menu.about.viewDocumentation"),self)
+        viewDocumentationAction.triggered.connect(lambda: webbrowser.open("https://jdtextedit.readthedocs.io"))
+        viewDocumentationAction.setData(["viewDocumentation"])
+        self.aboutMenu.addAction(viewDocumentationAction)
 
         self.aboutMenu.addSeparator()
 
