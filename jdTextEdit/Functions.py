@@ -56,6 +56,8 @@ def executeCommand(command,editWidget,terminal):
         elif platform.system() == 'Darwin':
             #subprocess.call(('open', filepath))
             pass
+        elif platform.system() == "Haiku":
+            subprocess.Popen(["/system/apps/Terminal",command])
         elif os.getenv("SNAP"):
             subprocess.Popen([os.path.join(os.getenv("SNAP"),"usr","bin","xterm"),"-e",command])
         else:
@@ -73,6 +75,8 @@ def openFileDefault(filepath):
     if platform.system() == 'Windows':
         os.startfile(filepath)
     elif platform.system() == 'Darwin':
+        subprocess.call(('open', filepath))
+    elif platform.system() == "Haiku":
         subprocess.call(('open', filepath))
     else:
         subprocess.call(('xdg-open', filepath))
