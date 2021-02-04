@@ -18,11 +18,13 @@ setup(name='jdTextEdit',
         'chardet',
         'requests',
         'jdTranslationHelper',
-        'charset_normalizer',
-        'cchardet',
         'EditorConfig',
         'pyenchant'
     ],
+    extras_require = {
+        'Use cchardet as encoding detector ':  ['cchardet'],
+        'Use charset_normalizer as encoding detector ':  ['charset_normalizer']
+    },
     packages=find_packages(),
     entry_points={
         'console_scripts': ['jdTextEdit = jdTextEdit.jdTextEdit:main']
