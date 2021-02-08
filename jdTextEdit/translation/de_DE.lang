@@ -360,3 +360,4 @@ dayTip.defaultDataFolder=Wenn sich im Installationsorder der Ordner default_data
 dayTip.fileOpenDragDrop=Du kannst Dateien öffnen, indem du sie per Drag and Drop in das Fenster ziehst.
 dayTip.editorConfigSupport=jdTextEdit unterstützt den .editorconfig Standard.
 dayTip.readDocumentation=Wirf einen Blick auf die Dokumentation von jdTextEdit unter https://jdtextedit.readthedocs.io
+dayTip.supportedOperatingSystems=jdTextEdit läuft auf Linux, Windows, macOS und Haiku.

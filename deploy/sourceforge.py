@@ -37,13 +37,13 @@ windowsOutput = windowsOutput + ".zip"
 cnopts = pysftp.CnOpts()
 cnopts.hostkeys = None
 server = pysftp.Connection(host="frs.sourceforge.net",username=os.getenv("SOURCEFORGE_USERNAME"),password=os.getenv("SOURCEFORGE_PASSWORD"),cnopts=cnopts)
-server.chdir("/home/frs/project/test-upload")
+server.chdir("/home/frs/project/jdtextedit")
 server.mkdir(version)
-server.chdir("/home/frs/project/test-upload/" + version)
+server.chdir("/home/frs/project/jdtextedit/" + version)
 server.put(zipOutput)
 server.put(windowsOutput)
 server.close()
 
 #Set new files as default for download
-subprocess.call(["curl","-H","Accept: application/json","-X","PUT","-d","default=mac&default=linux&default=bsd&default=solaris&default=others","-d","api_key=" + os.getenv("SOURCEFORGE_API_KEY"),"https://sourceforge.net/projects/test-upload/files/" + version + "/jdTextEdit-" + version + "-Python.zip"])
-subprocess.call(["curl","-H","Accept: application/json","-X","PUT","-d","default=windows","-d","api_key=" + os.getenv("SOURCEFORGE_API_KEY"),"https://sourceforge.net/projects/test-upload/files/" + version + "/jdTextEdit-" + version + "-Windows.zip"])
+subprocess.call(["curl","-H","Accept: application/json","-X","PUT","-d","default=mac&default=linux&default=bsd&default=solaris&default=others","-d","api_key=" + os.getenv("SOURCEFORGE_API_KEY"),"https://sourceforge.net/projects/jdtextedit/files/" + version + "/jdTextEdit-" + version + "-Python.zip"])
+subprocess.call(["curl","-H","Accept: application/json","-X","PUT","-d","default=windows","-d","api_key=" + os.getenv("SOURCEFORGE_API_KEY"),"https://sourceforge.net/projects/jdtextedit/files/" + version + "/jdTextEdit-" + version + "-Windows.zip"])

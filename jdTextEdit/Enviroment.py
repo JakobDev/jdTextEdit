@@ -19,7 +19,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "8.1"
+        self.version = "8.2"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = argparse.ArgumentParser()

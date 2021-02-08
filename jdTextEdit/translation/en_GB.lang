@@ -359,3 +359,5 @@ dayTip.dataDirEnviromentVar=You can set the data folder using the JDTEXTEDIT_DAT
 dayTip.defaultDataFolder=If the folder default_data is located in the installation folder, it will be used when creating a new storage folder. You can use this to set preferences for multiple computers.
 dayTip.fileOpenDragDrop=You can open files by dragging and dropping them into the window.
 dayTip.editorConfigSupport=jdTextEdit supports the .editorconfig standard.
+dayTip.readDocumentation=Read the documentation of jdTextEdit at https://jdtextedit.readthedocs.io
+dayTip.supportedOperatingSystems=Did you know that jdTextEdit runs on Linux, Windows macOS and Haiku?
