@@ -16,11 +16,20 @@ jdTextEdit is a powerful texteditor with a lot of features.
 - Macros
 - Support for [.editorconfig](https://editorconfig.org/)
 
-You need [Python](https://www.python.org/) to run jdTextEdit.
-
-Install all needed dependencies before the first run:
-`pip install -U -r requirements.txt`
-
-You can download Windows builds from [SourceForge](https://sourceforge.net/projects/jdtextedit/files/).
-
 [View the Documentation](https://jdtextedit.readthedocs.io)
+
+## Installation
+### Windows
+Download a Windows Binary from [SourceForge](https://sourceforge.net/projects/jdtextedit/files/). It includes a Python interpreter and all needed libs.
+
+### Arch/Manjaro
+jdTextEdit is in the [Arch User Repository](https://aur.archlinux.org/packages/jdtextedit/).
+
+### Haiku
+jdTextEdit can be installed with HaikuDepot.
+
+### pip
+All Systems with has a Python interpreter and pip installed can install jdTextEdit with pip.
+```
+pip install jdTextEdit
+```
