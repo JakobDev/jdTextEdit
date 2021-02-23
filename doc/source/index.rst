@@ -14,6 +14,7 @@ W.I.P.
    General/index.rst
    PluginDevelopment/index.rst
    Distribution/index.rst
+   GettingInvolved/index.rst
 
 
 Indices and tables
