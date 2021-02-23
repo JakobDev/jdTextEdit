@@ -1,0 +1,2 @@
+#Exclude templates from code counting
+jdTextEdit/templates/* linguist-vendored
