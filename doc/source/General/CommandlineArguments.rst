@@ -18,3 +18,6 @@ jdTextEdit has currently the following Commandline Arguments:
 
 --disable-updater
     Start with disabled Updater
+
+--distribution-file PATH
+    Sets custom distribution.json

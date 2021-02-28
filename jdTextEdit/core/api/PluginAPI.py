@@ -1,6 +1,7 @@
 from jdTextEdit.api.LanguageBase import LanguageBase
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.core.api.EditorSignals import EditorSignals
+from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
 from jdTextEdit.api.ThemeBase import ThemeBase
 
@@ -13,6 +14,9 @@ class PluginAPI():
 
     def getEditorSignals(self) -> EditorSignals:
         return self.env.editorSignals
+
+    def getMainWindowSignals(self) -> MainWindowSignals:
+        return self.env.mainWindowSignals
 
     def getApplicationSignals(self) -> ApplicationSignals:
         return self.env.applicationSignals

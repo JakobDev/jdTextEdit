@@ -18,6 +18,12 @@ Returns the Editor Signals.
 
 .. code:: python
 
+    getMainWindowSignals() -> MainWindowSignals:
+
+Returns the Mainwindow Signals.
+
+.. code:: python
+
     getApplicationSignals() -> ApplicationSignals
 
 Returns the Application Signals.

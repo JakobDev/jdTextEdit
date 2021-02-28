@@ -2,7 +2,7 @@
 from setuptools import find_packages, setup
 
 setup(name='jdTextEdit',
-    version='8.2',
+    version='8.3',
     description=' A powerful texteditor with a lot of features',
     long_description=open("README.md").read(),
     long_description_content_type='text/markdown',

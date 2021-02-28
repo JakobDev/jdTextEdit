@@ -8,4 +8,5 @@ Plugin Development
     PluginAPI
     AddLanguage
     EditorSignals
+    MainWindowSignals
     ApplicationSignals

@@ -35,13 +35,18 @@ def loadPlugins(path,env):
         except Exception as e:
             print(traceback.format_exc(),end="")
 
-def getTemplates(path,templatelist):
+def getTemplates(path: str,templatelist):
     if not os.path.isdir(path):
-        os.mkdir(path)
+        try:
+            os.makedirs(path)
+        except:
+            print(f"Could not create template directory {path}")
+            return
     filelist = os.listdir(path)
     for i in filelist:
-        templatelist.append([i,os.path.join(path,i)])
-    return templatelist
+        templatePath = os.path.join(path,i)
+        if os.path.isfile(templatePath):
+            templatelist.append([i,templatePath])
 
 def executeCommand(command,editWidget,terminal):
     command = command.replace("%url%","file://" + editWidget.getFilePath())
@@ -90,17 +95,19 @@ def showMessageBox(title, text):
 
 def getDataPath(env):
     if env.args["dataDir"]:
-        return env.args["dataDir"]
+        return getFullPath(env.args["dataDir"])
     elif os.getenv("JDTEXTEDIT_DATA_PATH"):
-        return os.getenv("JDTEXTEDIT_DATA_PATH")
+        return getFullPath(os.getenv("JDTEXTEDIT_DATA_PATH"))
     elif "dataDirectory" in env.distributionSettings:
-        return env.distributionSettings["dataDirectory"].replace("~",str(Path.home()))
+        return getFullPath(env.distributionSettings["dataDirectory"])
     elif os.getenv("SNAP_USER_DATA"):
         return os.path.join(os.getenv("SNAP_USER_DATA"),"jdTextEdit")
-    elif platform.system() == 'Windows':
+    elif platform.system() == "Windows":
         return os.path.join(os.getenv("appdata"),"jdTextEdit")
-    elif platform.system() == 'Darwin':
+    elif platform.system() == "Darwin":
         return os.path.join(str(Path.home()),"Library","Application Support","jdTextEdit")
+    elif platform.system() == "Haiku":
+        return os.path.join(str(Path.home()),"config","settings","jdTextEdit")
     else:
         if os.getenv("XDG_DATA_HOME"):
             return os.path.join(os.getenv("XDG_DATA_HOME"),"jdTextEdit")
@@ -138,3 +145,6 @@ def readJsonFile(path,default):
             return default
     else:
         return default
+
+def getFullPath(path: str):
+    return os.path.expanduser(os.path.expandvars(path))

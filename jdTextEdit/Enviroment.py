@@ -4,9 +4,10 @@ from PyQt5.QtCore import QLocale
 from PyQt5.QtGui import QIcon
 from jdTextEdit.Settings import Settings
 from jdTextEdit.LexerList import getLexerList
-from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox, readJsonFile
+from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox, readJsonFile, getFullPath
 from jdTextEdit.core.BuiltinLanguage import BuiltinLanguage
 from jdTextEdit.core.api.EditorSignals import EditorSignals
+from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
 from jdTextEdit.core.api.PluginAPI import PluginAPI
 from jdTextEdit.core.DefaultTheme import DefaultTheme
@@ -19,7 +20,7 @@ import os
 
 class Enviroment():
     def __init__(self):
-        self.version = "8.2"
+        self.version = "8.3"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
 
         parser = argparse.ArgumentParser()
@@ -29,9 +30,13 @@ class Enviroment():
         parser.add_argument("--disable-plugins",action="store_true", dest="disablePlugins",help="Disable Plugins")
         parser.add_argument("--no-session-restore",action="store_true", dest="disableSessionRestore",help="Disable Session Restore")
         parser.add_argument("--disable-updater",action="store_true", dest="disableUpdater",help="Disable the Updater")
+        parser.add_argument("--distribution-file",dest="distributionFile",help="Sets custom distribution.json")
         self.args = parser.parse_args().__dict__
 
-        self.distributionSettings = readJsonFile(os.path.join(self.programDir,"distribution.json"),{})
+        #if distributionFile:
+        #    self.distributionSettings = readJsonFile(getFullPath(distributionFile),{})
+        #else:
+        self.distributionSettings = readJsonFile(self.args["distributionFile"] or os.path.join(self.programDir,"distribution.json"),{})
 
         if self.args["portable"]:
             self.dataDir = os.path.join(self.programDir,"data")
@@ -92,8 +97,14 @@ class Enviroment():
             self.languageList.append(lang)
 
         self.templates = []
-        self.templates = getTemplates(os.path.join(self.programDir,"templates"),self.templates)
-        self.templates = getTemplates(os.path.join(self.dataDir,"templates"),self.templates)
+        getTemplates(os.path.join(self.programDir,"templates"),self.templates)
+        getTemplates(os.path.join(self.dataDir,"templates"),self.templates)
+        if "templateDirectories" in self.distributionSettings:
+            if isinstance(self.distributionSettings["templateDirectories"],list):
+                for i in self.distributionSettings["templateDirectories"]:
+                    getTemplates(getFullPath(i),self.templates)
+            else:
+                 print("templateDirectories in distribution.json must be a list")
 
         self.dockWidgtes = []
         self.menuActions = {}
@@ -122,6 +133,7 @@ class Enviroment():
         self.defaultStyle = QApplication.style().metaObject().className()[1:-5]
 
         self.editorSignals = EditorSignals()
+        self.mainWindowSignals = MainWindowSignals()
         self.applicationSignals = ApplicationSignals()
         self.customSettingsTabs = []
         self.customBigFilesSettings = []

@@ -3,7 +3,7 @@ from PyQt5.Qsci import *
 def getLexerList():
     lexerList = []
     lexerList.append({"lexer":QsciLexerAVS,"name":"AVS","extension":[],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerBash,"name":"Bash","extension":[".sh",".bash",".bsh",".csh",".bash_profile",".bashrc",".profile"],"xmlapi":"","startswith":["#!/bin/sh","#!/bin/bash"]})
+    lexerList.append({"lexer":QsciLexerBash,"name":"Bash","extension":[".sh",".bash",".bsh",".csh",".bash_profile",".bashrc",".profile",".recipe"],"xmlapi":"","startswith":["#!/bin/sh","#!/bin/bash"]})
     lexerList.append({"lexer":QsciLexerBatch,"name":"Batch","extension":[".bat",".batch",".cmd",".nt"],"xmlapi":"batch"})
     lexerList.append({"lexer":QsciLexerCMake,"name":"CMake","extension":[".cmake"],"xmlapi":"cmake"})
     lexerList.append({"lexer":QsciLexerCoffeeScript,"name":"CoffeeScript","extension":[".coffe"".litcoffee"],"xmlapi":"coffee"})

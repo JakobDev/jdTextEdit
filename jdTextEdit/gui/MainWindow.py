@@ -81,6 +81,7 @@ class MainWindow(QMainWindow):
             self.tempFileOpenWatcher.addPath(getTempOpenFilePath())
             self.tempFileOpenWatcher.fileChanged.connect(self.openTempFileSignal)
             atexit.register(self.removeTempOpenFile)
+        self.env.mainWindowSignals.windowInit.emit(self)
         self.show()
         #self.getTextEditWidget().ensureCursorVisible()
         if self.env.settings.startupDayTip:
@@ -311,6 +312,20 @@ class MainWindow(QMainWindow):
         self.convertCase.addAction(convertSwap)
 
         self.editMenu.addMenu(self.convertCase)
+
+        self.lineOperationsMenu = QMenu(self.env.translate("mainWindow.menu.edit.lineOperations"),self)
+
+        duplicateCurrentLineAction = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.duplicateCurrentLine"),self)
+        duplicateCurrentLineAction.triggered.connect(self.duplicateCurrentLine)
+        duplicateCurrentLineAction.setData(["duplicateCurrentLine"])
+        self.lineOperationsMenu.addAction(duplicateCurrentLineAction)
+
+        deleteCurrentLine = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.deleteCurrentLine"),self)
+        deleteCurrentLine.triggered.connect(self.removeCurrentLine)
+        deleteCurrentLine.setData(["removeCurrentLine"])
+        self.lineOperationsMenu.addAction(deleteCurrentLine)
+
+        self.editMenu.addMenu(self.lineOperationsMenu)
 
         self.eolModeMenu = QMenu(self.env.translate("mainWindow.menu.edit.eol"),self)
 
@@ -925,7 +940,7 @@ class MainWindow(QMainWindow):
                 if languageFound:
                     break
         containerWidget.clearBanner()
-        if self.env.settings.useEditorConfig:
+        if self.env.settings.useEditorConfig and not template:
             editWidget.loadEditorConfig()
         if editWidget.settings.defaultEncoding != encoding and self.env.settings.showEncodingBanner:
             containerWidget.showBanner(WrongEncodingBanner(self.env,containerWidget))
@@ -1036,6 +1051,18 @@ class MainWindow(QMainWindow):
         if dialog.exec() == QDialog.Accepted:
             editWidget = self.getTextEditWidget()
             printer.printRange(editWidget)
+
+    def duplicateCurrentLine(self):
+        editWidget = self.getTextEditWidget()
+        line = editWidget.text(editWidget.cursorPosLine)
+        editWidget.setCursorPosition(editWidget.cursorPosLine,len(line))
+        editWidget.insertText(line)
+
+    def removeCurrentLine(self):
+        editWidget = self.getTextEditWidget()
+        length = editWidget.lineLength(editWidget.cursorPosLine)
+        editWidget.setSelection(editWidget.cursorPosLine,0,editWidget.cursorPosLine,length)
+        editWidget.removeSelectedText()
 
     def fullscreenMenuBarClicked(self):
         if self.isFullScreen():
