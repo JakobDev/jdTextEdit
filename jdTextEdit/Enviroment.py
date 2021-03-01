@@ -127,6 +127,9 @@ class Enviroment():
         except ImportError:
             pass
 
+        self.lastSavePath = ""
+        self.lastOpenPath =""
+
         self.documentSavedIcon = QIcon(os.path.join(self.programDir,"icons","document-saved.png"))
         self.documentUnsavedIcon = QIcon(os.path.join(self.programDir,"icons","document-unsaved.png"))
 

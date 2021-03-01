@@ -1,5 +1,6 @@
 from PyQt5.QtGui import QFont, QKeySequence
 from jdTextEdit.Functions import showMessageBox
+from pathlib import Path
 import platform
 import json
 import os
@@ -70,6 +71,10 @@ class Settings():
         self.bigFileDisableHighlight = True
         self.bigFileDisableEncodingDetect = True
         self.bigFileShowBanner = True
+        self.saveFilePathType = 0
+        self.saveFileCustomPath = str(Path.home())
+        self.openFilePathType = 0
+        self.openFileCustomPath = str(Path.home())
         self.editorConfigUseIndentStyle = True
         self.editorConfigTabWidth = True
         self.editorConfigEndOfLine = True

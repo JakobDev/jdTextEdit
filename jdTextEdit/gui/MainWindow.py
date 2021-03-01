@@ -1000,15 +1000,37 @@ class MainWindow(QMainWindow):
         self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
 
     def openMenuBarClicked(self):
-        #fileDialog = QFileDialog(self)
-        #fileDialog.set
+        pathTypeSetting = self.env.settings.get("openFilePathType")
+        if pathTypeSetting == 0:
+            #Use path of current file
+            startPath =os.path.dirname(self.getTextEditWidget().getFilePath())
+        elif pathTypeSetting == 1:
+            #Use latest Path
+            startPath = self.env.lastOpenPath
+        elif pathTypeSetting == 2:
+            #Use custom path
+            startPath = self.env.settings.get("openFileCustomPath")
+
         path = QFileDialog.getOpenFileName(self,self.env.translate("mainWindow.openFileDialog.title"),None,self.env.fileNameFilters)
         if path[0]:
             self.openFile(path[0])
+            self.env.lastOpenPath = path
 
     def openDirectoryMenuBarClicked(self):
+        pathTypeSetting = self.env.settings.get("openFilePathType")
+        if pathTypeSetting == 0:
+            #Use path of current file
+            startPath =os.path.dirname(self.getTextEditWidget().getFilePath())
+        elif pathTypeSetting == 1:
+            #Use latest Path
+            startPath = self.env.lastOpenPath
+        elif pathTypeSetting == 2:
+            #Use custom path
+            startPath = self.env.settings.get("openFileCustomPath")
+
         path = QFileDialog.getExistingDirectory(self,self.env.translate("mainWindow.openDirectoryDialog.title"))
         if path:
+            self.env.lastOpenPath = path
             fileList = os.listdir(path)
             for i in fileList:
                 filePath = os.path.join(path,i)
@@ -1027,7 +1049,17 @@ class MainWindow(QMainWindow):
         self.env.clipboard.setText(lastText)
 
     def saveAsMenuBarClicked(self,tabid):
-        path = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"),None,self.env.fileNameFilters)
+        pathTypeSetting = self.env.settings.get("saveFilePathType")
+        if pathTypeSetting == 0:
+            #Use path of current file
+            startPath =os.path.dirname(self.getTextEditWidget().getFilePath())
+        elif pathTypeSetting == 1:
+            #Use latest Path
+            startPath = self.env.lastSavePath
+        elif pathTypeSetting == 2:
+            #Use custom path
+            startPath = self.env.settings.get("saveFileCustomPath")
+        path = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"),startPath,self.env.fileNameFilters)
 
         if path[0]:
             self.getTextEditWidget().setFilePath(path[0])
@@ -1035,6 +1067,7 @@ class MainWindow(QMainWindow):
             self.tabWidget.setTabText(tabid,os.path.basename(path[0]))
             self.tabWidget.tabsChanged.emit()
             self.updateWindowTitle()
+            self.env.lastSavePath = lastSavePath
 
     def saveAllMenuBarClicked(self):
         for i in range(self.tabWidget.count()):

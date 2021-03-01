@@ -7,6 +7,7 @@ from jdTextEdit.gui.SettingsTabs.TabBarTab import TabBarTab
 from jdTextEdit.gui.SettingsTabs.OpenTab import OpenTab
 from jdTextEdit.gui.SettingsTabs.SaveTab import SaveTab
 from jdTextEdit.gui.SettingsTabs.BigFilesTab import BigFilesTab
+from jdTextEdit.gui.SettingsTabs.PathsTab import PathsTab
 from jdTextEdit.gui.SettingsTabs.EditorconfigTab import EditorconfigTab
 from jdTextEdit.gui.SettingsTabs.ContextMenuTab import ContextMenuTab
 from jdTextEdit.gui.SettingsTabs.ToolbarTab import ToolbarTab
@@ -92,6 +93,7 @@ class SettingsWindow(QWidget):
         self.newTab(OpenTab(self.env))
         self.newTab(SaveTab(self.env))
         self.newTab(BigFilesTab(self.env))
+        self.newTab(PathsTab(self.env))
         self.newTab(EditorconfigTab(self.env))
         self.newTab(ContextMenuTab(self.env))
         self.newTab(ToolbarTab(self.env))
