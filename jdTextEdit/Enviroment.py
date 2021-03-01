@@ -147,9 +147,13 @@ class Enviroment():
 
         #self.loadThemeDirectory(os.path.join(self.programDir,"themes"))
 
-    def translate(self, string):
-        #Just a litle shortcut
-        return self.translations.translate(string)
+    def translate(self, key: str) -> str:
+        """
+        Returns the Translation of the given key.
+        :param key: The Key
+        :return: The Translation
+        """
+        return self.translations.translate(key)
 
     def loadThemeDirectory(self,path):
         themeList = os.listdir(path)

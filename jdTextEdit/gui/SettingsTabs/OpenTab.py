@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QCheckBox, QComboBox, QLabel, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Functions import selectComboBoxItem
+from jdTextEdit.Settings import Settings
 
 class OpenTab(QWidget,SettingsTabBase):
     def __init__(self, env):
@@ -34,7 +35,7 @@ class OpenTab(QWidget,SettingsTabBase):
 
         self.setLayout(mainLayout)
 
-    def updateTab(self, settings):
+    def updateTab(self, settings: Settings):
         self.useIPCCheckBox.setChecked(settings.useIPC)
         self.detectLanguage.setChecked(settings.detectLanguage)
         self.detectEol.setChecked(settings.detectEol)
@@ -43,7 +44,7 @@ class OpenTab(QWidget,SettingsTabBase):
         self.eolBannerCheckBox.setChecked(settings.showEolBanner)
         selectComboBoxItem(self.detectLibComboBox,settings.encodingDetectLib)
 
-    def getSettings(self, settings):
+    def getSettings(self, settings: Settings):
         settings.useIPC = bool(self.useIPCCheckBox.checkState())
         settings.detectLanguage = bool(self.detectLanguage.checkState())
         settings.detectEncoding = bool(self.detectEncoding.checkState())
@@ -52,5 +53,5 @@ class OpenTab(QWidget,SettingsTabBase):
         settings.showEolBanner = bool(self.eolBannerCheckBox.checkState())
         settings.encodingDetectLib = self.detectLibComboBox.itemText(self.detectLibComboBox.currentIndex())
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("settingsWindow.open")

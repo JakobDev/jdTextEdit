@@ -92,7 +92,7 @@ class StyleTab(QWidget,SettingsTabBase):
     def updatePreviewEdit(self):
         self.editorPreview.setSettings(self.getSettings(Settings(defaultSettings=self.env.defaultSettings)))
 
-    def updateTab(self, settings):
+    def updateTab(self, settings: Settings):
         for i in range(self.themeSelect.count()):
             if self.themeSelect.itemData(i) == settings.editTheme:
                 self.themeSelect.setCurrentIndex(i)
@@ -110,7 +110,7 @@ class StyleTab(QWidget,SettingsTabBase):
         self.editorPreview.zoomTo(settings.defaultZoom)
         self.updatePreviewEdit()
 
-    def getSettings(self, settings):
+    def getSettings(self, settings: Settings):
         settings.editTheme = self.themeSelect.itemData(self.themeSelect.currentIndex())
         settings.editFoldStyle = self.foldSelect.currentIndex()
         settings.useCustomFont = bool(self.fontCheckBox.checkState())
@@ -120,5 +120,5 @@ class StyleTab(QWidget,SettingsTabBase):
         settings.defaultZoom = self.zoomSlider.value()
         return settings
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("settingsWindow.style")

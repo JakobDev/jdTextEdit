@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QWidget, QComboBox
+from jdTextEdit.gui.CodeEdit import CodeEdit
 from PyQt5.QtGui import QIcon
 from pathlib import Path
 import subprocess
@@ -11,7 +12,12 @@ import json
 import sys
 import os
 
-def loadPlugins(path,env):
+def loadPlugins(path: str,env):
+    """
+    Loads a Plugin for jdTextEdit
+    :param path: plugin
+    :param env: Enviroment
+    """
     if not os.path.isdir(path):
         try:
             os.mkdir(path)
@@ -35,7 +41,12 @@ def loadPlugins(path,env):
         except Exception as e:
             print(traceback.format_exc(),end="")
 
-def getTemplates(path: str,templatelist):
+def getTemplates(path: str,templatelist: list):
+    """
+    Parses a template directory and stores it's content in a list
+    :param path: directory
+    :param templatelist: list
+    """
     if not os.path.isdir(path):
         try:
             os.makedirs(path)
@@ -48,7 +59,13 @@ def getTemplates(path: str,templatelist):
         if os.path.isfile(templatePath):
             templatelist.append([i,templatePath])
 
-def executeCommand(command,editWidget,terminal):
+def executeCommand(command: str,editWidget: CodeEdit,terminal: bool):
+    """
+    Executes a command. This function is used by the execute menu.
+    :param command: the command
+    :param editWidget: the edit widget
+    :param terminal: I(f set to True, the command will be executed in a terminal emulator
+    """
     command = command.replace("%url%","file://" + editWidget.getFilePath())
     command = command.replace("%path%",editWidget.getFilePath())
     command = command.replace("%directory%",os.path.dirname(editWidget.getFilePath()))
@@ -70,13 +87,23 @@ def executeCommand(command,editWidget,terminal):
     else:
         os.popen(command)
 
-def getThemeIcon(env,name):
+def getThemeIcon(env,name: str) -> QIcon:
+    """
+    Returns the Icon from Theme. If the Theme doesn't contain the given Icon, it returns the Icon from jdTextEdit.
+    :param env: Enviroment
+    :param name: The name of Icon
+    :return: The Icon
+    """
     if QIcon.themeName() and env.settings.useNativeIcons:
         return QIcon.fromTheme(name)
     else:
         return QIcon(os.path.join(env.programDir,"icons/" + name + ".png"))
 
-def openFileDefault(filepath):
+def openFileDefault(filepath: str):
+    """
+    Open a file or directory with the default program of the system.
+    :param filepath: path
+    """
     if platform.system() == 'Windows':
         os.startfile(filepath)
     elif platform.system() == 'Darwin':
@@ -86,14 +113,24 @@ def openFileDefault(filepath):
     else:
         subprocess.call(('xdg-open', filepath))
 
-def showMessageBox(title, text):
+def showMessageBox(title: str, text: str):
+    """
+    Shows a message box.
+    :param title: the title
+    :param text: the text
+    """
     messageBox = QMessageBox()
     messageBox.setWindowTitle(title)
     messageBox.setText(text)
     messageBox.setStandardButtons(QMessageBox.Ok)
     messageBox.exec_()
 
-def getDataPath(env):
+def getDataPath(env) -> str:
+    """
+    Returns the Path to the data directory of jdTextEdit
+    :param env: Enviroment
+    :return: The Path
+    """
     if env.args["dataDir"]:
         return getFullPath(env.args["dataDir"])
     elif os.getenv("JDTEXTEDIT_DATA_PATH"):
@@ -114,7 +151,13 @@ def getDataPath(env):
         else:
             return os.path.join(str(Path.home()),".local","share","jdTextEdit")
 
-def saveWindowState(window,windict,winid):
+def saveWindowState(window: QWidget,windict: dict,winid: str):
+    """
+    Saves the state of the Window in the given dict
+    :param window: The Window
+    :param windict: The Dict
+    :param winid: The ID of the Window
+    """
     windict[winid] = {}
     x,y,w,h = window.geometry().getRect()
     windict[winid]["x"] = x
@@ -122,19 +165,41 @@ def saveWindowState(window,windict,winid):
     windict[winid]["width"] = w
     windict[winid]["height"] = h
 
-def restoreWindowState(window,windict,winid):
+def restoreWindowState(window: QWidget,windict: dict,winid: str):
+    """
+    Retores a Window from the given dict
+    :param window: The Window
+    :param windict: The Dict
+    :param winid: The ID of the Window
+    """
     if winid in windict:
         window.setGeometry(windict[winid]["x"],windict[winid]["y"],windict[winid]["width"],windict[winid]["height"])
 
-def getTempOpenFilePath():
+def getTempOpenFilePath() -> str:
+    """
+    Returns the path of the temporary file that is used for IPC
+    :return: path
+    """
     return os.path.join(tempfile.gettempdir(),"jdTextEdit_" + getpass.getuser() + ".tmp")
 
-def selectComboBoxItem(comboBox, item):
+def selectComboBoxItem(comboBox: QComboBox, item: str):
+    """
+    Selects the given item in a QComboBox
+    :param comboBox: The QComboBox
+    :param item: The  Item
+    """
     for i in range(comboBox.count()):
         if comboBox.itemText(i) == item:
             comboBox.setCurrentIndex(i)
 
-def readJsonFile(path,default):
+def readJsonFile(path: str,default):
+    """
+    Tries to parse the given JSON file and prints a error if the file couldn't be parsed
+    Returns default if the file is not found or couldn't be parsed
+    :param path: the JSON file
+    :param default: what should be returned in case parsing failed
+    :return: content of file
+    """
     if os.path.isfile(path):
         try:
             with open(path,"r",encoding="utf-8") as f:
@@ -146,5 +211,10 @@ def readJsonFile(path,default):
     else:
         return default
 
-def getFullPath(path: str):
+def getFullPath(path: str) -> str:
+    """
+    Replaces variables and placeholders in path with their values
+    :param path: original path
+    :return: new path
+    """
     return os.path.expanduser(os.path.expandvars(path))

@@ -1,9 +1,10 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from jdTextEdit.Settings import Settings
 from PyQt5.QtGui import QIcon
 
 class CustomWidgetItem(QListWidgetItem):
-    def __init__(self,name):
+    def __init__(self,name: str):
         super().__init__(name)
         self.actionNameString = ""
 
@@ -77,7 +78,7 @@ class ContextMenuTab(QWidget,SettingsTabBase):
         self.contextList.insertItem(currentRow + 1, currentItem)
         self.contextList.setCurrentRow(currentRow + 1)
 
-    def updateTab(self, settings):
+    def updateTab(self, settings: Settings):
         self.contextList.clear()
         for i in settings.editContextMenu:
             if i in self.env.menuActions:
@@ -91,7 +92,7 @@ class ContextMenuTab(QWidget,SettingsTabBase):
             item.setActionName(i)
             self.contextList.addItem(item)
 
-    def getSettings(self, settings):
+    def getSettings(self, settings: Settings):
         settings.editContextMenu = []
         for i in range(self.contextList.count()):
             settings.editContextMenu.append(self.contextList.item(i).actionName())
@@ -106,5 +107,5 @@ class ContextMenuTab(QWidget,SettingsTabBase):
             item.setActionName(data.data()[0])
             self.actionsList.addItem(item)
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("settingsWindow.contextMenu")

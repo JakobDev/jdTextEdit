@@ -12,18 +12,15 @@ from jdTextEdit.Updater import searchForUpdates
 from jdTextEdit.gui.BannerWidgets.WrongEncodingBanner import WrongEncodingBanner
 from jdTextEdit.gui.BannerWidgets.WrongEolBanner import WrongEolBanner
 from jdTextEdit.gui.BannerWidgets.BigFileBanner import BigFileBanner
+from jdTextEdit.Settings import Settings
 from string import ascii_uppercase
 import webbrowser
 import traceback
-import requests
-import tempfile
-import chardet
 import shutil
 import atexit
 import json
 import sys
 import os
-import re
 
 class MainWindow(QMainWindow):
     def __init__(self,env):
@@ -87,7 +84,7 @@ class MainWindow(QMainWindow):
         if self.env.settings.startupDayTip:
             self.env.dayTipWindow.openWindow()
 
-    def openFileCommandline(self, path):
+    def openFileCommandline(self, path: str):
         if os.path.isfile(path):
             self.openFile(path)
         else:
@@ -111,7 +108,7 @@ class MainWindow(QMainWindow):
     def getTextEditWidget(self):
         return self.tabWidget.currentWidget().getCodeEditWidget()
 
-    def openTempFileSignal(self,path):
+    def openTempFileSignal(self,path: str):
         if os.path.getsize(path) == 0:
             return
         with open(path) as f:
@@ -617,7 +614,7 @@ class MainWindow(QMainWindow):
         separator.setData(["separator"])
         self.env.menuActions["separator"] = separator
 
-    def updateToolbar(self, settings):
+    def updateToolbar(self, settings: Settings):
         self.toolbar.clear()
         for i in settings.toolBar:
             if i == "separator":
@@ -667,7 +664,7 @@ class MainWindow(QMainWindow):
                 templateAction.triggered.connect(self.openTemplate)
                 self.templateMenu.addAction(templateAction)
 
-    def openTemplate(self, sender):
+    def openTemplate(self):
         action = self.sender()
         if action:
             self.openFile(action.data()[1],template=True)
@@ -955,7 +952,7 @@ class MainWindow(QMainWindow):
             containerWidget.showBanner(BigFileBanner(self.env,containerWidget))
         self.env.editorSignals.openFile.emit(editWidget)
 
-    def saveFile(self, tabid):
+    def saveFile(self, tabid: int):
         containerWidget = self.tabWidget.widget(tabid)
         editWidget = containerWidget.getCodeEditWidget()
         path = editWidget.getFilePath()
@@ -1037,7 +1034,7 @@ class MainWindow(QMainWindow):
                 if os.path.isfile(filePath):
                     self.openFile(filePath)
 
-    def saveMenuBarClicked(self,tabid):
+    def saveMenuBarClicked(self,tabid: int):
         if self.getTextEditWidget().getFilePath() == "":
             self.saveAsMenuBarClicked(tabid)
         else:
@@ -1048,7 +1045,7 @@ class MainWindow(QMainWindow):
         self.getTextEditWidget().cut()
         self.env.clipboard.setText(lastText)
 
-    def saveAsMenuBarClicked(self,tabid):
+    def saveAsMenuBarClicked(self,tabid: int):
         pathTypeSetting = self.env.settings.get("saveFilePathType")
         if pathTypeSetting == 0:
             #Use path of current file
@@ -1079,8 +1076,8 @@ class MainWindow(QMainWindow):
         self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
 
     def printMenuBarClicked(self):
-        dialog  = QPrintDialog(printer);
-        dialog.setWindowTitle(self.env.translate("mainWindow.printDialog.title"));
+        dialog  = QPrintDialog(printer)
+        dialog.setWindowTitle(self.env.translate("mainWindow.printDialog.title"))
         if dialog.exec() == QDialog.Accepted:
             editWidget = self.getTextEditWidget()
             printer.printRange(editWidget)
@@ -1239,7 +1236,7 @@ class MainWindow(QMainWindow):
             if self.tabWidget.widget(i).getCodeEditWidget().getFilePath() != "":
                 self.saveFile(i)
 
-    def updateSettings(self, settings):
+    def updateSettings(self, settings: Settings):
         self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
         self.updateRecentFilesMenu()
         self.updateToolbar(settings)

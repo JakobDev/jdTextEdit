@@ -126,6 +126,10 @@ class Settings():
                 setattr(self,i[0],i[1])
 
     def loadDict(self, data: dict):
+        """
+        Loads Settings from a dict
+        :param data: The dict
+        """
         settings = vars(self)
         for key, value in data.items():
             settings[key] = value
@@ -135,6 +139,10 @@ class Settings():
             settings["editFont"] = font
 
     def load(self, path: str):
+        """
+        Loads settings from a file
+        :param path: The path of the file
+        """
         try:
             with open(path,"r",encoding="utf-8") as f:
                 self.loadDict(json.load(f))
@@ -142,6 +150,10 @@ class Settings():
             showMessageBox("Can't load settings","The settings can't be loaded. jdTextEdit will use the default settings.")
 
     def save(self, path: str):
+        """
+        Save all Settings to a file
+        :param path: The path of the file
+        """
         data = vars(self)
         font = self.editFont
         data["editFont"] = self.editFont.toString()
@@ -150,11 +162,27 @@ class Settings():
         self.editFont = font
 
     def get(self, key: str):
+        """
+        Returns the Value of a Setting
+        :param key: The Key
+        :return: The Value
+        """
         return vars(self)[key]
 
     def set(self,key: str, value: str):
+        """
+        Sets a setting
+        :param key: The Key
+        :param value: The new Value
+        :return:
+        """
         vars(self)[key] = value
 
     def register(self,key: str,value: str):
+        """
+        Register a new setting
+        :param key: The Key
+        :param value: The default Value
+        """
         if not hasattr(self,key):
             setattr(self,key,value)

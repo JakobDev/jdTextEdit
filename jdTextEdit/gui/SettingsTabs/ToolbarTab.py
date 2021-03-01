@@ -1,13 +1,14 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem, QCheckBox, QComboBox, QLabel, QGridLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from jdTextEdit.Settings import Settings
 from PyQt5.QtGui import QIcon
 
 class CustomWidgetItem(QListWidgetItem):
-    def __init__(self,name):
+    def __init__(self,name: str):
         super().__init__(name)
         self.actionNameString = ""
 
-    def setActionName(self, name):
+    def setActionName(self, name: str):
         self.actionNameString = name
 
     def actionName(self):
@@ -103,7 +104,7 @@ class ToolbarTab(QWidget,SettingsTabBase):
         self.contextList.insertItem(currentRow + 1, currentItem)
         self.contextList.setCurrentRow(currentRow + 1)
 
-    def updateTab(self, settings):
+    def updateTab(self, settings: Settings):
         self.contextList.clear()
         for i in settings.toolBar:
             if i in self.env.menuActions:
@@ -120,7 +121,7 @@ class ToolbarTab(QWidget,SettingsTabBase):
         self.iconStyleSelect.setCurrentIndex(settings.toolbarIconStyle)
         self.positionComboBox.setCurrentIndex(settings.toolbarPosition)
 
-    def getSettings(self, settings):
+    def getSettings(self, settings: Settings):
         settings.toolBar = []
         for i in range(self.contextList.count()):
             settings.toolBar.append(self.contextList.item(i).actionName())
@@ -137,5 +138,5 @@ class ToolbarTab(QWidget,SettingsTabBase):
             item.setActionName(data.data()[0])
             self.actionsList.addItem(item)
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("settingsWindow.toolbar")

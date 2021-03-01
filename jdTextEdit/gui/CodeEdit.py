@@ -84,7 +84,12 @@ class CodeEdit(QsciScintilla):
         elif self.eolMode() == QsciScintilla.EolMac:
             self.env.mainWindow.eolLabel.setText("CR")
 
-    def setSyntaxHighlighter(self, lexer, lexerList=None):
+    def setSyntaxHighlighter(self, lexer: QsciLexer, lexerList=None):
+        """
+        Sets the syntax highlighter. This function is deprecated and should not be used. Use setLanguage instead.
+        :param lexer: The Lexer
+        :param lexerList: The Lexerlist
+        """
         #self.lexer() is a little bit buggy
         self.currentLexer = lexer
         self.setLexer(lexer)
@@ -108,6 +113,10 @@ class CodeEdit(QsciScintilla):
             self.env.mainWindow.updateSelectedLanguage()
 
     def setLanguage(self,lang: LanguageBase):
+        """
+        Sets the Language.
+        :param lang: The Language
+        """
         lexer = lang.getLexer()
         self.currentLexer = lexer
         self.setLexer(lexer)
@@ -122,6 +131,9 @@ class CodeEdit(QsciScintilla):
         self.env.editorSignals.languageChanged.emit(self,lang)
 
     def removeLanguage(self):
+        """
+        Sets the Language to Plain Text
+        """
         self.setLexer(None)
         self.currentLexer = None
         self.language = None
@@ -130,7 +142,7 @@ class CodeEdit(QsciScintilla):
         self.updateStatusBar()
         self.env.editorSignals.languageChanged.emit(self,None)
 
-    def insertText(self, text):
+    def insertText(self, text: str):
         self.insert(text)
         line, pos = self.getCursorPosition()
         self.setCursorPosition(line,pos + len(text))
@@ -368,6 +380,9 @@ class CodeEdit(QsciScintilla):
         self.env.editorSignals.restoreSession.emit(self,data)
 
     def loadEditorConfig(self):
+        """
+        Loads a .editorconfig file
+        """
         try:
             config = editorconfig.get_properties(self.getFilePath())
         except:

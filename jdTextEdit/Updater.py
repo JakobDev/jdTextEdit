@@ -8,7 +8,7 @@ import urllib
 import os
 
 #This cause problems when a new package from pip is needed
-def installUpdates(env,version):
+def installUpdates(env,version: str):
     if os.access(env.programDir,os.W_OK):
         showMessageBox(env.translate("updater.readOnly.title"),env.translate("updater.readOnly.text"))
         webbrowser.open("https://sourceforge.net/projects/jdtextedit/files")
@@ -36,7 +36,7 @@ def installUpdates(env,version):
                 f.write(file_bytes)
     zip_file.close()
 
-def searchForUpdates(env,startup):
+def searchForUpdates(env,startup: bool):
     if os.getenv("SNAP"):
         if not startup:
             showMessageBox(env.translate("updater.snap.title"),env.translate("updater.snap.text"))

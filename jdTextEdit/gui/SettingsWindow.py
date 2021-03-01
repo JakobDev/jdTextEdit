@@ -15,7 +15,6 @@ from jdTextEdit.gui.SettingsTabs.ShortcutTab import ShortcutTab
 from jdTextEdit.gui.SettingsTabs.PluginTab import PluginTab
 from jdTextEdit.Functions import restoreWindowState
 from jdTextEdit.Settings import Settings
-import os
 
 class SettingsWindow(QWidget):
     def __init__(self,env):
@@ -23,20 +22,6 @@ class SettingsWindow(QWidget):
         self.env = env
         self.tabWidget = QTabWidget()
         self.tabs = []
-        #self.newTab(GeneralTab(env))
-        #self.newTab(EditorTab(env))
-        #self.newTab(AutocompletionTab(env))
-        #self.newTab(StyleTab(self.env))
-        #self.newTab(TabBarTab(env))
-        #self.newTab(OpenTab(env))
-        #self.newTab(SaveTab(env))
-        #self.newTab(BigFilesTab(env))
-        #self.newTab(EditorconfigTab(env))
-        #self.newTab(ContextMenuTab(env))
-        #self.newTab(ToolbarTab(env))
-        #self.newTab(ShortcutTab(env))
-        #if env.settings.loadPlugins:
-           #self.newTab(PluginTab(env))
 
         okButton = QPushButton(env.translate("button.ok"))
         cancelButton = QPushButton(env.translate("button.cancel"))

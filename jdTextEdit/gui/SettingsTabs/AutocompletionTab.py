@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QCheckBox, QSpinBox, QLabel, QVBoxLayout, QHBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from jdTextEdit.Settings import Settings
 
 class AutocompletionTab(QWidget,SettingsTabBase):
     def __init__(self, env):
@@ -40,7 +41,7 @@ class AutocompletionTab(QWidget,SettingsTabBase):
         self.thresholdLabel.setEnabled(enabled)
         self.thresholdSpinBox.setEnabled(enabled)
 
-    def updateTab(self, settings):
+    def updateTab(self, settings: Settings):
         self.enableAutocompletionCheckBox.setChecked(settings.enableAutocompletion)
         self.useWordsFromDocument.setChecked(settings.autocompletionUseDocument)
         self.useAPI.setChecked(settings.autocompletionUseAPI)
@@ -49,7 +50,7 @@ class AutocompletionTab(QWidget,SettingsTabBase):
         self.thresholdSpinBox.setValue(settings.autocompleteThreshold)
         self.updateSettingsEnabled()
 
-    def getSettings(self, settings):
+    def getSettings(self, settings: Settings):
         settings.enableAutocompletion = bool(self.enableAutocompletionCheckBox.checkState())
         settings.autocompletionUseDocument = bool(self.useWordsFromDocument.checkState())
         settings.autocompletionUseAPI = bool(self.useAPI.checkState())
@@ -57,5 +58,5 @@ class AutocompletionTab(QWidget,SettingsTabBase):
         settings.autocompletionReplaceWord = bool(self.replaceWord.checkState())
         settings.autocompleteThreshold = self.thresholdSpinBox.value()
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("settingsWindow.autocompletion")

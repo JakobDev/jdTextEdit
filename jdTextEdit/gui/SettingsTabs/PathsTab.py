@@ -79,13 +79,13 @@ class PathsTab(QWidget,SettingsTabBase):
 
         self.setLayout(mainLayout)
 
-    def updateTab(self,settings):
+    def updateTab(self,settings: Settings):
         self.saveWidget.updateWidget(settings)
         self.openWidget.updateWidget(settings)
 
-    def getSettings(self,settings):
+    def getSettings(self,settings: Settings):
         self.saveWidget.getSettings(settings)
         self.openWidget.getSettings(settings)
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("settingsWindow.paths")

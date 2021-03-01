@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QCheckBox, QSpinBox, QComboBox, QGridLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.EncodingList import getEncodingList
+from jdTextEdit.Settings import Settings
 
 class EditorTab(QWidget,SettingsTabBase):
     def __init__(self,env):
@@ -49,7 +50,7 @@ class EditorTab(QWidget,SettingsTabBase):
 
         self.setLayout(mainLayout)
 
-    def updateTab(self, settings):
+    def updateTab(self, settings: Settings):
         for i in range(self.defaultEncodingComboBox.count()):
             if self.defaultEncodingComboBox.itemText(i) == settings.defaultEncoding:
                 self.defaultEncodingComboBox.setCurrentIndex(i)
@@ -68,7 +69,7 @@ class EditorTab(QWidget,SettingsTabBase):
         self.showEol.setChecked(settings.editShowEol)
 
 
-    def getSettings(self, settings):
+    def getSettings(self, settings: Settings):
         settings.defaultEncoding = self.defaultEncodingComboBox.currentText()
         settings.defaultEolMode = self.defaultEolModeComboBox.currentIndex()
         settings.defaultLanguage = self.defaultLanguageComboBox.currentData()
@@ -84,5 +85,5 @@ class EditorTab(QWidget,SettingsTabBase):
         for i in self.env.languageList:
             self.defaultLanguageComboBox.addItem(i.getName(),i.getID())
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("settingsWindow.editor")

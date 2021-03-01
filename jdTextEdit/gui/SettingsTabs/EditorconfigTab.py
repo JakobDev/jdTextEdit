@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QCheckBox, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from jdTextEdit.Settings import Settings
 
 class EditorconfigTab(QWidget,SettingsTabBase):
     def __init__(self,env):
@@ -37,7 +38,7 @@ class EditorconfigTab(QWidget,SettingsTabBase):
         self.insertNewline.setEnabled(enabled)
         self.showBanner.setEnabled(enabled)
 
-    def updateTab(self,settings):
+    def updateTab(self,settings: Settings):
         self.useEditorConfig.setChecked(settings.useEditorConfig)
         self.useIndentStyle.setChecked(settings.editorConfigUseIndentStyle)
         self.tabWidth.setChecked(settings.editorConfigTabWidth)
@@ -47,7 +48,7 @@ class EditorconfigTab(QWidget,SettingsTabBase):
         self.showBanner.setChecked(settings.editorConfigShowBanner)
         self.toogleCheckBoxEnabled()
 
-    def getSettings(self,settings):
+    def getSettings(self,settings: Settings):
          settings.useEditorConfig = bool(self.useEditorConfig.checkState())
          settings.editorConfigUseIndentStyle = bool(self.useIndentStyle.checkState())
          settings.editorConfigTabWidth = bool(self.tabWidth.checkState())
@@ -56,5 +57,5 @@ class EditorconfigTab(QWidget,SettingsTabBase):
          settings.editorConfigInsertNewline = bool(self.insertNewline.checkState())
          settings.editorConfigShowBanner = bool(self.showBanner.checkState())
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("settingsWindow.editorconfig")

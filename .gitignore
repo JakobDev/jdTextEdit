@@ -19,3 +19,7 @@ doc/build
 
 #Trash
 *.kate-swp
+
+#Idea
+.idea/
+venv/

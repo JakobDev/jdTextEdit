@@ -14,14 +14,14 @@ class ShortcutTab(QScrollArea,SettingsTabBase):
         super().__init__()
         self.env = env
 
-    def updateTab(self, settings):
+    def updateTab(self, settings: Settings):
         for i in self.shortcutList:
             if i[0] in settings.shortcut:
                 i[1].setKeySequence(settings.shortcut[i[0]])
             else:
                 i[1].setKeySequence("")
 
-    def getSettings(self, settings):
+    def getSettings(self, settings: Settings):
         for i in self.shortcutList:
             if not i[1].keySequence().isEmpty():
                 settings.shortcut[i[0]] = i[1].keySequence().toString()
@@ -56,5 +56,5 @@ class ShortcutTab(QScrollArea,SettingsTabBase):
         self.setWidget(self.scrollWidget)
         self.setWidgetResizable(True)
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("settingsWindow.shortcuts")
