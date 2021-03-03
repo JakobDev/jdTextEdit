@@ -25,8 +25,13 @@ noInternetConnection.text=An Internet connection is required for this function.
 
 mainWindow.menu.file=File
 mainWindow.menu.file.new=New
-mainWindow.menu.newTemplate=New (from Template)
-mainWindow.menu.newTemplate.empty=No Templates found
+mainWindow.menu.file.newTemplate=New (from Template)
+mainWindow.menu.file.newTemplate.empty=No Templates found
+mainWindow.menu.file.newTemplate.add=Add
+mainWindow.menu.file.newTemplate.add.document=Save current document as template
+mainWindow.menu.file.newTemplate.add.file=Add file as template
+mainWindow.menu.file.newTemplate.add.dialog.title=Enter name
+mainWindow.menu.file.newTemplate.add.dialog.text=Please enter a name for the template
 mainWindow.menu.file.open=Open
 mainWindow.menu.file.openDirectory=Open Directory
 mainWindow.menu.openRecent=Open Recent Files

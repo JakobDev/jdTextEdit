@@ -144,7 +144,7 @@ class MainWindow(QMainWindow):
         new.setData(["newFile"])
         self.filemenu.addAction(new)
 
-        self.templateMenu = QMenu(self.env.translate("mainWindow.menu.newTemplate"),self)
+        self.templateMenu = QMenu(self.env.translate("mainWindow.menu.file.newTemplate"),self)
         self.templateMenu.setIcon(getThemeIcon(self.env,"document-new"))
         self.updateTemplateMenu()
         self.filemenu.addMenu(self.templateMenu)
@@ -654,7 +654,7 @@ class MainWindow(QMainWindow):
         self.templateMenu.clear()
 
         if len(self.env.templates) == 0:
-            empty = QAction(self.env.translate("mainWindow.menu.newTemplate.empty"),self)
+            empty = QAction(self.env.translate("mainWindow.menu.file.newTemplate.empty"),self)
             empty.setEnabled(False)
             self.templateMenu.addAction(empty)
         else:
@@ -664,10 +664,48 @@ class MainWindow(QMainWindow):
                 templateAction.triggered.connect(self.openTemplate)
                 self.templateMenu.addAction(templateAction)
 
+        self.templateMenu.addSeparator()
+        addMenu = self.templateMenu.addMenu(self.env.translate("mainWindow.menu.file.newTemplate.add"))
+
+        addCurrentDocumentAction = QAction(self.env.translate("mainWindow.menu.file.newTemplate.add.document"),self)
+        addCurrentDocumentAction.triggered.connect(self.addCurrentDocumentTemplate)
+        addMenu.addAction(addCurrentDocumentAction)
+
+        addFileAction = QAction(self.env.translate("mainWindow.menu.file.newTemplate.add.file"),self)
+        addFileAction.triggered.connect(self.addFileTemplate)
+        addMenu.addAction(addFileAction)
+
     def openTemplate(self):
         action = self.sender()
         if action:
             self.openFile(action.data()[1],template=True)
+
+    def addCurrentDocumentTemplate(self):
+        """
+        This function is called when the user clicks on Templates>Add>Save Document as Template
+        """
+        name, ok = QInputDialog.getText(self,self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.title"),self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.text"))
+        if not ok or name == "":
+            return
+        path = os.path.join(self.env.dataDir,"templates",name)
+        self.saveFile(self.tabWidget.currentIndex(),path=path,template=True)
+        self.env.templates.append([name,path])
+        self.updateTemplateMenu()
+
+    def addFileTemplate(self):
+        """
+        This function is called when the user clicks on Templates>Add>Add file as template
+        """
+        original_path = QFileDialog.getOpenFileName(self)
+        if not original_path[0]:
+            return
+        name, ok = QInputDialog.getText(self,self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.title"),self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.text"))
+        if not ok or name == "":
+            return
+        template_path = os.path.join(self.env.dataDir,"templates",name)
+        shutil.copyfile(original_path[0],template_path)
+        self.env.templates.append([name,template_path])
+        self.updateTemplateMenu()
 
     def updateRecentFilesMenu(self):
         self.recentFilesMenu.clear()
@@ -952,13 +990,15 @@ class MainWindow(QMainWindow):
             containerWidget.showBanner(BigFileBanner(self.env,containerWidget))
         self.env.editorSignals.openFile.emit(editWidget)
 
-    def saveFile(self, tabid: int):
+    def saveFile(self, tabid: int,path: str = None,template: bool = False):
         containerWidget = self.tabWidget.widget(tabid)
         editWidget = containerWidget.getCodeEditWidget()
-        path = editWidget.getFilePath()
-        containerWidget.fileWatcher.removePath(path)
-        if os.path.isfile(path) and self.env.settings.saveBackupEnabled:
-            shutil.copyfile(path,path + self.env.settings.saveBackupExtension)
+        if not path:
+            path = editWidget.getFilePath()
+        if not template:
+            containerWidget.fileWatcher.removePath(path)
+            if os.path.isfile(path) and self.env.settings.saveBackupEnabled:
+                shutil.copyfile(path,path + self.env.settings.saveBackupExtension)
         text = editWidget.text()
         eolChar = editWidget.getEolChar()
         if editWidget.settings.eolFileEnd:
@@ -983,6 +1023,8 @@ class MainWindow(QMainWindow):
             return
         filehandle.write(text)
         filehandle.close()
+        if template:
+            return
         containerWidget.fileWatcher.addPath(path)
         editWidget.setModified(False)
         self.updateWindowTitle()
@@ -1064,7 +1106,7 @@ class MainWindow(QMainWindow):
             self.tabWidget.setTabText(tabid,os.path.basename(path[0]))
             self.tabWidget.tabsChanged.emit()
             self.updateWindowTitle()
-            self.env.lastSavePath = lastSavePath
+            self.env.lastSavePath = path
 
     def saveAllMenuBarClicked(self):
         for i in range(self.tabWidget.count()):

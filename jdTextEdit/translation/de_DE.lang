@@ -25,8 +25,13 @@ noInternetConnection.text=Für diese Funktion ist eine Internetverbindung erford
 
 mainWindow.menu.file=Datei
 mainWindow.menu.file.new=Neu
-mainWindow.menu.newTemplate=Neu (aus Vorlage)
-mainWindow.menu.newTemplate.empty=Keine Vorlagen verfügbar
+mainWindow.menu.file.newTemplate=Neu (aus Vorlage)
+mainWindow.menu.file.newTemplate.empty=Keine Vorlagen verfügbar
+mainWindow.menu.file.newTemplate.add=Hinzufügen
+mainWindow.menu.file.newTemplate.add.document=Aktuelles Dokument als Vorlage speichern
+mainWindow.menu.file.newTemplate.add.file=Datei als Vorlage hinzufügen
+mainWindow.menu.file.newTemplate.add.dialog.title=Namen eingeben
+mainWindow.menu.file.newTemplate.add.dialog.text=Bitte gib einen Namen für die Vorlage ein
 mainWindow.menu.file.open=Öffnen
 mainWindow.menu.file.openDirectory=Verzeichnis öffnen
 mainWindow.menu.openRecent=Zuletzt geöffnete Dateien öffnen
