@@ -56,7 +56,7 @@ def main():
     env.editCommandsWindow = EditCommandsWindow(env)
     env.dayTipWindow = DayTipWindow(env)
     env.aboutWindow = AboutWindow(env)
-    if env.settings.loadPlugins and not env.args["disablePlugins"]:
+    if env.settings.get("loadPlugins") and not env.args["disablePlugins"]:
         loadPlugins(os.path.join(env.programDir,"plugins"),env)
         loadPlugins(os.path.join(env.dataDir,"plugins"),env)
 
@@ -66,7 +66,7 @@ def main():
     env.dockWidgtes.append([ClipboardWidget(env),env.translate("sidebar.clipboard"),"clipboard"])
     env.dockWidgtes.append([CharacterMapWidget(env),env.translate("sidebar.charactermap"),"charactermap"])
 
-    if os.path.isfile(os.path.join(env.dataDir,"userChrome.css")):
+    if os.path.isfile(os.path.join(env.dataDir,"userChrome.css")) and env.settings.get("enableUserChrome"):
         f = open(os.path.join(env.dataDir,"userChrome.css"),"r",encoding="utf-8")
         app.setStyleSheet(f.read())
         f.close()

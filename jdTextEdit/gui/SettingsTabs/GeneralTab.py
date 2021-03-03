@@ -9,7 +9,6 @@ class GeneralTab(QWidget,SettingsTabBase):
         self.env = env
 
         self.languageComboBox = QComboBox()
-        self.styleSelectComboBox = QComboBox()
         self.recentFilesSpinBox = QSpinBox()
         self.saveCloseCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveClose"))
         self.saveSessionCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveSession"))
@@ -31,16 +30,11 @@ class GeneralTab(QWidget,SettingsTabBase):
             self.languageComboBox.setItemData(count,language)
             count +=1
 
-        self.styleSelectComboBox.addItem(env.translate("settingsWindow.general.combobox.systemStyle"))
-        self.styleSelectComboBox.addItems(QStyleFactory.keys())
-
         gridLayout = QGridLayout()
         gridLayout.addWidget(QLabel(env.translate("settingsWindow.general.label.languageSelect")),0,0)
         gridLayout.addWidget(self.languageComboBox,0,1)
-        gridLayout.addWidget(QLabel(env.translate("settingsWindow.general.label.applicationStyle")),1,0)
-        gridLayout.addWidget(self.styleSelectComboBox,1,1)
-        gridLayout.addWidget(QLabel(env.translate("settingsWindow.general.label.maxRecentFiles")),2,0)
-        gridLayout.addWidget(self.recentFilesSpinBox,2,1)
+        gridLayout.addWidget(QLabel(env.translate("settingsWindow.general.label.maxRecentFiles")),1,0)
+        gridLayout.addWidget(self.recentFilesSpinBox,1,1)
 
         mainLayout = QVBoxLayout()
         mainLayout.addLayout(gridLayout)
@@ -62,12 +56,6 @@ class GeneralTab(QWidget,SettingsTabBase):
         for i in range(self.languageComboBox.count()):
             if self.languageComboBox.itemData(i) == settings.language:
                 self.languageComboBox.setCurrentIndex(i)
-        if settings.applicationStyle == "default":
-            self.styleSelectComboBox.setCurrentIndex(0)
-        else:
-            for i in range(self.styleSelectComboBox.count()):
-                if self.styleSelectComboBox.itemText(i) == settings.applicationStyle:
-                    self.styleSelectComboBox.setCurrentIndex(i)
         self.recentFilesSpinBox.setValue(settings.maxRecentFiles)
         self.saveCloseCheckBox.setChecked(settings.saveClose)
         self.saveSessionCheckBox.setChecked(settings.saveSession)
@@ -81,10 +69,6 @@ class GeneralTab(QWidget,SettingsTabBase):
 
     def getSettings(self, settings: Settings):
         settings.language = self.languageComboBox.itemData(self.languageComboBox.currentIndex())
-        if self.styleSelectComboBox.currentIndex() == 0:
-            settings.applicationStyle = "default"
-        else:
-            settings.applicationStyle = self.styleSelectComboBox.itemText(self.styleSelectComboBox.currentIndex())
         settings.maxRecentFiles = self.recentFilesSpinBox.value()
         settings.saveClose = bool(self.saveCloseCheckBox.checkState())
         settings.saveSession = bool(self.saveSessionCheckBox.checkState())
