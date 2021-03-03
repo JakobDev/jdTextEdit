@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QMenu, QAction, QApplication, QLabel, QFileDialog, QStyleFactory, QStyle, QDialog, QColorDialog, QInputDialog
 from PyQt5.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro
-from PyQt5.QtGui import QIcon, QTextDocument
-from PyQt5.QtPrintSupport import QPrintDialog, QPrintPreviewDialog
-from PyQt5.Qsci import QsciPrinter
+from PyQt5.QtGui import QIcon
+from PyQt5.QtPrintSupport import QPrintDialog
 from PyQt5.QtCore import Qt, QFileSystemWatcher, QTimer
 from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState,restoreWindowState, getTempOpenFilePath
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
@@ -12,10 +11,12 @@ from jdTextEdit.Updater import searchForUpdates
 from jdTextEdit.gui.BannerWidgets.WrongEncodingBanner import WrongEncodingBanner
 from jdTextEdit.gui.BannerWidgets.WrongEolBanner import WrongEolBanner
 from jdTextEdit.gui.BannerWidgets.BigFileBanner import BigFileBanner
+from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
 from string import ascii_uppercase
 import webbrowser
 import traceback
+import random
 import shutil
 import atexit
 import json
@@ -105,7 +106,11 @@ class MainWindow(QMainWindow):
                     if self.env.settings.useEditorConfig:
                         editWidget.loadEditorConfig()
 
-    def getTextEditWidget(self):
+    def getTextEditWidget(self) -> CodeEdit:
+        """
+        Returns the current active edit widget
+        :return: The edit widget
+        """
         return self.tabWidget.currentWidget().getCodeEditWidget()
 
     def openTempFileSignal(self,path: str):
@@ -317,10 +322,15 @@ class MainWindow(QMainWindow):
         duplicateCurrentLineAction.setData(["duplicateCurrentLine"])
         self.lineOperationsMenu.addAction(duplicateCurrentLineAction)
 
-        deleteCurrentLine = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.deleteCurrentLine"),self)
-        deleteCurrentLine.triggered.connect(self.removeCurrentLine)
-        deleteCurrentLine.setData(["removeCurrentLine"])
-        self.lineOperationsMenu.addAction(deleteCurrentLine)
+        deleteCurrentLineAction = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.deleteCurrentLine"),self)
+        deleteCurrentLineAction.triggered.connect(self.removeCurrentLine)
+        deleteCurrentLineAction.setData(["removeCurrentLine"])
+        self.lineOperationsMenu.addAction(deleteCurrentLineAction)
+
+        shuffleLinesAction = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.shuffleLines"),self)
+        shuffleLinesAction.triggered.connect(self.shuffleLines)
+        shuffleLinesAction.setData(["shuffleLines"])
+        self.lineOperationsMenu.addAction(shuffleLinesAction)
 
         self.editMenu.addMenu(self.lineOperationsMenu)
 
@@ -642,12 +652,6 @@ class MainWindow(QMainWindow):
 
     def languagePlainTextClicked(self):
         editWidget = self.getTextEditWidget()
-        #editWidget.setLexer(None)
-        #editWidget.currentLexer = None
-        #editWidget.updateSettings(self.env.settings)
-        #editWidget.lexerName = self.env.translate("mainWindow.menu.language.plainText")
-        #editWidget.updateStatusBar()
-        #editWidget.removeSyntaxHighlighter()
         editWidget.removeLanguage()
 
     def updateTemplateMenu(self):
@@ -1125,16 +1129,45 @@ class MainWindow(QMainWindow):
             printer.printRange(editWidget)
 
     def duplicateCurrentLine(self):
+        """
+        This function is called when the user clicks Edit>Line Operations>Duplicate Current Line
+        :return:
+        """
         editWidget = self.getTextEditWidget()
         line = editWidget.text(editWidget.cursorPosLine)
         editWidget.setCursorPosition(editWidget.cursorPosLine,len(line))
         editWidget.insertText(line)
 
     def removeCurrentLine(self):
+        """
+        This function is called when the user clicks Edit>Line Operations>Delete Current Line
+        """
         editWidget = self.getTextEditWidget()
         length = editWidget.lineLength(editWidget.cursorPosLine)
         editWidget.setSelection(editWidget.cursorPosLine,0,editWidget.cursorPosLine,length)
         editWidget.removeSelectedText()
+
+    def shuffleLines(self):
+        """
+        This function is called when the user clicks Edit>Line Operations>Shuffle Lines
+        """
+        editWidget = self.getTextEditWidget()
+        if editWidget.hasSelectedText():
+            selection = editWidget.getSelection()
+            startLine = selection[0]
+            endLine = selection[2]
+        else:
+            startLine = 0
+            endLine = editWidget.lines()
+        lines = []
+        for i in range(startLine,endLine+1):
+            lines.append(editWidget.text(i))
+        random.shuffle(lines)
+        editWidget.setSelection(startLine,0,endLine,editWidget.lineLength(endLine))
+        editWidget.removeSelectedText()
+        editWidget.setCursorPosition(startLine,editWidget.lineLength(startLine))
+        for i in lines:
+            editWidget.insertText(i)
 
     def fullscreenMenuBarClicked(self):
         if self.isFullScreen():
@@ -1238,7 +1271,6 @@ class MainWindow(QMainWindow):
                 editWidget.setCursorPosition(oldBookmark,0)
                 return
             oldBookmark = i
-        #editWidget.setCursorPosition(editWidget.bookmarkList[-1],0)
 
     def clearBookmarks(self):
         editWidget = self.getTextEditWidget()
@@ -1372,11 +1404,6 @@ class MainWindow(QMainWindow):
                 f = open(os.path.join(self.env.dataDir,"session_data",str(i)),"wb")
                 f.write(widget.text().encode(widget.getUsedEncoding(),errors="replace"))
                 f.close()
-                #if widget.currentLexer:
-                #    syntax = widget.currentLexer.language()
-                #else:
-                #    syntax = ""
-                #data["tabs"].append({"path":widget.getFilePath(),"modified":widget.isModified(),"language":syntax,"encoding":widget.getUsedEncoding(),"bookmarks":widget.bookmarkList,"cursorPosLine":widget.cursorPosLine,"cursorPosIndex":widget.cursorPosIndex})
                 data["tabs"].append(widget.getSaveMetaData())
             with open(os.path.join(self.env.dataDir,"session.json"), 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
