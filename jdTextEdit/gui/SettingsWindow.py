@@ -78,8 +78,9 @@ class SettingsWindow(QWidget):
             i.getSettings(self.env.settings)
         self.env.mainWindow.updateSettings(self.env.settings)
         self.env.applicationSignals.settingsChanged.emit(self.env.settings)
-        for i in range(self.env.mainWindow.tabWidget.count()):
-            self.env.mainWindow.tabWidget.widget(i).getCodeEditWidget().setSettings(self.env.settings)
+        for tabWidget in self.env.mainWindow.splitViewWidget.getAllTabWidgets():
+            for i in range(tabWidget.count()):
+                tabWidget.widget(i).getCodeEditWidget().setSettings(self.env.settings)
         self.close()
 
     def defaultButtonClicked(self):

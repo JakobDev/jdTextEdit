@@ -55,7 +55,6 @@ class MainWindow(QMainWindow):
         else:
             self.splitViewWidget.initTabWidget()
             self.splitViewWidget.getCurrentTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"))
-            self.splitViewWidget.splitVertical()
         self.updateLanguageMenu()
         if len(self.env.args["filename"]) == 1:
             self.openFileCommandline(os.path.abspath(self.env.args["filename"][0]))
