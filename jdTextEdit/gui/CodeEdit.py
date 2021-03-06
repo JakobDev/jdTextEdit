@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import QMenu
-from PyQt5.Qsci import QsciScintilla, QsciLexer, QsciAPIs, QsciScintillaBase
+from PyQt5.Qsci import QsciScintilla, QsciLexer, QsciScintillaBase
 from PyQt5.QtGui import QColor, QFontMetrics, QFont, QCursor
 from PyQt5.QtCore import pyqtSignal
-from jdTextEdit.AutocompleteXML import AutocompleteXML
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase
 import editorconfig
@@ -150,12 +149,12 @@ class CodeEdit(QsciScintilla):
     def modificationStateChange(self, state):
         if self.isPreview:
             return
-        #self.isNew = False
+        tabWidget = self.container.getTabWidget()
         try:
             if state:
-                self.env.mainWindow.tabWidget.setTabIcon(self.tabid,self.env.documentUnsavedIcon)
+                tabWidget.setTabIcon(self.tabid,self.env.documentUnsavedIcon)
             else:
-                self.env.mainWindow.tabWidget.setTabIcon(self.tabid,self.env.documentSavedIcon)
+                tabWidget.setTabIcon(self.tabid,self.env.documentSavedIcon)
         except:
             pass
 
@@ -572,3 +571,8 @@ class CodeEdit(QsciScintilla):
 
     def getLanguage(self):
         return self.language
+
+    def focusInEvent(self, event):
+        self.container.getTabWidget().markWidgetAsActive()
+        self.updateStatusBar()
+        super().focusInEvent(event)

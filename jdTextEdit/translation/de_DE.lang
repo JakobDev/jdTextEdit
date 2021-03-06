@@ -57,6 +57,7 @@ mainWindow.menu.edit.copyClipboard=In Zwischenablage kopieren
 mainWindow.menu.edit.copyClipboard.copyPath=Kopiere absoluten Pfad in Zwischenablage
 mainWindow.menu.edit.copyClipboard.copyDirectory=Kopiere Verzeichnisnamen in Zwischenablage
 mainWindow.menu.edit.copyClipboard.copyFilename=Kopiere Dateinamen in Zwischenablage
+mainWindow.menu.edit.copyClipboard.copyURL=Kopiere URL in Zwischenablage
 mainWindow.menu.edit.convertCase=Ändere Schreibweise in
 mainWindow.menu.edit.convertCase.uppercase=Großbuchstaben
 mainWindow.menu.edit.convertCase.lowercase=Kleinbuchstaben
@@ -77,6 +78,9 @@ mainWindow.menu.view.fullscreen=Vollbild
 mainWindow.menu.view.sidebar=Seitenleiste
 mainWindow.menu.view.foldAll=Alle einklappen
 mainWindow.menu.view.unfoldAll=Alle ausklappen
+mainWindow.menu.view.splitView=Geteilte Ansicht
+mainWindow.menu.view.splitView.splitVertical=Senkrecht teilen
+mainWindow.menu.view.splitView.deleteCurrentView=Aktuelle Ansicht schließen
 mainWindow.menu.search=Suchen
 mainWindow.menu.search.search=Suchen ...
 mainWindow.menu.search.advancedSearch=Erweiterte Suche
@@ -347,6 +351,9 @@ noReadPermission.text=Du hast nicht die Berechtigung, um %s zu öffnen
 
 noWritePermission.title=Konnte Datei nicht speichern
 noWritePermission.text=Du hast nicht die Berechtigung, um %s zu schreiben
+
+invalidFilename.title=Ungültiger Dateiname
+invalidFilename.text=Der gewählte Dateiname ist ungültig
 
 sidebar.notes=Notizen
 sidebar.notes.placeholderText=Du kannst dir hier Notizen machen

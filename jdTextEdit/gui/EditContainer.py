@@ -5,9 +5,10 @@ from jdTextEdit.gui.BannerWidgets.FileChangedBanner import FileChangedBanner
 from jdTextEdit.gui.SearchBar import SearchBar
 
 class EditContainer(QWidget):
-    def __init__(self,env):
+    def __init__(self,env,tabWidget):
         super().__init__()
         self.env = env
+        self.tabWidget = tabWidget
         self.codeWidget = CodeEdit(env,isNew=True,container=self)
         self.currentPath = self.codeWidget.getFilePath()
         self.codeWidget.pathChanged.connect(self.newPath)
@@ -30,10 +31,21 @@ class EditContainer(QWidget):
 
         #mainLayout.addWidget(QLabel("Hallo"),-1)
 
-    def getCodeEditWidget(self):
+    def getCodeEditWidget(self) -> CodeEdit:
+        """
+        Retruns the edit widget
+        :return: edit widget
+        """
         return self.codeWidget
 
-    def showBanner(self, widget):
+    def getTabWidget(self):
+        """
+        Returns the Tab Widget of the Container
+        :return: tab widget
+        """
+        return self.tabWidget
+
+    def showBanner(self, widget: QWidget):
         self.mainLayout.insertWidget(0,widget)
         widget.show()
 
@@ -54,7 +66,7 @@ class EditContainer(QWidget):
         if path != "":
             self.fileWatcher.addPath(path)
 
-    def fileChanged(self, path):
+    def fileChanged(self, path: str):
         self.fileWatcher.addPath(path)
         self.showFileChangedBanner()
 
@@ -62,7 +74,7 @@ class EditContainer(QWidget):
         if self.env.settings.showFileChangedBanner:
             self.showBanner(self.fileChangedWidget)
 
-    def isFileChangedBannerVisible(self):
+    def isFileChangedBannerVisible(self) -> bool:
         return self.fileChangedWidget.isVisible()
 
     def showSearchBar(self):

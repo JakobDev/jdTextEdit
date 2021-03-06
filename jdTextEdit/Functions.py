@@ -218,3 +218,15 @@ def getFullPath(path: str) -> str:
     :return: new path
     """
     return os.path.expanduser(os.path.expandvars(path))
+
+def isFilenameValid(filename: str) -> bool:
+    """
+    Checks if a filename contains chars that are used to separate folder e.g. /
+    This function does not check for illegal chars
+    :param filename: the filename
+    :return: valid
+    """
+    if filename .find("/") == -1 and filename.find("\\") == -1:
+        return True
+    else:
+        return False

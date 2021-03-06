@@ -5,14 +5,15 @@ class TabListWidget(QListWidget):
         super().__init__()
         self.env = env
         self.updateTabList()
-        env.mainWindow.tabWidget.tabsChanged.connect(self.updateTabList)
+        #env.mainWindow.getTabWidget().tabsChanged.connect(self.updateTabList)
         self.currentRowChanged.connect(self.changeTab)
 
     def updateTabList(self):
         self.clear()
-        for i in range(self.env.mainWindow.tabWidget.count()):
-            self.addItem(self.env.mainWindow.tabWidget.tabText(i))
+        for tabWidget in self.env.mainWindow.splitViewWidget.getAllTabWidgets():
+            for i in range(tabWidget.count()):
+                self.addItem(tabWidget.tabText(i))
 
     def changeTab(self, row):
         if row != -1:
-            self.env.mainWindow.tabWidget.setCurrentIndex(row)
+            self.env.mainWindow.getTabWidget().setCurrentIndex(row)

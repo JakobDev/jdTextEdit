@@ -8,7 +8,7 @@ class CloseSaveWindow(QWidget):
         noCloseButton = QPushButton(env.translate("closeSaveWindow.button.noSave"))
         cancelButton = QPushButton(env.translate("button.cancel"))
         self.saveButton = QPushButton()
-        self.text = QLabel()  
+        self.text = QLabel()
 
         noCloseButton.clicked.connect(self.closeFile)
         cancelButton.clicked.connect(self.close)
@@ -45,9 +45,9 @@ class CloseSaveWindow(QWidget):
         self.env.mainWindow.saveFile(self.tabid)
         self.closeFile()
 
-    def openWindow(self, tabid):
+    def openWindow(self, tabid: int, tabWidget):
         self.tabid = tabid
-        self.tabWidget = self.env.mainWindow.tabWidget
+        self.tabWidget = tabWidget
         filename = self.tabWidget.tabText(tabid)
         self.text.setText(self.env.translate("closeSaveWindow.text") % filename)
         self.setWindowTitle(self.env.translate("closeSaveWindow.title") % filename)

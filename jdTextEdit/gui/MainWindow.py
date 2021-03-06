@@ -1,10 +1,11 @@
-from PyQt5.QtWidgets import QMainWindow, QMenu, QAction, QApplication, QLabel, QFileDialog, QStyleFactory, QStyle, QDialog, QColorDialog, QInputDialog
-from PyQt5.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro
+from PyQt5.QtWidgets import QMainWindow, QMenu, QAction, QApplication, QLabel, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog
+from PyQt5.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciPrinter
 from PyQt5.QtGui import QIcon
 from PyQt5.QtPrintSupport import QPrintDialog
 from PyQt5.QtCore import Qt, QFileSystemWatcher, QTimer
-from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState,restoreWindowState, getTempOpenFilePath
+from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
+from jdTextEdit.gui.SplitViewWidget import SplitViewWidget
 from jdTextEdit.EncodingList import getEncodingList
 from jdTextEdit.gui.DockWidget import DockWidget
 from jdTextEdit.Updater import searchForUpdates
@@ -29,10 +30,10 @@ class MainWindow(QMainWindow):
         self.env = env
         self.currentMacro = None
         self.setupMenubar()
-        self.tabWidget = EditTabWidget(env)
+        self.splitViewWidget = SplitViewWidget(env)
         self.setupStatusBar()
         self.toolbar = self.addToolBar("toolbar")
-        self.setCentralWidget(self.tabWidget)
+        self.setCentralWidget(self.splitViewWidget)
         self.autoSaveTimer = QTimer()
         #self.autoSaveTimer.setInterval(2147483647)
         self.autoSaveTimer.timeout.connect(self.autoSaveTimeout)
@@ -43,7 +44,7 @@ class MainWindow(QMainWindow):
 
     def setup(self):
         #This is called, after all at least
-        if os.path.isfile(os.path.join(self.env.dataDir,"session.json")) and not self.env.args["disableSessionRestore"] :
+        if os.path.isfile(os.path.join(self.env.dataDir,"session.json")) and not self.env.args["disableSessionRestore"]:
             try:
                 self.restoreSession()
             except Exception as e:
@@ -52,7 +53,9 @@ class MainWindow(QMainWindow):
                 os.remove(os.path.join(self.env.dataDir,"session.json"))
                 shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
         else:
-            self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"))
+            self.splitViewWidget.initTabWidget()
+            self.splitViewWidget.getCurrentTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"))
+            self.splitViewWidget.splitVertical()
         self.updateLanguageMenu()
         if len(self.env.args["filename"]) == 1:
             self.openFileCommandline(os.path.abspath(self.env.args["filename"][0]))
@@ -60,9 +63,10 @@ class MainWindow(QMainWindow):
         self.env.sidepane = DockWidget(self.env)
         self.env.sidepane.hide()
         self.addDockWidget(Qt.LeftDockWidgetArea,self.env.sidepane)
-        for i in range(self.tabWidget.count()):
-            widget = self.tabWidget.widget(i).getCodeEditWidget()
-            widget.modificationStateChange(widget.isModified())
+        for tabWidget in self.splitViewWidget.getAllTabWidgets():
+            for i in range(tabWidget.count()):
+                widget = tabWidget.widget(i).getCodeEditWidget()
+                widget.modificationStateChange(widget.isModified())
         if self.env.settings.showSidepane:
             self.toggleSidebarClicked()
         self.env.sidepane.content.setCurrentWidget(self.env.settings.sidepaneWidget)
@@ -91,15 +95,16 @@ class MainWindow(QMainWindow):
         else:
             #Check if the file is already open but do not exists anymore
             found = False
-            for i in range(self.tabWidget.count()):
-                if self.tabWidget.widget(i).getCodeEditWidget().getFilePath() == path:
-                    self.tabWidget.setCurrentIndex(i)
-                    found = True
+            for tabWidget in self.splitViewWidget.getAllTabWidgets():
+                for i in range(tabWidget.count()):
+                    if tabWidget.widget(i).getCodeEditWidget().getFilePath() == path:
+                        tabWidget.setCurrentIndex(i)
+                        found = True
             if not found:
                 if os.path.isdir(path):
                     print("Can't open directory")
                 else:
-                    self.tabWidget.createTab(os.path.basename(path),focus=True)
+                    self.getTabWidget().createTab(os.path.basename(path),focus=True)
                     editWidget = self.getTextEditWidget()
                     editWidget.setFilePath(path)
                     editWidget.isNew = False
@@ -111,7 +116,14 @@ class MainWindow(QMainWindow):
         Returns the current active edit widget
         :return: The edit widget
         """
-        return self.tabWidget.currentWidget().getCodeEditWidget()
+        return self.splitViewWidget.getCurrentTextEditWidget()
+
+    def getTabWidget(self) -> EditTabWidget:
+        """
+        Returns the current active tab widget
+        :return: The tab widget
+        """
+        return self.splitViewWidget.getCurrentTabWidget()
 
     def openTempFileSignal(self,path: str):
         if os.path.getsize(path) == 0:
@@ -174,13 +186,13 @@ class MainWindow(QMainWindow):
 
         save = QAction("&" + self.env.translate("mainWindow.menu.file.save"),self)
         save.setIcon(getThemeIcon(self.env,"document-save"))
-        save.triggered.connect(lambda: self.saveMenuBarClicked(self.tabWidget.currentIndex()))
+        save.triggered.connect(lambda: self.saveMenuBarClicked(self.getTextEditWidget()))
         save.setData(["saveFile"])
         self.filemenu.addAction(save)
 
         saveAs = QAction("&" + self.env.translate("mainWindow.menu.file.saveAs"),self)
         saveAs.setIcon(getThemeIcon(self.env,"document-save-as"))
-        saveAs.triggered.connect(lambda: self.saveAsMenuBarClicked(self.tabWidget.currentIndex()))
+        saveAs.triggered.connect(lambda: self.saveAsMenuBarClicked(self.getTextEditWidget()))
         saveAs.setData(["saveAsFile"])
         self.filemenu.addAction(saveAs)
 
@@ -194,7 +206,7 @@ class MainWindow(QMainWindow):
 
         closeTab = QAction(self.env.translate("mainWindow.menu.file.close"),self)
         closeTab.setIcon(QIcon(os.path.join(self.env.programDir,"icons","document-close.png")))
-        closeTab.triggered.connect(lambda: self.tabWidget.tabCloseClicked(self.tabWidget.currentIndex()))
+        closeTab.triggered.connect(lambda: self.getTabWidget().tabCloseClicked(self.getTabWidget().currentIndex()))
         closeTab.setData(["closeTab"])
         self.filemenu.addAction(closeTab)
 
@@ -288,6 +300,11 @@ class MainWindow(QMainWindow):
         copyFilename.triggered.connect(lambda: self.env.clipboard.setText(os.path.basename(self.getTextEditWidget().getFilePath())))
         copyFilename.setData(["copyFilename"])
         self.clipboardCopyMenu.addAction(copyFilename)
+
+        copyUrlAction = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyURL"),self)
+        copyUrlAction.triggered.connect(lambda: self.env.clipboard.setText("file://" + self.getTextEditWidget().getFilePath()))
+        copyUrlAction.setData(["copyUrl"])
+        self.clipboardCopyMenu.addAction(copyUrlAction)
 
         self.editMenu.addMenu(self.clipboardCopyMenu)
 
@@ -447,11 +464,28 @@ class MainWindow(QMainWindow):
         unfoldAllAction.setData(["unfoldAll"])
         self.viewMenu.addAction(unfoldAllAction)
 
+        self.viewMenu.addSeparator()
+
+        self.splitViewMenu = QMenu(self.env.translate("mainWindow.menu.view.splitView"),self)
+
+        splitVerticalAction = QAction(self.env.translate("mainWindow.menu.view.splitView.splitVertical"),self)
+        splitVerticalAction.triggered.connect(lambda: self.splitViewWidget.splitVertical())
+        splitVerticalAction.setData(["splitVertical"])
+        self.splitViewMenu.addAction(splitVerticalAction)
+
+        self.deleteCurrentViewAction = QAction(self.env.translate("mainWindow.menu.view.splitView.deleteCurrentView"),self)
+        self.deleteCurrentViewAction.triggered.connect(lambda: self.splitViewWidget.deleteCurrentView())
+        self.deleteCurrentViewAction.setData(["deleteCurrentView"])
+        self.deleteCurrentViewAction.setEnabled(False)
+        self.splitViewMenu.addAction(self.deleteCurrentViewAction)
+
+        self.viewMenu.addMenu(self.splitViewMenu)
+
         self.searchmenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.search"))
 
         search = QAction("&" + self.env.translate("mainWindow.menu.search.search"),self)
         search.setIcon(getThemeIcon(self.env,"edit-find"))
-        search.triggered.connect(lambda: self.tabWidget.currentWidget().showSearchBar())
+        search.triggered.connect(lambda: self.getTabWidget().currentWidget().showSearchBar())
         search.setData(["find"])
         self.searchmenu.addAction(search)
 
@@ -646,8 +680,6 @@ class MainWindow(QMainWindow):
     def languageActionClicked(self):
         action = self.sender()
         if action:
-            #lexer = action.data().getLexer()
-            #self.getTextEditWidget().setSyntaxHighlighter(lexer,lexerList=action.data())
             self.getTextEditWidget().setLanguage(action.data())
 
     def languagePlainTextClicked(self):
@@ -691,8 +723,11 @@ class MainWindow(QMainWindow):
         name, ok = QInputDialog.getText(self,self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.title"),self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.text"))
         if not ok or name == "":
             return
+        if not isFilenameValid(name):
+            showMessageBox(self.env.translate("invalidFilename.title"),self.env.translate("invalidFilename.text"))
+            return
         path = os.path.join(self.env.dataDir,"templates",name)
-        self.saveFile(self.tabWidget.currentIndex(),path=path,template=True)
+        self.saveFile(self.getTextEditWidget(),path=path,template=True)
         self.env.templates.append([name,path])
         self.updateTemplateMenu()
 
@@ -705,6 +740,9 @@ class MainWindow(QMainWindow):
             return
         name, ok = QInputDialog.getText(self,self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.title"),self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.text"))
         if not ok or name == "":
+            return
+        if not isFilenameValid(name):
+            showMessageBox(self.env.translate("invalidFilename.title"),self.env.translate("invalidFilename.text"))
             return
         template_path = os.path.join(self.env.dataDir,"templates",name)
         shutil.copyfile(original_path[0],template_path)
@@ -890,11 +928,13 @@ class MainWindow(QMainWindow):
     def openFile(self, path: str, template=None, reload=None):
         #Check if the file is already open
         if not template:
-            for i in range(self.tabWidget.count()):
-                if self.tabWidget.widget(i).getCodeEditWidget().getFilePath() == path:
-                    self.tabWidget.setCurrentIndex(i)
-                    if not reload:
-                        return
+            for tabWidget in self.splitViewWidget.getAllTabWidgets():
+                for i in range(tabWidget.count()):
+                    if tabWidget.widget(i).getCodeEditWidget().getFilePath() == path:
+                        tabWidget.setCurrentIndex(i)
+                        tabWidget.setActive()
+                        if not reload:
+                            return
         #Check if the file exists
         if not os.path.isfile(path):
             return
@@ -926,19 +966,20 @@ class MainWindow(QMainWindow):
             encoding = self.env.settings.defaultEncoding
         fileContent = fileBytes.decode(encoding,errors="replace")
         filehandle.close()
+        tabWidget = self.getTabWidget()
         if (not self.getTextEditWidget().isNew) and (not reload):
-            self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
-        containerWidget = self.tabWidget.currentWidget()
+            tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
+        containerWidget = tabWidget.currentWidget()
         editWidget = containerWidget.getCodeEditWidget()
         if isBigFile and self.env.settings.bigFileDisableHighlight:
             editWidget.removeLanguage()
         editWidget.bigFile = isBigFile
         editWidget.setText(fileContent)
         editWidget.setModified(False)
-        self.tabWidget.tabsChanged.emit()
+        tabWidget.tabsChanged.emit()
         if not template:
             editWidget.setFilePath(path)
-            self.tabWidget.setTabText(self.tabWidget.currentIndex(),os.path.basename(path))
+            tabWidget.setTabText(tabWidget.currentIndex(),os.path.basename(path))
         self.updateWindowTitle()
         if self.env.settings.detectEol:
             lines = fileContent.splitlines(True)
@@ -993,10 +1034,10 @@ class MainWindow(QMainWindow):
         if isBigFile and self.env.settings.bigFileShowBanner:
             containerWidget.showBanner(BigFileBanner(self.env,containerWidget))
         self.env.editorSignals.openFile.emit(editWidget)
+        tabWidget.setActive()
 
-    def saveFile(self, tabid: int,path: str = None,template: bool = False):
-        containerWidget = self.tabWidget.widget(tabid)
-        editWidget = containerWidget.getCodeEditWidget()
+    def saveFile(self, editWidget: CodeEdit,path: str = None,template: bool = False):
+        containerWidget = editWidget.container
         if not path:
             path = editWidget.getFilePath()
         if not template:
@@ -1040,7 +1081,7 @@ class MainWindow(QMainWindow):
                         editWidget.setSyntaxHighlighter(lexer,lexerList=i)
 
     def newMenuBarClicked(self):
-        self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
+        self.getTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
 
     def openMenuBarClicked(self):
         pathTypeSetting = self.env.settings.get("openFilePathType")
@@ -1080,22 +1121,22 @@ class MainWindow(QMainWindow):
                 if os.path.isfile(filePath):
                     self.openFile(filePath)
 
-    def saveMenuBarClicked(self,tabid: int):
-        if self.getTextEditWidget().getFilePath() == "":
-            self.saveAsMenuBarClicked(tabid)
+    def saveMenuBarClicked(self,editWidget: CodeEdit):
+        if editWidget.getFilePath() == "":
+            self.saveAsMenuBarClicked(editWidget)
         else:
-            self.saveFile(tabid)
+            self.saveFile(editWidget)
 
     def deleteMenuBarClicked(self):
         lastText = self.env.clipboard.text()
         self.getTextEditWidget().cut()
         self.env.clipboard.setText(lastText)
 
-    def saveAsMenuBarClicked(self,tabid: int):
+    def saveAsMenuBarClicked(self,editWidget: CodeEdit):
         pathTypeSetting = self.env.settings.get("saveFilePathType")
         if pathTypeSetting == 0:
             #Use path of current file
-            startPath =os.path.dirname(self.getTextEditWidget().getFilePath())
+            startPath =os.path.dirname(editWidget.getFilePath())
         elif pathTypeSetting == 1:
             #Use latest Path
             startPath = self.env.lastSavePath
@@ -1106,23 +1147,31 @@ class MainWindow(QMainWindow):
 
         if path[0]:
             self.getTextEditWidget().setFilePath(path[0])
-            self.saveFile(tabid)
-            self.tabWidget.setTabText(tabid,os.path.basename(path[0]))
-            self.tabWidget.tabsChanged.emit()
+            self.saveFile(editWidget)
+            tabWidget = editWidget.container.getTabWidget()
+            tabWidget.setTabText(editWidget.tabid,os.path.basename(path[0]))
+            tabWidget.tabsChanged.emit()
             self.updateWindowTitle()
             self.env.lastSavePath = path
 
     def saveAllMenuBarClicked(self):
-        for i in range(self.tabWidget.count()):
-            self.saveMenuBarClicked(i)
+        for tabWidget in self.splitViewWidget.getAllTabWidgets():
+            for i in range(tabWidget.count()):
+                self.saveMenuBarClicked(tabWidget.widget(i))
 
     def closeAllTabs(self):
-        for i in range(self.tabWidget.count()-1,-1,-1):
-            self.tabWidget.tabCloseClicked(i,notCloseProgram=True)
-        self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
+        for tabWidget in self.splitViewWidget.getAllTabWidgets():
+            for i in range(tabWidget.count()-1,-1,-1):
+                tabWidget.tabCloseClicked(i,notCloseProgram=True)
+        self.getTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
 
     def printMenuBarClicked(self):
-        dialog  = QPrintDialog(printer)
+        """
+        This function is called when the user clicks File>Print
+        :return:
+        """
+        printer = QsciPrinter()
+        dialog = QPrintDialog(printer)
         dialog.setWindowTitle(self.env.translate("mainWindow.printDialog.title"))
         if dialog.exec() == QDialog.Accepted:
             editWidget = self.getTextEditWidget()
@@ -1131,7 +1180,6 @@ class MainWindow(QMainWindow):
     def duplicateCurrentLine(self):
         """
         This function is called when the user clicks Edit>Line Operations>Duplicate Current Line
-        :return:
         """
         editWidget = self.getTextEditWidget()
         line = editWidget.text(editWidget.cursorPosLine)
@@ -1306,9 +1354,10 @@ class MainWindow(QMainWindow):
     def autoSaveTimeout(self):
         if self.autoSaveTimer.timeout == 0 or not self.env.settings.enableAutoSave:
             return
-        for i in range(self.tabWidget.count()):
-            if self.tabWidget.widget(i).getCodeEditWidget().getFilePath() != "":
-                self.saveFile(i)
+        for tabWidget in self.splitViewWidget.getAllTabWidgets():
+            for i in range(tabWidget.count()):
+                if tabWidget.widget(i).getCodeEditWidget().getFilePath() != "":
+                    self.saveFile(i)
 
     def updateSettings(self, settings: Settings):
         self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
@@ -1336,38 +1385,38 @@ class MainWindow(QMainWindow):
             self.autoSaveTimer.start()
         else:
             self.autoSaveTimer.stop()
-        self.tabWidget.updateSettings(settings)
+        for i in self.splitViewWidget.getAllTabWidgets():
+            i.updateSettings(settings)
         self.updateWindowTitle()
 
     def updateWindowTitle(self):
         if self.env.settings.windowFileTitle:
-            self.setWindowTitle(self.tabWidget.tabText(self.tabWidget.currentIndex()) + " - jdTextEdit")
+            tabWidget = self.getTabWidget()
+            self.setWindowTitle(tabWidget.tabText(tabWidget.currentIndex()) + " - jdTextEdit")
         else:
             self.setWindowTitle("jdTextEdit")
+
+    def saveSession(self):
+        if not os.path.isdir(os.path.join(self.env.dataDir, "session_data")):
+            os.mkdir(os.path.join(self.env.dataDir, "session_data"))
+        data = self.splitViewWidget.getSessionData()
+        if self.currentMacro:
+            data["currentMacro"] = self.currentMacro.save()
+        with open(os.path.join(self.env.dataDir, "session.json"), 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
 
     def restoreSession(self):
         with open(os.path.join(self.env.dataDir,"session.json"),"r",encoding="utf-8") as f:
             data = json.load(f)
-        for count, i in enumerate(data["tabs"]):
-            if i["path"] == "":
-                self.tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"))
-            else:
-                self.tabWidget.createTab(os.path.basename(i["path"]))
-            editWidget = self.tabWidget.widget(count).getCodeEditWidget()
-            f = open(os.path.join(self.env.dataDir,"session_data",str(count)),"rb")
-            text = f.read().decode(i["encoding"],errors="replace")
-            editWidget.setText(text)
-            f.close()
-            editWidget.restoreSaveMetaData(i)
-        self.tabWidget.setCurrentIndex(data["selectedTab"])
+        self.splitViewWidget.restoreSession(data)
+        self.updateSelectedLanguage()
         if "currentMacro" in data:
             self.currentMacro = QsciMacro(self.getTextEditWidget())
             self.currentMacro.load(data["currentMacro"])
             self.playMacroAction.setEnabled(True)
             self.saveMacroAction.setEnabled(True)
-        self.updateSelectedLanguage()
-        os.remove(os.path.join(self.env.dataDir,"session.json"))
-        shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
+        os.remove(os.path.join(self.env.dataDir, "session.json"))
+        shutil.rmtree(os.path.join(self.env.dataDir, "session_data"))
 
     def saveDataClose(self):
         self.env.settings.showSidepane = self.env.sidepane.enabled
@@ -1392,25 +1441,18 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
         self.saveDataClose()
         if self.env.settings.saveSession:
-            if not os.path.isdir(os.path.join(self.env.dataDir,"session_data")):
-                os.mkdir(os.path.join(self.env.dataDir,"session_data"))
-            data = {}
-            data["selectedTab"] = self.tabWidget.currentIndex()
-            if self.currentMacro:
-                data["currentMacro"] = self.currentMacro.save()
-            data["tabs"] = []
-            for i in range(self.tabWidget.count()):
-                widget = self.tabWidget.widget(i).getCodeEditWidget()
-                f = open(os.path.join(self.env.dataDir,"session_data",str(i)),"wb")
-                f.write(widget.text().encode(widget.getUsedEncoding(),errors="replace"))
-                f.close()
-                data["tabs"].append(widget.getSaveMetaData())
-            with open(os.path.join(self.env.dataDir,"session.json"), 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False, indent=4)
+            try:
+                self.saveSession()
+            except Exception as e:
+                print(traceback.format_exc(), end="")
             sys.exit(0)
         else:
-            for i in range(self.tabWidget.count()-1,-1,-1):
-                self.tabWidget.tabCloseClicked(i,forceExit=True)
+            for tabWidget in self.splitViewWidget.getAllTabWidgets():
+                for i in range(tabWidget.count()-1,-1,-1):
+                    try:
+                        tabWidget.tabCloseClicked(i,forceExit=True)
+                    except Exception as e:
+                        print(traceback.format_exc(), end="")
             event.ignore()
 
     def removeTempOpenFile(self):

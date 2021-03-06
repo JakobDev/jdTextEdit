@@ -57,6 +57,7 @@ mainWindow.menu.edit.copyClipboard=Copy to Clipboard
 mainWindow.menu.edit.copyClipboard.copyPath=Copy Full Path to Clipboard
 mainWindow.menu.edit.copyClipboard.copyDirectory=Copy Directory to Clipboard
 mainWindow.menu.edit.copyClipboard.copyFilename=Copy Filename to Clipboard
+mainWindow.menu.edit.copyClipboard.copyURL=Copy URL to Clipboard
 mainWindow.menu.edit.convertCase=Convert Case to
 mainWindow.menu.edit.convertCase.uppercase=Uppercase
 mainWindow.menu.edit.convertCase.lowercase=Lowercase
@@ -77,6 +78,9 @@ mainWindow.menu.view.fullscreen=Fullscreen
 mainWindow.menu.view.sidebar=Sidebar
 mainWindow.menu.view.foldAll=Fold All
 mainWindow.menu.view.unfoldAll=Unfold All
+mainWindow.menu.view.splitView=Split View
+mainWindow.menu.view.splitView.splitVertical=Split Vertical
+mainWindow.menu.view.splitView.deleteCurrentView=Close Current View
 mainWindow.menu.search=Search
 mainWindow.menu.search.search=Find
 mainWindow.menu.search.advancedSearch=Advanced Search
@@ -347,6 +351,9 @@ noReadPermission.text=You don't have the permission to open %s
 
 noWritePermission.title=Can't save file
 noWritePermission.text=You don't have the permission to write %s
+
+invalidFilename.title=Invalid filename
+invalidFilename.text=The Filename is invalid
 
 sidebar.notes=Notes
 sidebar.notes.placeholderText=You can write down notes here
