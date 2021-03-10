@@ -338,6 +338,9 @@ searchBar.tooltip.findFirst=Zur ersten Übereinstimmung springen
 fileChangedBanner.text=Die Datei wurde auf dem Laufwerk geändert
 fileChangedBanner.button.reload=Neu laden
 
+fileDeletedBanner.text=Die Datei wurde von einem anderen Programm gelöscht
+fileDeletedBanner.button.closeFile=Datei schließen
+
 wrongEncodingBanner.text=Die Zeichenkodierung entspricht nicht den Standardeinstellungen
 
 wrongEolBanner.text=Das Zeilenende entspricht nicht den Standardeinstellungen

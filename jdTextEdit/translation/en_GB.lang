@@ -338,6 +338,9 @@ searchBar.tooltip.findFirst=Jump to first match
 fileChangedBanner.text=The file was changed on the drive
 fileChangedBanner.button.reload=Reload
 
+fileDeletedBanner.text=The file was deleted by another program
+fileDeletedBanner.button.closeFile=Close File
+
 wrongEncodingBanner.text=The encoding does not correspond to the default settings
 
 wrongEolBanner.text=The end of line does not correspond to the default settings

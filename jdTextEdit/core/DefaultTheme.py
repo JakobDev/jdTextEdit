@@ -16,6 +16,7 @@ class DefaultTheme(ThemeBase):
         if not lexer:
             return
         lexer.setPaper(QColor("#FFFFFF"))
+        lexer.setColor(QColor("#000000"))
         lexer.setDefaultPaper(QColor("#FFFFFF"))
         lexer.setDefaultColor(QColor("#000000"))
         base = editWidget.getLanguage().getLexer()

@@ -39,7 +39,7 @@ def loadPlugins(path: str,env):
             if not plugid in env.settings.disabledPlugins:
                 env.plugins[plugid].main(env)
         except Exception as e:
-            print(traceback.format_exc(),end="")
+            print(traceback.format_exc(),end="",file=sys.stderr)
 
 def getTemplates(path: str,templatelist: list):
     """
@@ -205,8 +205,11 @@ def readJsonFile(path: str,default):
             with open(path,"r",encoding="utf-8") as f:
                 data = json.load(f)
                 return data
+        except json.decoder.JSONDecodeError as e:
+            print(f"Can't parse {os.path.basename(path)}: {e.msg}: line {e.lineno} column {e.colno} (char {e.pos})",file=sys.stderr)
+            return default
         except:
-            print("Can't read " + os.path.basename(path))
+            print("Can't read " + os.path.basename(path),file=sys.stderr)
             return default
     else:
         return default

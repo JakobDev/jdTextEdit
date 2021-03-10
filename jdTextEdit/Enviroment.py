@@ -11,6 +11,8 @@ from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
 from jdTextEdit.core.api.PluginAPI import PluginAPI
 from jdTextEdit.core.DefaultTheme import DefaultTheme
+from jdTextEdit.api.LanguageBase import LanguageBase
+from typing import List
 import argparse
 import chardet
 import shutil
@@ -31,6 +33,7 @@ class Enviroment():
         parser.add_argument("--no-session-restore",action="store_true", dest="disableSessionRestore",help="Disable Session Restore")
         parser.add_argument("--disable-updater",action="store_true", dest="disableUpdater",help="Disable the Updater")
         parser.add_argument("--distribution-file",dest="distributionFile",help="Sets custom distribution.json")
+        parser.add_argument("--language",dest="language",help="Starts jdTextEdit in the given language")
         self.args = parser.parse_args().__dict__
 
         #if distributionFile:
@@ -62,7 +65,9 @@ class Enviroment():
         if os.path.isfile(os.path.join(self.dataDir,"settings.json")):
             self.settings.load(os.path.join(self.dataDir,"settings.json"))
 
-        if self.settings.language == "default":
+        if self.args["language"]:
+            self.translations = jdTranslationHelper(self.args["language"])
+        elif self.settings.language == "default":
             self.translations = jdTranslationHelper(lang=QLocale.system().name())
         else:
             self.translations = jdTranslationHelper(lang=self.settings.language)
@@ -91,7 +96,7 @@ class Enviroment():
 
         self.lexerList = getLexerList()
 
-        self.languageList = []
+        self.languageList: List[LanguageBase] = []
         for i in self.lexerList:
             lang = BuiltinLanguage(self,i)
             self.languageList.append(lang)

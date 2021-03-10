@@ -14,6 +14,7 @@ from jdTextEdit.gui.BannerWidgets.WrongEolBanner import WrongEolBanner
 from jdTextEdit.gui.BannerWidgets.BigFileBanner import BigFileBanner
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
+from jdTextEdit.Enviroment import Enviroment
 from string import ascii_uppercase
 import webbrowser
 import traceback
@@ -25,7 +26,7 @@ import sys
 import os
 
 class MainWindow(QMainWindow):
-    def __init__(self,env):
+    def __init__(self,env: Enviroment):
         super().__init__()
         self.env = env
         self.currentMacro = None
@@ -48,10 +49,13 @@ class MainWindow(QMainWindow):
             try:
                 self.restoreSession()
             except Exception as e:
-                print(traceback.format_exc(),end="")
-                showMessageBox("Error","Could not restore session. If jdTextEdit crashes just restart it.")
+                print(traceback.format_exc(),end="",file=sys.stderr)
+                showMessageBox("Error","Could not restore session. This might be happen after an Update. If jdTextEdit crashes just restart it.")
                 os.remove(os.path.join(self.env.dataDir,"session.json"))
                 shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
+                tabWidget = self.splitViewWidget.getCurrentTabWidget()
+                if tabWidget.count() == 0:
+                    tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"))
         else:
             self.splitViewWidget.initTabWidget()
             self.splitViewWidget.getCurrentTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"))
@@ -786,6 +790,9 @@ class MainWindow(QMainWindow):
             self.openFile(i)
 
     def updateLanguageMenu(self):
+        """
+        This function creates the language menu
+        """
         self.env.languageActionList = []
         self.env.fileNameFilters = self.env.translate("mainWindow.fileNameFilter.allFiles") + " (*);;"
         self.languageMenu.clear()
@@ -803,6 +810,9 @@ class MainWindow(QMainWindow):
                     languageAction.setData(i)
                     languageAction.setCheckable(True)
                     languageAction.triggered.connect(self.languageActionClicked)
+                    icon = i.getIcon()
+                    if icon:
+                        languageAction.setIcon(icon)
                     letterMenu.addAction(languageAction)
                     self.env.languageActionList.append(languageAction)
                     self.env.fileNameFilters = self.env.fileNameFilters + i.getName()

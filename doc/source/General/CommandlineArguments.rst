@@ -21,3 +21,6 @@ jdTextEdit has currently the following Commandline Arguments:
 
 --distribution-file PATH
     Sets custom distribution.json
+
+--language LANGCODE
+    Starts jdTextEdit in the given language and ignore the system language or the user settings

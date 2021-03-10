@@ -54,15 +54,7 @@ class EditTabWidget(QTabWidget):
         except:
             return
         try:
-            currentEditWidget.updateEolMenu()
-            currentEditWidget.updateStatusBar()
-            currentEditWidget.updateMenuActions()
-            self.env.mainWindow.updateWindowTitle()
-            if self.env.mainWindow.currentMacro:
-                self.env.mainWindow.stopMacroRecording()
-                macro = self.env.mainWindow.currentMacro.save()
-                self.env.mainWindow.currentMacro = QsciMacro(currentEditWidget)
-                self.env.mainWindow.currentMacro.load(macro)
+            currentEditWidget.updateOtherWidgets()
         except Exception as e:
             pass
             #print(e)

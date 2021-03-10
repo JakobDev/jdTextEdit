@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMenu
-from PyQt5.Qsci import QsciScintilla, QsciLexer, QsciScintillaBase
+from PyQt5.Qsci import QsciScintilla, QsciLexer, QsciScintillaBase, QsciMacro
 from PyQt5.QtGui import QColor, QFontMetrics, QFont, QCursor
 from PyQt5.QtCore import pyqtSignal
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
@@ -371,7 +371,9 @@ class CodeEdit(QsciScintilla):
         self.setOverwriteMode(data.get("overwriteMode",False))
         modificationTime = data.get("modificationTime",0)
         if self.container:
-            if data.get( "fileChangedBannerVisible",False):
+            if not os.path.exists(path):
+                self.container.showFileDeletedBanner()
+            elif data.get("fileChangedBannerVisible",False):
                 self.container.showFileChangedBanner()
             elif modificationTime != 0:
                 if modificationTime != os.path.getmtime(path):
@@ -572,7 +574,22 @@ class CodeEdit(QsciScintilla):
     def getLanguage(self):
         return self.language
 
+    def updateOtherWidgets(self):
+        """
+        Updates the other eidgets like MainWindow or the statusbar
+        :return:
+        """
+        self.updateEolMenu()
+        self.updateStatusBar()
+        self.updateMenuActions()
+        self.env.mainWindow.updateWindowTitle()
+        if self.env.mainWindow.currentMacro:
+            self.env.mainWindow.stopMacroRecording()
+            macro = self.env.mainWindow.currentMacro.save()
+            self.env.mainWindow.currentMacro = QsciMacro(currentEditWidget)
+            self.env.mainWindow.currentMacro.load(macro)
+
     def focusInEvent(self, event):
         self.container.getTabWidget().markWidgetAsActive()
-        self.updateStatusBar()
+        self.updateOtherWidgets()
         super().focusInEvent(event)

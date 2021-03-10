@@ -2,7 +2,9 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from PyQt5.QtCore import QFileSystemWatcher
 from jdTextEdit.gui.BannerWidgets.FileChangedBanner import FileChangedBanner
+from jdTextEdit.gui.BannerWidgets.FileDeletedBanner import FileDeletedBanner
 from jdTextEdit.gui.SearchBar import SearchBar
+import os
 
 class EditContainer(QWidget):
     def __init__(self,env,tabWidget):
@@ -17,6 +19,7 @@ class EditContainer(QWidget):
         self.readOnlyLabel = QLabel("Test")
         self.readOnlyLabel.hide()
         self.fileChangedWidget = FileChangedBanner(self.env,self)
+        self.fileDeletedWidget = FileDeletedBanner(self.env,self)
 
         self.fileWatcher = QFileSystemWatcher()
         self.fileWatcher.fileChanged.connect(self.fileChanged)
@@ -67,12 +70,22 @@ class EditContainer(QWidget):
             self.fileWatcher.addPath(path)
 
     def fileChanged(self, path: str):
-        self.fileWatcher.addPath(path)
-        self.showFileChangedBanner()
+        if os.path.exists(path):
+            self.fileWatcher.addPath(path)
+            self.showFileChangedBanner()
+        else:
+            self.showFileDeletedBanner()
 
     def showFileChangedBanner(self):
         if self.env.settings.showFileChangedBanner:
             self.showBanner(self.fileChangedWidget)
+
+    def showFileDeletedBanner(self):
+        """
+        This function shows the file deleted banner
+        """
+        if self.env.settings.showFileChangedBanner:
+            self.showBanner(self.fileDeletedWidget)
 
     def isFileChangedBannerVisible(self) -> bool:
         return self.fileChangedWidget.isVisible()
