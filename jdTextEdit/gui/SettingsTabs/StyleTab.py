@@ -51,7 +51,9 @@ class StyleTab(QWidget,SettingsTabBase):
         self.lineNumberCheckBox.stateChanged.connect(self.updatePreviewEdit)
         self.highlightLineCheckBox.stateChanged.connect(self.updatePreviewEdit)
         self.editorPreview.setText(previewText)
-        self.editorPreview.setLexer(QsciLexerLua())
+        for i in self.env.languageList:
+            if i.getID() == "builtin.LUA":
+                self.editorPreview.setLanguage(i)
 
         gridLayout = QGridLayout()
         gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.theme")),0,0)

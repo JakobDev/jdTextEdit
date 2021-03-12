@@ -11,6 +11,7 @@ from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
 from jdTextEdit.core.api.PluginAPI import PluginAPI
 from jdTextEdit.core.DefaultTheme import DefaultTheme
+from jdTextEdit.core.FileTheme import FileTheme
 from jdTextEdit.api.LanguageBase import LanguageBase
 from typing import List
 import argparse
@@ -150,7 +151,8 @@ class Enviroment():
 
         self.pluginAPI.addTheme(DefaultTheme(self))
 
-        #self.loadThemeDirectory(os.path.join(self.programDir,"themes"))
+        self.loadThemeDirectory(os.path.join(self.programDir,"themes"))
+        self.loadThemeDirectory(os.path.join(self.dataDir, "themes"))
 
     def translate(self, key: str) -> str:
         """
@@ -161,10 +163,18 @@ class Enviroment():
         return self.translations.translate(key)
 
     def loadThemeDirectory(self,path):
+        if not os.path.isdir(path):
+            try:
+                os.makedirs(path)
+            except:
+                return
         themeList = os.listdir(path)
         for i in themeList:
-            theme = FileTheme(os.path.join(path,i))
-            self.pluginAPI.addTheme(theme)
+            try:
+                theme = FileTheme(os.path.join(path,i))
+                self.pluginAPI.addTheme(theme)
+            except:
+                pass
 
     def saveRecentFiles(self):
         with open(os.path.join(self.dataDir,"recentfiles.json"), 'w', encoding='utf-8') as f:

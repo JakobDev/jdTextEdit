@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QMessageBox, QWidget, QComboBox
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from PyQt5.QtGui import QIcon
 from pathlib import Path
+from typing import Any
 import subprocess
 import importlib
 import traceback
@@ -192,7 +193,7 @@ def selectComboBoxItem(comboBox: QComboBox, item: str):
         if comboBox.itemText(i) == item:
             comboBox.setCurrentIndex(i)
 
-def readJsonFile(path: str,default):
+def readJsonFile(path: str,default) -> Any:
     """
     Tries to parse the given JSON file and prints a error if the file couldn't be parsed
     Returns default if the file is not found or couldn't be parsed

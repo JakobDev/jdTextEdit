@@ -7,6 +7,7 @@ from jdTextEdit.api.LanguageBase import LanguageBase
 import editorconfig
 import traceback
 import copy
+import sys
 import os
 
 class CodeEdit(QsciScintilla):
@@ -371,7 +372,7 @@ class CodeEdit(QsciScintilla):
         self.setOverwriteMode(data.get("overwriteMode",False))
         modificationTime = data.get("modificationTime",0)
         if self.container:
-            if not os.path.exists(path):
+            if not os.path.exists(path) and path != "":
                 self.container.showFileDeletedBanner()
             elif data.get("fileChangedBannerVisible",False):
                 self.container.showFileChangedBanner()
@@ -519,11 +520,15 @@ class CodeEdit(QsciScintilla):
         self.env.editorSignals.settingsChanged.emit(self,settings)
 
     def updateSettings(self, settings):
-        #self.setCustomStyle(self.env.themes[settings.editTheme]["colors"])
-        try:
-            self.env.themes[settings.editTheme].applyTheme(self,self.currentLexer)
-        except Exception as e:
-            print(traceback.format_exc(),end="")
+        if settings.editTheme in self.env.themes:
+            try:
+                self.env.themes[settings.editTheme].applyTheme(self,self.currentLexer)
+            except Exception as e:
+                print(traceback.format_exc(),end="",file=sys.stderr)
+                self.env.themes["builtin.default"].applyTheme(self, self.currentLexer)
+        else:
+            print("The selected Theme could not be found. Falling back to the default Theme.",file=sys.stderr)
+            self.env.themes["builtin.default"].applyTheme(self,self.currentLexer)
         if settings.useCustomFont:
             self.changeFont(settings.editFont,settings)
         else:
@@ -586,10 +591,12 @@ class CodeEdit(QsciScintilla):
         if self.env.mainWindow.currentMacro:
             self.env.mainWindow.stopMacroRecording()
             macro = self.env.mainWindow.currentMacro.save()
-            self.env.mainWindow.currentMacro = QsciMacro(currentEditWidget)
+            self.env.mainWindow.currentMacro = QsciMacro(self)
             self.env.mainWindow.currentMacro.load(macro)
 
     def focusInEvent(self, event):
+        if self.isPreview:
+            return
         self.container.getTabWidget().markWidgetAsActive()
         self.updateOtherWidgets()
         super().focusInEvent(event)
