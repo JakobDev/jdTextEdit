@@ -84,34 +84,6 @@ class CodeEdit(QsciScintilla):
         elif self.eolMode() == QsciScintilla.EolMac:
             self.env.mainWindow.eolLabel.setText("CR")
 
-    def setSyntaxHighlighter(self, lexer: QsciLexer, lexerList=None):
-        """
-        Sets the syntax highlighter. This function is deprecated and should not be used. Use setLanguage instead.
-        :param lexer: The Lexer
-        :param lexerList: The Lexerlist
-        """
-        #self.lexer() is a little bit buggy
-        self.currentLexer = lexer
-        self.setLexer(lexer)
-        if lexerList:
-            if isinstance(lexerList["xmlapi"], str):
-                if os.path.isfile(os.path.join(self.env.programDir,"autocompletion",lexerList["xmlapi"] + ".xml")):
-                    self.apiCompletion = os.path.join(self.env.programDir,"autocompletion",lexerList["xmlapi"] + ".xml")
-                else:
-                    self.apiCompletion = None
-            else:
-                self.apiCompletion = lexerList["xmlapi"]
-        else:
-            self.apiCompletion = None
-        self.updateSettings(self.settings)
-        #self.setLexerColor(lexer,self.env.themes[self.settings.editTheme]["colors"])
-        if not self.isPreview:
-            self.lexerName = str(lexer.language())
-            self.updateStatusBar()
-            if not hasattr(self.env,"mainWindow"):
-                return
-            self.env.mainWindow.updateSelectedLanguage()
-
     def setLanguage(self,lang: LanguageBase):
         """
         Sets the Language.
@@ -305,20 +277,6 @@ class CodeEdit(QsciScintilla):
         if event.mimeData().text() != "" and len(event.mimeData().urls()) == 0:
             self.insertText(event.mimeData().text())
 
-    def setSingleLexerColor(self,lexer,color,name):
-        if isinstance(name,list):
-            for i in name:
-                try:
-                    lexer.setColor(QColor(color), getattr(lexer,i))
-                except:
-                    pass
-        else:
-            try:
-                lexer.setColor(QColor(color), getattr(lexer,name))
-            except:
-                print(lexer,name)
-                pass
-
     def getSaveMetaData(self):
         if self.language:
             syntax = self.language.getID()
@@ -341,7 +299,7 @@ class CodeEdit(QsciScintilla):
             "bookmarks": self.bookmarkList,
             "cursorPosLine": self.cursorPosLine,
             "cursorPosIndex": self.cursorPosIndex,
-            "zoom": self.SendScintilla(QsciScintillaBase.SCI_GETZOOM),
+            "zoom": self.getZoom(),
             "customSettings": self.custom_settings,
             "overwriteMode": self.overwriteMode(),
             "fileChangedBannerVisible": fileChangedBannerVisible,
@@ -424,82 +382,6 @@ class CodeEdit(QsciScintilla):
         if self.container and self.settings.editorConfigShowBanner:
             self.container.showBanner(EditorconfigBanner(self.env,self.container))
 
-    def setLexerColor(self,lexer,style):
-        #return
-        lexer.setPaper(QColor(style.get("paperColor","#FFFFFF")))
-        lexer.setDefaultPaper(QColor(style.get("paperColor","#FFFFFF")))
-        lexer.setDefaultColor(QColor(style.get("textColor","#000000")))
-        #vars(lexer) just returns a empty dict
-        self.setSingleLexerColor(lexer,style.get("textColor","#000000"),[
-        "Default",
-        "JavaScriptDefault",
-        "JavaScriptWord"
-        ])
-        self.setSingleLexerColor(lexer,style.get("classNameColor","#0000ff"),"ClassName")
-        self.setSingleLexerColor(lexer,style.get("keywordColor","#00007f"),[
-        "Keyword",
-        "JavaScriptKeyword"
-        ])
-        self.setSingleLexerColor(lexer,style.get("commentColor","#007f00"),[
-            "Comment",
-            "LineComment",
-            "JavaScriptComment",
-            "JavaScriptCommentDoc",
-            "JavaScriptCommentLine",
-            "HTMLComment"
-        ])
-        self.setSingleLexerColor(lexer,style.get("numberColor","#007f7f"),[
-        "Number",
-        "JavaScriptNumber"
-        ])
-        self.setSingleLexerColor(lexer,style.get("stringColor","#7f007f"),[
-            "String",
-            "UnclosedString",
-            "DoubleQuotedString",
-            "TripleSingleQuotedString",
-            "TripleDoubleQuotedString",
-            "PHPSingleQuotedString",
-            "PHPDoubleQuotedString",
-            "HTMLSingleQuotedString",
-            "HTMLDoubleQuotedString",
-            "JavaScriptSingleQuotedString",
-            "JavaScriptDoubleQuotedString",
-            "JavaScriptUnclosedString"
-        ])
-        self.setSingleLexerColor(lexer,style.get("functionNameColor","#007f7f"),[
-            "BasicFunctions",
-            "FunctionMethodName"
-        ])
-        self.setSingleLexerColor(lexer,style.get("operatorColor","#000000"),"Operator")
-        self.setSingleLexerColor(lexer,style.get("identifierColor","#000000"),"Identifier")
-        self.setSingleLexerColor(lexer,style.get("tagColor","#cc0000"),"Tag")
-        '''
-        try:
-            lexer.setColor(QColor("#F1E607"), lexer.CommentBlock)
-        except:
-            pass
-        try:
-            lexer.setColor(QColor("#F1E607"), lexer.HighlightedIdentifier)
-        except:
-            pass
-        try:
-            lexer.setColor(QColor("#F1E607"), lexer.Decorator)
-        except:
-            pass
-        '''
-
-    def setCustomStyle(self,style):
-        #return
-        self.setColor(QColor(style.get("textColor","#000000")))
-        self.setPaper(QColor(style.get("paperColor","#FFFFFF")))
-        self.setSelectionForegroundColor(QColor(style.get("selectionForegroundColor","#FFFFFF")))
-        self.setSelectionBackgroundColor(QColor(style.get("selectionBackgroundColor","#308CC6")))
-        self.setMarginsBackgroundColor(QColor(style.get("marginsBackgroundColor","#cccccc")))
-        self.setMarginsForegroundColor(QColor(style.get("marginsForegroundColor","#000000")))
-        self.setCaretLineBackgroundColor(QColor(style.get("caretLineBackgroundColor","#ffff00")))
-        if self.currentLexer:
-           self.setLexerColor(self.currentLexer,style)
-
     def changeFont(self,font,settings):
         self.setFont(font)
         self.setMarginsFont(font)
@@ -579,9 +461,16 @@ class CodeEdit(QsciScintilla):
     def getLanguage(self):
         return self.language
 
+    def getZoom(self) -> int:
+        """
+        Returns the current zoom
+        :return: zoom
+        """
+        return self.SendScintilla(QsciScintillaBase.SCI_GETZOOM)
+
     def updateOtherWidgets(self):
         """
-        Updates the other eidgets like MainWindow or the statusbar
+        Updates the other widgets like MainWindow or the statusbar
         :return:
         """
         self.updateEolMenu()

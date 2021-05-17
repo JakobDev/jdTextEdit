@@ -13,10 +13,9 @@ class RemoveMacroButton(QPushButton):
         super().__init__(text)
         self.clicked.connect(lambda: table.removeRow(table.currentRow()))
         self.macro = macro
-    
+
     def getMacro(self):
         return self.macro
-
 
 class ManageMacrosWindow(QWidget):
     def __init__(self, env):
@@ -68,13 +67,13 @@ class ManageMacrosWindow(QWidget):
         if len(self.env.macroList) == 0:
             showMessageBox(self.env.translate("manageMacrosWindow.noMacros.title"),self.env.translate("manageMacrosWindow.noMacros.text"))
             return
-        while (self.macroTable.rowCount() > 0):
+        while(self.macroTable.rowCount() > 0):
             self.macroTable.removeRow(0)
         for count, i in enumerate(self.env.macroList):
             self.macroTable.insertRow(count)
             self.macroTable.setItem(count,0,QTableWidgetItem(i["name"]))
             self.macroTable.setCellWidget(count,1,QKeySequenceEdit(i["shortcut"]))
             self.macroTable.setCellWidget(count,2,ClearShortcutButton(self.env.translate("manageMacrosWindow.button.clearShortcut"),count,self.macroTable))
-            self.macroTable.setCellWidget(count,3,RemoveMacroButton(self.env.translate("manageMacrosWindow.button.removeMacro"),count,self.macroTable,i["macro"]))    
+            self.macroTable.setCellWidget(count,3,RemoveMacroButton(self.env.translate("manageMacrosWindow.button.removeMacro"),count,self.macroTable,i["macro"]))
         self.show()
         QApplication.setActiveWindow(self)

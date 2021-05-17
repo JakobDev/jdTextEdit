@@ -1,8 +1,8 @@
-from PyQt5.QtWidgets import QTreeView,QFileSystemModel,QApplication
-from jdTextEdit.Functions import showMessageBox
+from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
+from PyQt5.QtWidgets import QTreeView,QFileSystemModel
 import os
 
-class FileTreeWidget(QTreeView):
+class FileTreeWidget(QTreeView,SidebarWidgetBase):
     def __init__(self, env):
         QTreeView.__init__(self)
         self.env = env
@@ -18,3 +18,9 @@ class FileTreeWidget(QTreeView):
         path=self.model().filePath(signal)
         if os.path.isfile(path):
             self.env.mainWindow.openFile(path)
+
+    def getName(self) -> str:
+        return self.env.translate("sidebar.files")
+
+    def getID(self) -> str:
+        return "files"

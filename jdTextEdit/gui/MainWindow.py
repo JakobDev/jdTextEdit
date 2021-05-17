@@ -16,6 +16,7 @@ from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
 from jdTextEdit.Enviroment import Enviroment
 from string import ascii_uppercase
+from typing import List
 import webbrowser
 import traceback
 import random
@@ -152,6 +153,9 @@ class MainWindow(QMainWindow):
         self.statusBar().addPermanentWidget(self.cursorPosLabel)
 
     def setupMenubar(self):
+        """
+        Creates the Menubar with all Actions
+        """
         self.menubar = self.menuBar()
         self.recentFilesMenu = QMenu(self.env.translate("mainWindow.menu.openRecent"))
         self.recentFilesMenu.setIcon(getThemeIcon(self.env,"document-open-recent"))
@@ -347,6 +351,11 @@ class MainWindow(QMainWindow):
         deleteCurrentLineAction.setData(["removeCurrentLine"])
         self.lineOperationsMenu.addAction(deleteCurrentLineAction)
 
+        sortAlphabetical = QAction("Alph",self)
+        sortAlphabetical.triggered.connect(self.sortLinesAlphabetical)
+        sortAlphabetical.setData(["sortAlphabetical"])
+        self.lineOperationsMenu.addAction(sortAlphabetical)
+
         shuffleLinesAction = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.shuffleLines"),self)
         shuffleLinesAction.triggered.connect(self.shuffleLines)
         shuffleLinesAction.setData(["shuffleLines"])
@@ -440,6 +449,11 @@ class MainWindow(QMainWindow):
         zoomDefault.triggered.connect(lambda: self.getTextEditWidget().zoomTo(self.env.settings.defaultZoom))
         zoomDefault.setData(["zoomDefault"])
         self.zoomMenu.addAction(zoomDefault)
+
+        zoomCustom = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomCustom"), self)
+        zoomCustom.triggered.connect(self.setCustomZoom)
+        zoomCustom.setData(["zoomCustom"])
+        self.zoomMenu.addAction(zoomCustom)
 
         self.viewMenu.addMenu(self.zoomMenu)
 
@@ -1186,6 +1200,42 @@ class MainWindow(QMainWindow):
             editWidget = self.getTextEditWidget()
             printer.printRange(editWidget)
 
+    def getCurrentLines(self) -> List[str]:
+        """
+        Retruns the current selected lines. Returns all lines if nothing is selected.
+        :return: lines
+        """
+        editWidget = self.getTextEditWidget()
+        if editWidget.hasSelectedText():
+            selection = editWidget.getSelection()
+            startLine = selection[0]
+            endLine = selection[2]
+        else:
+            startLine = 0
+            endLine = editWidget.lines()
+        lines = []
+        for i in range(startLine, endLine + 1):
+            lines.append(editWidget.text(i))
+        return lines
+
+    def replaceCurrentLines(self,lines: List[str]):
+        """
+        Replaces the current lines with the given lines
+        """
+        editWidget = self.getTextEditWidget()
+        if editWidget.hasSelectedText():
+            selection = editWidget.getSelection()
+            startLine = selection[0]
+            endLine = selection[2]
+        else:
+            startLine = 0
+            endLine = editWidget.lines()
+        editWidget.setSelection(startLine, 0, endLine, editWidget.lineLength(endLine))
+        editWidget.removeSelectedText()
+        editWidget.setCursorPosition(startLine, editWidget.lineLength(startLine))
+        for i in lines:
+            editWidget.insertText(i)
+
     def duplicateCurrentLine(self):
         """
         This function is called when the user clicks Edit>Line Operations>Duplicate Current Line
@@ -1203,6 +1253,12 @@ class MainWindow(QMainWindow):
         length = editWidget.lineLength(editWidget.cursorPosLine)
         editWidget.setSelection(editWidget.cursorPosLine,0,editWidget.cursorPosLine,length)
         editWidget.removeSelectedText()
+
+
+    def sortLinesAlphabetical(self):
+        lines = self.getCurrentLines()
+        lines.sort()
+        self.replaceCurrentLines(lines)
 
     def shuffleLines(self):
         """
@@ -1226,7 +1282,22 @@ class MainWindow(QMainWindow):
         for i in lines:
             editWidget.insertText(i)
 
+    def setCustomZoom(self):
+        """
+        This function is called when the user clicks View>Zoom>Custom
+        """
+        editWidget = self.getTextEditWidget()
+        currentZoom = (editWidget.getZoom()+10)*10
+        scale,ok = QInputDialog.getInt(self,self.env.translate("mainWindow.menu.view.zoom.zoomCustom.titel"),self.env.translate("mainWindow.menu.view.zoom.zoomCustom.text"),currentZoom,0,300,10)
+        if not ok:
+            return
+        scale -= 100
+        editWidget.zoomTo(scale/10)
+
     def fullscreenMenuBarClicked(self):
+        """
+        This function is called when the user clicks View>Fullscreen
+        """
         if self.isFullScreen():
             self.showNormal()
         else:

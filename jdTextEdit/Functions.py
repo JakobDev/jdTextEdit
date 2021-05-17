@@ -2,12 +2,13 @@ from PyQt5.QtWidgets import QMessageBox, QWidget, QComboBox
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from PyQt5.QtGui import QIcon
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 import subprocess
 import importlib
 import traceback
 import platform
 import tempfile
+import inspect
 import getpass
 import json
 import sys

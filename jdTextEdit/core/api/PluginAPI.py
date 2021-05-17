@@ -1,9 +1,11 @@
 from jdTextEdit.api.LanguageBase import LanguageBase
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
 from jdTextEdit.core.api.EditorSignals import EditorSignals
 from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
 from jdTextEdit.api.ThemeBase import ThemeBase
+from PyQt5.QtWidgets import QWidget
 
 class PluginAPI():
     def __init__(self,env):
@@ -36,3 +38,8 @@ class PluginAPI():
 
     def addTheme(self, theme: ThemeBase):
         self.env.themes[theme.getID()] = theme
+
+    def addSidebarWidget(self,widget: SidebarWidgetBase):
+        if not isinstance(widget,QWidget) or not isinstance(widget,SidebarWidgetBase):
+            raise ValueError("Widget must inherit from QWidget and SidebarWidgetBase")
+        self.env.dockWidgtes.append([widget,widget.getName(),widget.getID()])

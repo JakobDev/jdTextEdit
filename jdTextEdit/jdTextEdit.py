@@ -60,11 +60,11 @@ def main():
         loadPlugins(os.path.join(env.programDir,"plugins"),env)
         loadPlugins(os.path.join(env.dataDir,"plugins"),env)
 
-    env.dockWidgtes.append([NotesWidget(env),env.translate("sidebar.notes"),"notes"])
-    env.dockWidgtes.append([TabListWidget(env),env.translate("sidebar.tabs"),"tablist"])
-    env.dockWidgtes.append([FileTreeWidget(env),env.translate("sidebar.files"),"files"])
-    env.dockWidgtes.append([ClipboardWidget(env),env.translate("sidebar.clipboard"),"clipboard"])
-    env.dockWidgtes.append([CharacterMapWidget(env),env.translate("sidebar.charactermap"),"charactermap"])
+    env.pluginAPI.addSidebarWidget(NotesWidget(env))
+    env.pluginAPI.addSidebarWidget(TabListWidget(env))
+    env.pluginAPI.addSidebarWidget(FileTreeWidget(env))
+    env.pluginAPI.addSidebarWidget(ClipboardWidget(env))
+    env.pluginAPI.addSidebarWidget(CharacterMapWidget(env))
 
     if os.path.isfile(os.path.join(env.dataDir,"userChrome.css")) and env.settings.get("enableUserChrome"):
         f = open(os.path.join(env.dataDir,"userChrome.css"),"r",encoding="utf-8")

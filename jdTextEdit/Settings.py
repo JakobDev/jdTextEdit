@@ -1,6 +1,7 @@
 from PyQt5.QtGui import QFont, QKeySequence
-from jdTextEdit.Functions import showMessageBox
+from jdTextEdit.Functions import showMessageBox, readJsonFile
 from pathlib import Path
+from typing import Any
 import platform
 import json
 import os
@@ -145,10 +146,10 @@ class Settings():
         Loads settings from a file
         :param path: The path of the file
         """
-        try:
-            with open(path,"r",encoding="utf-8") as f:
-                self.loadDict(json.load(f))
-        except:
+        data = readJsonFile(path,None)
+        if data:
+            self.loadDict(data)
+        else:
             showMessageBox("Can't load settings","The settings can't be loaded. jdTextEdit will use the default settings.")
 
     def save(self, path: str):
@@ -163,7 +164,7 @@ class Settings():
             json.dump(data, f, ensure_ascii=False, indent=4)
         self.editFont = font
 
-    def get(self, key: str):
+    def get(self, key: str) -> Any:
         """
         Returns the Value of a Setting
         :param key: The Key
@@ -171,7 +172,7 @@ class Settings():
         """
         return vars(self)[key]
 
-    def set(self,key: str, value: str):
+    def set(self,key: str, value: Any):
         """
         Sets a setting
         :param key: The Key
@@ -180,7 +181,7 @@ class Settings():
         """
         vars(self)[key] = value
 
-    def register(self,key: str,value: str):
+    def register(self,key: str,value: Any):
         """
         Register a new setting
         :param key: The Key

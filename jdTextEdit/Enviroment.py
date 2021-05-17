@@ -9,6 +9,7 @@ from jdTextEdit.core.BuiltinLanguage import BuiltinLanguage
 from jdTextEdit.core.api.EditorSignals import EditorSignals
 from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
+from jdTextEdit.core.api.TabWidgetSignals import TabWidgetSignals
 from jdTextEdit.core.api.PluginAPI import PluginAPI
 from jdTextEdit.core.DefaultTheme import DefaultTheme
 from jdTextEdit.core.FileTheme import FileTheme
@@ -144,6 +145,7 @@ class Enviroment():
         self.editorSignals = EditorSignals()
         self.mainWindowSignals = MainWindowSignals()
         self.applicationSignals = ApplicationSignals()
+        self.tabWidgetSignals = TabWidgetSignals()
         self.customSettingsTabs = []
         self.customBigFilesSettings = []
         self.defaultSettings = []

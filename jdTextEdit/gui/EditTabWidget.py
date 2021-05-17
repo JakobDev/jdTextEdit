@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QTabWidget
 from PyQt5.QtCore import pyqtSignal, Qt
 from jdTextEdit.gui.EditContainer import EditContainer
-from PyQt5.Qsci import QsciMacro
 import traceback
 import sys
 import os
@@ -37,6 +36,7 @@ class EditTabWidget(QTabWidget):
                 self.env.mainWindow.updateWindowTitle()
 
         self.tabsChanged.emit()
+        self.env.tabWidgetSignals.tabCreated.emit(self,textEdit)
 
     def addExistingTab(self,container: EditContainer):
         """
@@ -47,6 +47,7 @@ class EditTabWidget(QTabWidget):
         tabid = self.addTab(container, "ww")
         codeEdit = container.getCodeEditWidget()
         codeEdit.tabid = tabid
+        self.env.tabWidgetSignals.tabCreated.emit(self,container)
 
     def tabChange(self, tabid):
         try:
@@ -80,6 +81,7 @@ class EditTabWidget(QTabWidget):
                     self.setParent(None)
                     self.splitViewWidget.updateTabWidgetID()
         self.tabsChanged.emit()
+        self.env.tabWidgetSignals.tabClosed.emit(self)
 
     def tabDoubleClicked(self,tabid):
         if self.env.settings.tabDoubleClickClose:

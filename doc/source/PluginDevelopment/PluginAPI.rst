@@ -57,3 +57,9 @@ Adds a Checkbox to the Big files Settings Tab.
     addTheme(theme: ThemeBase)
 
 Adds a Theme.
+
+.. code:: python
+
+    addSidebarWidget(widget: SidebarWidgetBase)
+
+Adds a Sidebar Widget

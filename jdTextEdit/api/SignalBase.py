@@ -2,13 +2,13 @@ import traceback
 
 class SignalBase():
     def __init__(self):
-        self.function_list = []
+        self.functionList = []
 
     def connect(self,func):
-        self.function_list.append(func)
+        self.functionList.append(func)
 
     def emit(self,*arg):
-        for i in self.function_list:
+        for i in self.functionList:
             try:
                 i(*arg)
             except Exception as e:
