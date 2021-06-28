@@ -5,7 +5,7 @@ from jdTextEdit.core.api.EditorSignals import EditorSignals
 from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
 from jdTextEdit.api.ThemeBase import ThemeBase
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QAction
 
 class PluginAPI():
     def __init__(self,env):
@@ -43,3 +43,10 @@ class PluginAPI():
         if not isinstance(widget,QWidget) or not isinstance(widget,SidebarWidgetBase):
             raise ValueError("Widget must inherit from QWidget and SidebarWidgetBase")
         self.env.dockWidgtes.append([widget,widget.getName(),widget.getID()])
+
+    def addAction(self,action: QAction):
+        try:
+            if isinstance(action.data()[0], str):
+                self.env.menuActions[action.data()[0]] = action
+        except:
+            pass

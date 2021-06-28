@@ -62,4 +62,10 @@ Adds a Theme.
 
     addSidebarWidget(widget: SidebarWidgetBase)
 
-Adds a Sidebar Widget
+Adds a Sidebar Widget.
+
+.. code:: python
+
+    addAction(action: QAction)
+
+Adds a Action to the list in the settings menu.

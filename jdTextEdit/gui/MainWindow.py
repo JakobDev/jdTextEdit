@@ -63,7 +63,7 @@ class MainWindow(QMainWindow):
         self.updateLanguageMenu()
         if len(self.env.args["filename"]) == 1:
             self.openFileCommandline(os.path.abspath(self.env.args["filename"][0]))
-        self.getMenuActions(self.menubar)
+        #self.getMenuActions(self.menubar)
         self.env.sidepane = DockWidget(self.env)
         self.env.sidepane.hide()
         self.addDockWidget(Qt.LeftDockWidgetArea,self.env.sidepane)
@@ -167,6 +167,7 @@ class MainWindow(QMainWindow):
         new.triggered.connect(self.newMenuBarClicked)
         new.setData(["newFile"])
         self.filemenu.addAction(new)
+        self.env.pluginAPI.addAction(new)
 
         self.templateMenu = QMenu(self.env.translate("mainWindow.menu.file.newTemplate"),self)
         self.templateMenu.setIcon(getThemeIcon(self.env,"document-new"))
@@ -180,12 +181,14 @@ class MainWindow(QMainWindow):
         openmenu.triggered.connect(self.openMenuBarClicked)
         openmenu.setData(["openFile"])
         self.filemenu.addAction(openmenu)
+        self.env.pluginAPI.addAction(openmenu)
 
         openDirectoryMenu = QAction(self.env.translate("mainWindow.menu.file.openDirectory"),self)
         openDirectoryMenu.setIcon(getThemeIcon(self.env,"folder-open"))
         openDirectoryMenu.triggered.connect(self.openDirectoryMenuBarClicked)
         openDirectoryMenu.setData(["directoryOpen"])
         self.filemenu.addAction(openDirectoryMenu)
+        self.env.pluginAPI.addAction(openDirectoryMenu)
 
         self.filemenu.addMenu(self.recentFilesMenu)
 
@@ -196,18 +199,21 @@ class MainWindow(QMainWindow):
         save.triggered.connect(lambda: self.saveMenuBarClicked(self.getTextEditWidget()))
         save.setData(["saveFile"])
         self.filemenu.addAction(save)
+        self.env.pluginAPI.addAction(save)
 
         saveAs = QAction("&" + self.env.translate("mainWindow.menu.file.saveAs"),self)
         saveAs.setIcon(getThemeIcon(self.env,"document-save-as"))
         saveAs.triggered.connect(lambda: self.saveAsMenuBarClicked(self.getTextEditWidget()))
         saveAs.setData(["saveAsFile"])
         self.filemenu.addAction(saveAs)
+        self.env.pluginAPI.addAction(saveAs)
 
         saveAll = QAction(self.env.translate("mainWindow.menu.file.saveAll"),self)
         saveAll.setIcon(getThemeIcon(self.env,"document-save-all"))
         saveAll.triggered.connect(self.saveAllMenuBarClicked)
         saveAll.setData(["saveAll"])
         self.filemenu.addAction(saveAll)
+        self.env.pluginAPI.addAction(saveAll)
 
         self.filemenu.addSeparator()
 
@@ -216,24 +222,28 @@ class MainWindow(QMainWindow):
         closeTab.triggered.connect(lambda: self.getTabWidget().tabCloseClicked(self.getTabWidget().currentIndex()))
         closeTab.setData(["closeTab"])
         self.filemenu.addAction(closeTab)
+        self.env.pluginAPI.addAction(closeTab)
 
         closeAllTabsAction = QAction(self.env.translate("mainWindow.menu.file.closeAllTabs"),self)
         closeAllTabsAction.setIcon(QIcon(os.path.join(self.env.programDir,"icons","document-close-all.png")))
         closeAllTabsAction.triggered.connect(self.closeAllTabs)
         closeAllTabsAction.setData(["closeAllTabs"])
         self.filemenu.addAction(closeAllTabsAction)
+        self.env.pluginAPI.addAction(closeAllTabsAction)
 
         printMenuItem = QAction("&" + self.env.translate("mainWindow.menu.file.print"),self)
         printMenuItem.setIcon(getThemeIcon(self.env,"document-print"))
         printMenuItem.triggered.connect(self.printMenuBarClicked)
         printMenuItem.setData(["print"])
         self.filemenu.addAction(printMenuItem)
+        self.env.pluginAPI.addAction(printMenuItem)
 
         exit = QAction("&" + self.env.translate("mainWindow.menu.file.exit"),self)
         exit.setIcon(getThemeIcon(self.env,"application-exit"))
         exit.triggered.connect(self.close)
         exit.setData(["exit"])
         self.filemenu.addAction(exit)
+        self.env.pluginAPI.addAction(exit)
 
         self.menubar.addMenu(self.filemenu)
         self.editMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.edit"))
@@ -243,6 +253,7 @@ class MainWindow(QMainWindow):
         self.undoMenubarItem.triggered.connect(lambda: self.getTextEditWidget().undo())
         self.undoMenubarItem.setData(["undo"])
         self.editMenu.addAction(self.undoMenubarItem)
+        self.env.pluginAPI.addAction(self.undoMenubarItem)
         self.undoMenubarItem.setEnabled(False)
 
         self.redoMenubarItem = QAction("&" + self.env.translate("mainWindow.menu.edit.redo"),self)
@@ -250,6 +261,7 @@ class MainWindow(QMainWindow):
         self.redoMenubarItem.triggered.connect(lambda: self.getTextEditWidget().redo())
         self.redoMenubarItem.setData(["redo"])
         self.editMenu.addAction(self.redoMenubarItem)
+        self.env.pluginAPI.addAction(self.redoMenubarItem)
         self.redoMenubarItem.setEnabled(False)
 
         self.editMenu.addSeparator()
@@ -259,6 +271,7 @@ class MainWindow(QMainWindow):
         self.cutMenubarItem.triggered.connect(lambda: self.getTextEditWidget().cut())
         self.cutMenubarItem.setData(["cut"])
         self.editMenu.addAction(self.cutMenubarItem)
+        self.env.pluginAPI.addAction(self.cutMenubarItem)
         self.cutMenubarItem.setEnabled(False)
 
         self.copyMenubarItem = QAction("&" + self.env.translate("mainWindow.menu.edit.copy"),self)
@@ -266,6 +279,7 @@ class MainWindow(QMainWindow):
         self.copyMenubarItem.triggered.connect(lambda: self.getTextEditWidget().copy())
         self.copyMenubarItem.setData(["copy"])
         self.editMenu.addAction(self.copyMenubarItem)
+        self.env.pluginAPI.addAction(self.copyMenubarItem)
         self.copyMenubarItem.setEnabled(False)
 
         paste = QAction("&" + self.env.translate("mainWindow.menu.edit.paste"),self)
@@ -273,12 +287,14 @@ class MainWindow(QMainWindow):
         paste.triggered.connect(lambda: self.getTextEditWidget().paste())
         paste.setData(["paste"])
         self.editMenu.addAction(paste)
+        self.env.pluginAPI.addAction(paste)
 
         self.deleteMenubarItem = QAction("&" + self.env.translate("mainWindow.menu.edit.delete"),self)
         self.deleteMenubarItem.setIcon(getThemeIcon(self.env,"edit-delete"))
         self.deleteMenubarItem.triggered.connect(lambda: self.getTextEditWidget().removeSelectedText())
         self.deleteMenubarItem.setData(["delete"])
         self.editMenu.addAction(self.deleteMenubarItem)
+        self.env.pluginAPI.addAction(self.deleteMenubarItem)
         self.deleteMenubarItem.setEnabled(False)
 
         self.editMenu.addSeparator()
@@ -288,6 +304,7 @@ class MainWindow(QMainWindow):
         selectAll.triggered.connect(lambda: self.getTextEditWidget().selectAll())
         selectAll.setData(["selectAll"])
         self.editMenu.addAction(selectAll)
+        self.env.pluginAPI.addAction(selectAll)
 
         self.editMenu.addSeparator()
 
@@ -297,21 +314,25 @@ class MainWindow(QMainWindow):
         copyPath.triggered.connect(lambda: self.env.clipboard.setText(self.getTextEditWidget().getFilePath()))
         copyPath.setData(["copyPath"])
         self.clipboardCopyMenu.addAction(copyPath)
+        self.env.pluginAPI.addAction(copyPath)
 
         copyDirectory = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyDirectory"),self)
         copyDirectory.triggered.connect(lambda: self.env.clipboard.setText(os.path.dirname(self.getTextEditWidget().getFilePath())))
         copyDirectory.setData(["copyDirectory"])
         self.clipboardCopyMenu.addAction(copyDirectory)
+        self.env.pluginAPI.addAction(copyDirectory)
 
         copyFilename = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyFilename"),self)
         copyFilename.triggered.connect(lambda: self.env.clipboard.setText(os.path.basename(self.getTextEditWidget().getFilePath())))
         copyFilename.setData(["copyFilename"])
         self.clipboardCopyMenu.addAction(copyFilename)
+        self.env.pluginAPI.addAction(copyFilename)
 
         copyUrlAction = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyURL"),self)
         copyUrlAction.triggered.connect(lambda: self.env.clipboard.setText("file://" + self.getTextEditWidget().getFilePath()))
         copyUrlAction.setData(["copyUrl"])
         self.clipboardCopyMenu.addAction(copyUrlAction)
+        self.env.pluginAPI.addAction(copyUrlAction)
 
         self.editMenu.addMenu(self.clipboardCopyMenu)
 
@@ -321,21 +342,25 @@ class MainWindow(QMainWindow):
         convertUppercase.triggered.connect(lambda: self.getTextEditWidget().replaceSelectedText(self.getTextEditWidget().selectedText().upper()))
         convertUppercase.setData(["convertUppercase"])
         self.convertCase.addAction(convertUppercase)
+        self.env.pluginAPI.addAction(convertUppercase)
 
         convertLowercase = QAction(self.env.translate("mainWindow.menu.edit.convertCase.lowercase"),self)
         convertLowercase.triggered.connect(lambda: self.getTextEditWidget().replaceSelectedText(self.getTextEditWidget().selectedText().lower()))
         convertLowercase.setData(["convertLowercase"])
         self.convertCase.addAction(convertLowercase)
+        self.env.pluginAPI.addAction(convertLowercase)
 
         convertTitle = QAction(self.env.translate("mainWindow.menu.edit.convertCase.title"),self)
         convertTitle.triggered.connect(lambda: self.getTextEditWidget().replaceSelectedText(self.getTextEditWidget().selectedText().title()))
         convertTitle.setData(["convertTitle"])
         self.convertCase.addAction(convertTitle)
+        self.env.pluginAPI.addAction(convertTitle)
 
         convertSwap = QAction(self.env.translate("mainWindow.menu.edit.convertCase.swap"),self)
         convertSwap.triggered.connect(lambda: self.getTextEditWidget().replaceSelectedText(self.getTextEditWidget().selectedText().swapcase()))
         convertSwap.setData(["convertSwap"])
         self.convertCase.addAction(convertSwap)
+        self.env.pluginAPI.addAction(convertSwap)
 
         self.editMenu.addMenu(self.convertCase)
 
@@ -345,21 +370,25 @@ class MainWindow(QMainWindow):
         duplicateCurrentLineAction.triggered.connect(self.duplicateCurrentLine)
         duplicateCurrentLineAction.setData(["duplicateCurrentLine"])
         self.lineOperationsMenu.addAction(duplicateCurrentLineAction)
+        self.env.pluginAPI.addAction(duplicateCurrentLineAction)
 
         deleteCurrentLineAction = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.deleteCurrentLine"),self)
         deleteCurrentLineAction.triggered.connect(self.removeCurrentLine)
         deleteCurrentLineAction.setData(["removeCurrentLine"])
         self.lineOperationsMenu.addAction(deleteCurrentLineAction)
+        self.env.pluginAPI.addAction(deleteCurrentLineAction)
 
         sortAlphabetical = QAction("Alph",self)
         sortAlphabetical.triggered.connect(self.sortLinesAlphabetical)
         sortAlphabetical.setData(["sortAlphabetical"])
         self.lineOperationsMenu.addAction(sortAlphabetical)
+        self.env.pluginAPI.addAction(sortAlphabetical)
 
         shuffleLinesAction = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.shuffleLines"),self)
         shuffleLinesAction.triggered.connect(self.shuffleLines)
         shuffleLinesAction.setData(["shuffleLines"])
         self.lineOperationsMenu.addAction(shuffleLinesAction)
+        self.env.pluginAPI.addAction(shuffleLinesAction)
 
         self.editMenu.addMenu(self.lineOperationsMenu)
 
@@ -370,18 +399,21 @@ class MainWindow(QMainWindow):
         self.eolModeWindows.setData(["eolModeWindows"])
         self.eolModeWindows.setCheckable(True)
         self.eolModeMenu.addAction(self.eolModeWindows)
+        self.env.pluginAPI.addAction(self.eolModeWindows)
 
         self.eolModeUnix = QAction("Unix",self)
         self.eolModeUnix.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolUnix))
         self.eolModeUnix.setData(["eolModeWindows"])
         self.eolModeUnix.setCheckable(True)
         self.eolModeMenu.addAction(self.eolModeUnix)
+        self.env.pluginAPI.addAction(self.eolModeUnix)
 
         self.eolModeMac = QAction("Mac",self)
         self.eolModeMac.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolMac))
         self.eolModeMac.setData(["eolModeUnix"])
         self.eolModeMac.setCheckable(True)
         self.eolModeMenu.addAction(self.eolModeMac)
+        self.env.pluginAPI.addAction(self.eolModeMac)
 
         self.editMenu.addMenu(self.eolModeMenu)
         self.editMenu.addSeparator()
@@ -391,6 +423,7 @@ class MainWindow(QMainWindow):
         settings.triggered.connect(lambda: self.env.settingsWindow.openWindow())
         settings.setData(["settings"])
         self.editMenu.addAction(settings)
+        self.env.pluginAPI.addAction(settings)
 
         self.viewMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.view"))
 
@@ -400,11 +433,13 @@ class MainWindow(QMainWindow):
         zoomIn.triggered.connect(lambda: self.getTextEditWidget().zoomIn())
         zoomIn.setData(["zoomIn"])
         self.zoomMenu.addAction(zoomIn)
+        self.env.pluginAPI.addAction(zoomIn)
 
         zoomOut = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomOut"),self)
         zoomOut.triggered.connect(lambda: self.getTextEditWidget().zoomOut())
         zoomOut.setData(["zoomOut"])
         self.zoomMenu.addAction(zoomOut)
+        self.env.pluginAPI.addAction(zoomOut)
 
         self.zoomMenu.addSeparator()
 
@@ -412,36 +447,43 @@ class MainWindow(QMainWindow):
         zoom0.triggered.connect(lambda: self.getTextEditWidget().zoomTo(-10))
         zoom0.setData(["zoom0"])
         self.zoomMenu.addAction(zoom0)
+        self.env.pluginAPI.addAction(zoom0)
 
         zoom50 = QAction("50%",self)
         zoom50.triggered.connect(lambda: self.getTextEditWidget().zoomTo(-5))
         zoom50.setData(["zoom50"])
         self.zoomMenu.addAction(zoom50)
+        self.env.pluginAPI.addAction(zoom50)
 
         zoom100 = QAction("100%",self)
         zoom100.triggered.connect(lambda: self.getTextEditWidget().zoomTo(0))
         zoom100.setData(["zoom100"])
         self.zoomMenu.addAction(zoom100)
+        self.env.pluginAPI.addAction(zoom100)
 
         zoom150 = QAction("150%",self)
         zoom150.triggered.connect(lambda: self.getTextEditWidget().zoomTo(5))
         zoom150.setData(["zoom150"])
         self.zoomMenu.addAction(zoom150)
+        self.env.pluginAPI.addAction(zoom150)
 
         zoom200 = QAction("200%",self)
         zoom200.triggered.connect(lambda: self.getTextEditWidget().zoomTo(10))
         zoom200.setData(["zoom200"])
         self.zoomMenu.addAction(zoom200)
+        self.env.pluginAPI.addAction(zoom200)
 
         zoom250 = QAction("250%",self)
         zoom250.triggered.connect(lambda: self.getTextEditWidget().zoomTo(15))
         zoom250.setData(["zoom250"])
         self.zoomMenu.addAction(zoom250)
+        self.env.pluginAPI.addAction(zoom250)
 
         zoom300 = QAction("300%",self)
         zoom300.triggered.connect(lambda: self.getTextEditWidget().zoomTo(20))
         zoom300.setData(["zoom300"])
         self.zoomMenu.addAction(zoom300)
+        self.env.pluginAPI.addAction(zoom300)
 
         self.zoomMenu.addSeparator()
 
@@ -449,11 +491,13 @@ class MainWindow(QMainWindow):
         zoomDefault.triggered.connect(lambda: self.getTextEditWidget().zoomTo(self.env.settings.defaultZoom))
         zoomDefault.setData(["zoomDefault"])
         self.zoomMenu.addAction(zoomDefault)
+        self.env.pluginAPI.addAction(zoomDefault)
 
         zoomCustom = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomCustom"), self)
         zoomCustom.triggered.connect(self.setCustomZoom)
         zoomCustom.setData(["zoomCustom"])
         self.zoomMenu.addAction(zoomCustom)
+        self.env.pluginAPI.addAction(zoomCustom)
 
         self.viewMenu.addMenu(self.zoomMenu)
 
@@ -462,12 +506,14 @@ class MainWindow(QMainWindow):
         self.fullscreenAction.setData(["fullscreen"])
         self.fullscreenAction.setCheckable(True)
         self.viewMenu.addAction(self.fullscreenAction)
+        self.env.pluginAPI.addAction(self.fullscreenAction)
 
         self.toggleSidebarAction = QAction(self.env.translate("mainWindow.menu.view.sidebar"),self)
         self.toggleSidebarAction.triggered.connect(self.toggleSidebarClicked)
         self.toggleSidebarAction.setData(["toggleSidebar"])
         self.toggleSidebarAction.setCheckable(True)
         self.viewMenu.addAction(self.toggleSidebarAction)
+        self.env.pluginAPI.addAction(self.toggleSidebarAction)
 
         self.viewMenu.addSeparator()
 
@@ -475,11 +521,13 @@ class MainWindow(QMainWindow):
         foldAllAction.triggered.connect(lambda: self.getTextEditWidget().SendScintilla(QsciScintillaBase.SCI_FOLDALL,0))
         foldAllAction.setData(["foldAll"])
         self.viewMenu.addAction(foldAllAction)
+        self.env.pluginAPI.addAction(foldAllAction)
 
         unfoldAllAction = QAction(self.env.translate("mainWindow.menu.view.unfoldAll"),self)
         unfoldAllAction.triggered.connect(lambda: self.getTextEditWidget().SendScintilla(QsciScintillaBase.SCI_FOLDALL,1))
         unfoldAllAction.setData(["unfoldAll"])
         self.viewMenu.addAction(unfoldAllAction)
+        self.env.pluginAPI.addAction(unfoldAllAction)
 
         self.viewMenu.addSeparator()
 
@@ -489,12 +537,14 @@ class MainWindow(QMainWindow):
         splitVerticalAction.triggered.connect(lambda: self.splitViewWidget.splitVertical())
         splitVerticalAction.setData(["splitVertical"])
         self.splitViewMenu.addAction(splitVerticalAction)
+        self.env.pluginAPI.addAction(splitVerticalAction)
 
         self.deleteCurrentViewAction = QAction(self.env.translate("mainWindow.menu.view.splitView.deleteCurrentView"),self)
         self.deleteCurrentViewAction.triggered.connect(lambda: self.splitViewWidget.deleteCurrentView())
         self.deleteCurrentViewAction.setData(["deleteCurrentView"])
         self.deleteCurrentViewAction.setEnabled(False)
         self.splitViewMenu.addAction(self.deleteCurrentViewAction)
+        self.env.pluginAPI.addAction(self.deleteCurrentViewAction)
 
         self.viewMenu.addMenu(self.splitViewMenu)
 
@@ -505,22 +555,26 @@ class MainWindow(QMainWindow):
         search.triggered.connect(lambda: self.getTabWidget().currentWidget().showSearchBar())
         search.setData(["find"])
         self.searchmenu.addAction(search)
+        self.env.pluginAPI.addAction(search)
 
         advancedSearch = QAction(self.env.translate("mainWindow.menu.search.advancedSearch"),self)
         advancedSearch.setIcon(getThemeIcon(self.env,"edit-find"))
         advancedSearch.triggered.connect(lambda: self.env.searchWindow.openWindow(self.getTextEditWidget()))
         self.searchmenu.addAction(advancedSearch)
+        self.env.pluginAPI.addAction(advancedSearch)
 
         searchAndReplace = QAction("&" + self.env.translate("mainWindow.menu.search.searchAndReplace"),self)
         searchAndReplace.setIcon(getThemeIcon(self.env,"edit-find-replace"))
         searchAndReplace.triggered.connect(self.searchAndReplaceMenuBarClicked)
         searchAndReplace.setData(["findReplaceWindow"])
         self.searchmenu.addAction(searchAndReplace)
+        self.env.pluginAPI.addAction(searchAndReplace)
 
         gotoLine = QAction(self.env.translate("mainWindow.menu.search.gotoLine"),self)
         gotoLine.triggered.connect(lambda: self.env.gotoLineWindow.openWindow(self.getTextEditWidget()))
         gotoLine.setData(["gotoLine"])
         self.searchmenu.addAction(gotoLine)
+        self.env.pluginAPI.addAction(gotoLine)
 
         self.toolsMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.tools"))
 
@@ -528,16 +582,19 @@ class MainWindow(QMainWindow):
         pickColor.triggered.connect(self.pickColorClicked)
         pickColor.setData(["pickColor"])
         self.toolsMenu.addAction(pickColor)
+        self.env.pluginAPI.addAction(pickColor)
 
         documentStatistics = QAction("&" + self.env.translate("mainWindow.menu.tools.documentStatistics"),self)
         documentStatistics.triggered.connect(lambda: self.env.documentStatistics.openWindow(self.getTextEditWidget()))
         documentStatistics.setData(["documentStatistics"])
         self.toolsMenu.addAction(documentStatistics)
+        self.env.pluginAPI.addAction(documentStatistics)
 
         insertDateTime = QAction("&" + self.env.translate("mainWindow.menu.tools.insertDateTime"),self)
         insertDateTime.triggered.connect(lambda: self.env.dateTimeWindow.openWindow(self.getTextEditWidget()))
         insertDateTime.setData(["insertDateTime"])
         self.toolsMenu.addAction(insertDateTime)
+        self.env.pluginAPI.addAction(insertDateTime)
 
         self.toolsMenu.addSeparator()
 
@@ -545,16 +602,19 @@ class MainWindow(QMainWindow):
         stripSpacesAction.triggered.connect(self.stripSpaces)
         stripSpacesAction.setData(["stripSpaces"])
         self.toolsMenu.addAction(stripSpacesAction)
+        self.env.pluginAPI.addAction(stripSpacesAction)
 
         replaceTabSpacesAction = QAction(self.env.translate("mainWindow.menu.tools.replaceTabSpaces"),self)
         replaceTabSpacesAction.triggered.connect(self.replaceTabSpaces)
         replaceTabSpacesAction.setData(["replaceTabSpaces"])
         self.toolsMenu.addAction(replaceTabSpacesAction)
+        self.env.pluginAPI.addAction(replaceTabSpacesAction)
 
         replaceSpacesTabAction = QAction(self.env.translate("mainWindow.menu.tools.replaceSpacesTab"),self)
         replaceSpacesTabAction.triggered.connect(self.replaceSpacesTab)
         replaceSpacesTabAction.setData(["replaceSpacesTab"])
         self.toolsMenu.addAction(replaceSpacesTabAction)
+        self.env.pluginAPI.addAction(replaceSpacesTabAction)
 
         self.languageMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.language"))
 
@@ -569,46 +629,55 @@ class MainWindow(QMainWindow):
         addRemoveBookmarkAction.triggered.connect(self.addRemoveBookmark)
         addRemoveBookmarkAction.setData(["addRemoveBookmark"])
         self.bookmarkMenu.addAction(addRemoveBookmarkAction)
+        self.env.pluginAPI.addAction(addRemoveBookmarkAction)
 
         nextBookmarkAction = QAction(self.env.translate("mainWindow.menu.bookmarks.nextBookmark"),self)
         nextBookmarkAction.triggered.connect(self.nextBookmark)
         nextBookmarkAction.setData(["nextBookmark"])
         self.bookmarkMenu.addAction(nextBookmarkAction)
+        self.env.pluginAPI.addAction(nextBookmarkAction)
 
         previousBookmarkAction = QAction(self.env.translate("mainWindow.menu.bookmarks.previousBookmark"),self)
         previousBookmarkAction.triggered.connect(self.previousBookmark)
         previousBookmarkAction.setData(["previousBookmark"])
         self.bookmarkMenu.addAction(previousBookmarkAction)
+        self.env.pluginAPI.addAction(previousBookmarkAction)
 
         clearBookmarksAction = QAction(self.env.translate("mainWindow.menu.bookmarks.clearBookmarks"),self)
         clearBookmarksAction.triggered.connect(self.clearBookmarks)
         clearBookmarksAction.setData(["clearBookmarks"])
         self.bookmarkMenu.addAction(clearBookmarksAction)
+        self.env.pluginAPI.addAction(clearBookmarksAction)
 
         self.macroMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.macro"))
 
         self.recordMacroAction = QAction(self.env.translate("mainWindow.menu.macro.startRecording"),self)
         self.recordMacroAction.triggered.connect(self.startMacroRecording)
         self.recordMacroAction.setData(["recordMacro"])
+        self.env.pluginAPI.addAction(self.recordMacroAction)
 
         self.stopMacroAction = QAction(self.env.translate("mainWindow.menu.macro.stopRecording"),self)
         self.stopMacroAction.triggered.connect(self.stopMacroRecording)
         self.stopMacroAction.setData(["stopMacro"])
+        self.env.pluginAPI.addAction(self.stopMacroAction)
         self.stopMacroAction.setEnabled(False)
 
         self.playMacroAction = QAction(self.env.translate("mainWindow.menu.macro.playMacro"),self)
         self.playMacroAction.triggered.connect(self.playMacro)
         self.playMacroAction.setData(["playMacro"])
+        self.env.pluginAPI.addAction(self.playMacroAction)
         self.playMacroAction.setEnabled(False)
 
         self.saveMacroAction = QAction(self.env.translate("mainWindow.menu.macro.saveMacro"),self)
         self.saveMacroAction.triggered.connect(self.saveMacro)
         self.saveMacroAction.setData(["saveMacro"])
+        self.env.pluginAPI.addAction(self.saveMacroAction)
         self.saveMacroAction.setEnabled(False)
 
         self.manageMacrosAction = QAction(self.env.translate("mainWindow.menu.macro.manageMacros"),self)
         self.manageMacrosAction.triggered.connect(lambda: self.env.manageMacrosWindow.openWindow())
         self.manageMacrosAction.setData(["manageMacros"])
+        self.env.pluginAPI.addAction(self.manageMacrosAction)
 
         self.updateMacroMenu()
 
@@ -617,10 +686,12 @@ class MainWindow(QMainWindow):
         self.executeCommandAction = QAction(self.env.translate("mainWindow.menu.execute.executeCommand"),self)
         self.executeCommandAction.triggered.connect(lambda: self.env.executeCommandWindow.openWindow(self.getTextEditWidget()))
         self.executeCommandAction.setData(["executeCommand"])
+        self.env.pluginAPI.addAction(self.executeCommandAction)
 
         self.editCommandsAction = QAction(self.env.translate("mainWindow.menu.execute.editCommands"),self)
         self.editCommandsAction.triggered.connect(lambda: self.env.editCommandsWindow.openWindow())
         self.editCommandsAction.setData(["editCommands"])
+        self.env.pluginAPI.addAction(self.editCommandsAction)
 
         self.updateExecuteMenu()
 
@@ -630,32 +701,38 @@ class MainWindow(QMainWindow):
         openDataFolder.triggered.connect(lambda: openFileDefault(self.env.dataDir))
         openDataFolder.setData(["openDataFolder"])
         self.aboutMenu.addAction(openDataFolder)
+        self.env.pluginAPI.addAction(openDataFolder)
 
         openProgramFolder = QAction(self.env.translate("mainWindow.menu.about.openProgramDir"),self)
         openProgramFolder.triggered.connect(lambda: openFileDefault(self.env.programDir))
         openProgramFolder.setData(["openProgramFolder"])
         self.aboutMenu.addAction(openProgramFolder)
+        self.env.pluginAPI.addAction(openProgramFolder)
 
         if self.env.enableUpdater:
             searchForUpdatesAction = QAction(self.env.translate("mainWindow.menu.about.searchForUpdates"),self)
             searchForUpdatesAction.triggered.connect(lambda: searchForUpdates(self.env,False))
             searchForUpdatesAction.setData(["searchForUpdates"])
             self.aboutMenu.addAction(searchForUpdatesAction)
+            self.env.pluginAPI.addAction(searchForUpdatesAction)
 
         showDayTip = QAction(self.env.translate("mainWindow.menu.about.dayTip"),self)
         showDayTip.triggered.connect(lambda: self.env.dayTipWindow.openWindow())
         showDayTip.setData(["showDayTip"])
         self.aboutMenu.addAction(showDayTip)
+        self.env.pluginAPI.addAction(showDayTip)
 
         reportBugAction = QAction(self.env.translate("mainWindow.menu.about.reportBug"),self)
         reportBugAction.triggered.connect(lambda: webbrowser.open("https://gitlab.com/JakobDev/jdTextEdit/issues/new"))
         reportBugAction.setData(["reportBug"])
         self.aboutMenu.addAction(reportBugAction)
+        self.env.pluginAPI.addAction(reportBugAction)
 
         viewDocumentationAction = QAction(self.env.translate("mainWindow.menu.about.viewDocumentation"),self)
         viewDocumentationAction.triggered.connect(lambda: webbrowser.open("https://jdtextedit.readthedocs.io"))
         viewDocumentationAction.setData(["viewDocumentation"])
         self.aboutMenu.addAction(viewDocumentationAction)
+        self.env.pluginAPI.addAction(viewDocumentationAction)
 
         self.aboutMenu.addSeparator()
 
@@ -663,11 +740,13 @@ class MainWindow(QMainWindow):
         about.triggered.connect(lambda: self.env.aboutWindow.show())
         about.setData(["about"])
         self.aboutMenu.addAction(about)
+        self.env.pluginAPI.addAction(about)
 
         aboutQt = QAction(self.env.translate("mainWindow.menu.about.aboutQt"),self)
         aboutQt.triggered.connect(QApplication.instance().aboutQt)
         aboutQt.setData(["aboutQt"])
         self.aboutMenu.addAction(aboutQt)
+        self.env.pluginAPI.addAction(aboutQt)
 
         self.updateRecentFilesMenu()
         #self.getMenuActions(self.menubar)
