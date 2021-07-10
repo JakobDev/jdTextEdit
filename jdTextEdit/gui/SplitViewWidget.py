@@ -102,6 +102,11 @@ class SplitViewWidget(QWidget):
         Restores a session. This function should not be called outside restoreSession() of MainWindow.
         :param data: The session data
         """
+        # Load session from older versions
+        if "tabWidgets" not in data:
+            self.splitterWidget.addWidget(EditTabWidget(self.env, self, self.splitterWidget.count()))
+            self.splitterWidget.widget(self.splitterWidget.count() - 1).restoreSession(data, old_version=True)
+            return
         for i in data["tabWidgets"]:
             self.splitterWidget.addWidget(EditTabWidget(self.env, self,self.splitterWidget.count()))
             self.splitterWidget.widget(self.splitterWidget.count()-1).restoreSession(i)

@@ -133,18 +133,25 @@ class EditTabWidget(QTabWidget):
             currentID += 1
         return data, currentID
 
-    def restoreSession(self,data: dict):
+    def restoreSession(self,data: dict, old_version: bool = False):
         """
         Restores a session. This function should not be called outside restoreSession() of SpliViewWidget.
         :param data: The session data
+        :param old_version: Sets to true if a session of a old version is loaded
         """
+        if old_version:
+            current_id = 0
         for count, i in enumerate(data["tabs"]):
             if i["path"] == "":
                 self.createTab(self.env.translate("mainWindow.newTabTitle"))
             else:
                 self.createTab(os.path.basename(i["path"]))
             editWidget = self.widget(count).getCodeEditWidget()
-            f = open(os.path.join(self.env.dataDir,"session_data",str(i["id"])), "rb")
+            if old_version:
+                f = open(os.path.join(self.env.dataDir, "session_data", str(current_id)), "rb")
+                current_id += 1
+            else:
+                f = open(os.path.join(self.env.dataDir,"session_data",str(i["id"])), "rb")
             text = f.read().decode(i["encoding"], errors="replace")
             editWidget.setText(text)
             f.close()
