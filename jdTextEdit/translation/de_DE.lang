@@ -361,6 +361,9 @@ noWritePermission.text=Du hast nicht die Berechtigung, um %s zu schreiben
 invalidFilename.title=Ungültiger Dateiname
 invalidFilename.text=Der gewählte Dateiname ist ungültig
 
+automaticUpdateSearch.title=Automatische Suche nach Updates aktivieren
+automaticUpdateSearch.text=jdTextEdit bietet die Möglichkeit bei jedem Programmstart automatisch nach Updates zu suchen. Möchtest du dies aktivieren? Du kannst dieses Verhalten später in den Einstellungen noch ändern.
+
 sidebar.notes=Notizen
 sidebar.notes.placeholderText=Du kannst dir hier Notizen machen
 sidebar.tabs=Tabs

@@ -19,6 +19,7 @@ class Settings():
         self.maxRecentFiles = 10
         self.saveSession = True
         self.loadPlugins = True
+        self.searchUpdates = False
         self.windowFileTitle = True
         self.saveWindowState = True
         self.eolFileEnd = False
@@ -120,10 +121,8 @@ class Settings():
             self.defaultEolMode = 1
         if os.getenv("SNAP"):
             self.useNativeIcons = False
-            self.searchUpdates = False
         else:
             self.useNativeIcons = True
-            self.searchUpdates = True
         if defaultSettings:
             for i in defaultSettings:
                 setattr(self,i[0],i[1])

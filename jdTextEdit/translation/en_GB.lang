@@ -361,6 +361,9 @@ noWritePermission.text=You don't have the permission to write %s
 invalidFilename.title=Invalid filename
 invalidFilename.text=The Filename is invalid
 
+automaticUpdateSearch.title=Enable automatic update search
+automaticUpdateSearch.text=jdTextEdit offers the possibility to automatically check for updates every time the programme is started. Do you want to activate this? You can change this behaviour later in the settings.
+
 sidebar.notes=Notes
 sidebar.notes.placeholderText=You can write down notes here
 sidebar.tabs=Tabs

@@ -49,6 +49,7 @@ class Enviroment():
             self.dataDir = getDataPath(self)
 
         if not os.path.isdir(self.dataDir):
+            self.firstRun = True
             try:
                 if os.path.isdir(os.path.join(self.programDir,"default_data")):
                     shutil.copytree(os.path.join(self.programDir,"default_data"), self.dataDir)
@@ -57,6 +58,8 @@ class Enviroment():
             except:
                 showMessageBox("Unable to create data folder",f"jdTextEdit is unable to create his data folder {self.dataDir}. Maybe you've installed it in a system directory and try to run it in portable mode")
                 sys.exit(2)
+        else:
+            self.firstRun = False
 
         if not(self.distributionSettings.get("enableUpdater",True)) or self.args["disableUpdater"] or os.getenv("SNAP") or os.getenv("JDTEXTEDIT_DISABLE_UPDATER"):
             self.enableUpdater = False

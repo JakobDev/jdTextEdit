@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QMessageBox
 from jdTextEdit.gui.MainWindow import MainWindow
 from jdTextEdit.Enviroment import Enviroment
 from jdTextEdit.gui.CloseSaveWindow import CloseSaveWindow
@@ -72,6 +72,14 @@ def main():
         f.close()
 
     app.setWindowIcon(QIcon(os.path.join(env.programDir,"Logo.png")))
+
+    # Ask for automatic updates on first run
+    if env.firstRun and env.enableUpdater:
+        answer = QMessageBox.question(env.mainWindow, env.translate("automaticUpdateSearch.title"), env.translate("automaticUpdateSearch.text"))
+        if answer == QMessageBox.Yes:
+            env.settings.searchUpdates = True
+        else:
+            env.settings.searchUpdates = False
 
     env.mainWindow.setup()
     sys.exit(app.exec())
