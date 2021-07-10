@@ -72,7 +72,7 @@ class SplitViewWidget(QWidget):
         currentTabWidget = self.getCurrentTabWidget()
         widgetList = []
         for i in range(currentTabWidget.count()):
-            widgetList.append(currentTabWidget.widget(i))
+            widgetList.append({"widget": currentTabWidget.widget(i), "title": currentTabWidget.tabText(i), "icon": currentTabWidget.tabIcon(i)})
         currentTabWidget.setParent(None)
         self.activeID -= 1
         if self.activeID == -1:
@@ -80,7 +80,7 @@ class SplitViewWidget(QWidget):
         self.updateTabWidgetID()
         newTabWidget = self.getCurrentTabWidget()
         for i in widgetList:
-            newTabWidget.addExistingTab(i)
+            newTabWidget.addExistingTab(i["widget"], i["title"], i["icon"])
         if self.splitterWidget.count() == 1:
             self.env.mainWindow.deleteCurrentViewAction.setEnabled(False)
 

@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QTabWidget
 from PyQt5.QtCore import pyqtSignal, Qt
 from jdTextEdit.gui.EditContainer import EditContainer
+from PyQt5.QtGui import QIcon
 import traceback
 import sys
 import os
@@ -38,15 +39,19 @@ class EditTabWidget(QTabWidget):
         self.tabsChanged.emit()
         self.env.tabWidgetSignals.tabCreated.emit(self,textEdit)
 
-    def addExistingTab(self,container: EditContainer):
+    def addExistingTab(self,container: EditContainer, title: str, icon: QIcon):
         """
         Adds a existing EditContainer as tab
-        :param tab: The EditConatiner
+        :param container: The EditConatiner
+        :param title: The title of the tab
+        :param icon: The icon of the tab
         :return:
         """
-        tabid = self.addTab(container, "ww")
+        tabid = self.addTab(container, title)
+        container.tabWidget = self
         codeEdit = container.getCodeEditWidget()
         codeEdit.tabid = tabid
+        self.setTabIcon(tabid, icon)
         self.env.tabWidgetSignals.tabCreated.emit(self,container)
 
     def tabChange(self, tabid):
