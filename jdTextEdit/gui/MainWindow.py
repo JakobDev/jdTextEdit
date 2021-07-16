@@ -378,7 +378,7 @@ class MainWindow(QMainWindow):
         self.lineOperationsMenu.addAction(deleteCurrentLineAction)
         self.env.pluginAPI.addAction(deleteCurrentLineAction)
 
-        sortAlphabetical = QAction("Alph",self)
+        sortAlphabetical = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.sortAlphabetical"),self)
         sortAlphabetical.triggered.connect(self.sortLinesAlphabetical)
         sortAlphabetical.setData(["sortAlphabetical"])
         self.lineOperationsMenu.addAction(sortAlphabetical)
@@ -1197,7 +1197,7 @@ class MainWindow(QMainWindow):
             #Use custom path
             startPath = self.env.settings.get("openFileCustomPath")
 
-        path = QFileDialog.getOpenFileName(self,self.env.translate("mainWindow.openFileDialog.title"),None,self.env.fileNameFilters)
+        path = QFileDialog.getOpenFileName(self,self.env.translate("mainWindow.openFileDialog.title"),startPath,self.env.fileNameFilters)
         if path[0]:
             self.openFile(path[0])
             self.env.lastOpenPath = path
@@ -1214,7 +1214,7 @@ class MainWindow(QMainWindow):
             #Use custom path
             startPath = self.env.settings.get("openFileCustomPath")
 
-        path = QFileDialog.getExistingDirectory(self,self.env.translate("mainWindow.openDirectoryDialog.title"))
+        path = QFileDialog.getExistingDirectory(self,self.env.translate("mainWindow.openDirectoryDialog.title"),startPath)
         if path:
             self.env.lastOpenPath = path
             fileList = os.listdir(path)
@@ -1292,10 +1292,13 @@ class MainWindow(QMainWindow):
             endLine = selection[2]
         else:
             startLine = 0
-            endLine = editWidget.lines()
+            endLine = editWidget.lines()-1
         lines = []
         for i in range(startLine, endLine + 1):
             lines.append(editWidget.text(i))
+        eolChar = editWidget.getEolChar()
+        if not lines[-1].endswith(eolChar):
+            lines[-1] += eolChar
         return lines
 
     def replaceCurrentLines(self,lines: List[str]):
@@ -1337,6 +1340,7 @@ class MainWindow(QMainWindow):
 
     def sortLinesAlphabetical(self):
         lines = self.getCurrentLines()
+        print(lines)
         lines.sort()
         self.replaceCurrentLines(lines)
 

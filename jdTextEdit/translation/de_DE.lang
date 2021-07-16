@@ -66,6 +66,7 @@ mainWindow.menu.edit.convertCase.swap=Schreibweise tauschen
 mainWindow.menu.edit.lineOperations=Zeilen bearbeiten
 mainWindow.menu.edit.lineOperations.duplicateCurrentLine=Aktuelle Zeile verdoppeln
 mainWindow.menu.edit.lineOperations.deleteCurrentLine=Aktuelle Zeile löschen
+mainWindow.menu.edit.lineOperations.sortAlphabetical=Zeilen alphabetisch sortieren
 mainWindow.menu.edit.lineOperations.shuffleLines=Zeilen zufällig sortieren
 mainWindow.menu.edit.eol=Zeilenende
 mainWindow.menu.edit.settings=Einstellungen

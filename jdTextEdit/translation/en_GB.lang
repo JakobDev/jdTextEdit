@@ -66,6 +66,7 @@ mainWindow.menu.edit.convertCase.swap=Swap
 mainWindow.menu.edit.lineOperations=Line operations
 mainWindow.menu.edit.lineOperations.duplicateCurrentLine=Duplicate Current Line
 mainWindow.menu.edit.lineOperations.deleteCurrentLine=Delete Current Line
+mainWindow.menu.edit.lineOperations.sortAlphabetical=Sort lines alphabetically
 mainWindow.menu.edit.lineOperations.shuffleLines=Shuffle Lines
 mainWindow.menu.edit.eol=End of line
 mainWindow.menu.edit.settings=Settings
