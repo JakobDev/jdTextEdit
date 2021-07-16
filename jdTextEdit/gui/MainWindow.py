@@ -1265,6 +1265,7 @@ class MainWindow(QMainWindow):
         for tabWidget in self.splitViewWidget.getAllTabWidgets():
             for i in range(tabWidget.count()-1,-1,-1):
                 tabWidget.tabCloseClicked(i,notCloseProgram=True)
+        self.splitViewWidget.initTabWidget()
         self.getTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
 
     def printMenuBarClicked(self):
