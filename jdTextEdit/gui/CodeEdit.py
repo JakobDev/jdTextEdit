@@ -418,12 +418,14 @@ class CodeEdit(QsciScintilla):
         self.setCaretLineVisible(settings.highlightCurrentLine)
         self.setTabWidth(settings.editTabWidth)
         self.setIndentationsUseTabs(not settings.editTabSpaces)
-        #self.setWrapMode(settings.editTextWrap)
+        if settings.get("editTextWrap"):
+            self.setWrapMode(QsciScintilla.WrapMode.WrapWord)
+        else:
+            self.setWrapMode(QsciScintilla.WrapMode.WrapNone)
         if settings.get("editShowWhitespaces"):
             self.setWhitespaceVisibility(QsciScintilla.WhitespaceVisibility.WsVisible)
         else:
             self.setWhitespaceVisibility(QsciScintilla.WhitespaceVisibility.WsInvisible)
-        #self.setWhitespaceVisibility(settings.editShowWhitespaces)
         self.setAutoIndent(settings.editAutoIndent)
         self.setEolVisibility(settings.editShowEol)
         self.setIndentationGuides(settings.showIndentationGuides)
