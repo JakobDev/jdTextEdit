@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout
+from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout
 
 class WrongEncodingBanner(QWidget):
     def __init__(self,env,parent):

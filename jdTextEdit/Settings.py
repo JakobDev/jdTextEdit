@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QFont, QKeySequence
+from PyQt6.QtGui import QFont, QKeySequence
 from jdTextEdit.Functions import showMessageBox, readJsonFile
 from pathlib import Path
 from typing import Any
@@ -87,33 +87,33 @@ class Settings():
         self.enableUserChrome = True
         self.disabledPlugins = []
         self.shortcut = {
-            "newFile": QKeySequence(QKeySequence.New).toString(),
-            "openFile": QKeySequence(QKeySequence.Open).toString(),
-            "saveFile": QKeySequence(QKeySequence.Save).toString(),
-            "saveAsFile": QKeySequence(QKeySequence.SaveAs).toString(),
+            "newFile": QKeySequence(QKeySequence.StandardKey.New).toString(),
+            "openFile": QKeySequence(QKeySequence.StandardKey.Open).toString(),
+            "saveFile": QKeySequence(QKeySequence.StandardKey.Save).toString(),
+            "saveAsFile": QKeySequence(QKeySequence.StandardKey.SaveAs).toString(),
             "saveAll": "Shift+Alt+S",
-            "closeTab": QKeySequence(QKeySequence.Close).toString(),
-            "print": QKeySequence(QKeySequence.Print).toString(),
-            "exit": QKeySequence(QKeySequence.Quit).toString(),
-            "undo": QKeySequence(QKeySequence.Undo).toString(),
-            "redo": QKeySequence(QKeySequence.Redo).toString(),
-            "cut": QKeySequence(QKeySequence.Cut).toString(),
-            "copy": QKeySequence(QKeySequence.Copy).toString(),
-            "paste": QKeySequence(QKeySequence.Paste).toString(),
-            "delete": QKeySequence(QKeySequence.Delete).toString(),
-            "selectAll": QKeySequence(QKeySequence.SelectAll).toString(),
-            "settings": QKeySequence(QKeySequence.Preferences).toString(),
-            "zoomIn": QKeySequence(QKeySequence.ZoomIn).toString(),
-            "zoomOut": QKeySequence(QKeySequence.ZoomOut).toString(),
-            "fullscreen": QKeySequence(QKeySequence.FullScreen).toString(),
-            "find": QKeySequence(QKeySequence.Find).toString(),
-            "findReplaceWindow": QKeySequence(QKeySequence.Replace).toString(),
+            "closeTab": QKeySequence(QKeySequence.StandardKey.Close).toString(),
+            "print": QKeySequence(QKeySequence.StandardKey.Print).toString(),
+            "exit": QKeySequence(QKeySequence.StandardKey.Quit).toString(),
+            "undo": QKeySequence(QKeySequence.StandardKey.Undo).toString(),
+            "redo": QKeySequence(QKeySequence.StandardKey.Redo).toString(),
+            "cut": QKeySequence(QKeySequence.StandardKey.Cut).toString(),
+            "copy": QKeySequence(QKeySequence.StandardKey.Copy).toString(),
+            "paste": QKeySequence(QKeySequence.StandardKey.Paste).toString(),
+            "delete": QKeySequence(QKeySequence.StandardKey.Delete).toString(),
+            "selectAll": QKeySequence(QKeySequence.StandardKey.SelectAll).toString(),
+            "settings": QKeySequence(QKeySequence.StandardKey.Preferences).toString(),
+            "zoomIn": QKeySequence(QKeySequence.StandardKey.ZoomIn).toString(),
+            "zoomOut": QKeySequence(QKeySequence.StandardKey.ZoomOut).toString(),
+            "fullscreen": QKeySequence(QKeySequence.StandardKey.FullScreen).toString(),
+            "find": QKeySequence(QKeySequence.StandardKey.Find).toString(),
+            "findReplaceWindow": QKeySequence(QKeySequence.StandardKey.Replace).toString(),
             "gotoLine": "Ctrl+L",
             "addRemoveBookmark": "Ctrl+F2",
             "nextBookmark": "F2",
             "previousBookmark": "Shift+F2",
             "playMacro": "Ctrl+Shift+P",
-            "about": QKeySequence(QKeySequence.HelpContents).toString(),
+            "about": QKeySequence(QKeySequence.StandardKey.HelpContents).toString(),
         }
         if platform.system() == 'Windows':
             self.defaultEolMode = 0

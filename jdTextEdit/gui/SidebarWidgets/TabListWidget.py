@@ -1,5 +1,5 @@
 from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
-from PyQt5.QtWidgets import QListWidget
+from PyQt6.QtWidgets import QListWidget
 
 class TabListWidget(QListWidget,SidebarWidgetBase):
     def __init__(self,env):

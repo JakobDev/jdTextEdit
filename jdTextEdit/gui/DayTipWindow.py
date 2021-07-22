@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QTextBrowser, QPushButton, QCheckBox, QHBoxLayout, QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QTextBrowser, QPushButton, QCheckBox, QHBoxLayout, QVBoxLayout
 from jdTextEdit.Functions import restoreWindowState
 import random
 import os
@@ -7,7 +7,7 @@ class DayTipWindow(QWidget):
     def __init__(self,env):
         super().__init__()
         self.env = env
-        
+
         self.textArea =  QTextBrowser()
         self.showStartup = QCheckBox(env.translate("dayTipWindow.showStartup"))
         nextTipButton = QPushButton(env.translate("dayTipWindow.nextTip"))
@@ -51,5 +51,5 @@ class DayTipWindow(QWidget):
         QApplication.setActiveWindow(self)
 
     def closeEvent(self, event):
-        self.env.settings.startupDayTip = bool(self.showStartup.checkState())
+        self.env.settings.set("startupDayTip",self.showStartup.isChecked())
         event.accept()

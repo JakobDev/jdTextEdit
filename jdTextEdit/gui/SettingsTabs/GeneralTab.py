@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QComboBox, QLabel, QCheckBox, QGridLayout, QVBoxLayout, QSpinBox, QStyleFactory
+from PyQt6.QtWidgets import QWidget, QComboBox, QLabel, QCheckBox, QGridLayout, QVBoxLayout, QSpinBox, QStyleFactory
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 import os
@@ -68,17 +68,17 @@ class GeneralTab(QWidget,SettingsTabBase):
         self.fileChangedBannerCheckBox.setChecked(settings.showFileChangedBanner)
 
     def getSettings(self, settings: Settings):
-        settings.language = self.languageComboBox.itemData(self.languageComboBox.currentIndex())
-        settings.maxRecentFiles = self.recentFilesSpinBox.value()
-        settings.saveClose = bool(self.saveCloseCheckBox.checkState())
-        settings.saveSession = bool(self.saveSessionCheckBox.checkState())
-        settings.loadPlugins = bool(self.pluginsCheckBox.checkState())
-        settings.useNativeIcons = bool(self.nativeIconsCheckBox.checkState())
-        settings.startupDayTip = bool(self.dayTipCheckBox.checkState())
-        settings.windowFileTitle = bool(self.windowTitleCheckBox.checkState())
-        settings.searchUpdates = bool(self.searchUpdatesCheckBox.checkState())
-        settings.saveWindowState = bool(self.windowStateCheckBox.checkState())
-        settings.showFileChangedBanner = bool(self.fileChangedBannerCheckBox.checkState())
+        settings.set("language",self.languageComboBox.itemData(self.languageComboBox.currentIndex()))
+        settings.set("maxRecentFiles",self.recentFilesSpinBox.value())
+        settings.set("saveClose",self.saveCloseCheckBox.isChecked())
+        settings.set("saveSession",self.saveSessionCheckBox.isChecked())
+        settings.set("loadPlugins",self.pluginsCheckBox.isChecked())
+        settings.set("useNativeIcons",self.nativeIconsCheckBox.isChecked())
+        settings.set("startupDayTip",self.dayTipCheckBox.isChecked())
+        settings.set("windowFileTitle",self.windowTitleCheckBox.isChecked())
+        settings.set("searchUpdates",self.searchUpdatesCheckBox.isChecked())
+        settings.set("saveWindowState",self.windowStateCheckBox.isChecked())
+        settings.set("showFileChangedBanner",self.fileChangedBannerCheckBox.isChecked())
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.general")

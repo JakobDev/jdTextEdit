@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QTextBrowser, QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, QAbstractItemView, QHeaderView
+from PyQt6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QTextBrowser, QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, QAbstractItemView, QHeaderView
 from jdTextEdit.Functions import showMessageBox, readJsonFile
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 import requests
 import shutil
 import json
@@ -23,11 +23,11 @@ class PluginManagerWindow(QWidget):
             env.translate("pluginManagerWindow.header.version"),
             env.translate("pluginManagerWindow.header.author"),
         ))
-        self.pluginTable.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.pluginTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
-        self.pluginTable.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
-        self.pluginTable.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
-        self.pluginTable.horizontalHeader().setSectionResizeMode(3, QHeaderView.Stretch)
+        self.pluginTable.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.pluginTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        self.pluginTable.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        self.pluginTable.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        self.pluginTable.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
         self.pluginTable.verticalHeader().hide()
         self.pluginTable.currentCellChanged.connect(lambda row: self.descriptionView.setHtml(self.pluginList[row]["description"]))
 
@@ -74,11 +74,11 @@ class PluginManagerWindow(QWidget):
             return False
         for count, i in enumerate(data["pluginlist"]):
             nameItem = QTableWidgetItem(i["name"])
-            nameItem.setFlags(nameItem.flags() ^ Qt.ItemIsEditable)
+            nameItem.setFlags(nameItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
             versionItem = QTableWidgetItem(i["version"])
-            versionItem.setFlags(versionItem.flags() ^ Qt.ItemIsEditable)
+            versionItem.setFlags(versionItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
             authorItem = QTableWidgetItem(i["author"])
-            authorItem.setFlags(authorItem.flags() ^ Qt.ItemIsEditable)
+            authorItem.setFlags(authorItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
             self.pluginTable.insertRow(count)
             self.pluginTable.setCellWidget(count,0,QCheckBox())
             self.pluginTable.setItem(count,1,nameItem)

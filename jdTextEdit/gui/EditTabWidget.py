@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QTabWidget
-from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt6.QtWidgets import QTabWidget
+from PyQt6.QtCore import pyqtSignal, Qt
 from jdTextEdit.gui.EditContainer import EditContainer
-from PyQt5.QtGui import QIcon
+from PyQt6.QtGui import QIcon
 import traceback
 import sys
 import os
@@ -116,7 +116,7 @@ class EditTabWidget(QTabWidget):
         Sets the tab widget as active
         """
         #self.currentWidget().ensureCursorVisible()
-        self.currentWidget().setFocus(Qt.OtherFocusReason)
+        self.currentWidget().setFocus(Qt.FocusReason.OtherFocusReason)
 
     def getSessionData(self,currentID : int):
         """

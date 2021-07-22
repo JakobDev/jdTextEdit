@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem, QCheckBox, QComboBox, QLabel, QGridLayout
+from PyQt6.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem, QCheckBox, QComboBox, QLabel, QGridLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
-from PyQt5.QtGui import QIcon
+from PyQt6.QtGui import QIcon
 
 class CustomWidgetItem(QListWidgetItem):
     def __init__(self,name: str):
@@ -125,9 +125,9 @@ class ToolbarTab(QWidget,SettingsTabBase):
         settings.toolBar = []
         for i in range(self.contextList.count()):
             settings.toolBar.append(self.contextList.item(i).actionName())
-        settings.showToolbar = bool(self.showToolbarCheckbox.checkState())
-        settings.toolbarIconStyle = self.iconStyleSelect.currentIndex()
-        settings.toolbarPosition = self.positionComboBox.currentIndex()
+        settings.set("showToolbar",self.showToolbarCheckbox.isChecked())
+        settings.set("toolbarIconStyle",self.iconStyleSelect.currentIndex())
+        settings.set("toolbarPosition",self.positionComboBox.currentIndex())
 
     def setup(self):
         for key, data in self.env.menuActions.items():

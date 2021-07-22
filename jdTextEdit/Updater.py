@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMessageBox, QPushButton
+from PyQt6.QtWidgets import QMessageBox, QPushButton
 from jdTextEdit.Functions import showMessageBox
 import webbrowser
 import tempfile
@@ -58,9 +58,9 @@ def searchForUpdates(env,startup: bool):
         msgBox = QMessageBox()
         msgBox.setWindowTitle(env.translate("updater.newVersion.title"))
         msgBox.setText(env.translate("updater.newVersion.text") % releaseList[0]["name"])
-        msgBox.addButton(QPushButton(env.translate("button.yes")), QMessageBox.YesRole)
-        msgBox.addButton(QPushButton(env.translate("button.no")), QMessageBox.NoRole)
-        answer = msgBox.exec_()
+        msgBox.addButton(QPushButton(env.translate("button.yes")), QMessageBox.ButtonRole.YesRole)
+        msgBox.addButton(QPushButton(env.translate("button.no")), QMessageBox.ButtonRole.NoRole)
+        answer = msgBox.exec()
         if answer == 0:
             webbrowser.open("https://sourceforge.net/projects/jdtextedit/files")
             #installUpdates(env,releaseList[0]["name"])

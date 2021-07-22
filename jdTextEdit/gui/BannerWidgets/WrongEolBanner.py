@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout
-from PyQt5.Qsci import QsciScintilla
+from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout
+from PyQt6.Qsci import QsciScintilla
 
 class WrongEolBanner(QWidget):
     def __init__(self,env,parent):
@@ -24,6 +24,6 @@ class WrongEolBanner(QWidget):
         self.setLayout(mainLayout)
 
     def changeEol(self):
-        eolModeList = [QsciScintilla.EolWindows,QsciScintilla.EolUnix,QsciScintilla.EolMac]
+        eolModeList = [QsciScintilla.EolMode.EolWindows,QsciScintilla.EolMode.EolUnix,QsciScintilla.EolMode.EolMac]
         self.editWidget.changeEolMode(eolModeList[self.editWidget.settings.defaultEolMode])
         self.parent.removeBanner(self)

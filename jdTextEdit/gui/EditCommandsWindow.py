@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QTableWidget, QPushButton, QCheckBox, QKeySequenceEdit, QTableWidgetItem, QHBoxLayout, QVBoxLayout, QHeaderView
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QTableWidget, QPushButton, QCheckBox, QKeySequenceEdit, QTableWidgetItem, QHBoxLayout, QVBoxLayout, QHeaderView
 from jdTextEdit.Functions import restoreWindowState
 import json
 import os
@@ -14,10 +14,10 @@ class EditCommandsWindow(QWidget):
         cancelButton = QPushButton(env.translate("button.cancel"))
 
         self.commandsTable.setHorizontalHeaderLabels((env.translate("editCommandsWindow.text"),env.translate("editCommandsWindow.command"),env.translate("editCommandsWindow.terminal"),env.translate("editCommandsWindow.shortcut")))
-        self.commandsTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
-        self.commandsTable.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
-        self.commandsTable.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
-        self.commandsTable.horizontalHeader().setSectionResizeMode(3, QHeaderView.Stretch)
+        self.commandsTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        self.commandsTable.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        self.commandsTable.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        self.commandsTable.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
 
         addButton.clicked.connect(self.newRow)
         removeButton.clicked.connect(lambda: self.commandsTable.removeRow(self.commandsTable.currentRow()))

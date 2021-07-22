@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QComboBox, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QComboBox, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 
@@ -43,12 +43,12 @@ class TabBarTab(QWidget,SettingsTabBase):
         self.tabDoubleClickCloseCheckBox.setChecked(settings.tabDoubleClickClose)
 
     def getSettings(self, settings: Settings):
-        settings.tabBarPosition = self.positionComboBox.currentIndex()
-        settings.hideTabBar = bool(self.hideTabBarCheckBox.checkState())
-        settings.exitLastTab = bool(self.lastTabCheckBox.checkState())
-        settings.closeButtonTab = bool(self.closeButtonCheckBox.checkState())
-        settings.allowTabMove = bool(self.allowTabMoveCheckBox.checkState())
-        settings.tabDoubleClickClose = bool(self.tabDoubleClickCloseCheckBox.checkState())
+        settings.set("tabBarPosition",self.positionComboBox.currentIndex())
+        settings.set("hideTabBar",self.hideTabBarCheckBox.isChecked())
+        settings.set("exitLastTab",self.lastTabCheckBox.isChecked())
+        settings.set("closeButtonTab",self.closeButtonCheckBox.isChecked())
+        settings.set("allowTabMove",self.allowTabMoveCheckBox.isChecked())
+        settings.set("tabDoubleClickClose",self.tabDoubleClickCloseCheckBox.isChecked())
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.tabBar")

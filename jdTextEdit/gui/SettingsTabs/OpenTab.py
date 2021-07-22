@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QCheckBox, QComboBox, QLabel, QHBoxLayout, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QCheckBox, QComboBox, QLabel, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Functions import selectComboBoxItem
 from jdTextEdit.Settings import Settings
@@ -45,13 +45,13 @@ class OpenTab(QWidget,SettingsTabBase):
         selectComboBoxItem(self.detectLibComboBox,settings.encodingDetectLib)
 
     def getSettings(self, settings: Settings):
-        settings.useIPC = bool(self.useIPCCheckBox.checkState())
-        settings.detectLanguage = bool(self.detectLanguage.checkState())
-        settings.detectEncoding = bool(self.detectEncoding.checkState())
-        settings.detectEol = bool(self.detectEol.checkState())
-        settings.showEncodingBanner = bool(self.encodingBannerCheckBox.checkState())
-        settings.showEolBanner = bool(self.eolBannerCheckBox.checkState())
-        settings.encodingDetectLib = self.detectLibComboBox.itemText(self.detectLibComboBox.currentIndex())
+        settings.set("useIPC",self.useIPCCheckBox.isChecked())
+        settings.set("detectLanguage",self.detectLanguage.isChecked())
+        settings.set("detectEncoding",self.detectEncoding.isChecked())
+        settings.set("detectEol",self.detectEol.isChecked())
+        settings.set("showEncodingBanner",self.encodingBannerCheckBox.isChecked())
+        settings.set("showEolBanner",self.eolBannerCheckBox.isChecked())
+        settings.set("encodingDetectLib",self.detectLibComboBox.itemText(self.detectLibComboBox.currentIndex()))
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.open")

@@ -1,7 +1,7 @@
 from jdTranslationHelper import jdTranslationHelper
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QLocale
-from PyQt5.QtGui import QIcon
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtCore import QLocale
+from PyQt6.QtGui import QIcon
 from jdTextEdit.Settings import Settings
 from jdTextEdit.LexerList import getLexerList
 from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox, readJsonFile, getFullPath

@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QRadioButton, QLineEdit, QPushButton, QLabel, QFileDialog, QHBoxLayout, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QRadioButton, QLineEdit, QPushButton, QLabel, QFileDialog, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 

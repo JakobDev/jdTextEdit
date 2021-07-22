@@ -1,5 +1,5 @@
 from jdTextEdit.api.ThemeBase import ThemeBase
-from PyQt5.QtGui import QColor
+from PyQt6.QtGui import QColor
 
 class DefaultTheme(ThemeBase):
     def __init__(self,env):

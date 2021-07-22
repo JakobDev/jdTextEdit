@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QCheckBox, QSpinBox, QLabel, QVBoxLayout, QHBoxLayout
+from PyQt6.QtWidgets import QWidget, QCheckBox, QSpinBox, QLabel, QVBoxLayout, QHBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 
@@ -51,12 +51,12 @@ class AutocompletionTab(QWidget,SettingsTabBase):
         self.updateSettingsEnabled()
 
     def getSettings(self, settings: Settings):
-        settings.enableAutocompletion = bool(self.enableAutocompletionCheckBox.checkState())
-        settings.autocompletionUseDocument = bool(self.useWordsFromDocument.checkState())
-        settings.autocompletionUseAPI = bool(self.useAPI.checkState())
-        settings.autocompletionCaseSensitive = bool(self.caseSensitive.checkState())
-        settings.autocompletionReplaceWord = bool(self.replaceWord.checkState())
-        settings.autocompleteThreshold = self.thresholdSpinBox.value()
+        settings.set("enableAutocompletion",self.enableAutocompletionCheckBox.isChecked())
+        settings.set("autocompletionUseDocument",self.useWordsFromDocument.isChecked())
+        settings.set("autocompletionUseAPI",self.useAPI.isChecked())
+        settings.set("autocompletionCaseSensitive",self.caseSensitive.isChecked())
+        settings.set("autocompletionReplaceWord",self.replaceWord.isChecked())
+        settings.set("autocompleteThreshold",self.thresholdSpinBox.value())
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.autocompletion")

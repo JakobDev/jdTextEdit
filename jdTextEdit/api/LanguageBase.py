@@ -1,5 +1,5 @@
-from PyQt5.Qsci import QsciLexer, QsciAPIs
-from PyQt5.QtGui import QIcon
+from PyQt6.Qsci import QsciLexer, QsciAPIs
+from PyQt6.QtGui import QIcon
 from typing import List
 
 class LanguageBase():

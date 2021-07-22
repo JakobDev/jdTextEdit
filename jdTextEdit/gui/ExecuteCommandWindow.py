@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QCheckBox, QHBoxLayout, QVBoxLayout, QLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QCheckBox, QHBoxLayout, QVBoxLayout, QLayout
 from jdTextEdit.Functions import executeCommand
 import os
 
@@ -29,7 +29,7 @@ class ExecuteCommandWindow(QWidget):
         if os.getenv("SNAP"):
             mainLayout.addWidget(QLabel(env.translate("executeCommand.label.snap")))
         mainLayout.addLayout(buttonLayout)
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
+        mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("executeCommandWindow.title"))

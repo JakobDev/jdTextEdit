@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QLayout
+from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QLayout
 from jdTextEdit.Functions import getThemeIcon, restoreWindowState
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtCore import Qt
 import webbrowser
 import os
 
@@ -10,7 +10,7 @@ class AboutWindow(QWidget):
         super().__init__()
         logo = QLabel()
         logo.setPixmap(QPixmap(os.path.join(env.programDir,"Logo.png")).scaled(100,100))
-        logo.setAlignment(Qt.AlignCenter)
+        logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
         text = "<center>"
         text += (env.translate("aboutWindow.label.title") % env.version) + "<br><br>"
         text += env.translate("aboutWindow.label.description") + "<br><br>"
@@ -38,7 +38,7 @@ class AboutWindow(QWidget):
         mainLayout.addWidget(logo)
         mainLayout.addWidget(label)
         mainLayout.addLayout(buttonLayout)
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
+        mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("aboutWindow.title"))

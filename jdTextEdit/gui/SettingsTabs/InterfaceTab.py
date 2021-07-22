@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QComboBox, QLabel, QCheckBox, QGridLayout, QVBoxLayout, QStyleFactory
+from PyQt6.QtWidgets import QWidget, QComboBox, QLabel, QCheckBox, QGridLayout, QVBoxLayout, QStyleFactory
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Functions import selectComboBoxItem
 from jdTextEdit.Settings import Settings
@@ -45,14 +45,14 @@ class InterfaceTab(QWidget,SettingsTabBase):
 
     def getSettings(self, settings: Settings):
         if self.styleSelectComboBox.currentIndex() == 0:
-            settings.applicationStyle = "default"
+            settings.set("applicationStyle","default")
         else:
             settings.applicationStyle = self.styleSelectComboBox.itemText(self.styleSelectComboBox.currentIndex())
         if self.settingsWindowType.currentIndex() == 0:
             settings.set("settingsWindowUseModernDesign",True)
         else:
             settings.set("settingsWindowUseModernDesign",False)
-        settings.set("enableUserChrome",bool(self.enableUserChrome.checkState()))
+        settings.set("enableUserChrome",self.enableUserChrome.isChecked())
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.interface")

@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QCheckBox, QSpinBox, QComboBox, QGridLayout, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QLabel, QCheckBox, QSpinBox, QComboBox, QGridLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.EncodingList import getEncodingList
 from jdTextEdit.Settings import Settings
@@ -70,16 +70,16 @@ class EditorTab(QWidget,SettingsTabBase):
 
 
     def getSettings(self, settings: Settings):
-        settings.defaultEncoding = self.defaultEncodingComboBox.currentText()
-        settings.defaultEolMode = self.defaultEolModeComboBox.currentIndex()
-        settings.defaultLanguage = self.defaultLanguageComboBox.currentData()
-        settings.editTabWidth = self.tabWidthSpinBox.value()
-        settings.editTabSpaces = bool(self.tabSpaces.checkState())
-        settings.editTextWrap = bool(self.textWrap.checkState())
-        settings.editShowWhitespaces = bool(self.showWhitespaces.checkState())
-        settings.editAutoIndent = bool(self.autoIndent.checkState())
-        settings.showIndentationGuides = bool(self.showIndentationGuides.checkState())
-        settings.editShowEol = bool(self.showEol.checkState())
+        settings.set("defaultEncoding",self.defaultEncodingComboBox.currentText())
+        settings.set("defaultEolMode",self.defaultEolModeComboBox.currentIndex())
+        settings.set("defaultLanguage",self.defaultLanguageComboBox.currentData())
+        settings.set("editTabWidth",self.tabWidthSpinBox.value())
+        settings.set("editTabSpaces",self.tabSpaces.isChecked())
+        settings.set("editTextWrap",self.textWrap.isChecked())
+        settings.set("editShowWhitespaces",self.showWhitespaces.isChecked())
+        settings.set("editAutoIndent",self.autoIndent.isChecked())
+        settings.set("showIndentationGuides",self.showIndentationGuides.isChecked())
+        settings.set("editShowEol",self.showEol.isChecked())
 
     def setup(self):
         for i in self.env.languageList:

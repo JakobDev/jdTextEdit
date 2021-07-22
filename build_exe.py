@@ -15,7 +15,7 @@ else:
 
 setup(
     name = "jdTextEdit",
-    version = "9.0",
+    version = "9.1",
     description = "A powerful texteditor with a lot of features'",
     options = {"build_exe": build_exe_options},
     executables = [target]

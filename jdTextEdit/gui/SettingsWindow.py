@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QTabWidget, QListWidget, QVBoxLayout, QHBoxLayout, QPushButton
+from PyQt6.QtWidgets import QApplication, QWidget, QTabWidget, QListWidget, QVBoxLayout, QHBoxLayout, QPushButton
 from jdTextEdit.gui.SettingsTabs.GeneralTab import GeneralTab
 from jdTextEdit.gui.SettingsTabs.EditorTab import EditorTab
 from jdTextEdit.gui.SettingsTabs.AutocompletionTab import AutocompletionTab

@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QDockWidget, QComboBox
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QDockWidget, QComboBox
 
 class DockWidget(QDockWidget):
     def __init__(self, env):

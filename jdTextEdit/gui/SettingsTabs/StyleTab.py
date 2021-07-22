@@ -1,10 +1,10 @@
-from PyQt5.QtWidgets import QWidget, QCheckBox, QPushButton, QFontDialog, QGridLayout, QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QSlider
+from PyQt6.QtWidgets import QWidget, QCheckBox, QPushButton, QFontDialog, QGridLayout, QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QSlider
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
-from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt
+from PyQt6.QtGui import QFont
+from PyQt6.QtCore import Qt
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
-from PyQt5.Qsci import QsciLexerLua
+from PyQt6.Qsci import QsciLexerLua
 
 class StyleTab(QWidget,SettingsTabBase):
     def __init__(self,env):
@@ -18,7 +18,7 @@ class StyleTab(QWidget,SettingsTabBase):
         self.fontButton = QPushButton()
         self.lineNumberCheckBox = QCheckBox(env.translate("settingsWindow.style.checkBox.showLineNumbers"))
         self.highlightLineCheckBox = QCheckBox(env.translate("settingsWindow.style.checkBox.highlightCurrentLine"))
-        self.zoomSlider = QSlider(Qt.Horizontal)
+        self.zoomSlider = QSlider(Qt.Orientation.Horizontal)
         self.editorPreview = CodeEdit(env,preview=True)
 
         for key, value in env.themes.items():
@@ -34,7 +34,7 @@ class StyleTab(QWidget,SettingsTabBase):
         self.zoomSlider.setMaximum(20)
         self.zoomSlider.setMinimum(-10)
         self.zoomSlider.setTickInterval(5)
-        self.zoomSlider.setTickPosition(QSlider.TicksBelow)
+        self.zoomSlider.setTickPosition(QSlider.TickPosition.TicksBelow)
         self.zoomSlider.valueChanged.connect(lambda: self.editorPreview.zoomTo(self.zoomSlider.value()))
 
         previewText = ("local var = true\n\n"
@@ -113,13 +113,13 @@ class StyleTab(QWidget,SettingsTabBase):
         self.updatePreviewEdit()
 
     def getSettings(self, settings: Settings):
-        settings.editTheme = self.themeSelect.itemData(self.themeSelect.currentIndex())
-        settings.editFoldStyle = self.foldSelect.currentIndex()
-        settings.useCustomFont = bool(self.fontCheckBox.checkState())
-        settings.editFont = self.font
-        settings.editShowLineNumbers = bool(self.lineNumberCheckBox.checkState())
-        settings.highlightCurrentLine = bool(self.highlightLineCheckBox.checkState())
-        settings.defaultZoom = self.zoomSlider.value()
+        settings.set("editTheme",self.themeSelect.itemData(self.themeSelect.currentIndex()))
+        settings.set("editFoldStyle",self.foldSelect.currentIndex())
+        settings.set("useCustomFont",self.fontCheckBox.isChecked())
+        settings.set("editFont",self.font)
+        settings.set("editShowLineNumbers",self.lineNumberCheckBox.isChecked())
+        settings.set("highlightCurrentLine",self.highlightLineCheckBox.isChecked())
+        settings.set("defaultZoom",self.zoomSlider.value())
         return settings
 
     def title(self) -> str:

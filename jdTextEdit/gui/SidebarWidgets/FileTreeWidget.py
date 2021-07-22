@@ -1,5 +1,6 @@
 from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
-from PyQt5.QtWidgets import QTreeView,QFileSystemModel
+from PyQt6.QtGui import QFileSystemModel
+from PyQt6.QtWidgets import QTreeView
 import os
 
 class FileTreeWidget(QTreeView,SidebarWidgetBase):

@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QCheckBox, QHeaderView, QAbstractItemView
+from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QCheckBox, QHeaderView, QAbstractItemView
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 class PluginTab(QTableWidget,SettingsTabBase):
     def __init__(self, env):
@@ -14,11 +14,11 @@ class PluginTab(QTableWidget,SettingsTabBase):
             env.translate("settingsWindow.plugins.header.version"),
             env.translate("settingsWindow.plugins.header.author"),
         ))
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
-        self.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
-        self.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
-        self.horizontalHeader().setSectionResizeMode(3, QHeaderView.Stretch)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        self.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        self.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        self.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
         self.verticalHeader().hide()
 
     def updateTab(self, settings: Settings):
@@ -39,11 +39,11 @@ class PluginTab(QTableWidget,SettingsTabBase):
         self.pluginID = []
         for key, value in self.env.plugins.items():
             nameItem = QTableWidgetItem(value.getName())
-            nameItem.setFlags(nameItem.flags() ^ Qt.ItemIsEditable)
+            nameItem.setFlags(nameItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
             versionItem = QTableWidgetItem(value.getVersion())
-            versionItem.setFlags(versionItem.flags() ^ Qt.ItemIsEditable)
+            versionItem.setFlags(versionItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
             authorItem = QTableWidgetItem(value.getAuthor())
-            authorItem.setFlags(authorItem.flags() ^ Qt.ItemIsEditable)
+            authorItem.setFlags(authorItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
             self.insertRow(count)
             self.setCellWidget(count,0,QCheckBox())
             self.setItem(count,1,nameItem)

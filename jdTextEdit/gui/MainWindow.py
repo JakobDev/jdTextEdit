@@ -1,8 +1,8 @@
-from PyQt5.QtWidgets import QMainWindow, QMenu, QAction, QApplication, QLabel, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog
-from PyQt5.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciPrinter
-from PyQt5.QtGui import QIcon
-from PyQt5.QtPrintSupport import QPrintDialog
-from PyQt5.QtCore import Qt, QFileSystemWatcher, QTimer
+from PyQt6.QtWidgets import QMainWindow, QMenu, QApplication, QLabel, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog
+from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciPrinter
+from PyQt6.QtGui import QIcon, QAction
+from PyQt6.QtPrintSupport import QPrintDialog
+from PyQt6.QtCore import Qt, QFileSystemWatcher, QTimer
 from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
 from jdTextEdit.gui.SplitViewWidget import SplitViewWidget
@@ -66,7 +66,7 @@ class MainWindow(QMainWindow):
         #self.getMenuActions(self.menubar)
         self.env.sidepane = DockWidget(self.env)
         self.env.sidepane.hide()
-        self.addDockWidget(Qt.LeftDockWidgetArea,self.env.sidepane)
+        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea,self.env.sidepane)
         for tabWidget in self.splitViewWidget.getAllTabWidgets():
             for i in range(tabWidget.count()):
                 widget = tabWidget.widget(i).getCodeEditWidget()
@@ -395,21 +395,21 @@ class MainWindow(QMainWindow):
         self.eolModeMenu = QMenu(self.env.translate("mainWindow.menu.edit.eol"),self)
 
         self.eolModeWindows = QAction("Windows",self)
-        self.eolModeWindows.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolWindows))
+        self.eolModeWindows.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolMode.EolWindows))
         self.eolModeWindows.setData(["eolModeWindows"])
         self.eolModeWindows.setCheckable(True)
         self.eolModeMenu.addAction(self.eolModeWindows)
         self.env.pluginAPI.addAction(self.eolModeWindows)
 
         self.eolModeUnix = QAction("Unix",self)
-        self.eolModeUnix.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolUnix))
+        self.eolModeUnix.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolMode.EolUnix))
         self.eolModeUnix.setData(["eolModeWindows"])
         self.eolModeUnix.setCheckable(True)
         self.eolModeMenu.addAction(self.eolModeUnix)
         self.env.pluginAPI.addAction(self.eolModeUnix)
 
         self.eolModeMac = QAction("Mac",self)
-        self.eolModeMac.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolMac))
+        self.eolModeMac.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolMode.EolMac))
         self.eolModeMac.setData(["eolModeUnix"])
         self.eolModeMac.setCheckable(True)
         self.eolModeMenu.addAction(self.eolModeMac)
@@ -1088,11 +1088,11 @@ class MainWindow(QMainWindow):
             if len(lines) != 0:
                 firstLine = lines[0]
                 if firstLine.endswith("\r\n"):
-                    editWidget.setEolMode(QsciScintilla.EolWindows)
+                    editWidget.setEolMode(QsciScintilla.EolMode.EolWindows)
                 elif firstLine.endswith("\n"):
-                    editWidget.setEolMode(QsciScintilla.EolUnix)
+                    editWidget.setEolMode(QsciScintilla.EolMode.EolUnix)
                 elif firstLine.endswith("\r"):
-                    editWidget.setEolMode(QsciScintilla.EolMac)
+                    editWidget.setEolMode(QsciScintilla.EolMode.EolMac)
         editWidget.updateEolMenu()
         editWidget.setUsedEncoding(encoding)
         if not template:
@@ -1127,11 +1127,11 @@ class MainWindow(QMainWindow):
         if editWidget.settings.defaultEncoding != encoding and self.env.settings.showEncodingBanner:
             containerWidget.showBanner(WrongEncodingBanner(self.env,containerWidget))
         if self.env.settings.showEolBanner:
-            if editWidget.eolMode() == QsciScintilla.EolWindows and editWidget.settings.defaultEolMode != 0:
+            if editWidget.eolMode() == QsciScintilla.EolMode.EolWindows and editWidget.settings.defaultEolMode != 0:
                 containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
-            elif editWidget.eolMode() == QsciScintilla.EolUnix and editWidget.settings.defaultEolMode != 1:
+            elif editWidget.eolMode() == QsciScintilla.EolMode.EolUnix and editWidget.settings.defaultEolMode != 1:
                 containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
-            elif editWidget.eolMode() == QsciScintilla.EolMac and editWidget.settings.defaultEolMode != 2:
+            elif editWidget.eolMode() == QsciScintilla.EolMode.EolMac and editWidget.settings.defaultEolMode != 2:
                 containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
         if isBigFile and self.env.settings.bigFileShowBanner:
             containerWidget.showBanner(BigFileBanner(self.env,containerWidget))
@@ -1276,7 +1276,7 @@ class MainWindow(QMainWindow):
         printer = QsciPrinter()
         dialog = QPrintDialog(printer)
         dialog.setWindowTitle(self.env.translate("mainWindow.printDialog.title"))
-        if dialog.exec() == QDialog.Accepted:
+        if dialog.exec() == QDialog.DialogCode.Accepted:
             editWidget = self.getTextEditWidget()
             printer.printRange(editWidget)
 
@@ -1527,13 +1527,13 @@ class MainWindow(QMainWindow):
         self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
         self.updateRecentFilesMenu()
         self.updateToolbar(settings)
-        self.setToolButtonStyle(settings.toolbarIconStyle)
+        #self.setToolButtonStyle(settings.toolbarIconStyle)
         if settings.showToolbar:
             self.toolbar.show()
         else:
             self.toolbar.close()
-        toolbarPositionList = [Qt.TopToolBarArea,Qt.BottomToolBarArea,Qt.LeftToolBarArea,Qt.RightToolBarArea]
-        self.addToolBar(toolbarPositionList[settings.toolbarPosition],self.toolbar)
+        #toolbarPositionList = [Qt.WindowType.WindowType.WindowType.ToolBarArea.TopToolBarArea,Qt.WindowType.WindowType.WindowType.ToolBarArea.BottomToolBarArea,Qt.WindowType.WindowType.WindowType.ToolBarArea.LeftToolBarArea,Qt.WindowType.WindowType.WindowType.ToolBarArea.RightToolBarArea]
+        #self.addToolBar(toolbarPositionList[settings.toolbarPosition],self.toolbar)
         if settings.applicationStyle == "default":
             QApplication.setStyle(QStyleFactory.create(self.env.defaultStyle))
         else:

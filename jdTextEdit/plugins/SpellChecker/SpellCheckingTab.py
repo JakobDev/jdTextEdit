@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QCheckBox, QComboBox, QSpinBox, QLineEdit, QLabel, QHBoxLayout, QVBoxLayout, QGridLayout
+from PyQt6.QtWidgets import QWidget, QCheckBox, QComboBox, QSpinBox, QLineEdit, QLabel, QHBoxLayout, QVBoxLayout, QGridLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 import enchant
 
@@ -68,11 +68,11 @@ class SpellCheckingTab(QWidget,SettingsTabBase):
         self.updateSettingsEnabled()
 
     def getSettings(self,settings):
-        settings.spellCheckingEnabled = bool(self.enableCheckBox.checkState())
-        settings.spellCheckingLanguage = self.languageComboBox.currentData()
-        settings.spellCheckingMinimumWordLength = self.minimumWordLengthSpinBox.value()
-        settings.spellCheckingEnableCustomPwl  = bool(self.customPwlCheckBox.checkState())
-        settings.spellCheckingCustomPwlPath = self.customPwlEdit.text()
+        settings.set("spellCheckingEnabled",self.enableCheckBox.isChecked())
+        settings.set("spellCheckingLanguage",self.languageComboBox.currentData())
+        settings.set("spellCheckingMinimumWordLength",self.minimumWordLengthSpinBox.value())
+        settings.set("spellCheckingEnableCustomPwl",self.customPwlCheckBox.isChecked())
+        settings.set("spellCheckingCustomPwlPath",self.customPwlEdit.text())
 
     def title(self):
         return self.env.translate("plugin.spellChecker.settingsTab")

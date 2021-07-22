@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from jdTextEdit.gui.CodeEdit import CodeEdit
-from PyQt5.QtCore import QFileSystemWatcher
+from PyQt6.QtCore import QFileSystemWatcher
 from jdTextEdit.gui.BannerWidgets.FileChangedBanner import FileChangedBanner
 from jdTextEdit.gui.BannerWidgets.FileDeletedBanner import FileDeletedBanner
 from jdTextEdit.gui.SearchBar import SearchBar

@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox, QSpinBox, QPushButton, QHBoxLayout, QVBoxLayout, QGridLayout, QLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox, QSpinBox, QPushButton, QHBoxLayout, QVBoxLayout, QGridLayout, QLayout
 from jdTextEdit.Functions import getThemeIcon, restoreWindowState
 import math
 
@@ -62,7 +62,7 @@ class SearchWindow(QWidget):
         mainLayout.addWidget(self.searchRange)
         mainLayout.addLayout(numberLayout)
         mainLayout.addLayout(buttonLayout)
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
+        mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("searchWindow.title"))
@@ -77,18 +77,18 @@ class SearchWindow(QWidget):
 
         self.editWidget.findFirst(
             self.searchEdit.text(),
-            self.regEx.checkState(),
-            self.caseSensitive.checkState(),
-            self.wholeWord.checkState(),
-            self.wrap.checkState(),
-            not bool(self.backward.checkState()),
+            self.regEx.isChecked(),
+            self.caseSensitive.isChecked(),
+            self.wholeWord.isChecked(),
+            self.wrap.isChecked(),
+            not self.backward.isChecked(),
             line,
             index,
-            self.showText.checkState()
+            self.showText.isChecked()
         )
 
     def searchRangeEnableUpdated(self):
-        enabled =  bool(self.searchRange.checkState())
+        enabled = self.searchRange.isChecked()
         self.lineLabel.setEnabled(enabled)
         self.indexLabel.setEnabled(enabled)
         self.lineSpinBox.setEnabled(enabled)

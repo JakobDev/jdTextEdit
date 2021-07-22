@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QCheckBox, QLineEdit, QLabel, QSpinBox, QHBoxLayout, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QCheckBox, QLineEdit, QLabel, QSpinBox, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 
@@ -60,12 +60,12 @@ class SaveTab(QWidget,SettingsTabBase):
         self.updateAutoSaveEnabled()
 
     def getSettings(self, settings: Settings):
-        settings.eolFileEnd = bool(self.eolFileEndCheckBox.checkState())
-        settings.stripSpacesSave = bool(self.stripSpacesCheckBox.checkState())
-        settings.saveBackupEnabled =  bool(self.backupCheckBox.checkState())
-        settings.saveBackupExtension = self.backupExtensionEdit.text()
-        settings.enableAutoSave =  bool(self.autoSaveCheckBox.checkState())
-        settings.autoSaveInterval = self.autoSaveIntervalSpinBox.value()
+        settings.set("eolFileEnd",self.eolFileEndCheckBox.isChecked())
+        settings.set("stripSpacesSave",self.stripSpacesCheckBox.isChecked())
+        settings.set("saveBackupEnabled",self.backupCheckBox.isChecked())
+        settings.set("saveBackupExtension",self.backupExtensionEdit.text())
+        settings.set("enableAutoSave",self.autoSaveCheckBox.isChecked())
+        settings.set("autoSaveInterval",self.autoSaveIntervalSpinBox.value())
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.save")

@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QMenu, QAction
-from PyQt5.QtGui import QColor, QCursor
-from PyQt5.QtCore import QObject
+from PyQt6.QtGui import QColor, QCursor, QAction
+from PyQt6.QtWidgets import QMenu
+from PyQt6.QtCore import QObject
 import enchant
 import os
 
@@ -13,7 +13,7 @@ class SpellChecker(QObject):
 
     def update_language(self):
         if self.settings.spellCheckingEnableCustomPwl:
-            self.dict = enchant.DictWithPWL(self.settings.spellCheckingLanguage.self.settings.spellCheckingCustomPwlPath)
+            self.dict = enchant.DictWithPWL(self.settings.spellCheckingLanguage,self.settings.spellCheckingCustomPwlPath)
         else:
             self.dict = enchant.DictWithPWL(self.settings.spellCheckingLanguage,os.path.join(self.env.dataDir,"pwl.txt"))
         self.enable_custom_pwl = self.settings.spellCheckingEnableCustomPwl

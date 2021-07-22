@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QFileDialog, QLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QFileDialog, QLayout
 import sys
 
 class CloseSaveWindow(QWidget):
@@ -22,7 +22,7 @@ class CloseSaveWindow(QWidget):
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(self.text)
         mainLayout.addLayout(buttonLayout)
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
+        mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
         self.setLayout(mainLayout)
 

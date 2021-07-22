@@ -1,4 +1,4 @@
-from PyQt5.Qsci import *
+from PyQt6.Qsci import *
 
 def getLexerList():
     lexerList = []

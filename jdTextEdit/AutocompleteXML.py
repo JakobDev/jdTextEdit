@@ -1,4 +1,4 @@
-from PyQt5.Qsci import QsciAPIs
+from PyQt6.Qsci import QsciAPIs
 from xml.dom import minidom
 
 class AutocompleteXML(QsciAPIs):

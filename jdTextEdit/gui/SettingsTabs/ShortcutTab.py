@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QPushButton, QScrollArea, QKeySequenceEdit, QGridLayout
+from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QScrollArea, QKeySequenceEdit, QGridLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 

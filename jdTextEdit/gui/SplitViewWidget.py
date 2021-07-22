@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QSplitter, QHBoxLayout
+from PyQt6.QtWidgets import QWidget, QSplitter, QHBoxLayout
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Enviroment import Enviroment

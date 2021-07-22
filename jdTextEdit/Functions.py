@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QMessageBox, QWidget, QComboBox
+from PyQt6.QtWidgets import QMessageBox, QWidget, QComboBox
 from jdTextEdit.gui.CodeEdit import CodeEdit
-from PyQt5.QtGui import QIcon
+from PyQt6.QtGui import QIcon
 from pathlib import Path
 from typing import Any, Callable
 import subprocess
@@ -124,8 +124,8 @@ def showMessageBox(title: str, text: str):
     messageBox = QMessageBox()
     messageBox.setWindowTitle(title)
     messageBox.setText(text)
-    messageBox.setStandardButtons(QMessageBox.Ok)
-    messageBox.exec_()
+    messageBox.setStandardButtons(QMessageBox.StandardButton.Ok)
+    messageBox.exec()
 
 def getDataPath(env) -> str:
     """

@@ -1,6 +1,6 @@
 from jdTextEdit.api.ThemeBase import ThemeBase
 from jdTextEdit.Functions import readJsonFile
-from PyQt5.QtGui import QColor
+from PyQt6.QtGui import QColor
 import traceback
 import sys
 import os

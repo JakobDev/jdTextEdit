@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QPushButton, QKeySequenceEdit, QHBoxLayout, QVBoxLayout, QGridLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QPushButton, QKeySequenceEdit, QHBoxLayout, QVBoxLayout, QGridLayout
 from jdTextEdit.Functions import restoreWindowState, showMessageBox
 import json
 import os
@@ -25,11 +25,11 @@ class ManageMacrosWindow(QWidget):
         okButton = QPushButton(env.translate("button.ok"))
         cancelButton = QPushButton(env.translate("button.cancel"))
 
-        self.macroTable.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.macroTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
-        self.macroTable.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
-        self.macroTable.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
-        self.macroTable.horizontalHeader().setSectionResizeMode(3, QHeaderView.Stretch)
+        self.macroTable.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.macroTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        self.macroTable.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        self.macroTable.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        self.macroTable.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
         self.macroTable.horizontalHeader().hide()
         self.macroTable.verticalHeader().hide()
 

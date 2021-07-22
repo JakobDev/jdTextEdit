@@ -1,5 +1,5 @@
 from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
-from PyQt5.QtWidgets import QPlainTextEdit
+from PyQt6.QtWidgets import QPlainTextEdit
 
 class NotesWidget(QPlainTextEdit,SidebarWidgetBase):
     def __init__(self,env):

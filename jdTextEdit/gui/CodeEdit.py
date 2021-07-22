@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QMenu
-from PyQt5.Qsci import QsciScintilla, QsciLexer, QsciScintillaBase, QsciMacro
-from PyQt5.QtGui import QColor, QFontMetrics, QFont, QCursor
-from PyQt5.QtCore import pyqtSignal
+from PyQt6.QtWidgets import QMenu
+from PyQt6.Qsci import QsciScintilla, QsciLexer, QsciScintillaBase, QsciMacro
+from PyQt6.QtGui import QColor, QFontMetrics, QFont, QCursor
+from PyQt6.QtCore import pyqtSignal
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase
 import editorconfig
@@ -34,8 +34,8 @@ class CodeEdit(QsciScintilla):
         self.currentIdicatorNumber = 0
         self.cursorPosString = env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1)
         self.languageName = env.translate("mainWindow.menu.language.plainText")
-        self.foldStyles = [QsciScintilla.NoFoldStyle,QsciScintilla.PlainFoldStyle,QsciScintilla.CircledFoldStyle,QsciScintilla.BoxedFoldStyle,QsciScintilla.CircledTreeFoldStyle,QsciScintilla.BoxedTreeFoldStyle]
-        eolModeList = [QsciScintilla.EolWindows,QsciScintilla.EolUnix,QsciScintilla.EolMac]
+        self.foldStyles = [QsciScintilla.FoldStyle.NoFoldStyle,QsciScintilla.FoldStyle.PlainFoldStyle,QsciScintilla.FoldStyle.CircledFoldStyle,QsciScintilla.FoldStyle.BoxedFoldStyle,QsciScintilla.FoldStyle.CircledTreeFoldStyle,QsciScintilla.FoldStyle.BoxedTreeFoldStyle]
+        eolModeList = [QsciScintilla.EolMode.EolWindows,QsciScintilla.EolMode.EolUnix,QsciScintilla.EolMode.EolMac]
         self.changeEolMode(eolModeList[self.settings.defaultEolMode])
         self.updateSettings(self.settings)
         self.setMarginLineNumbers(0, True)
@@ -45,7 +45,7 @@ class CodeEdit(QsciScintilla):
         self.setMarginSensitivity(1,True)
         #self.modificationStateChange(False)
         #self.setMarginsBackgroundColor(QColor("#cccccc"))
-        #self.setWrapVisualFlags(QsciScintilla.WrapFlagByText)
+        #self.setWrapVisualFlags(QsciScintilla.WrapVisualFlag.WrapFlagByText)
 
         self.textChanged.connect(self.textEdited)
         self.selectionChanged.connect(self.editSelectionChanged)
@@ -61,8 +61,8 @@ class CodeEdit(QsciScintilla):
                 if l.getID() == self.settings.defaultLanguage:
                     self.setLanguage(l)
 
-        self.setMarginType(1, QsciScintilla.SymbolMargin)
-        sym_4 = QsciScintilla.Circle
+        self.setMarginType(1, QsciScintilla.MarginType.SymbolMargin)
+        sym_4 = QsciScintilla.MarkerSymbol.Circle
         self.markerDefine(sym_4, 0)
         #self.setMarginWidth(1, 10)
 
@@ -77,11 +77,11 @@ class CodeEdit(QsciScintilla):
         self.env.mainWindow.encodingLabel.setText(self.usedEncoding)
         self.env.mainWindow.lexerLabel.setText(self.languageName)
         self.env.mainWindow.cursorPosLabel.setText(self.cursorPosString)
-        if self.eolMode() == QsciScintilla.EolWindows:
+        if self.eolMode() == QsciScintilla.EolMode.EolWindows:
             self.env.mainWindow.eolLabel.setText("CRLF")
-        elif self.eolMode() == QsciScintilla.EolUnix:
+        elif self.eolMode() == QsciScintilla.EolMode.EolUnix:
             self.env.mainWindow.eolLabel.setText("LF")
-        elif self.eolMode() == QsciScintilla.EolMac:
+        elif self.eolMode() == QsciScintilla.EolMode.EolMac:
             self.env.mainWindow.eolLabel.setText("CR")
 
     def setLanguage(self,lang: LanguageBase):
@@ -187,11 +187,11 @@ class CodeEdit(QsciScintilla):
         self.env.mainWindow.eolModeWindows.setChecked(False)
         self.env.mainWindow.eolModeUnix.setChecked(False)
         self.env.mainWindow.eolModeMac.setChecked(False)
-        if self.eolMode() == QsciScintilla.EolWindows:
+        if self.eolMode() == QsciScintilla.EolMode.EolWindows:
             self.env.mainWindow.eolModeWindows.setChecked(True)
-        elif self.eolMode() == QsciScintilla.EolUnix:
+        elif self.eolMode() == QsciScintilla.EolMode.EolUnix:
             self.env.mainWindow.eolModeUnix.setChecked(True)
-        elif self.eolMode() == QsciScintilla.EolMac:
+        elif self.eolMode() == QsciScintilla.EolMode.EolMac:
             self.env.mainWindow.eolModeMac.setChecked(True)
 
     def changeEolMode(self, mode):
@@ -201,11 +201,11 @@ class CodeEdit(QsciScintilla):
         self.updateStatusBar()
 
     def getEolChar(self):
-        if self.eolMode() == QsciScintilla.EolWindows:
+        if self.eolMode() == QsciScintilla.EolMode.EolWindows:
             return "\r\n"
-        elif self.eolMode() == QsciScintilla.EolUnix:
+        elif self.eolMode() == QsciScintilla.EolMode.EolUnix:
             return "\n"
-        elif self.eolMode() == QsciScintilla.EolMac:
+        elif self.eolMode() == QsciScintilla.EolMode.EolMac:
             return "\r"
 
     def setUsedEncoding(self, encoding):
@@ -387,9 +387,8 @@ class CodeEdit(QsciScintilla):
         self.setMarginsFont(font)
         fontmetrics = QFontMetrics(font)
         if settings.editShowLineNumbers:
-            self.setMarginWidth(0, fontmetrics.width("00000") + 6)
+            self.setMarginWidth(0,fontmetrics.averageCharWidth() + 6)
         else:
-            pass
             self.setMarginWidth(0,0)
         if self.currentLexer:
             self.currentLexer.setFont(font)
@@ -419,20 +418,24 @@ class CodeEdit(QsciScintilla):
         self.setCaretLineVisible(settings.highlightCurrentLine)
         self.setTabWidth(settings.editTabWidth)
         self.setIndentationsUseTabs(not settings.editTabSpaces)
-        self.setWrapMode(settings.editTextWrap)
-        self.setWhitespaceVisibility(settings.editShowWhitespaces)
+        #self.setWrapMode(settings.editTextWrap)
+        if settings.get("editShowWhitespaces"):
+            self.setWhitespaceVisibility(QsciScintilla.WhitespaceVisibility.WsVisible)
+        else:
+            self.setWhitespaceVisibility(QsciScintilla.WhitespaceVisibility.WsInvisible)
+        #self.setWhitespaceVisibility(settings.editShowWhitespaces)
         self.setAutoIndent(settings.editAutoIndent)
         self.setEolVisibility(settings.editShowEol)
         self.setIndentationGuides(settings.showIndentationGuides)
         if settings.enableAutocompletion:
             if settings.autocompletionUseDocument and settings.autocompletionUseAPI:
-                self.setAutoCompletionSource(QsciScintilla.AcsAll)
+                self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsAll)
             elif settings.autocompletionUseDocument:
-                self.setAutoCompletionSource(QsciScintilla.AcsDocument)
+                self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsDocument)
             elif settings.autocompletionUseAPI:
-                self.setAutoCompletionSource(QsciScintilla.AcsAPIs)
+                self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsAPIs)
             else:
-                self.setAutoCompletionSource(QsciScintilla.AcsNone)
+                self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsNone)
             self.setAutoCompletionCaseSensitivity(settings.autocompletionCaseSensitive)
             self.setAutoCompletionThreshold(settings.autocompleteThreshold)
             self.setAutoCompletionReplaceWord(settings.autocompletionReplaceWord)
@@ -445,7 +448,7 @@ class CodeEdit(QsciScintilla):
                 #else:
                     #api = self.apiCompletion(self.currentLexer)
         else:
-            self.setAutoCompletionSource(QsciScintilla.AcsNone)
+            self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsNone)
         self.settings = settings
 
     def positionFromPoint(self,point):

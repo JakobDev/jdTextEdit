@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem
+from PyQt6.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
-from PyQt5.QtGui import QIcon
+from PyQt6.QtGui import QIcon
 
 class CustomWidgetItem(QListWidgetItem):
     def __init__(self,name: str):

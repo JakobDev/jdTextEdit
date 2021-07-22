@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QApplication, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QHeaderView, QAbstractItemView, QRadioButton, QLineEdit, QLabel, QPushButton
+from PyQt6.QtWidgets import QApplication, QWidget, QApplication, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QHeaderView, QAbstractItemView, QRadioButton, QLineEdit, QLabel, QPushButton
 from jdTextEdit.Functions import restoreWindowState
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 import time
 import sys
 
@@ -41,8 +41,8 @@ class DateTimeWindow(QWidget):
         cancelButton.clicked.connect(lambda: self.close())
         okButton.clicked.connect(self.okButtonClicked)
 
-        self.templateTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
-        self.templateTable.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.templateTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        self.templateTable.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.templateTable.horizontalHeader().hide()
         self.templateTable.verticalHeader().hide()
         self.templateTable.setCurrentCell(0,0)
@@ -75,7 +75,7 @@ class DateTimeWindow(QWidget):
         count = 0
         for i in self.templates:
             item = QTableWidgetItem(time.strftime(i))
-            item.setFlags(item.flags() ^ Qt.ItemIsEditable)
+            item.setFlags(item.flags() ^ Qt.ItemFlag.ItemIsEditable)
             self.templateTable.insertRow(count)
             self.templateTable.setItem(count,0,item)
             count += 1

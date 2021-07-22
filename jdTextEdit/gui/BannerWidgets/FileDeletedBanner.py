@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QHBoxLayout
+from PyQt6.QtWidgets import QWidget, QPushButton, QLabel, QHBoxLayout
 
 class FileDeletedBanner(QWidget):
     def __init__(self,env,parent):

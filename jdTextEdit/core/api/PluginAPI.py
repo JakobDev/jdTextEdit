@@ -5,7 +5,8 @@ from jdTextEdit.core.api.EditorSignals import EditorSignals
 from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
 from jdTextEdit.api.ThemeBase import ThemeBase
-from PyQt5.QtWidgets import QWidget, QAction
+from PyQt6.QtWidgets import QWidget
+from PyQt6.QtGui import QAction
 
 class PluginAPI():
     def __init__(self,env):

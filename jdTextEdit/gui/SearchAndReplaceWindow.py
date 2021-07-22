@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPlainTextEdit, QPushButton, QHBoxLayout, QVBoxLayout, QGridLayout, QLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPlainTextEdit, QPushButton, QHBoxLayout, QVBoxLayout, QGridLayout, QLayout
 
 class SearchAndReplaceWindow(QWidget):
     def __init__(self,env):
@@ -28,7 +28,7 @@ class SearchAndReplaceWindow(QWidget):
         self.mainLayout.addWidget(QLabel(env.translate("searchAndReplaceWindow.label.replaceWith")))
         self.mainLayout.addWidget(self.replaceEdit)
         self.mainLayout.addLayout(self.buttonLayout)
-        self.mainLayout.setSizeConstraint(QLayout.SetFixedSize)
+        self.mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
         self.setWindowTitle(env.translate("searchAndReplaceWindow.title"))
         self.setLayout(self.mainLayout)

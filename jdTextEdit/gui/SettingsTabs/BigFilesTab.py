@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QWidget, QLineEdit, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QLineEdit, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
-from PyQt5.QtGui import QIntValidator
+from PyQt6.QtGui import QIntValidator
 
 class BigFilesTab(QWidget,SettingsTabBase):
     def __init__(self,env):
@@ -62,11 +62,11 @@ class BigFilesTab(QWidget,SettingsTabBase):
             i[0].setChecked(settings.get(i[1]))
 
     def getSettings(self,settings: Settings):
-        settings.enableBigFileLimit = bool(self.enableBigFiles.checkState())
-        settings.bigFileSize = int(self.bytesEdit.text())
-        settings.bigFileDisableHighlight = bool(self.disableHighlight.checkState())
-        settings.bigFileDisableEncodingDetect  = bool(self.disableEncodingDetect.checkState())
-        settings.bigFileShowBanner = bool(self.showBanner.checkState())
+        settings.set("enableBigFileLimit",self.enableBigFiles.isChecked())
+        settings.set("bigFileSize",int(self.bytesEdit.text()))
+        settings.set("bigFileDisableHighlight",self.disableHighlight.isChecked())
+        settings.set("bigFileDisableEncodingDetect",self.disableEncodingDetect.isChecked())
+        settings.set("bigFileShowBanner",self.showBanner.isChecked())
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.bigFiles")

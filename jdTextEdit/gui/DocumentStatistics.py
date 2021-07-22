@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGridLayout, QHBoxLayout, QVBoxLayout, QLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QGridLayout, QHBoxLayout, QVBoxLayout, QLayout
 from jdTextEdit.Functions import getThemeIcon
 import re
 
@@ -42,7 +42,7 @@ class DocumentStatistics(QWidget):
         mainLayout = QVBoxLayout()
         mainLayout.addLayout(gridLayout)
         mainLayout.addLayout(buttonLayout)
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
+        mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("documentStatistics.title"))

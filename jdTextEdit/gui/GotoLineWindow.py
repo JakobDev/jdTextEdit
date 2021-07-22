@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QLayout
-from PyQt5.QtGui import QIntValidator
+from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QLayout
+from PyQt6.QtGui import QIntValidator
 
 class GotoLineWindow(QWidget):
     def __init__(self, env):
@@ -21,7 +21,7 @@ class GotoLineWindow(QWidget):
         mainLayout.addWidget(QLabel(env.translate("gotoLineWindow.text")))
         mainLayout.addWidget(self.lineEdit)
         mainLayout.addLayout(buttonLayout)
-        mainLayout.setSizeConstraint(QLayout.SetFixedSize)
+        mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
         
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("gotoLineWindow.title"))
