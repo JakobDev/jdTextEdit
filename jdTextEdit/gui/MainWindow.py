@@ -1527,13 +1527,14 @@ class MainWindow(QMainWindow):
         self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
         self.updateRecentFilesMenu()
         self.updateToolbar(settings)
-        #self.setToolButtonStyle(settings.toolbarIconStyle)
+        toolButtonStyle = (Qt.ToolButtonStyle.ToolButtonIconOnly,Qt.ToolButtonStyle.ToolButtonTextOnly,Qt.ToolButtonStyle.ToolButtonTextBesideIcon,Qt.ToolButtonStyle.ToolButtonTextUnderIcon,Qt.ToolButtonStyle.ToolButtonFollowStyle)
+        self.setToolButtonStyle(toolButtonStyle[settings.get("toolbarIconStyle")])
         if settings.showToolbar:
             self.toolbar.show()
         else:
             self.toolbar.close()
-        #toolbarPositionList = [Qt.WindowType.WindowType.WindowType.ToolBarArea.TopToolBarArea,Qt.WindowType.WindowType.WindowType.ToolBarArea.BottomToolBarArea,Qt.WindowType.WindowType.WindowType.ToolBarArea.LeftToolBarArea,Qt.WindowType.WindowType.WindowType.ToolBarArea.RightToolBarArea]
-        #self.addToolBar(toolbarPositionList[settings.toolbarPosition],self.toolbar)
+        toolbarPositionList = [Qt.ToolBarArea.TopToolBarArea,Qt.ToolBarArea.BottomToolBarArea,Qt.ToolBarArea.LeftToolBarArea,Qt.ToolBarArea.RightToolBarArea]
+        self.addToolBar(toolbarPositionList[settings.toolbarPosition],self.toolbar)
         if settings.applicationStyle == "default":
             QApplication.setStyle(QStyleFactory.create(self.env.defaultStyle))
         else:
