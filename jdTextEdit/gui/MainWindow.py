@@ -1520,8 +1520,9 @@ class MainWindow(QMainWindow):
             return
         for tabWidget in self.splitViewWidget.getAllTabWidgets():
             for i in range(tabWidget.count()):
-                if tabWidget.widget(i).getCodeEditWidget().getFilePath() != "":
-                    self.saveFile(i)
+                editWidget = tabWidget.widget(i).getCodeEditWidget()
+                if editWidget.getFilePath() != "":
+                    self.saveFile(editWidget)
 
     def updateSettings(self, settings: Settings):
         self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
