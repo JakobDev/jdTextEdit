@@ -62,6 +62,7 @@ class SplitViewWidget(QWidget):
         """
         tabWidget = EditTabWidget(self.env,self,self.splitterWidget.count())
         tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"))
+        tabWidget.updateSettings(self.env.settings)
         self.splitterWidget.insertWidget(self.activeID+1,tabWidget)
         self.env.mainWindow.deleteCurrentViewAction.setEnabled(True)
 
