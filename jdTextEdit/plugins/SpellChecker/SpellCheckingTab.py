@@ -42,7 +42,7 @@ class SpellCheckingTab(QWidget,SettingsTabBase):
         self.setLayout(main_layout)
 
     def updateSettingsEnabled(self):
-        enabled = bool(self.enableCheckBox.checkState())
+        enabled = self.enableCheckBox.isChecked()
         self.dictonaryLabel.setEnabled(enabled)
         self.languageComboBox.setEnabled(enabled)
         self.minimumWordLengthLabel.setEnabled(enabled)
@@ -51,7 +51,7 @@ class SpellCheckingTab(QWidget,SettingsTabBase):
         self.updateCustomPwlEnabled()
 
     def updateCustomPwlEnabled(self):
-        enabled = bool(self.enableCheckBox.checkState()) and bool(self.customPwlCheckBox.checkState())
+        enabled = bool(self.enableCheckBox.checkState()) and self.customPwlCheckBox.isChecked()
         self.customPwlEdit.setEnabled(enabled)
         self.customPwlLabel.setEnabled(enabled)
 

@@ -1117,7 +1117,7 @@ class MainWindow(QMainWindow):
                 for e in i.getStarttext():
                     if fileContent.startswith(e):
                         editWidget.setLanguage(i)
-                        languageFound= True
+                        languageFound = True
                         break
                 if languageFound:
                     break
@@ -1175,12 +1175,27 @@ class MainWindow(QMainWindow):
         containerWidget.fileWatcher.addPath(path)
         editWidget.setModified(False)
         self.updateWindowTitle()
-        if self.env.settings.detectLanguage:
-            for i in self.env.lexerList:
-                for e in i["extension"]:
+        if len(text) >= self.env.settings.get("bigFileSize") and self.env.settings.get("enableBigFileLimit"):
+            isBigFile = True
+        else:
+            isBigFile = False
+        if self.env.settings.get("detectLanguage") and not(isBigFile and self.env.settings.get("bigFileDisableHighlight")):
+            languageFound = False
+            for i in self.env.languageList:
+                for e in i.getExtensions():
                     if path.endswith(e):
-                        lexer = i["lexer"]()
-                        editWidget.setSyntaxHighlighter(lexer,lexerList=i)
+                        editWidget.setLanguage(i)
+                        languageFound = True
+                        break
+                if languageFound:
+                    break
+                for e in i.getStarttext():
+                    if text.startswith(e.encode("utf-8")):
+                        editWidget.setLanguage(i)
+                        languageFound = True
+                        break
+                if languageFound:
+                    break
 
     def newMenuBarClicked(self):
         self.getTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
