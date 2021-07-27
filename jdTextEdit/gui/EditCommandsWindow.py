@@ -23,13 +23,17 @@ class EditCommandsWindow(QWidget):
         removeButton.clicked.connect(lambda: self.commandsTable.removeRow(self.commandsTable.currentRow()))
         okButton.clicked.connect(self.okButtonClicked)
         cancelButton.clicked.connect(self.close)
-       
+
         buttonLayout = QHBoxLayout()
         buttonLayout.addWidget(addButton)
         buttonLayout.addWidget(removeButton)
         buttonLayout.addStretch(1)
-        buttonLayout.addWidget(cancelButton)
-        buttonLayout.addWidget(okButton)
+        if env.settings.get("swapOkCancel"):
+            buttonLayout.addWidget(okButton)
+            buttonLayout.addWidget(cancelButton)
+        else:
+            buttonLayout.addWidget(cancelButton)
+            buttonLayout.addWidget(okButton)
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(QLabel("%url% - " + env.translate("executeCommand.label.url")))

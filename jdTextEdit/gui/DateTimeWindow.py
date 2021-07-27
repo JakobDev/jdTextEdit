@@ -53,11 +53,15 @@ class DateTimeWindow(QWidget):
         customLayout = QHBoxLayout()
         customLayout.addWidget(self.customEdit)
         customLayout.addWidget(self.previewLabel)
-    
+
         buttonLayout = QHBoxLayout()
         buttonLayout.addStretch(1)
-        buttonLayout.addWidget(cancelButton)
-        buttonLayout.addWidget(okButton)
+        if env.settings.get("swapOkCancel"):
+            buttonLayout.addWidget(okButton)
+            buttonLayout.addWidget(cancelButton)
+        else:
+            buttonLayout.addWidget(cancelButton)
+            buttonLayout.addWidget(okButton)
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(self.useTemplate)
@@ -65,7 +69,7 @@ class DateTimeWindow(QWidget):
         mainLayout.addWidget(self.useCustom)
         mainLayout.addLayout(customLayout)
         mainLayout.addLayout(buttonLayout)
-       
+
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("dateTimeWindow.title"))
         restoreWindowState(self,env.windowState,"DateTimeWindow")

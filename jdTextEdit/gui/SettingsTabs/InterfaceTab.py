@@ -10,6 +10,7 @@ class InterfaceTab(QWidget,SettingsTabBase):
 
         self.styleSelectComboBox = QComboBox()
         self.settingsWindowType = QComboBox()
+        self.swapOkCancel = QCheckBox(env.translate("settingsWindow.interface.checkBox.swapOkCancel"))
         self.enableUserChrome = QCheckBox(env.translate("settingsWindow.interface.checkBox.enableUserChrome"))
 
         self.styleSelectComboBox.addItem(env.translate("settingsWindow.interface.combobox.systemStyle"))
@@ -26,6 +27,7 @@ class InterfaceTab(QWidget,SettingsTabBase):
 
         mainLayout = QVBoxLayout()
         mainLayout.addLayout(gridLayout)
+        mainLayout.addWidget(self.swapOkCancel)
         mainLayout.addWidget(self.enableUserChrome)
         mainLayout.addStretch(1)
 
@@ -41,6 +43,7 @@ class InterfaceTab(QWidget,SettingsTabBase):
             self.settingsWindowType.setCurrentIndex(0)
         else:
             self.settingsWindowType.setCurrentIndex(1)
+        self.swapOkCancel.setChecked(settings.get("swapOkCancel"))
         self.enableUserChrome.setChecked(settings.get("enableUserChrome"))
 
     def getSettings(self, settings: Settings):
@@ -52,6 +55,7 @@ class InterfaceTab(QWidget,SettingsTabBase):
             settings.set("settingsWindowUseModernDesign",True)
         else:
             settings.set("settingsWindowUseModernDesign",False)
+        settings.set("swapOkCancel", self.swapOkCancel.isChecked())
         settings.set("enableUserChrome",self.enableUserChrome.isChecked())
 
     def title(self) -> str:

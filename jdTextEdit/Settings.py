@@ -85,6 +85,7 @@ class Settings():
         self.editorConfigShowBanner = False
         self.settingsWindowUseModernDesign = True
         self.enableUserChrome = True
+        self.swapOkCancel = True
         self.disabledPlugins = []
         self.shortcut = {
             "newFile": QKeySequence(QKeySequence.StandardKey.New).toString(),

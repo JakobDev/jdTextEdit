@@ -11,16 +11,14 @@ class SearchAndReplaceWindow(QWidget):
         self.cancelButton.clicked.connect(self.cancelButtonClicked)
         self.okButton.clicked.connect(self.okButtonClicked)
 
-        #gridLayout = QGridLayout()
-        #gridLayout.addWidget(QLabel(env.translate("searchAndReplaceWindow.label.searchFor")),0,0)
-        #gridLayout.addWidget(self.searchEdit,0,1)
-        #gridLayout.addWidget(QLabel(env.translate("searchAndReplaceWindow.label.replaceWith")),1,0)
-        #gridLayout.addWidget(self.replaceEdit,1,1)
-
         self.buttonLayout = QHBoxLayout()
         self.buttonLayout.addStretch(1)
-        self.buttonLayout.addWidget(self.cancelButton)
-        self.buttonLayout.addWidget(self.okButton)
+        if env.settings.get("swapOkCancel"):
+            self.buttonLayout.addWidget(self.okButton)
+            self.buttonLayout.addWidget(self.cancelButton)
+        else:
+            self.buttonLayout.addWidget(self.cancelButton)
+            self.buttonLayout.addWidget(self.okButton)
 
         self.mainLayout = QVBoxLayout()
         self.mainLayout.addWidget(QLabel(env.translate("searchAndReplaceWindow.label.searchFor")))

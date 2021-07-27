@@ -235,6 +235,7 @@ settingsWindow.interface.combobox.systemStyle=System style
 settingsWindow.interface.label.settingsDesign=Settings Design (needs restart):
 settingsWindow.interface.combobox.modern=Modern
 settingsWindow.interface.combobox.classic=Classic
+settingsWindow.interface.checkBox.swapOkCancel=Swap position of OK and Cancel (needs restart)
 settingsWindow.interface.checkBox.enableUserChrome=Enable userChrome.css
 settingsWindow.contextMenu=Context menu
 settingsWindow.contextMenu.button.add=Add

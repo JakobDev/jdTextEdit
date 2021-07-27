@@ -40,8 +40,12 @@ class SettingsWindow(QWidget):
         buttonLayout = QHBoxLayout()
         buttonLayout.addWidget(defaultButton)
         buttonLayout.addStretch(1)
-        buttonLayout.addWidget(cancelButton)
-        buttonLayout.addWidget(okButton)
+        if self.env.settings.get("swapOkCancel"):
+            buttonLayout.addWidget(okButton)
+            buttonLayout.addWidget(cancelButton)
+        else:
+            buttonLayout.addWidget(cancelButton)
+            buttonLayout.addWidget(okButton)
 
         if self.env.settings.get("settingsWindowUseModernDesign"):
             mainLayout = QVBoxLayout()

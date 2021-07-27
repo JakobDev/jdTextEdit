@@ -38,8 +38,12 @@ class ManageMacrosWindow(QWidget):
 
         buttonLayout = QHBoxLayout()
         buttonLayout.addStretch(1)
-        buttonLayout.addWidget(cancelButton)
-        buttonLayout.addWidget(okButton)
+        if env.settings.get("swapOkCancel"):
+            buttonLayout.addWidget(okButton)
+            buttonLayout.addWidget(cancelButton)
+        else:
+            buttonLayout.addWidget(cancelButton)
+            buttonLayout.addWidget(okButton)
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(self.macroTable)

@@ -36,8 +36,12 @@ class PluginManagerWindow(QWidget):
 
         buttonLayout = QHBoxLayout()
         buttonLayout.addStretch(1)
-        buttonLayout.addWidget(cancelButton)
-        buttonLayout.addWidget(okButton)
+        if env.settings.get("swapOkCancel"):
+            buttonLayout.addWidget(okButton)
+            buttonLayout.addWidget(cancelButton)
+        else:
+            buttonLayout.addWidget(cancelButton)
+            buttonLayout.addWidget(okButton)
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(self.pluginTable)
@@ -85,7 +89,7 @@ class PluginManagerWindow(QWidget):
             self.pluginTable.setItem(count,2,versionItem)
             self.pluginTable.setItem(count,3,authorItem)
             self.pluginList.append({"id":i["id"],"description":i["description"],"files":i["files"],"neededVersion":i["neededVersion"]})
-        return True    
+        return True
 
     def installPlugin(self, index):
         if float(self.pluginList[index]["neededVersion"]) > float(self.env.version):
@@ -108,7 +112,7 @@ class PluginManagerWindow(QWidget):
                 return False
         self.installedList[self.pluginList[index]["id"]] = True
         return True
-         
+
     def doChanges(self):
         for i in range(self.pluginTable.rowCount()):
             if self.pluginTable.cellWidget(i,0).checkState():

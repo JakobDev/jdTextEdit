@@ -235,6 +235,7 @@ settingsWindow.interface.combobox.systemStyle=Systemdesign
 settingsWindow.interface.label.settingsDesign=Einstellungsdesign (benötigt Neustart):
 settingsWindow.interface.combobox.modern=Modern
 settingsWindow.interface.combobox.classic=Klassisch
+settingsWindow.interface.checkBox.swapOkCancel=Position von OK und Abbrechen tauschen (benötigt Neustart)
 settingsWindow.interface.checkBox.enableUserChrome=Benutze userChrome.css wenn vorhanden
 settingsWindow.contextMenu=Kontextmenü
 settingsWindow.contextMenu.button.add=Hinzufügen
