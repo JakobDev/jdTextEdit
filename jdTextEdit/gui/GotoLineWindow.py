@@ -7,7 +7,7 @@ class GotoLineWindow(QWidget):
         self.lineEdit = QLineEdit()
         okButton = QPushButton(env.translate("button.ok"))
         cancelButton = QPushButton(env.translate("button.cancel"))
-        
+
         self.lineEdit.setValidator(QIntValidator())
         okButton.clicked.connect(self.okButtonClicked)
         cancelButton.clicked.connect(self.close)
@@ -22,7 +22,7 @@ class GotoLineWindow(QWidget):
         mainLayout.addWidget(self.lineEdit)
         mainLayout.addLayout(buttonLayout)
         mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
-        
+
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("gotoLineWindow.title"))
 
@@ -34,7 +34,7 @@ class GotoLineWindow(QWidget):
 
     def okButtonClicked(self):
         try:
-            self.editWidget.setCursorPosition(int(self.lineEdit.text()) - 1,0)
+            self.editWidget.setCursorPosition(int(self.lineEdit.text()) - 1, 0)
             self.editWidget.ensureCursorVisible()
         except:
             pass

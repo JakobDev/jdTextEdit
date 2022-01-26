@@ -72,7 +72,7 @@ class DateTimeWindow(QWidget):
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("dateTimeWindow.title"))
-        restoreWindowState(self,env.windowState,"DateTimeWindow")
+        restoreWindowState(self,env.windowState, "DateTimeWindow")
         self.updateTemplateList()
 
     def updateTemplateList(self):

@@ -114,6 +114,7 @@ mainWindow.menu.macro.manageMacros=Manage macros
 mainWindow.menu.execute=Execute
 mainWindow.menu.execute.executeCommand=Execute Command
 mainWindow.menu.execute.editCommands=Edit Commands
+mainWindow.menu.about.searchAction=Search Action
 mainWindow.menu.about.openDataDir=Open data directory
 mainWindow.menu.about.openProgramDir=Open program directory
 mainWindow.menu.about.searchForUpdates=Search for updates
@@ -316,12 +317,22 @@ editCommandsWindow.command=Command
 editCommandsWindow.terminal=Terminal
 editCommandsWindow.shortcut=Shortcut
 
+searchActionWindow.title=Search Action
+
 aboutWindow.title=About
 aboutWindow.label.title=jdTextEdit Version %s
 aboutWindow.label.description=jdTextEdit is a feature rich text editor with plugin support written in Python
 aboutWindow.label.license=This program is licensed under GNU GPL 3
 aboutWindow.label.logoAuthor=The logo was made by Axel-Erfurt
 aboutWindow.button.viewSource=View Source
+
+addProjectWindow.title=New Project
+addProjectWindow.label.name=Name:
+addProjectWindow.label.path=Path:
+addProjectWindow.noName.title=No name
+addProjectWindow.noName.text=You have to give a name
+addProjectWindow.invalidPath.title=Invalid Path
+addProjectWindow.invalidPath.text=The given Path does not exists
 
 updater.snap.title=Installed with Snap
 updater.snap.text=You have jdTextEdit installed with Snap. In this case, Snap will handle the updates. There is no need to do this by hand.
@@ -365,6 +376,12 @@ invalidFilename.text=The Filename is invalid
 
 automaticUpdateSearch.title=Enable automatic update search
 automaticUpdateSearch.text=jdTextEdit offers the possibility to automatically check for updates every time the programme is started. Do you want to activate this? You can change this behaviour later in the settings.
+
+installPackages.title=Additional Packages required
+installPackages.text={pluginName} requires some additional packages. Do you want to install them?
+
+pipFailed.title=Instalation failed
+pipFailed.text=The instalation of the packages failed
 
 sidebar.notes=Notes
 sidebar.notes.placeholderText=You can write down notes here

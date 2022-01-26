@@ -1,5 +1,5 @@
 from PyQt6.QtGui import QFont, QKeySequence
-from jdTextEdit.Functions import showMessageBox, readJsonFile
+from jdTextEdit.Functions import showMessageBox, readJsonFile, isFlatpak
 from pathlib import Path
 from typing import Any
 import platform
@@ -7,7 +7,7 @@ import json
 import os
 
 class Settings():
-    def __init__(self,defaultSettings=None):
+    def __init__(self, defaultSettings=None):
         self.language = "default"
         self.applicationStyle = "default"
         self.saveClose = True
@@ -116,11 +116,13 @@ class Settings():
             "playMacro": "Ctrl+Shift+P",
             "about": QKeySequence(QKeySequence.StandardKey.HelpContents).toString(),
         }
+        self.useCustomTerminalEmulator = False
+        self.customTerminalEmulator = ""
         if platform.system() == 'Windows':
             self.defaultEolMode = 0
         else:
             self.defaultEolMode = 1
-        if os.getenv("SNAP"):
+        if os.getenv("SNAP") or isFlatpak():
             self.useNativeIcons = False
         else:
             self.useNativeIcons = True

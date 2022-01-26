@@ -24,7 +24,7 @@ build_exe:
 pip_deploy:
     stage: deploy
     script:
-        - pip install twine wheel
+        - pip install twine wheel PySide6
         - python setup.py sdist bdist_wheel
         - twine upload -u "$PYPI_USERNAME" -p "$PYPI_PASSWORD" dist/*
     only:

@@ -1,7 +1,8 @@
 from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout
 
+
 class WrongEncodingBanner(QWidget):
-    def __init__(self,env,parent):
+    def __init__(self,env, parent):
         super().__init__()
         self.env = env
         self.parent = parent

@@ -13,9 +13,12 @@ from jdTextEdit.gui.SettingsTabs.InterfaceTab import InterfaceTab
 from jdTextEdit.gui.SettingsTabs.ContextMenuTab import ContextMenuTab
 from jdTextEdit.gui.SettingsTabs.ToolbarTab import ToolbarTab
 from jdTextEdit.gui.SettingsTabs.ShortcutTab import ShortcutTab
+from jdTextEdit.gui.SettingsTabs.TerminalEmulatorTab import TerminalEmulatorTab
 from jdTextEdit.gui.SettingsTabs.PluginTab import PluginTab
 from jdTextEdit.Functions import restoreWindowState
 from jdTextEdit.Settings import Settings
+import platform
+
 
 class SettingsWindow(QWidget):
     def __init__(self,env):
@@ -58,7 +61,7 @@ class SettingsWindow(QWidget):
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("settingsWindow.title"))
-        restoreWindowState(self,env.windowState,"SettingsWindow")
+        restoreWindowState(self, env.windowState, "SettingsWindow")
 
     def changeWidget(self):
         self.centralLayout.itemAt(1).widget().setParent(None)
@@ -69,7 +72,7 @@ class SettingsWindow(QWidget):
         if self.env.settings.get("settingsWindowUseModernDesign"):
             self.listWidget.addItem(tab.title())
         else:
-            self.tabWidget.addTab(tab,tab.title())
+            self.tabWidget.addTab(tab, tab.title())
 
     def openWindow(self):
         for i in self.tabs:
@@ -107,11 +110,13 @@ class SettingsWindow(QWidget):
         self.newTab(ContextMenuTab(self.env))
         self.newTab(ToolbarTab(self.env))
         self.newTab(ShortcutTab(self.env))
+        if platform.system() in ("Linux", "FreeBSD"):
+            self.newTab(TerminalEmulatorTab(self.env))
         for i in self.env.customSettingsTabs:
             self.newTab(i)
         if self.env.settings.loadPlugins:
             self.newTab(PluginTab(self.env))
         for i in self.tabs:
-            if hasattr(i,"setup"):
+            if hasattr(i, "setup"):
                 i.setup()
-        self.centralLayout.addWidget(self.tabs[0],3)
+        self.centralLayout.addWidget(self.tabs[0], 3)

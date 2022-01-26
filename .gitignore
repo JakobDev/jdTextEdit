@@ -1,5 +1,8 @@
 __pycache__/
 
+# translations
+.qm
+
 #setup.py
 build/
 dist/

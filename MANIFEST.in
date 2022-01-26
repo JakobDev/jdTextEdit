@@ -1,8 +1,11 @@
 include README.md
-include jdTextEdit/Logo.png
+include jdTextEdit/Logo.svg
 include jdTextEdit/icons/*
 include jdTextEdit/translation/*
 include jdTextEdit/autocompletion/*
 include jdTextEdit/templates/*
+include jdTextEdit/plugins/pluginmanager/manifest.json
 include jdTextEdit/plugins/pluginmanager/translation/*
+include jdTextEdit/plugins/SpellChecker/manifest.json
 include jdTextEdit/plugins/SpellChecker/translation/*
+include jdTextEdit/i18n/*.qm

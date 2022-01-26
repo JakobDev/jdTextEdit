@@ -4,9 +4,11 @@ from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
 from jdTextEdit.core.api.EditorSignals import EditorSignals
 from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
+from jdTextEdit.core.api.ProjectSignals import ProjectSignals
 from jdTextEdit.api.ThemeBase import ThemeBase
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QAction
+
 
 class PluginAPI():
     def __init__(self,env):
@@ -24,6 +26,9 @@ class PluginAPI():
     def getApplicationSignals(self) -> ApplicationSignals:
         return self.env.applicationSignals
 
+    def getProjectSignals(self) -> ProjectSignals:
+        return self.env.projectSignals
+
     def addSettingsTab(self, tab: SettingsTabBase):
         self.env.customSettingsTabs.append(tab)
 
@@ -40,14 +45,22 @@ class PluginAPI():
     def addTheme(self, theme: ThemeBase):
         self.env.themes[theme.getID()] = theme
 
-    def addSidebarWidget(self,widget: SidebarWidgetBase):
-        if not isinstance(widget,QWidget) or not isinstance(widget,SidebarWidgetBase):
+    def addSidebarWidget(self, widget: SidebarWidgetBase):
+        if not isinstance(widget, QWidget) or not isinstance(widget, SidebarWidgetBase):
             raise ValueError("Widget must inherit from QWidget and SidebarWidgetBase")
-        self.env.dockWidgtes.append([widget,widget.getName(),widget.getID()])
+        self.env.dockWidgets.append([widget, widget.getName(), widget.getID()])
 
     def addAction(self,action: QAction):
         try:
             if isinstance(action.data()[0], str):
                 self.env.menuActions[action.data()[0]] = action
-        except:
+        except Exception:
             pass
+
+    def addProject(self, project):
+        self.env.projects[project.getID()] = project
+        self.getProjectSignals().projectAdded.emit(project)
+
+    def deleteProject(self, projectID: str):
+        del self.env.projects[projectID]
+        self.getProjectSignals().projectDeleted.emit(projectID)

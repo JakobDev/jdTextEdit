@@ -38,11 +38,11 @@ class PluginTab(QTableWidget,SettingsTabBase):
         count = 0
         self.pluginID = []
         for key, value in self.env.plugins.items():
-            nameItem = QTableWidgetItem(value.getName())
+            nameItem = QTableWidgetItem(value["name"])
             nameItem.setFlags(nameItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
-            versionItem = QTableWidgetItem(value.getVersion())
+            versionItem = QTableWidgetItem(value["version"])
             versionItem.setFlags(versionItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
-            authorItem = QTableWidgetItem(value.getAuthor())
+            authorItem = QTableWidgetItem(value["author"])
             authorItem.setFlags(authorItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
             self.insertRow(count)
             self.setCellWidget(count,0,QCheckBox())

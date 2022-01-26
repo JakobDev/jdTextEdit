@@ -5,11 +5,13 @@ import os
 class ExecuteCommandWindow(QWidget):
     def __init__(self, env):
         super().__init__()
+        self.env = env
+
         self.commandEdit = QLineEdit()
         okButton = QPushButton(env.translate("button.ok"))
         cancelButton = QPushButton(env.translate("button.cancel"))
         self.terminalCheckBox = QCheckBox(env.translate("executeCommandWindow.runTerminal"))
- 
+
         okButton.clicked.connect(self.okButtonClicked)
         cancelButton.clicked.connect(self.close)
 
@@ -40,5 +42,5 @@ class ExecuteCommandWindow(QWidget):
         QApplication.setActiveWindow(self)
 
     def okButtonClicked(self):
-        executeCommand(self.commandEdit.text(),self.editWidget,bool(self.terminalCheckBox.checkState()))
+        executeCommand(self.env, self.commandEdit.text(), self.editWidget, bool(self.terminalCheckBox.checkState()))
         self.close()

@@ -93,17 +93,17 @@ class PluginManagerWindow(QWidget):
 
     def installPlugin(self, index):
         if float(self.pluginList[index]["neededVersion"]) > float(self.env.version):
-            showMessageBox("pluginManagerWindow.messageBox.outdatedVersion.title","pluginManagerWindow.messageBox.outdatedVersion.text")
+            showMessageBox("pluginManagerWindow.messageBox.outdatedVersion.title", "pluginManagerWindow.messageBox.outdatedVersion.text")
             return False
-        installPath = os.path.join(self.env.dataDir,"plugins",self.pluginList[index]["id"])
+        installPath = os.path.join(self.env.dataDir,"plugins", self.pluginList[index]["id"])
         for filename, url in self.pluginList[index]["files"].items():
             try:
                 r = requests.get(url)
                 try:
-                    os.makedirs(os.path.dirname(os.path.join(installPath,filename)))
+                    os.makedirs(os.path.dirname(os.path.join(installPath, filename)))
                 except:
                     pass
-                f = open(os.path.join(installPath,filename),"w")
+                f = open(os.path.join(installPath, filename), "w")
                 f.write(r.text)
                 f.close()
                 r.close()

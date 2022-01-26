@@ -14,8 +14,11 @@ from jdTextEdit.gui.ExecuteCommandWindow import ExecuteCommandWindow
 from jdTextEdit.gui.ManageMacrosWindow import ManageMacrosWindow
 from jdTextEdit.gui.EditCommandsWindow import EditCommandsWindow
 from jdTextEdit.gui.DayTipWindow import DayTipWindow
+from jdTextEdit.gui.ActionSearchWindow import ActionSearchWindow
 from jdTextEdit.gui.AboutWindow import AboutWindow
-from jdTextEdit.Functions import loadPlugins, getTempOpenFilePath
+from jdTextEdit.gui.AddProjectWindow import AddProjectWindow
+from jdTextEdit.Functions import getTempOpenFilePath
+from jdTextEdit.core.PluginLoader import loadPlugins
 import time
 import sys
 import os
@@ -25,6 +28,7 @@ from jdTextEdit.gui.SidebarWidgets.TabListWidget import TabListWidget
 from jdTextEdit.gui.SidebarWidgets.FileTreeWidget import FileTreeWidget
 from jdTextEdit.gui.SidebarWidgets.ClipboardWidget import ClipboardWidget
 from jdTextEdit.gui.SidebarWidgets.CharacterMapWidget import CharacterMapWidget
+from jdTextEdit.gui.SidebarWidgets.ProjectWidget import ProjectWidget
 
 def main():
     temp_open_path = getTempOpenFilePath()
@@ -41,7 +45,7 @@ def main():
             os.remove(temp_open_path)
 
     app = QApplication(sys.argv)
-    env = Enviroment()
+    env = Enviroment(app)
     env.clipboard = QApplication.clipboard()
     env.closeSaveWindow = CloseSaveWindow(env)
     env.searchWindow = SearchWindow(env)
@@ -55,7 +59,9 @@ def main():
     env.manageMacrosWindow = ManageMacrosWindow(env)
     env.editCommandsWindow = EditCommandsWindow(env)
     env.dayTipWindow = DayTipWindow(env)
+    env.actionSearchWindow = ActionSearchWindow(env)
     env.aboutWindow = AboutWindow(env)
+    env.addProjectWindow = AddProjectWindow(env)
     if env.settings.get("loadPlugins") and not env.args["disablePlugins"]:
         loadPlugins(os.path.join(env.programDir,"plugins"),env)
         loadPlugins(os.path.join(env.dataDir,"plugins"),env)
@@ -65,13 +71,14 @@ def main():
     env.pluginAPI.addSidebarWidget(FileTreeWidget(env))
     env.pluginAPI.addSidebarWidget(ClipboardWidget(env))
     env.pluginAPI.addSidebarWidget(CharacterMapWidget(env))
+    env.pluginAPI.addSidebarWidget(ProjectWidget(env))
 
     if os.path.isfile(os.path.join(env.dataDir,"userChrome.css")) and env.settings.get("enableUserChrome"):
-        f = open(os.path.join(env.dataDir,"userChrome.css"),"r",encoding="utf-8")
+        f = open(os.path.join(env.dataDir, "userChrome.css"), "r", encoding="utf-8")
         app.setStyleSheet(f.read())
         f.close()
 
-    app.setWindowIcon(QIcon(os.path.join(env.programDir,"Logo.png")))
+    app.setWindowIcon(QIcon(os.path.join(env.programDir, "Logo.svg")))
 
     # Ask for automatic updates on first run
     if env.firstRun and env.enableUpdater:

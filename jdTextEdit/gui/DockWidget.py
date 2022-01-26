@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QDockWidget, QComboBox
 
+
 class DockWidget(QDockWidget):
     def __init__(self, env):
         super().__init__()
@@ -13,28 +14,29 @@ class DockWidget(QDockWidget):
         self.env.mainWindow.toggleSidebarAction.setChecked(False)
         event.accept()
 
+
 class DockWidgetContent(QWidget):
     def __init__(self, env):
         super().__init__()
         self.env = env
         self.widgetChooser = QComboBox()
-        for i in env.dockWidgtes:
+        for i in env.dockWidgets:
             self.widgetChooser.addItem(i[1])
         layout = QVBoxLayout()
         layout.addWidget(self.widgetChooser)
-        layout.addWidget(env.dockWidgtes[0][0])
+        layout.addWidget(env.dockWidgets[0][0])
         self.widgetChooser.currentIndexChanged.connect(self.widgetChanged)
         self.setLayout(layout)
 
     def widgetChanged(self, index):
         self.layout().itemAt(1).widget().setParent(None)
-        self.layout().addWidget(self.env.dockWidgtes[index][0])
+        self.layout().addWidget(self.env.dockWidgets[index][0])
 
     def getSelectedWidget(self):
         index = self.widgetChooser.currentIndex()
-        return self.env.dockWidgtes[index][2]
+        return self.env.dockWidgets[index][2]
 
     def setCurrentWidget(self, widget):
-        for count, i in enumerate(self.env.dockWidgtes):
+        for count, i in enumerate(self.env.dockWidgets):
             if i[2] == widget:
                 self.widgetChooser.setCurrentIndex(count)

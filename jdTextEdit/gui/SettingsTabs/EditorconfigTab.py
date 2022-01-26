@@ -1,12 +1,30 @@
-from PyQt6.QtWidgets import QWidget, QCheckBox, QVBoxLayout
+from PyQt6.QtWidgets import QLabel, QWidget, QCheckBox, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from PyQt6.QtCore import  QCoreApplication
 from jdTextEdit.Settings import Settings
+
+
+try:
+    import editorconfig
+except ModuleNotFoundError:
+    pass
 
 
 class EditorconfigTab(QWidget, SettingsTabBase):
     def __init__(self, env):
         super().__init__()
         self.env = env
+
+        editorconfigNotFoundLabel = QLabel(QCoreApplication.translate("EditorconfigTab", "The editorconfig module was not found"))
+        editorconfigNotFoundLabel.setStyleSheet("""
+            border-radius: 1px;
+            border-style: solid;
+            border-width: 1px;
+            border-color: darkred;
+            background: orangered;
+            color: black;
+            font-weight: bold;
+        """)
 
         self.useEditorConfig = QCheckBox(env.translate("settingsWindow.editorconfig.checkBox.useEditorConfig"))
         self.useIndentStyle = QCheckBox(env.translate("settingsWindow.editorconfig.checkBox.useIndentStyle"))
@@ -19,6 +37,13 @@ class EditorconfigTab(QWidget, SettingsTabBase):
         self.useEditorConfig.stateChanged.connect(self.toogleCheckBoxEnabled)
 
         mainLayout = QVBoxLayout()
+
+        try:
+            editorconfig
+        except NameError:
+            mainLayout.addWidget(editorconfigNotFoundLabel)
+            self.useEditorConfig.setEnabled(False)
+
         mainLayout.addWidget(self.useEditorConfig)
         mainLayout.addWidget(self.useIndentStyle)
         mainLayout.addWidget(self.tabWidth)
@@ -31,7 +56,11 @@ class EditorconfigTab(QWidget, SettingsTabBase):
         self.setLayout(mainLayout)
 
     def toogleCheckBoxEnabled(self):
-        enabled = self.useEditorConfig.isChecked()
+        try:
+            editorconfig
+            enabled = self.useEditorConfig.isChecked()
+        except NameError:
+            enabled = False
         self.useIndentStyle.setEnabled(enabled)
         self.tabWidth.setEnabled(enabled)
         self.endOfLine.setEnabled(enabled)

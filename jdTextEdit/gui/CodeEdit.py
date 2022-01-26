@@ -4,15 +4,21 @@ from PyQt6.QtGui import QColor, QFontMetrics, QFont, QCursor
 from PyQt6.QtCore import pyqtSignal
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase
-import editorconfig
 import traceback
 import copy
 import sys
 import os
 
+
+try:
+    import editorconfig
+except ModuleNotFoundError:
+    print("editorconfig module not found", file=sys.stderr)
+
+
 class CodeEdit(QsciScintilla):
     pathChanged = pyqtSignal("QString")
-    def __init__(self,env,preview=None,isNew=False,container=None):
+    def __init__(self, env, preview=None, isNew=False, container=None):
         super().__init__()
         self.env = env
         self.isPreview = preview
@@ -313,14 +319,14 @@ class CodeEdit(QsciScintilla):
         self.setFilePath(path)
         self.setModified(data["modified"])
         self.setUsedEncoding(data.get("encoding",self.settings.defaultEncoding))
-        syntax = data.get("language","")
+        syntax = data.get("language", "")
         if syntax != "":
             for l in self.env.languageList:
                 if  l.getID() == syntax:
                     self.setLanguage(l)
         self.bookmarkList = data.get("bookmarks",[])
         for line in self.bookmarkList:
-            self.markerAdd(line,0)
+            self.markerAdd(line, 0)
         self.setCursorPosition(data["cursorPosLine"],data["cursorPosIndex"])
         self.zoomTo(data.get("zoom",self.settings.defaultZoom))
         self.custom_settings = data.get("customSettings",{})
@@ -345,8 +351,11 @@ class CodeEdit(QsciScintilla):
         """
         try:
             config = editorconfig.get_properties(self.getFilePath())
-        except:
-            print("Error occurred while getting .editorconfig properties")
+        except NameError:
+            print("Trying to load a file with editorconfig enabled while the editorconfig module is not installed", file=sys.stderr)
+            return
+        except Exception:
+            print("Error occurred while getting .editorconfig properties", file=sys.stderr)
             return
         if "indent_style" in config and self.settings.editorConfigUseIndentStyle:
             if config["indent_style"] == "space":
@@ -387,7 +396,7 @@ class CodeEdit(QsciScintilla):
         self.setMarginsFont(font)
         fontmetrics = QFontMetrics(font)
         if settings.editShowLineNumbers:
-            self.setMarginWidth(0,fontmetrics.averageCharWidth() + 6)
+            self.setMarginWidth(0, fontmetrics.averageCharWidth() * 6)
         else:
             self.setMarginWidth(0,0)
         if self.currentLexer:
@@ -405,7 +414,7 @@ class CodeEdit(QsciScintilla):
             try:
                 self.env.themes[settings.editTheme].applyTheme(self,self.currentLexer)
             except Exception as e:
-                print(traceback.format_exc(),end="",file=sys.stderr)
+                print(traceback.format_exc(), end="", file=sys.stderr)
                 self.env.themes["builtin.default"].applyTheme(self, self.currentLexer)
         else:
             print("The selected Theme could not be found. Falling back to the default Theme.",file=sys.stderr)

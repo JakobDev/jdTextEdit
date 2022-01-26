@@ -114,6 +114,7 @@ mainWindow.menu.macro.manageMacros=Makros verwalten
 mainWindow.menu.execute=Ausführen
 mainWindow.menu.execute.executeCommand=Befehl ausführen
 mainWindow.menu.execute.editCommands=Befehle bearbeiten
+mainWindow.menu.about.searchAction=Aktion suchen
 mainWindow.menu.about.openDataDir=Speicherordner öffnen
 mainWindow.menu.about.openProgramDir=Installationsordner öffnen
 mainWindow.menu.about.searchForUpdates=Nach Updates suchen
@@ -316,12 +317,22 @@ editCommandsWindow.command=Befehl
 editCommandsWindow.terminal=Terminal
 editCommandsWindow.shortcut=Tastenkombination
 
+searchActionWindow.title=Aktion suchen
+
 aboutWindow.title=Über
 aboutWindow.label.title=jdTextEdit Version %s
 aboutWindow.label.description=jdTextEdit ist ein umfangreicher, in Python geschriebener, Texteditor mit Plugin Support
 aboutWindow.label.license=Dieses Programm wurde unter GNU GPL 3 lizenziert
 aboutWindow.label.logoAuthor=Das Logo wurde von Axel-Erfurt erstellt
 aboutWindow.button.viewSource=Quelltext
+
+addProjectWindow.title=Neues Projekt
+addProjectWindow.label.name=Name:
+addProjectWindow.label.path=Pfad:
+addProjectWindow.noName.title=Kein Name
+addProjectWindow.noName.text=Es wurde kein Name angegeben
+addProjectWindow.invalidPath.title=Ungültiger Pfad
+addProjectWindow.invalidPath.text=Der angegebene Pfad existiert nicht
 
 updater.snap.title=Als Snap installiert
 updater.snap.text=Du hast jdTextEdit als Snap installiert. In diesem Fall wird sich Snap auch um die Updates kümmern.
@@ -365,6 +376,12 @@ invalidFilename.text=Der gewählte Dateiname ist ungültig
 
 automaticUpdateSearch.title=Automatische Suche nach Updates aktivieren
 automaticUpdateSearch.text=jdTextEdit bietet die Möglichkeit bei jedem Programmstart automatisch nach Updates zu suchen. Möchtest du dies aktivieren? Du kannst dieses Verhalten später in den Einstellungen noch ändern.
+
+installPackages.title=Zusätzliche Pakete benötigt
+installPackages.text={pluginName} benötigt zusätzliche Pakete. Möchtest du sie instalieren?
+
+pipFailed.title=Instalation fehlgeschlagen
+pipFailed.text=Die Instalation der Pakete ist fehlgeschlagen
 
 sidebar.notes=Notizen
 sidebar.notes.placeholderText=Du kannst dir hier Notizen machen
