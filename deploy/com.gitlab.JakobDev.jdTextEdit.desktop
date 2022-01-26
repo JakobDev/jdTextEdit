@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=jdTextEdit
+Comment=An advanced text editor
+Exec=jdTextEdit
+Icon=com.gitlab.JakobDev.jdTextEdit
+Terminal=false
+StartupNotify=false
+Categories=TextEditor;Development;Qt;
