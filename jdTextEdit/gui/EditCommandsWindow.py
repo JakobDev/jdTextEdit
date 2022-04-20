@@ -80,7 +80,7 @@ class EditCommandsWindow(QWidget):
             try:
                 name = self.commandsTable.item(i,0).text()
                 command = self.commandsTable.item(i,1).text()
-                terminal = bool(self.commandsTable.cellWidget(i,2).checkState())
+                terminal = self.commandsTable.cellWidget(i,2).isChecked()
                 shortcut = self.commandsTable.cellWidget(i,3).keySequence().toString()
                 if name != "":
                     self.env.commands.append([name,command,terminal,shortcut])

@@ -42,5 +42,5 @@ class ExecuteCommandWindow(QWidget):
         QApplication.setActiveWindow(self)
 
     def okButtonClicked(self):
-        executeCommand(self.env, self.commandEdit.text(), self.editWidget, bool(self.terminalCheckBox.checkState()))
+        executeCommand(self.env, self.commandEdit.text(), self.editWidget, self.terminalCheckBox.checkState().isChecked())
         self.close()
