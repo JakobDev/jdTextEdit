@@ -687,12 +687,12 @@ class MainWindow(QMainWindow):
         self.executeMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.execute"))
 
         self.executeCommandAction = QAction(self.env.translate("mainWindow.menu.execute.executeCommand"), self)
-        self.executeCommandAction.triggered.connect(lambda: self.env.executeCommandWindow.openWindow(self.getTextEditWidget()) if self.checkFlatpakBox() else str())
+        self.executeCommandAction.triggered.connect(lambda: self.env.executeCommandWindow.openWindow(self.getTextEditWidget()))
         self.executeCommandAction.setData(["executeCommand"])
         self.env.pluginAPI.addAction(self.executeCommandAction)
 
         self.editCommandsAction = QAction(self.env.translate("mainWindow.menu.execute.editCommands"), self)
-        self.editCommandsAction.triggered.connect(lambda: self.env.editCommandsWindow.openWindow() if self.checkFlatpakBox() else str())
+        self.editCommandsAction.triggered.connect(lambda: self.env.editCommandsWindow.openWindow())
         self.editCommandsAction.setData(["editCommands"])
         self.env.pluginAPI.addAction(self.editCommandsAction)
 
@@ -1025,32 +1025,19 @@ class MainWindow(QMainWindow):
             command.setData([False,i[1],i[2]])
             if len(i) == 4:
                 command.setShortcut(i[3])
-            if self.env.isFlatpak:
-                command.triggered.connect(self.checkFlatpakBox)
-            else:
-                command.triggered.connect(lambda sender: executeCommand(self.env, self.sender().data()[1], self.getTextEditWidget(), self.sender().data()[2]))
+            command.triggered.connect(lambda sender: executeCommand(self.env, self.sender().data()[1], self.getTextEditWidget(), self.sender().data()[2]))
             self.executeMenu.addAction(command)
 
         for i in self.env.global_commands:
             command = QAction(i[0],self)
             command.setData([False, i[1], i[2]])
-            if self.env.isFlatpak:
-                command.triggered.connect(self.checkFlatpakBox)
-            else:
-                command.triggered.connect(lambda sender: executeCommand(self.env, self.sender().data()[1], self.getTextEditWidget(), self.sender().data()[2]))
+            command.triggered.connect(lambda sender: executeCommand(self.env, self.sender().data()[1], self.getTextEditWidget(), self.sender().data()[2]))
             self.executeMenu.addAction(command)
 
         self.executeMenu.addSeparator()
 
         self.executeMenu.addAction(self.editCommandsAction)
 
-    def checkFlatpakBox(self) -> bool:
-        if not self.env.isFlatpak:
-            return True
-        else:
-            showMessageBox(QCoreApplication.translate("MainWindow", "Not available in Flatpak"),
-                           QCoreApplication.translate("MainWindow", "This feature is not available when you run jdTextEdit as Flatpak due the Sandbox restrictions"))
-            return False
 
     def openFile(self, path: str, template=None, reload=None):
         #Check if the file is already open

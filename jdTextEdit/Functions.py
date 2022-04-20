@@ -42,6 +42,8 @@ def _getSystemTerminalEmulator() -> Optional[str]:
     for i in ("x-terminal-emulator", "konsole", "gnome-terminal", "xterm"):
         if shutil.which(i) is not None:
             return i
+        elif os.path.isfile(os.path.join("/run/host/usr/bin", i)):
+            return i
     return None
 
 
@@ -71,7 +73,10 @@ def executeCommand(env, command: str,editWidget: CodeEdit,terminal: bool):
         else:
             if env.settings.get("useCustomTerminalEmulator"):
                 try:
-                    subprocess.Popen([env.settings.get("customTerminalEmulator"), "-e", command])
+                    if isFlatpak():
+                        subprocess.Popen(["flatpak-spawn", "--host", env.settings.get("customTerminalEmulator"), "-e", command])
+                    else:
+                        subprocess.Popen([env.settings.get("customTerminalEmulator"), "-e", command])
                 except FileNotFoundError:
                     QMessageBox.critical(None, QCoreApplication.translate("Functions", "Terminal emulator not found"),
                                          QCoreApplication.translate("Functions", "Your custom terminal emulator was not found"))
@@ -81,9 +86,15 @@ def executeCommand(env, command: str,editWidget: CodeEdit,terminal: bool):
                     QMessageBox.critical(None, QCoreApplication.translate("Functions", "Terminal emulator not found"),
                                          QCoreApplication.translate("Functions", "The terminal emulator of the system was not found. Try setting a custom one in the Settings."))
                 else:
-                    subprocess.Popen([systemEmulator, "-e", command])
+                    if isFlatpak():
+                        subprocess.Popen(["flatpak-spawn", "--host", systemEmulator, "-e", command])
+                    else:
+                         subprocess.Popen([systemEmulator, "-e", command])
     else:
-        os.popen(command)
+        if isFlatpak():
+            os.popen("flatpak-spawn --host " + command)
+        else:
+            os.popen(command)
 
 
 def getThemeIcon(env, name: str) -> QIcon:
