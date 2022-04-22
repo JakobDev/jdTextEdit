@@ -619,6 +619,14 @@ class MainWindow(QMainWindow):
         self.toolsMenu.addAction(replaceSpacesTabAction)
         self.env.pluginAPI.addAction(replaceSpacesTabAction)
 
+        self.toolsMenu.addSeparator()
+
+        regExGrepAction = QAction(QCoreApplication.translate("MainWindow", "RegExGrep"))
+        regExGrepAction.triggered.connect(lambda : self.env.regExGrepWindow.show())
+        regExGrepAction.setData(["regExGrep"])
+        self.toolsMenu.addAction(regExGrepAction)
+        self.env.pluginAPI.addAction(regExGrepAction)
+
         self.languageMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.language"))
 
         #self.updateLanguageMenu()

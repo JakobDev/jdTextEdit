@@ -12,6 +12,7 @@ import getpass
 import shutil
 import json
 import sys
+import re
 import os
 
 
@@ -298,3 +299,16 @@ def isFlatpak() -> bool:
     :return: isFlatpak
     """
     return os.path.isdir("/app")
+
+
+def isRegExValid(regEx: str) -> bool:
+    """
+    Checks if a RegEx is valid
+    :param regEx: The RegEx
+    :return: valid
+    """
+    try:
+        re.compile(regEx)
+        return True
+    except re.error:
+        return False

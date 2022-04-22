@@ -9,3 +9,4 @@ include jdTextEdit/plugins/pluginmanager/translation/*
 include jdTextEdit/plugins/SpellChecker/manifest.json
 include jdTextEdit/plugins/SpellChecker/translation/*
 include jdTextEdit/i18n/*.qm
+global-include *.ui
