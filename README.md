@@ -22,6 +22,9 @@ jdTextEdit is a powerful texteditor with a lot of features.
 ### Windows
 Download a Windows Binary from [SourceForge](https://sourceforge.net/projects/jdtextedit/files/). It includes a Python interpreter and all needed libs.
 
+### Flatpak
+jdTextEdit is on [Flathub](https://flathub.org/apps/details/com.gitlab.JakobDev.jdTextEdit)
+
 ### Arch/Manjaro
 jdTextEdit is in the [Arch User Repository](https://aur.archlinux.org/packages/jdtextedit/).
 
