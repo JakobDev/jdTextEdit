@@ -18,6 +18,7 @@ from jdTextEdit.gui.ActionSearchWindow import ActionSearchWindow
 from jdTextEdit.gui.AboutWindow import AboutWindow
 from jdTextEdit.gui.AddProjectWindow import AddProjectWindow
 from jdTextEdit.gui.Tools.RegExGrep.RegExGrepWindow import RegExGrepWindow
+from jdTextEdit.gui.DebugInfoWindow import DebugInfoWindow
 from jdTextEdit.Functions import getTempOpenFilePath
 from jdTextEdit.core.PluginLoader import loadPlugins
 import time
@@ -64,6 +65,7 @@ def main():
     env.aboutWindow = AboutWindow(env)
     env.addProjectWindow = AddProjectWindow(env)
     env.regExGrepWindow = RegExGrepWindow(env)
+    env.debugInfoWindow = DebugInfoWindow(env)
     if env.settings.get("loadPlugins") and not env.args["disablePlugins"]:
         loadPlugins(os.path.join(env.programDir,"plugins"),env)
         loadPlugins(os.path.join(env.dataDir,"plugins"),env)

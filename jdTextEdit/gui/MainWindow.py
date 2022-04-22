@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QMainWindow, QMenu, QApplication, QLabel, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog
+from PyQt6.QtWidgets import QMainWindow, QMenu, QApplication, QLabel, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog, QMessageBox
 from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciPrinter
 from PyQt6.QtGui import QIcon, QAction
 from PyQt6.QtPrintSupport import QPrintDialog
@@ -752,6 +752,20 @@ class MainWindow(QMainWindow):
         viewDocumentationAction.setData(["viewDocumentation"])
         self.aboutMenu.addAction(viewDocumentationAction)
         self.env.pluginAPI.addAction(viewDocumentationAction)
+
+        self.aboutMenu.addSeparator()
+
+        debugInfoAction = QAction(QCoreApplication.translate("MainWindow", "Debug information"), self)
+        debugInfoAction.triggered.connect(lambda : self.env.debugInfoWindow.openWindow())
+        debugInfoAction.setData(["debugInfo"])
+        self.aboutMenu.addAction(debugInfoAction)
+        self.env.pluginAPI.addAction(debugInfoAction)
+
+        deleteAllDataAction = QAction(QCoreApplication.translate("MainWindow", "Delete all data"), self)
+        deleteAllDataAction.triggered.connect(self.deleteAllData)
+        deleteAllDataAction.setData(["deleteAllData"])
+        self.aboutMenu.addAction(deleteAllDataAction)
+        self.env.pluginAPI.addAction(deleteAllDataAction)
 
         self.aboutMenu.addSeparator()
 
@@ -1549,6 +1563,19 @@ class MainWindow(QMainWindow):
         with open(os.path.join(self.env.dataDir,"macros.json"), 'w', encoding='utf-8') as f:
             json.dump(self.env.macroList, f, ensure_ascii=False, indent=4)
 
+    def deleteAllData(self):
+        if QMessageBox.question(self, QCoreApplication.translate("MainWindow", "Delete all data"), QCoreApplication.translate("MainWindow", "This will delete all data of jdTextEdit. After that, jdTextEdit will behave like the first run. jdTexEdit will exit after doing that. Are you sure?")) != QMessageBox.StandardButton.Yes:
+            return
+
+        try:
+            shutil.rmtree(self.env.dataDir)
+        except Exception:
+            print(traceback.format_exc(), end="", file=sys.stderr)
+            showMessageBox(self.env.translate("unknownError.title"), self.env.translate("unknownError.text"))
+            return
+
+        sys.exit(0)
+
     def autoSaveTimeout(self):
         if self.autoSaveTimer.timeout == 0 or not self.env.settings.enableAutoSave:
             return
@@ -1632,6 +1659,7 @@ class MainWindow(QMainWindow):
             saveWindowState(self.env.dateTimeWindow, windowState, "DateTimeWindow")
             saveWindowState(self.env.manageMacrosWindow, windowState, "ManageMacrosWindow")
             saveWindowState(self.env.actionSearchWindow, windowState, "ActionSearchWindow")
+            saveWindowState(self.env.debugInfoWindow, windowState, "DebugInfoWindow")
             with open(os.path.join(self.env.dataDir, "windowstate.json"), 'w', encoding='utf-8') as f:
                 json.dump(windowState, f, ensure_ascii=False, indent=4)
         else:

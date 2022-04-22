@@ -1,9 +1,10 @@
 from PyQt6.QtGui import QFont, QKeySequence
 from jdTextEdit.Functions import showMessageBox, readJsonFile, isFlatpak
+from typing import Dict, Any
 from pathlib import Path
-from typing import Any
 import platform
 import json
+import copy
 import os
 
 class Settings():
@@ -191,3 +192,16 @@ class Settings():
         """
         if not hasattr(self,key):
             setattr(self,key,value)
+
+    def getAll(self) -> Dict[str, Any]:
+        """
+        Returns a dict with a settings
+        :return: the dict
+        """
+        data = {}
+        for key, value in vars(self).items():
+            if isinstance(value, QFont):
+                data[key] = value.toString()
+            else:
+                data[key] = copy.copy(value)
+        return data

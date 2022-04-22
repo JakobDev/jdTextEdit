@@ -2,6 +2,24 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>DebugInfoWindow</name>
+    <message>
+        <location filename="../gui/DebugInfoWindow.py" line="16"/>
+        <source>Copy to Clipboard</source>
+        <translation>In die Zwischenablage kopieren</translation>
+    </message>
+    <message>
+        <location filename="../gui/DebugInfoWindow.py" line="17"/>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
+    <message>
+        <location filename="../gui/DebugInfoWindow.py" line="35"/>
+        <source>Debug Information</source>
+        <translation>Debuginformationen</translation>
+    </message>
+</context>
+<context>
     <name>EditorconfigTab</name>
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="18"/>
@@ -31,9 +49,25 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../gui/MainWindow.py" line="624"/>
+        <location filename="../gui/MainWindow.py" line="625"/>
         <source>RegExGrep</source>
         <translation>RegExGrep</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.py" line="759"/>
+        <source>Debug information</source>
+        <translation>Debuginformationen</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.py" line="1568"/>
+        <location filename="../gui/MainWindow.py" line="765"/>
+        <source>Delete all data</source>
+        <translation>Alle Daten löschen</translation>
+    </message>
+    <message>
+        <location filename="../gui/MainWindow.py" line="1568"/>
+        <source>This will delete all data of jdTextEdit. After that, jdTextEdit will behave like the first run. jdTexEdit will exit after doing that. Are you sure?</source>
+        <translation>Alle Daten von jdTextEdit werden gelöscht. Danch wird sich jdTextEdit wie beim ersten Start verhalten. jdTextEdit beendet sich nach dem löschen. Willst du Fortfahren?</translation>
     </message>
     <message>
         <source>Not available in Flatpak</source>
