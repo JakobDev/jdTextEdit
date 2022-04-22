@@ -18,7 +18,6 @@ from jdTextEdit.Enviroment import Enviroment
 from string import ascii_uppercase
 from typing import List
 import webbrowser
-import subprocess
 import traceback
 import random
 import shutil
