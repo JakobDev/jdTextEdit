@@ -25,8 +25,10 @@ import os
 
 class Enviroment():
     def __init__(self, app: QApplication):
-        self.version = "10.0"
         self.programDir = os.path.dirname(os.path.realpath(__file__))
+
+        with open(os.path.join(self.programDir, "version.txt"), "r", encoding="utf-8") as f:
+            self.version = f.read().strip()
 
         parser = argparse.ArgumentParser()
         parser.add_argument("filename", nargs="*")

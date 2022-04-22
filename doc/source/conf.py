@@ -13,7 +13,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-
+import pathlib
 
 # -- Project information -----------------------------------------------------
 
@@ -22,7 +22,8 @@ copyright = '2021, JakobDev'
 author = 'JakobDev'
 
 # The full version, including alpha/beta/rc tags
-release = '9.1'
+with open(pathlib.Path(__file__).parent.parent.parent / "jdTextEdit" / "version.txt", "r", encoding="utf-8") as f:
+    release = f.read().strip()
 
 
 # -- General configuration ---------------------------------------------------

@@ -31,10 +31,16 @@ class BuildTranslations(build_py):
         super().run()
 
 
+with open(os.path.join(os.path.dirname(__file__), "jdTextEdit", "version.txt"), "r", encoding="utf-8") as f:
+    version = f.read().strip()
+
+with open("README.md", "r", encoding="utf-8") as f:
+    readme = f.read()
+
 setup(name="jdTextEdit",
-    version="10.0",
+    version=version,
     description=" A powerful texteditor with a lot of features",
-    long_description=open("README.md").read(),
+    long_description=readme,
     long_description_content_type="text/markdown",
     author="JakobDev",
     author_email="jakobdev@gmx.de",
