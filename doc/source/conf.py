@@ -18,7 +18,7 @@ import pathlib
 # -- Project information -----------------------------------------------------
 
 project = 'jdTextEdit'
-copyright = '2021, JakobDev'
+copyright = '2021-2022, JakobDev'
 author = 'JakobDev'
 
 # The full version, including alpha/beta/rc tags
