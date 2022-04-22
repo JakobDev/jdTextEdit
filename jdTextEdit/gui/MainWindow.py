@@ -18,6 +18,7 @@ from jdTextEdit.Enviroment import Enviroment
 from string import ascii_uppercase
 from typing import List
 import webbrowser
+import subprocess
 import traceback
 import random
 import shutil
@@ -1667,6 +1668,8 @@ class MainWindow(QMainWindow):
                 os.remove(os.path.join(self.env.dataDir,"windowstate.json"))
             except:
                 pass
+        with open(os.path.join(self.env.dataDir, "lastversion.txt"), "w", encoding="utf-8") as f:
+            f.write(self.env.version)
 
     def closeEvent(self, event):
         self.saveDataClose()
