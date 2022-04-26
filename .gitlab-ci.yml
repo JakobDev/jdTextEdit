@@ -1,8 +1,16 @@
 image: "python:latest"
 
 stages:
+    - doc
     - build
     - deploy
+
+apidoc:
+    stage: doc
+    script:
+        - pip install -r requirements.txt
+        - pip install pdoc
+        - pdoc jdTextEdit -o public
 
 build_exe:
     stage: build
