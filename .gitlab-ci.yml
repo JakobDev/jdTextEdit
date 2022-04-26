@@ -11,6 +11,11 @@ apidoc:
         - pip install -r requirements.txt
         - pip install pdoc
         - pdoc jdTextEdit -o public
+    artifacts:
+        paths:
+            - public
+    only:
+        - master
 
 build_exe:
     stage: build
