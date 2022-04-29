@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox, QSpinBox, QPushButton, QHBoxLayout, QVBoxLayout, QGridLayout, QLayout
 from jdTextEdit.Functions import getThemeIcon, restoreWindowState
-import math
+
 
 class SearchWindow(QWidget):
     def __init__(self, env):

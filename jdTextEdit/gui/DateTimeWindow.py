@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QApplication, QTableWidget, Q
 from jdTextEdit.Functions import restoreWindowState
 from PyQt6.QtCore import Qt
 import time
-import sys
+
 
 class DateTimeWindow(QWidget):
     def __init__(self,env):

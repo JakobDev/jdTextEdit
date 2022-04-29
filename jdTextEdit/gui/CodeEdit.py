@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QMenu
-from PyQt6.Qsci import QsciScintilla, QsciLexer, QsciScintillaBase, QsciMacro
-from PyQt6.QtGui import QColor, QFontMetrics, QFont, QCursor
+from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro
+from PyQt6.QtGui import QFontMetrics, QFont, QCursor
 from PyQt6.QtCore import pyqtSignal
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase

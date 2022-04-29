@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QPushButton, QKeySequenceEdit, QHBoxLayout, QVBoxLayout, QGridLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QPushButton, QKeySequenceEdit, QHBoxLayout, QVBoxLayout
 from jdTextEdit.Functions import restoreWindowState, showMessageBox
 import json
 import os

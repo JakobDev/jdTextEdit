@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QTextBrowser, QPushButton, QCheckBox, QHBoxLayout, QVBoxLayout
 from jdTextEdit.Functions import restoreWindowState
 import random
-import os
+
 
 class DayTipWindow(QWidget):
     def __init__(self,env):

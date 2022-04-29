@@ -4,7 +4,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
-from PyQt6.Qsci import QsciLexerLua
+
 
 class StyleTab(QWidget, SettingsTabBase):
     def __init__(self,env):

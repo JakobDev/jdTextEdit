@@ -1,5 +1,4 @@
-from PyQt6.QtWidgets import QMessageBox, QLabel, QApplication, QSplashScreen
-from PyQt6.QtCore import QProcess, QThread
+from PyQt6.QtWidgets import QMessageBox, QApplication, QSplashScreen
 from jdTextEdit.Functions import readJsonFile
 from typing import List, NoReturn
 import subprocess
