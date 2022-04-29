@@ -63,7 +63,6 @@ def executeCommand(env, command: str,editWidget: CodeEdit,terminal: bool):
     if terminal:
         if platform.system() == 'Windows':
             subprocess.Popen(["cmd.exe", "/C", command])
-            pass
         elif platform.system() == 'Darwin':
             #subprocess.call(('open', filepath))
             pass
