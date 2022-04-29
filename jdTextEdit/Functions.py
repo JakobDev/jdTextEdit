@@ -25,7 +25,7 @@ def getTemplates(path: str,templatelist: list):
     if not os.path.isdir(path):
         try:
             os.makedirs(path)
-        except:
+        except Exception:
             print(f"Could not create template directory {path}")
             return
     filelist = os.listdir(path)
@@ -229,7 +229,7 @@ def readJsonFile(path: str, default: Any) -> Any:
         except json.decoder.JSONDecodeError as e:
             print(f"Can't parse {os.path.basename(path)}: {e.msg}: line {e.lineno} column {e.colno} (char {e.pos})", file=sys.stderr)
             return default
-        except:
+        except Exception:
             print("Can't read " + os.path.basename(path), file=sys.stderr)
             return default
     else:

@@ -57,7 +57,7 @@ class EditTabWidget(QTabWidget):
     def tabChange(self, tabid):
         try:
             currentEditWidget = self.widget(self.currentIndex()).getCodeEditWidget()
-        except:
+        except Exception:
             return
         try:
             currentEditWidget.updateOtherWidgets()

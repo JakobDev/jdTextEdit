@@ -18,7 +18,7 @@ def installUpdates(env,version: str):
         urllib.request.urlretrieve("https://gitlab.com/JakobDev/jdTextEdit/-/archive/" + version + "/jdTextEdit-" + version + ".zip",update_download_path)
     except urllib.error.URLError:
         showMessageBox(env.translate("noInternetConnection.title"),env.translate("noInternetConnection.text"))
-    except:
+    except Exception:
         showMessageBox(env.translate("unknownError.title"),env.translate("unknownError.text"))
     zip_file = zipfile.ZipFile(update_download_path)
     #Extract zip file
@@ -28,7 +28,7 @@ def installUpdates(env,version: str):
             write_path = os.path.join(env.programDir,filename[23+len(version):])
             try:
                 os.makedirs(os.path.dirname(write_path))
-            except:
+            except Exception:
                 pass
             if os.path.isdir(write_path) or write_path.endswith("/"):
                 continue

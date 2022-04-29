@@ -134,7 +134,7 @@ class CodeEdit(QsciScintilla):
                 tabWidget.setTabIcon(self.tabid,self.env.documentUnsavedIcon)
             else:
                 tabWidget.setTabIcon(self.tabid,self.env.documentSavedIcon)
-        except:
+        except Exception:
             pass
 
     def textEdited(self):
@@ -164,7 +164,7 @@ class CodeEdit(QsciScintilla):
                 self.env.mainWindow.cutMenubarItem.setEnabled(False)
                 self.env.mainWindow.copyMenubarItem.setEnabled(False)
                 self.env.mainWindow.deleteMenubarItem.setEnabled(False)
-        except:
+        except Exception:
             pass
 
     def updateCursor(self, line, pos):
@@ -294,7 +294,7 @@ class CodeEdit(QsciScintilla):
         else:
             try:
                 modificationTime = os.path.getmtime(path)
-            except:
+            except Exception:
                 modificationTime = 0
         fileChangedBannerVisible = self.container.isFileChangedBannerVisible()
         data = {
@@ -365,7 +365,7 @@ class CodeEdit(QsciScintilla):
         if self.settings.editorConfigTabWidth:
             try:
                 self.custom_settings["editTabWidth"] = int(config["indent_size"])
-            except:
+            except Exception:
                 pass
         if "tab_width" in config and self.settings.editorConfigTabWidth:
             self.custom_settings["editTabWidth"] = int(config["tab_width"])

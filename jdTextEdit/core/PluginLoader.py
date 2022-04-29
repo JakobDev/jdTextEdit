@@ -77,7 +77,7 @@ def loadPlugins(path: str, env) -> NoReturn:
     if not os.path.isdir(path):
         try:
             os.mkdir(path)
-        except:
+        except Exception:
             return
     pluginlist = os.listdir(path)
     sys.path.append(path)

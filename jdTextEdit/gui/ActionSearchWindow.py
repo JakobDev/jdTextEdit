@@ -59,7 +59,7 @@ class ActionSearchWindow(QWidget):
             pos = self._resultList.currentRow()
             self._actionList[pos].triggered.emit()
             self.close()
-        except:
+        except Exception:
             print(traceback.format_exc(), end="", file=sys.stderr)
             showMessageBox(self._env.translate("unknownError.title"), self._env.translate("unknownError.text"))
 

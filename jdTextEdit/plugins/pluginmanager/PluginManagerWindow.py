@@ -101,7 +101,7 @@ class PluginManagerWindow(QWidget):
                 r = requests.get(url)
                 try:
                     os.makedirs(os.path.dirname(os.path.join(installPath, filename)))
-                except:
+                except Exception:
                     pass
                 f = open(os.path.join(installPath, filename), "w")
                 f.write(r.text)

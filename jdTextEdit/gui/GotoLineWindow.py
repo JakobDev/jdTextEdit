@@ -36,6 +36,6 @@ class GotoLineWindow(QWidget):
         try:
             self.editWidget.setCursorPosition(int(self.lineEdit.text()) - 1, 0)
             self.editWidget.ensureCursorVisible()
-        except:
+        except Exception:
             pass
         self.close()

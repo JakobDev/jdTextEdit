@@ -801,7 +801,7 @@ class MainWindow(QMainWindow):
             try:
                 if isinstance(action.data()[0], str):
                     self.env.menuActions[action.data()[0]] = action
-            except:
+            except Exception:
                 pass
             if action.menu():
                 self.getMenuActions(action.menu())
@@ -1665,7 +1665,7 @@ class MainWindow(QMainWindow):
         else:
             try:
                 os.remove(os.path.join(self.env.dataDir,"windowstate.json"))
-            except:
+            except Exception:
                 pass
         with open(os.path.join(self.env.dataDir, "lastversion.txt"), "w", encoding="utf-8") as f:
             f.write(self.env.version)
@@ -1690,7 +1690,7 @@ class MainWindow(QMainWindow):
     def removeTempOpenFile(self):
         try:
             os.remove(getTempOpenFilePath())
-        except:
+        except Exception:
             pass
 
     def dragEnterEvent(self, event):

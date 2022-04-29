@@ -84,7 +84,7 @@ class EditCommandsWindow(QWidget):
                 shortcut = self.commandsTable.cellWidget(i,3).keySequence().toString()
                 if name != "":
                     self.env.commands.append([name,command,terminal,shortcut])
-            except:
+            except Exception:
                 pass
         with open(os.path.join(self.env.dataDir,"commands.json"), 'w', encoding='utf-8') as f:
             json.dump(self.env.commands, f, ensure_ascii=False, indent=4)
