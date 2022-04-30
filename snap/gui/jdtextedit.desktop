@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=jdTextEdit
-Comment= jdTextEdit is a powerful texteditor with a lot of features
-Comment[de]= jdTextEdit ist ein umfangreicher Texteditor mit jeder Menge Funktionen
-Icon=${SNAP}/meta/gui/jdtextedit.png
-Exec=jdtextedit
-Terminal=false
-Type=Application
-Categories=Qt;Development;
