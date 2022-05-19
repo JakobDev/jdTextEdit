@@ -284,6 +284,7 @@
   <url type="homepage">https://gitlab.com/JakobDev/jdTextEdit</url>
   <url type="bugtracker">https://gitlab.com/JakobDev/jdTextEdit/-/issues</url>
   <url type="help">https://jdtextedit.readthedocs.io</url>
+  <url type="vcs-browser">https://gitlab.com/JakobDev/jdTextEdit</url>
   <categories>
     <category>Development</category>
     <category>TextEditor</category>
