@@ -1,5 +1,5 @@
-from PyQt6.QtGui import QFont, QKeySequence
 from jdTextEdit.Functions import showMessageBox, readJsonFile, isFlatpak
+from PyQt6.QtGui import QFont, QKeySequence
 from typing import Dict, Any
 from pathlib import Path
 import platform
@@ -60,8 +60,10 @@ class Settings():
         self.autocompletionCaseSensitive = True
         self.autocompletionReplaceWord = False
         self.autocompleteThreshold = 3
-        self.editContextMenu = ["undo","redo","separator","cut","copy","paste","delete","separator","selectAll"]
-        self.toolBar = ["newFile","openFile","saveFile","separator","cut","copy","paste","delete","separator","undo","redo"]
+        self.editContextMenu = ["undo", "redo", "separator", "cut", "copy", "paste", "delete", "separator", "selectAll"]
+        self.toolBar = ["newFile", "openFile", "saveFile", "separator", "cut", "copy", "paste", "delete", "separator", "undo", "redo"]
+        self.statusBarWidgetsLeft = ["builtin.path"]
+        self.statusBarWidgetsRight = ["builtin.eol", "builtin.encoding", "builtin.language", "builtin.cursorPos"]
         self.showSidepane = False
         self.sidepaneWidget = "files"
         self.showFileChangedBanner = True

@@ -1,9 +1,9 @@
-from PyQt6.QtWidgets import QMainWindow, QMenu, QApplication, QLabel, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog, QMessageBox
+from PyQt6.QtWidgets import QMainWindow, QMenu, QApplication, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog, QMessageBox
 from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciPrinter
 from PyQt6.QtGui import QIcon, QAction
 from PyQt6.QtPrintSupport import QPrintDialog
 from PyQt6.QtCore import Qt, QFileSystemWatcher, QTimer, QCoreApplication
-from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid, saveProjects
+from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid, saveProjects, clearStatusBar
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
 from jdTextEdit.gui.SplitViewWidget import SplitViewWidget
 from jdTextEdit.EncodingList import getEncodingList
@@ -15,6 +15,7 @@ from jdTextEdit.gui.BannerWidgets.BigFileBanner import BigFileBanner
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
 from jdTextEdit.Enviroment import Enviroment
+from jdTextEdit.api.StatusBarWidgetBase import StatusBarWidgetBase
 from string import ascii_uppercase
 from typing import List
 import webbrowser
@@ -34,7 +35,6 @@ class MainWindow(QMainWindow):
         self.currentMacro = None
         self.setupMenubar()
         self.splitViewWidget = SplitViewWidget(env)
-        self.setupStatusBar()
         self.toolbar = self.addToolBar("toolbar")
         self.setCentralWidget(self.splitViewWidget)
         self.autoSaveTimer = QTimer()
@@ -140,18 +140,6 @@ class MainWindow(QMainWindow):
         open(path, "w").close()
         self.tempFileOpenWatcher.addPath(path)
         QApplication.setActiveWindow(self)
-
-    def setupStatusBar(self):
-        self.pathLabel = QLabel()
-        self.cursorPosLabel = QLabel(self.env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1))
-        self.lexerLabel = QLabel()
-        self.encodingLabel = QLabel()
-        self.eolLabel = QLabel()
-        self.statusBar().addWidget(self.pathLabel)
-        self.statusBar().addPermanentWidget(self.eolLabel)
-        self.statusBar().addPermanentWidget(self.encodingLabel)
-        self.statusBar().addPermanentWidget(self.lexerLabel)
-        self.statusBar().addPermanentWidget(self.cursorPosLabel)
 
     def setupMenubar(self):
         """
@@ -1614,7 +1602,13 @@ class MainWindow(QMainWindow):
             self.autoSaveTimer.stop()
         for i in self.splitViewWidget.getAllTabWidgets():
             i.updateSettings(settings)
+        clearStatusBar(self.statusBar())
+        for i in settings.get("statusBarWidgetsLeft"):
+            self.statusBar().addWidget(self.env.statusBarWidgetDict[i]())
+        for i in settings.get("statusBarWidgetsRight"):
+            self.statusBar().addPermanentWidget(self.env.statusBarWidgetDict[i]())
         self.updateWindowTitle()
+        self.updateStatusBar()
 
     def updateWindowTitle(self):
         if self.env.settings.windowFileTitle:
@@ -1622,6 +1616,11 @@ class MainWindow(QMainWindow):
             self.setWindowTitle(tabWidget.tabText(tabWidget.currentIndex()) + " - jdTextEdit")
         else:
             self.setWindowTitle("jdTextEdit")
+
+    def updateStatusBar(self):
+        for i in self.statusBar().children():
+            if isinstance(i, StatusBarWidgetBase):
+                i.updateWidget(self)
 
     def saveSession(self):
         if not os.path.isdir(os.path.join(self.env.dataDir, "session_data")):

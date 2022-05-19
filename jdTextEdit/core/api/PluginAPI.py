@@ -64,3 +64,6 @@ class PluginAPI():
     def deleteProject(self, projectID: str):
         del self.env.projects[projectID]
         self.getProjectSignals().projectDeleted.emit(projectID)
+
+    def addStatusBarWidget(self, widget):
+        self.env.statusBarWidgetDict[widget.getID()] = widget

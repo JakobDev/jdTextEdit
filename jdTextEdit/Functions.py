@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QMessageBox, QWidget, QComboBox
+from PyQt6.QtWidgets import QMessageBox, QWidget, QComboBox, QStatusBar
 from PyQt6.QtCore import Qt, QCoreApplication
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.core.Project import Project
@@ -311,3 +311,14 @@ def isRegExValid(regEx: str) -> bool:
         return True
     except re.error:
         return False
+
+
+def clearStatusBar(bar: QStatusBar):
+    """
+    Removes all Widgets from a QStatusBar
+    :param bar: The Statusbar
+    :return:
+    """
+    for i in bar.children():
+        if isinstance(i, QWidget):
+            bar.removeWidget(i)

@@ -13,6 +13,7 @@ from jdTextEdit.gui.SettingsTabs.InterfaceTab import InterfaceTab
 from jdTextEdit.gui.SettingsTabs.ContextMenuTab import ContextMenuTab
 from jdTextEdit.gui.SettingsTabs.ToolbarTab import ToolbarTab
 from jdTextEdit.gui.SettingsTabs.ShortcutTab import ShortcutTab
+from jdTextEdit.gui.SettingsTabs.StatusBarTab import StatusBarTab
 from jdTextEdit.gui.SettingsTabs.TerminalEmulatorTab import TerminalEmulatorTab
 from jdTextEdit.gui.SettingsTabs.PluginTab import PluginTab
 from jdTextEdit.Functions import restoreWindowState
@@ -110,6 +111,7 @@ class SettingsWindow(QWidget):
         self.newTab(ContextMenuTab(self.env))
         self.newTab(ToolbarTab(self.env))
         self.newTab(ShortcutTab(self.env))
+        self.newTab(StatusBarTab(self.env))
         if platform.system() in ("Linux", "FreeBSD"):
             self.newTab(TerminalEmulatorTab(self.env))
         for i in self.env.customSettingsTabs:

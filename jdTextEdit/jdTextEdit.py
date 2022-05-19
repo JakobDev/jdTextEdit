@@ -21,6 +21,7 @@ from jdTextEdit.gui.Tools.RegExGrep.RegExGrepWindow import RegExGrepWindow
 from jdTextEdit.gui.DebugInfoWindow import DebugInfoWindow
 from jdTextEdit.Functions import getTempOpenFilePath
 from jdTextEdit.core.PluginLoader import loadPlugins
+from jdTextEdit.gui.StatusBarWidgets import addBuiltinStatusBarWidgets
 import time
 import sys
 import os
@@ -76,6 +77,8 @@ def main():
     env.pluginAPI.addSidebarWidget(ClipboardWidget(env))
     env.pluginAPI.addSidebarWidget(CharacterMapWidget(env))
     env.pluginAPI.addSidebarWidget(ProjectWidget(env))
+
+    addBuiltinStatusBarWidgets(env)
 
     if os.path.isfile(os.path.join(env.dataDir,"userChrome.css")) and env.settings.get("enableUserChrome"):
         f = open(os.path.join(env.dataDir, "userChrome.css"), "r", encoding="utf-8")

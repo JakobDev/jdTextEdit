@@ -77,20 +77,11 @@ class CodeEdit(QsciScintilla):
         self.env.editorSignals.editorInit.emit(self)
 
     def updateStatusBar(self):
-        if self.isPreview or not hasattr(self.env,"mainWindow"):
+        if self.isPreview or not hasattr(self.env, "mainWindow"):
             return
-        self.env.mainWindow.pathLabel.setText(self.filePath)
-        self.env.mainWindow.encodingLabel.setText(self.usedEncoding)
-        self.env.mainWindow.lexerLabel.setText(self.languageName)
-        self.env.mainWindow.cursorPosLabel.setText(self.cursorPosString)
-        if self.eolMode() == QsciScintilla.EolMode.EolWindows:
-            self.env.mainWindow.eolLabel.setText("CRLF")
-        elif self.eolMode() == QsciScintilla.EolMode.EolUnix:
-            self.env.mainWindow.eolLabel.setText("LF")
-        elif self.eolMode() == QsciScintilla.EolMode.EolMac:
-            self.env.mainWindow.eolLabel.setText("CR")
+        self.env.mainWindow.updateStatusBar()
 
-    def setLanguage(self,lang: LanguageBase):
+    def setLanguage(self, lang: LanguageBase):
         """
         Sets the Language.
         :param lang: The Language
@@ -102,7 +93,7 @@ class CodeEdit(QsciScintilla):
         if not self.isPreview:
             self.languageName = lang.getName()
             self.updateStatusBar()
-            if not hasattr(self.env,"mainWindow"):
+            if not hasattr(self.env, "mainWindow"):
                 return
             self.env.mainWindow.updateSelectedLanguage()
         self.updateSettings(self.settings)
@@ -171,9 +162,7 @@ class CodeEdit(QsciScintilla):
         #self.SendScintilla(QsciScintillaBase.SCI_INDICATORFILLRANGE,0,10)
         self.cursorPosLine = line
         self.cursorPosIndex = pos
-        if not self.isPreview:
-            self.cursorPosString = self.env.translate("mainWindow.statusBar.cursorPosLabel") % (line + 1, pos + 1)
-            self.updateStatusBar()
+        self.updateStatusBar()
 
     def marginClickCallback(self, margin, line):
         if margin == 1:
@@ -188,7 +177,7 @@ class CodeEdit(QsciScintilla):
             self.bookmarkList.append(line)
 
     def updateEolMenu(self):
-        if self.isPreview or not hasattr(self.env,"mainWindow"):
+        if self.isPreview or not hasattr(self.env, "mainWindow"):
             return
         self.env.mainWindow.eolModeWindows.setChecked(False)
         self.env.mainWindow.eolModeUnix.setChecked(False)
@@ -250,7 +239,7 @@ class CodeEdit(QsciScintilla):
             self.env.mainWindow.redoMenubarItem.setEnabled(False)
         self.editSelectionChanged()
         self.updateEncodingMenu()
-        if not hasattr(self.env,"mainWindow"):
+        if not hasattr(self.env, "mainWindow"):
             return
         self.env.mainWindow.updateSelectedLanguage()
 

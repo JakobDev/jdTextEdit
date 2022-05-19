@@ -127,6 +127,8 @@ class Enviroment():
             else:
                 print("templateDirectories in distribution.json must be a list", file=sys.stderr)
 
+        self.statusBarWidgetDict = {}
+
         self.dockWidgets = []
         self.menuActions = {}
         self.encodingAction = []
