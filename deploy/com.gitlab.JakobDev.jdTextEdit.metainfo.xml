@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <component type="desktop">
-  <!--Created with jdAppdataEdit 3.0-->
+  <!--Created with jdAppdataEdit 3.1-->
   <id>com.gitlab.JakobDev.jdTextEdit</id>
   <name>jdTextEdit</name>
   <summary>An advanced text editor</summary>
@@ -38,11 +38,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="10.2" date="2022-05-20" type="stable">
+      <description>
+        <ul>
+          <li>Allow to configure the Statusbar</li>
+        </ul>
+      </description>
+    </release>
     <release version="10.1" date="2022-04-22" type="stable"/>
     <release version="10.0" date="2022-01-26" type="stable"/>
-    <release version="9.1" date="2021-07-22" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/9.1</url>
-      <artifacts>
+    <release version="9.1" date="2021-07-22" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/9.1</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/9.1/jdTextEdit-9.1.tar.gz</location>
           <checksum type="sha1">c1f9d89677a8dceef00bf38228d3e39fcfa754f4</checksum>
@@ -52,9 +57,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="9.0" date="2021-07-16" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/9.0</url>
-      <artifacts>
+    <release version="9.0" date="2021-07-16" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/9.0</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/9.0/jdTextEdit-9.0.tar.gz</location>
           <checksum type="sha1">cfa8748cd4d1d1181b0d19ef7ebfba75ec9cbdf7</checksum>
@@ -64,9 +67,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="8.3" date="2021-02-28" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.3</url>
-      <artifacts>
+    <release version="8.3" date="2021-02-28" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.3</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/8.3/jdTextEdit-8.3.tar.gz</location>
           <checksum type="sha1">5988f8fb82cbea4a2e31836f5fa9ef91c85d0841</checksum>
@@ -76,9 +77,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="8.2" date="2021-02-08" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.2</url>
-      <artifacts>
+    <release version="8.2" date="2021-02-08" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.2</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/8.2/jdTextEdit-8.2.tar.gz</location>
           <checksum type="sha1">537f904a05c266dbc57b09e2af9d4892e28a4c03</checksum>
@@ -88,9 +87,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="8.1" date="2021-01-25" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.1</url>
-      <artifacts>
+    <release version="8.1" date="2021-01-25" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.1</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/8.1/jdTextEdit-8.1.tar.gz</location>
           <checksum type="sha1">60618487ae54e17b7f4e804825c631487a617f48</checksum>
@@ -100,9 +97,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="8.0" date="2021-01-05" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.0</url>
-      <artifacts>
+    <release version="8.0" date="2021-01-05" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.0</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/8.0/jdTextEdit-8.0.tar.gz</location>
           <checksum type="sha1">da6df9d532af8eb73378d49a9329c74ffba4456d</checksum>
@@ -112,9 +107,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="7.2" date="2020-03-25" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.2</url>
-      <artifacts>
+    <release version="7.2" date="2020-03-25" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.2</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/7.2/jdTextEdit-7.2.tar.gz</location>
           <checksum type="sha1">e1b760b891f2b91b439ae5fbaa87cc75e7b32159</checksum>
@@ -124,9 +117,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="7.1" date="2020-03-09" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.1</url>
-      <artifacts>
+    <release version="7.1" date="2020-03-09" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.1</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/7.1/jdTextEdit-7.1.tar.gz</location>
           <checksum type="sha1">2f74be89d47c681868dd6efbd92e7c961ea12c34</checksum>
@@ -136,9 +127,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="7.0" date="2020-02-16" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.0</url>
-      <artifacts>
+    <release version="7.0" date="2020-02-16" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.0</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/7.0/jdTextEdit-7.0.tar.gz</location>
           <checksum type="sha1">263aa071691e315546166e56644694c290d50bab</checksum>
@@ -148,9 +137,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="6.0" date="2020-01-28" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/6.0</url>
-      <artifacts>
+    <release version="6.0" date="2020-01-28" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/6.0</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/6.0/jdTextEdit-6.0.tar.gz</location>
           <checksum type="sha1">25676593fd7e77a4981b2bc794e90c53922996d0</checksum>
@@ -160,9 +147,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.4" date="2020-01-14" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.4</url>
-      <artifacts>
+    <release version="5.4" date="2020-01-14" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.4</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/5.4/jdTextEdit-5.4.tar.gz</location>
           <checksum type="sha1">8d2867ac2244a9575060f0c229b5fc0714ee8aea</checksum>
@@ -172,9 +157,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.3" date="2020-01-09" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.3</url>
-      <artifacts>
+    <release version="5.3" date="2020-01-09" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.3</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/5.3/jdTextEdit-5.3.tar.gz</location>
           <checksum type="sha1">198fcfa371bb3e4cf2786ea12c5881ebd2a1569b</checksum>
@@ -184,9 +167,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.2" date="2019-11-21" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.2</url>
-      <artifacts>
+    <release version="5.2" date="2019-11-21" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.2</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/5.2/jdTextEdit-5.2.tar.gz</location>
           <checksum type="sha1">3242ad77ebcf5051da2a2ab813e95cf362545abf</checksum>
@@ -196,9 +177,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.1" date="2019-11-09" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.1</url>
-      <artifacts>
+    <release version="5.1" date="2019-11-09" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.1</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/5.1/jdTextEdit-5.1.tar.gz</location>
           <checksum type="sha1">a159288d2cfe967399654143834dabc7dd79bd76</checksum>
@@ -208,9 +187,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.0" date="2019-11-09" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.0</url>
-      <artifacts>
+    <release version="5.0" date="2019-11-09" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.0</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/5.0/jdTextEdit-5.0.tar.gz</location>
           <checksum type="sha1">37dc25498575c603a6a6bcff81269ce600e4a725</checksum>
@@ -220,9 +197,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="4.0" date="2019-11-05" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/4.0</url>
-      <artifacts>
+    <release version="4.0" date="2019-11-05" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/4.0</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/4.0/jdTextEdit-4.0.tar.gz</location>
           <checksum type="sha1">a497bb61e64999ed7f511edbd0883bf790600256</checksum>
@@ -232,9 +207,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="3.1" date="2019-10-30" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/3.1</url>
-      <artifacts>
+    <release version="3.1" date="2019-10-30" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/3.1</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/3.1/jdTextEdit-3.1.tar.gz</location>
           <checksum type="sha1">c6b441755a154b2a9a36f5683babaa77712fd495</checksum>
@@ -244,9 +217,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="3.0" date="2019-10-29" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/3.0</url>
-      <artifacts>
+    <release version="3.0" date="2019-10-29" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/3.0</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/3.0/jdTextEdit-3.0.tar.gz</location>
           <checksum type="sha1">66e056ba6df600dc333cee4fe1e2017057842e38</checksum>
@@ -256,9 +227,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="2.1" date="2019-10-22" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/2.1</url>
-      <artifacts>
+    <release version="2.1" date="2019-10-22" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/2.1</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/2.1/jdTextEdit-2.1.tar.gz</location>
           <checksum type="sha1">721ab4e92ce3dc57bf85f9dc5905cf44cf851877</checksum>
@@ -268,9 +237,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="2.0" date="2019-10-22" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/2.0</url>
-      <artifacts>
+    <release version="2.0" date="2019-10-22" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/2.0</url><artifacts>
         <artifact type="source">
           <location>https://gitlab.com/JakobDev/jdTextEdit/-/archive/2.0/jdTextEdit-2.0.tar.gz</location>
           <checksum type="sha1">08883fa4216a3c836d93364c379aa52af36e2bb5</checksum>
