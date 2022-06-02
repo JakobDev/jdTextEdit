@@ -48,7 +48,12 @@ def main():
             os.remove(temp_open_path)
 
     app = QApplication(sys.argv)
+
+    app.setApplicationName("jdTextEdit")
+    app.setDesktopFileName("com.gitlab.JakobDev.jdTextEdit")
+
     env = Enviroment(app)
+
     env.clipboard = QApplication.clipboard()
     env.closeSaveWindow = CloseSaveWindow(env)
     env.searchWindow = SearchWindow(env)
