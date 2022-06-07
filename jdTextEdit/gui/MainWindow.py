@@ -1604,9 +1604,15 @@ class MainWindow(QMainWindow):
             i.updateSettings(settings)
         clearStatusBar(self.statusBar())
         for i in settings.get("statusBarWidgetsLeft"):
-            self.statusBar().addWidget(self.env.statusBarWidgetDict[i]())
+            try:
+                self.statusBar().addWidget(self.env.statusBarWidgetDict[i]())
+            except KeyError:
+                print(f"StatusBarWidget with ID {i} not found", file=sys.stderr)
         for i in settings.get("statusBarWidgetsRight"):
-            self.statusBar().addPermanentWidget(self.env.statusBarWidgetDict[i]())
+            try:
+                self.statusBar().addPermanentWidget(self.env.statusBarWidgetDict[i]())
+            except KeyError:
+                print(f"StatusBarWidget with ID {i} not found", file=sys.stderr)
         self.updateWindowTitle()
         self.updateStatusBar()
 
