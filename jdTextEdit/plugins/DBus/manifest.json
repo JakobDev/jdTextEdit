@@ -1,0 +1,9 @@
+{
+  "id": "builtin.dbus",
+  "name": "D-Bus Interface",
+  "author": "JakobDev",
+  "version": "1.0",
+  "only": {
+    "system": "Linux"
+  }
+}

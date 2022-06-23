@@ -9,5 +9,7 @@ include jdTextEdit/plugins/pluginmanager/manifest.json
 include jdTextEdit/plugins/pluginmanager/translation/*
 include jdTextEdit/plugins/SpellChecker/manifest.json
 include jdTextEdit/plugins/SpellChecker/translation/*
+include jdTextEdit/plugins/DBus/manifest.json
+include jdTextEdit/plugins/DBus/interface.xml
 include jdTextEdit/i18n/*.qm
 global-include *.ui

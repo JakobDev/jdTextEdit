@@ -26,6 +26,7 @@ import os
 class Enviroment():
     def __init__(self, app: QApplication):
         self.programDir = os.path.dirname(os.path.realpath(__file__))
+        self.app = app
 
         with open(os.path.join(self.programDir, "version.txt"), "r", encoding="utf-8") as f:
             self.version = f.read().strip()

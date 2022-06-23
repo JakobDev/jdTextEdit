@@ -49,6 +49,7 @@ def main():
         install_file(current_dir / "jdTextEdit" / "Logo.svg", Path(args.prefix) / "share" / "icons" / "hicolor" / "scalable" / "apps" / "com.gitlab.JakobDev.jdTextEdit.svg")
         install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.desktop", Path(args.prefix) / "share" / "applications" / "com.gitlab.JakobDev.jdTextEdit.desktop")
         install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.metainfo.xml", Path(args.prefix) / "share" / "metainfo" / "com.gitlab.JakobDev.jdTextEdit.metainfo.xml")
+        install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.service", Path(args.prefix) / "share" / "dbus-1" / "services" / "com.gitlab.JakobDev.jdTextEdit.service")
 
     if args.distribution_file:
         install_file(Path(args.distribution_file), Path(args.prefix) / "lib" / "python{}.{}".format(*sys.version_info) / "site-packages" / "jdTextEdit" / "distribution.json")
