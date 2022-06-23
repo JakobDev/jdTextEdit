@@ -2,5 +2,5 @@
   "id": "builtin.spellchecker",
   "name": "SpellChecker",
   "author": "JakobDev",
-  "version": "1.1"
+  "version": "{JDTEXTEDIT_VERSION}"
 }

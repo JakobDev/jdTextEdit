@@ -58,6 +58,7 @@ def loadSinglePlugin(dir: str, env) -> bool:
         if i not in manifest_data:
             print(f"{manifest_path} has no key {i}", file=sys.stderr)
             return False
+    manifest_data["version"] = manifest_data["version"].replace("{JDTEXTEDIT_VERSION}", env.version)
     if not shouldPluginLoaded(manifest_data):
         print(f"Skipping loading of Plugin " + manifest_data["id"])
         return False
