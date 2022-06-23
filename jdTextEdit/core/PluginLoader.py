@@ -1,11 +1,21 @@
 from PyQt6.QtWidgets import QMessageBox, QApplication, QSplashScreen
 from jdTextEdit.Functions import readJsonFile
-from typing import List, NoReturn
+from typing import List, Dict, Any
 import subprocess
 import importlib
 import traceback
+import platform
 import sys
 import os
+
+
+def shouldPluginLoaded(manifest: Dict[str, Any]) -> bool:
+    """Checks if a Plugin allows loading it on the System"""
+    if "only" not in manifest:
+        return True
+    if "system" in manifest["only"] and platform.system() not in manifest["only"]["system"]:
+        return False
+    return True
 
 
 def installPipPackages(env, packageList: List[str], pluginName: str):
@@ -48,6 +58,9 @@ def loadSinglePlugin(dir: str, env) -> bool:
         if i not in manifest_data:
             print(f"{manifest_path} has no key {i}", file=sys.stderr)
             return False
+    if not shouldPluginLoaded(manifest_data):
+        print(f"Skipping loading of Plugin " + manifest_data["id"])
+        return False
     plugin_id = manifest_data["id"]
     if plugin_id in env.settings.get("disabledPlugins"):
         return False
@@ -67,7 +80,7 @@ def loadSinglePlugin(dir: str, env) -> bool:
     return True
 
 
-def loadPlugins(path: str, env) -> NoReturn:
+def loadPlugins(path: str, env) -> None:
     """
     Loads a Plugin for jdTextEdit
     :param path: plugin
