@@ -22,7 +22,7 @@ class Service(QDBusAbstractAdaptor):
 
     @pyqtSlot(str)
     def OpenFile(self, path):
-        self._env.mainWindow.openFile(path)
+        self._env.pluginAPI.openFile(path)
 
     @pyqtSlot(result=str)
     def GetVersion(self):
