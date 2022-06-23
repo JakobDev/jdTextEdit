@@ -4,22 +4,66 @@ import subprocess
 import argparse
 import platform
 import shutil
+import gzip
 import sys
 import os
 
 
-def install_file(source: Path, dest: Path):
+def install_file(source: Path, dest: Path) -> None:
     if not os.path.isdir(dest.parent):
         os.makedirs(dest.parent)
     shutil.copyfile(source, dest)
 
 
-def main():
+def gzip_file(in_path: Path, out_path: Path) -> None:
+    if not os.path.isdir(out_path.parent):
+        os.makedirs(out_path.parent)
+    with open(in_path, "rb") as f:
+        data = f.read()
+    with gzip.open(out_path, "wb") as f:
+        f.write(data)
+
+
+def install_locales(current_dir: Path, prefix: Path) -> None:
+    for i in (current_dir / "jdTextEdit" / "i18n").iterdir():
+        if i.suffix != ".ts":
+            continue
+        lang = i.stem.removeprefix("jdTextEdit_")
+        try:
+            os.makedirs(prefix / "share" / "locale" / lang / "LC_MESSAGES")
+        except Exception:
+            pass
+        subprocess.check_call(["lrelease", str(i), "-qm", str(prefix / "share" / "locale" / lang / "LC_MESSAGES" / "jdtextedit.qm")])
+
+
+def install_unix_data_files(current_dir: Path, args: argparse.Namespace) -> None:
+    install_file(current_dir / "jdTextEdit" / "Logo.svg", Path(args.prefix) / "share" / "icons" / "hicolor" / "scalable" / "apps" / "com.gitlab.JakobDev.jdTextEdit.svg")
+    install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.desktop", Path(args.prefix) / "share" / "applications" / "com.gitlab.JakobDev.jdTextEdit.desktop")
+    install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.metainfo.xml", Path(args.prefix) / "share" / "metainfo" / "com.gitlab.JakobDev.jdTextEdit.metainfo.xml")
+    install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.service", Path(args.prefix) / "share" / "dbus-1" / "services" / "com.gitlab.JakobDev.jdTextEdit.service")
+
+    if args.install_manpage:
+        subprocess.check_call(["make", "man"], cwd=str(current_dir / "doc"))
+        gzip_file(current_dir / "doc" / "build" / "man" / "jdtextedit.1", Path(args.prefix) / "share" / "man" / "man1" / "jdtextedit.1.gz")
+
+    if args.install_html_doc:
+        subprocess.check_call(["make", "html"], cwd=str(current_dir / "doc"))
+        shutil.copytree(current_dir / "doc" / "build" / "html", Path(args.prefix) / "share" / "doc" / "jdTextEdit")
+
+    if args.install_locales:
+        install_locales(current_dir, Path(args.prefix))
+
+
+def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("-y", "--yes", help="Say yes to the install question", action="store_true")
     parser.add_argument("--no-deps", help="Don't install dependencies", action="store_true")
     parser.add_argument("--prefix", help="The prefix", default="/usr")
     parser.add_argument("--distribution-file", help="The distribution.json")
+    if platform.system() == "Linux":
+        parser.add_argument("--install-manpage", help="Installs the manpage (needs sphinx)", action="store_true")
+        parser.add_argument("--install-html-doc", help="Installs the html documentation into share/doc/jdTextEdit (needs sphinx and sphinx-rtd-theme)", action="store_true")
+        parser.add_argument("--install-locales", help="Installs the locales into share/locale (needs lrelease)", action="store_true")
     args = parser.parse_args()
 
     if not args.yes:
@@ -46,10 +90,7 @@ def main():
     subprocess.call([sys.executable, "-m", "pip", "install", "-U", "--no-deps", "--ignore-installed", "--prefix", args.prefix, str(current_dir)])
 
     if platform.system() == "Linux":
-        install_file(current_dir / "jdTextEdit" / "Logo.svg", Path(args.prefix) / "share" / "icons" / "hicolor" / "scalable" / "apps" / "com.gitlab.JakobDev.jdTextEdit.svg")
-        install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.desktop", Path(args.prefix) / "share" / "applications" / "com.gitlab.JakobDev.jdTextEdit.desktop")
-        install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.metainfo.xml", Path(args.prefix) / "share" / "metainfo" / "com.gitlab.JakobDev.jdTextEdit.metainfo.xml")
-        install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.service", Path(args.prefix) / "share" / "dbus-1" / "services" / "com.gitlab.JakobDev.jdTextEdit.service")
+        install_unix_data_files(current_dir, args)
 
     if args.distribution_file:
         install_file(Path(args.distribution_file), Path(args.prefix) / "lib" / "python{}.{}".format(*sys.version_info) / "site-packages" / "jdTextEdit" / "distribution.json")
