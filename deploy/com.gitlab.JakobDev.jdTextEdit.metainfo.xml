@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <component type="desktop">
-  <!--Created with jdAppdataEdit 3.1-->
+  <!--Created with jdAppdataEdit 3.3-->
   <id>com.gitlab.JakobDev.jdTextEdit</id>
   <name>jdTextEdit</name>
   <summary>An advanced text editor</summary>
@@ -38,9 +38,15 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="10.2" date="2022-05-20" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/10.2</url>
+    <release version="10.3" date="2022-06-23" type="stable">
       <description>
+        <ul>
+          <li>Add D-Bus Interface</li>
+          <li>Add install script</li>
+        </ul>
+      </description>
+    </release>
+    <release version="10.2" date="2022-05-20" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/10.2</url><description>
         <ul>
           <li>Allow to configure the Statusbar</li>
         </ul>
@@ -55,9 +61,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="10.1" date="2022-04-22" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/10.1</url>
-      <description>
+    <release version="10.1" date="2022-04-22" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/10.1</url><description>
         <ul>
           <li>Add RegEx Grep</li>
           <li>Add Debug information window</li>
@@ -75,9 +79,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="10.0" date="2022-01-26" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/10.0</url>
-      <description>
+    <release version="10.0" date="2022-01-26" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/10.0</url><description>
         <ul>
           <li>Port to PyQt6</li>
           <li>Add Projects</li>
@@ -128,9 +130,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="8.3" date="2021-02-28" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.3</url>
-      <description>
+    <release version="8.3" date="2021-02-28" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.3</url><description>
         <ul>
           <li>Added line operations</li>
           <li>Added templates directories to distribution.json</li>
@@ -147,9 +147,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="8.2" date="2021-02-08" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.2</url>
-      <description>
+    <release version="8.2" date="2021-02-08" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.2</url><description>
         <ul>
           <li>Add Haiku support</li>
         </ul>
@@ -163,9 +161,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="8.1" date="2021-01-25" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.1</url>
-      <description>
+    <release version="8.1" date="2021-01-25" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.1</url><description>
         <ul>
           <li>Add basic support for themes</li>
           <li>Fix Bugs</li>
@@ -180,9 +176,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="8.0" date="2021-01-05" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.0</url>
-      <description>
+    <release version="8.0" date="2021-01-05" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/8.0</url><description>
         <ul>
           <li>Add Spell Checker</li>
           <li>Add Settings for handeling Big Files</li>
@@ -202,9 +196,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="7.2" date="2020-03-25" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.2</url>
-      <description>
+    <release version="7.2" date="2020-03-25" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.2</url><description>
         <ul>
           <li>Add Tabbar Tab in Settings</li>
         </ul>
@@ -218,9 +210,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="7.1" date="2020-03-09" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.1</url>
-      <description>
+    <release version="7.1" date="2020-03-09" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.1</url><description>
         <ul>
           <li>Add support for .editorconfig</li>
           <li>Better language detection</li>
@@ -235,9 +225,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="7.0" date="2020-02-16" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.0</url>
-      <description>
+    <release version="7.0" date="2020-02-16" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/7.0</url><description>
         <ul>
           <li>Watch open files for changes</li>
           <li>Add Banners for wrong encoding and wrong EOL</li>
@@ -257,9 +245,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="6.0" date="2020-01-28" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/6.0</url>
-      <description>
+    <release version="6.0" date="2020-01-28" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/6.0</url><description>
         <ul>
           <li>Opening Files from the Shell will not start jdTextEdit again</li>
           <li>Add Option for default zoom</li>
@@ -279,9 +265,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.4" date="2020-01-14" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.4</url>
-      <description>
+    <release version="5.4" date="2020-01-14" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.4</url><description>
         <ul>
           <li>Language menu now show ticks</li>
           <li>Add a few new features to the Tools menu</li>
@@ -298,9 +282,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.3" date="2020-01-09" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.3</url>
-      <description>
+    <release version="5.3" date="2020-01-09" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.3</url><description>
         <ul>
           <li>Better support for Snaps</li>
           <li>Update Copyright</li>
@@ -318,9 +300,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.2" date="2019-11-21" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.2</url>
-      <description>
+    <release version="5.2" date="2019-11-21" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.2</url><description>
         <ul>
           <li>Use jdTranslationHelper</li>
         </ul>
@@ -334,9 +314,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.1" date="2019-11-09" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.1</url>
-      <description>
+    <release version="5.1" date="2019-11-09" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.1</url><description>
         <ul>
           <li>Fix MANIFEST.in</li>
         </ul>
@@ -350,9 +328,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="5.0" date="2019-11-09" type="development">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.0</url>
-      <description>
+    <release version="5.0" date="2019-11-09" type="development"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/5.0</url><description>
         <ul>
           <li>Add Logo</li>
           <li>Add options to not exit when all tabs are closed</li>
@@ -369,9 +345,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="4.0" date="2019-11-05" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/4.0</url>
-      <description>
+    <release version="4.0" date="2019-11-05" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/4.0</url><description>
         <ul>
           <li>Add Macros
 </li>
@@ -388,9 +362,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="3.1" date="2019-10-30" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/3.1</url>
-      <description>
+    <release version="3.1" date="2019-10-30" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/3.1</url><description>
         <ul>
           <li>Opening a file now works correct</li>
         </ul>
@@ -404,9 +376,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="3.0" date="2019-10-29" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/3.0</url>
-      <description>
+    <release version="3.0" date="2019-10-29" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/3.0</url><description>
         <ul>
           <li>Add Bookmarks</li>
           <li>Add Character Map</li>
@@ -422,9 +392,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="2.1" date="2019-10-22" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/2.1</url>
-      <description>
+    <release version="2.1" date="2019-10-22" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/2.1</url><description>
         <ul>
           <li>Fix command execution</li>
         </ul>
@@ -438,9 +406,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="2.0" date="2019-10-22" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/2.0</url>
-      <description>
+    <release version="2.0" date="2019-10-22" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/2.0</url><description>
         <ul>
           <li>Added Pluginmamanger</li>
           <li>You can now change encoding</li>
@@ -457,9 +423,7 @@
         </artifact>
       </artifacts>
     </release>
-    <release version="1.0" date="2019-09-27" type="stable">
-      <url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/1.0</url>
-      <description>
+    <release version="1.0" date="2019-09-27" type="stable"><url>https://gitlab.com/JakobDev/jdTextEdit/-/releases/1.0</url><description>
         <ul>
           <li>First release</li>
         </ul>
@@ -493,5 +457,7 @@
   <provides>
     <binary>jdTextEdit</binary>
     <python3>jdTextEdit</python3>
+    <dbus type="user">com.gitlab.JakobDev.jdTextEdit</dbus>
   </provides>
+  <translation type="qt">jdtextedit</translation>
 </component>
