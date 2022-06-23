@@ -67,3 +67,7 @@ class PluginAPI():
 
     def addStatusBarWidget(self, widget):
         self.env.statusBarWidgetDict[widget.getID()] = widget
+
+    def openFile(self, path: str) -> None:
+        """Opens the File"""
+        self.env.mainWindow.openFile(path)
