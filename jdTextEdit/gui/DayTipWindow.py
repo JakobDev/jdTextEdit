@@ -31,7 +31,7 @@ class DayTipWindow(QWidget):
 
     def setup(self):
         self.tips = []
-        for key,value in self.env.translations.strings.items():
+        for key,value in self.env.translations.getStrings().items():
             if key.startswith("dayTip."):
                 self.tips.append(value)
         self.selectedTip = None
