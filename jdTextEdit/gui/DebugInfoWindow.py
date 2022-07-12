@@ -2,9 +2,11 @@ from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, QVB
 from PyQt6.Qsci import QsciScintilla, QsciLexerJSON
 from jdTextEdit.Functions import restoreWindowState
 from PyQt6.QtCore import QCoreApplication
+import configparser
 import platform
 import json
 import sys
+import os
 
 
 class DebugInfoWindow(QWidget):
@@ -51,6 +53,13 @@ class DebugInfoWindow(QWidget):
         data["settings"] = self.env.settings.getAll()
         data["distributionSettings"] = self.env.distributionSettings
         data["updaterEnabled"] = self.env.enableUpdater
+
+        if os.path.isfile("/.flatpak-info"):
+            parser = configparser.ConfigParser()
+            parser.read("/.flatpak-info")
+            data["flatpak-info"] = {}
+            for i in parser.sections():
+                data["flatpak-info"][i] = dict(parser[i])
 
         self._dataShowWidget.setText(json.dumps(data, ensure_ascii=False, indent=4))
 
