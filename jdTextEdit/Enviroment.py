@@ -82,17 +82,18 @@ class Enviroment():
         self._qscintilla_translator = QTranslator()
         qt_trans_dir = QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath)
         if self.args["language"]:
-            self.translations = jdTranslationHelper(self.args["language"])
+            self.translations = jdTranslationHelper(lang=self.args["language"], default_language="en")
             self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + self.args["language"] + ".qm"))
             self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + self.args["language"] + ".qm"))
             self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + self.args["language"] + ".qm"))
         elif self.settings.language == "default":
-            self.translations = jdTranslationHelper(lang=QLocale.system().name())
-            self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + QLocale.system().name() + ".qm"))
-            self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + QLocale.system().name() + ".qm"))
-            self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + QLocale.system().name() + ".qm"))
+            system_lang = QLocale.system().name().split("_")[0]
+            self.translations = jdTranslationHelper(lang=system_lang, default_language="en")
+            self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + system_lang + ".qm"))
+            self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + system_lang + ".qm"))
+            self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + system_lang + ".qm"))
         else:
-            self.translations = jdTranslationHelper(lang=self.settings.get("language"))
+            self.translations = jdTranslationHelper(lang=self.settings.get("language"), default_language="en")
             self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + self.settings.get("language") + ".qm"))
             self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + self.settings.get("language") + ".qm"))
             self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + self.settings.get("language") + ".qm"))

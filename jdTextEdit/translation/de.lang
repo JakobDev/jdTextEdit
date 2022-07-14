@@ -14,8 +14,8 @@ position.bottom=Unten
 position.left=Links
 position.right=Rechts
 
-language.en_GB=Englisch
-language.de_DE=Deutsch
+language.en=Englisch
+language.de=Deutsch
 
 unknownError.title=Unbekannter Fehler
 unknownError.text=Ein Unbekannter Fehler ist aufgetreten.
