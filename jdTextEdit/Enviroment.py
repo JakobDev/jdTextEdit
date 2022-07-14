@@ -1,6 +1,6 @@
 from jdTranslationHelper import jdTranslationHelper
 from PyQt6.QtWidgets import QApplication
-from PyQt6.QtCore import QLocale, QTranslator
+from PyQt6.QtCore import QLocale, QTranslator, QLibraryInfo
 from PyQt6.QtGui import QIcon
 from jdTextEdit.Settings import Settings
 from jdTextEdit.LexerList import getLexerList
@@ -78,17 +78,28 @@ class Enviroment():
             self.settings.load(os.path.join(self.dataDir, "settings.json"))
 
         self._translator = QTranslator()
+        self._qt_translator = QTranslator()
+        self._qscintilla_translator = QTranslator()
+        qt_trans_dir = QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath)
         if self.args["language"]:
             self.translations = jdTranslationHelper(self.args["language"])
             self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + self.args["language"] + ".qm"))
+            self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + self.args["language"] + ".qm"))
+            self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + self.args["language"] + ".qm"))
         elif self.settings.language == "default":
             self.translations = jdTranslationHelper(lang=QLocale.system().name())
             self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + QLocale.system().name() + ".qm"))
+            self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + QLocale.system().name() + ".qm"))
+            self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + QLocale.system().name() + ".qm"))
         else:
             self.translations = jdTranslationHelper(lang=self.settings.get("language"))
             self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + self.settings.get("language") + ".qm"))
+            self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + self.settings.get("language") + ".qm"))
+            self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + self.settings.get("language") + ".qm"))
         self.translations.loadDirectory(os.path.join(self.programDir, "translation"))
         app.installTranslator(self._translator)
+        app.installTranslator(self._qt_translator)
+        app.installTranslator(self._qscintilla_translator)
 
         self.recentFiles = readJsonFile(os.path.join(self.dataDir, "recentfiles.json"),[])
 
