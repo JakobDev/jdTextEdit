@@ -33,7 +33,7 @@ def installPipPackages(env, packageList: List[str], pluginName: str):
     w.showMessage("Installing packages.<br> This may take some time")
     QApplication.processEvents()
     try:
-        result = subprocess.run(["pip", "install"] + missingPackages)
+        result = subprocess.run([sys.executable, "-m", "pip", "install"] + missingPackages)
     except FileNotFoundError:
         w.close()
         QMessageBox.critical(None, "Pip not found", "Pip was not found")
