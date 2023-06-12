@@ -1,11 +1,13 @@
+from jdTextEdit.Functions import getLexerStyles
 from jdTextEdit.api.ThemeBase import ThemeBase
 from PyQt6.QtGui import QColor
 
+
 class DefaultTheme(ThemeBase):
-    def __init__(self,env):
+    def __init__(self, env):
         self.env = env
 
-    def applyTheme(self,editWidget,lexer):
+    def applyTheme(self, editWidget, lexer):
         editWidget.setColor(QColor("#000000"))
         editWidget.setPaper(QColor("#FFFFFF"))
         editWidget.setSelectionForegroundColor(QColor("#FFFFFF"))
@@ -20,14 +22,12 @@ class DefaultTheme(ThemeBase):
         lexer.setDefaultPaper(QColor("#FFFFFF"))
         lexer.setDefaultColor(QColor("#000000"))
         base = editWidget.getLanguage().getLexer()
-        for attr in base.__dir__():
-            if isinstance(getattr(base,attr),int):
-                colorID = getattr(base,attr)
-                baseColor = base.color(colorID)
-                lexer.setColor(baseColor,colorID)
+        for i in getLexerStyles(base).values():
+            baseColor = base.color(i)
+            lexer.setColor(baseColor, i)
 
-    def getName(self):
+    def getName(self) -> str:
         return self.env.translate("settingsWindow.style.theme.default")
 
-    def getID(self):
+    def getID(self) -> str:
         return "builtin.default"

@@ -254,7 +254,6 @@ settingsWindow.toolbar.buttonStyle.textBesideIcons=Text beside Icons
 settingsWindow.toolbar.buttonStyle.textUnderIcons=Text under Icons
 settingsWindow.toolbar.buttonStyle.osStyle=Follow OS Style
 settingsWindow.shortcuts=Shortcuts
-settingsWindow.shortcuts.button.clear=Clear
 settingsWindow.shortcuts.button.reset=Reset
 settingsWindow.plugins=Plugins
 settingsWindow.plugins.header.enabled=Enabled

@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QMessageBox, QApplication, QSplashScreen
 from jdTextEdit.Functions import readJsonFile
-from typing import List, Dict, Any
+from typing import Any, TYPE_CHECKING
 import subprocess
 import importlib
 import traceback
@@ -9,7 +9,11 @@ import sys
 import os
 
 
-def shouldPluginLoaded(manifest: Dict[str, Any]) -> bool:
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
+def shouldPluginLoaded(manifest: dict[str, Any]) -> bool:
     """Checks if a Plugin allows loading it on the System"""
     if "only" not in manifest:
         return True
@@ -18,7 +22,7 @@ def shouldPluginLoaded(manifest: Dict[str, Any]) -> bool:
     return True
 
 
-def installPipPackages(env, packageList: List[str], pluginName: str):
+def installPipPackages(env: "Environment", packageList: list[str], pluginName: str):
     missingPackages = []
     for i in packageList:
         if not importlib.util.find_spec(i):
@@ -43,13 +47,13 @@ def installPipPackages(env, packageList: List[str], pluginName: str):
         QMessageBox.critical(None, env.translate("pipFailed.title"), env.translate("pipFailed.text"))
 
 
-def loadSinglePlugin(dir: str, env) -> bool:
-    if not os.path.isdir(dir):
-        print(f"Directory {dir} does not exists", file=sys.stderr)
+def loadSinglePlugin(pluginDir: str, env) -> bool:
+    if not os.path.isdir(pluginDir):
+        print(f"Directory {pluginDir} does not exists", file=sys.stderr)
         return False
-    manifest_path = os.path.join(dir, "manifest.json")
+    manifest_path = os.path.join(pluginDir, "manifest.json")
     if not os.path.isfile(manifest_path):
-        print(dir + " has no manifest.json", file=sys.stderr)
+        print(pluginDir + " has no manifest.json", file=sys.stderr)
         return False
     manifest_data = readJsonFile(manifest_path, None)
     if not manifest_data:
@@ -71,17 +75,17 @@ def loadSinglePlugin(dir: str, env) -> bool:
     if "requirements" in manifest_data:
         installPipPackages(env, manifest_data["requirements"], manifest_data["name"])
     try:
-        p = importlib.import_module(os.path.basename(dir))
+        p = importlib.import_module(os.path.basename(pluginDir))
         env.plugins[plugin_id] = manifest_data
         env.plugins[plugin_id]["module"] = p
-        env.plugins[plugin_id]["module"].main(env)
     except Exception as e:
         print(traceback.format_exc(), end="", file=sys.stderr)
         return False
+    env.plugins[plugin_id]["module"].main(env)
     return True
 
 
-def loadPlugins(path: str, env) -> None:
+def loadPlugins(path: str, env: "Environment") -> None:
     """
     Loads a Plugin for jdTextEdit
     :param path: plugin

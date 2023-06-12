@@ -1,6 +1,7 @@
 from PyQt6.Qsci import QsciLexer, QsciAPIs
 from PyQt6.QtGui import QIcon
-from typing import List
+from typing import Optional
+
 
 class LanguageBase():
     def getLexer(self) -> QsciLexer:
@@ -17,17 +18,24 @@ class LanguageBase():
         """
         return "Unknown"
 
-    def getExtensions(self) -> List[str]:
+    def getExtensions(self) -> list[str]:
         """
         Returns alist of known extension for the language e.g. py
         :return: list of extensions
         """
         return []
 
-    def getStarttext(self) -> List[str]:
+    def getStarttext(self) -> list[str]:
         """
         Returns a list of text, which files usually starts e.g. #!/usr/bin/python
-        :return:
+        :return: list of known Starttext
+        """
+        return []
+
+    def getMimeType(self) -> list[str]:
+        """
+        Returns a list of text, which files usually starts e.g. application/xml
+        :return: list of known MimeTypes
         """
         return []
 
@@ -38,7 +46,7 @@ class LanguageBase():
         """
         return "unknown"
 
-    def getAPI(self,lexer: QsciLexer) -> QsciAPIs:
+    def getAPI(self, lexer: QsciLexer) -> Optional[QsciAPIs]:
         """
         Returns the API of the language which is used for Autocompletion
         :param lexer: the current lexer
@@ -46,7 +54,7 @@ class LanguageBase():
         """
         return None
 
-    def getIcon(self) -> QIcon:
+    def getIcon(self) -> Optional[QIcon]:
         """
         Returns the Icon of the language, which is displayed in the menu. returns None, if the language has no Icon.
         :return: icon

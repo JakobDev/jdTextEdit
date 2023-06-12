@@ -49,7 +49,7 @@ class ProjectWidget(QTreeWidget, SidebarWidgetBase):
 
         self.itemDoubleClicked.connect(self._itemClickedTriggered)
 
-    def _addItems(self, project, root_item):
+    def _addItems(self, project: Project, root_item: ProjectItem):
         projectID = project.getID()
         if projectID not in self.itemDict:
             self.itemDict[projectID] = {}
@@ -92,11 +92,11 @@ class ProjectWidget(QTreeWidget, SidebarWidgetBase):
 
         self.addTopLevelItem(root_item)
 
-    def _projectDirectoryChanged(self, project, path):
+    def _projectDirectoryChanged(self, project: Project, path: str):
         projectName = project.getName()
         self._addItems(project, self.rootItems[projectName])
 
-    def _itemClickedTriggered(self, item):
+    def _itemClickedTriggered(self, item: FileItem):
         if not type(item) is FileItem:
             return
         path = item.project().getAbsolutePath(item.path())

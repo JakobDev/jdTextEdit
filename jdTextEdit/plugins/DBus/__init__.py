@@ -31,6 +31,6 @@ class Service(QDBusAbstractAdaptor):
 
 def main(env):
     if not QDBusConnection.sessionBus().isConnected():
-        print ("Cannot connect to the D-Bus session bus.\nPlease check your system settings and try again.", file=sys.stderr);
+        print("Cannot connect to the D-Bus session bus.\nPlease check your system settings and try again.", file=sys.stderr);
 
     service = Service(env, env.app)

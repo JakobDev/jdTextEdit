@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstra
 from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
 from PyQt6.QtCore import Qt
 
+
 class CharacterMapWidget(QTableWidget,SidebarWidgetBase):
     def __init__(self, env):
         super().__init__(256,2)

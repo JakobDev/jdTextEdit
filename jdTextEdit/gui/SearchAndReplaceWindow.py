@@ -1,7 +1,8 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QPlainTextEdit, QPushButton, QHBoxLayout, QVBoxLayout, QGridLayout, QLayout
 
+
 class SearchAndReplaceWindow(QWidget):
-    def __init__(self,env):
+    def __init__(self, env):
         super().__init__()
         self.searchEdit = QPlainTextEdit()
         self.replaceEdit = QPlainTextEdit()

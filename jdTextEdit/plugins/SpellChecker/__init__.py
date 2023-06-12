@@ -2,6 +2,7 @@ from .SpellChecker import SpellChecker
 from .SpellCheckingTab import SpellCheckingTab
 import os
 
+
 def main(env):
     currentDir = os.path.dirname(os.path.realpath(__file__))
     env.pluginAPI.addTranslationDirectory(os.path.join(currentDir,"translation"))

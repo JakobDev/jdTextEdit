@@ -2,8 +2,9 @@ from jdTextEdit.api.LanguageBase import LanguageBase
 from jdTextEdit.AutocompleteXML import AutocompleteXML
 import os
 
+
 class BuiltinLanguage(LanguageBase):
-    def __init__(self,env,entry):
+    def __init__(self, env, entry):
         self.env = env
         self.list_entry = entry
 
@@ -25,8 +26,8 @@ class BuiltinLanguage(LanguageBase):
         else:
             return []
 
-    def getAPI(self,lexer):
+    def getAPI(self, lexer):
         if self.list_entry["xmlapi"] == "":
             return
-        path = os.path.join(self.env.programDir,"autocompletion",self.list_entry["xmlapi"] + ".xml")
-        return AutocompleteXML(lexer,path)
+        path = os.path.join(self.env.programDir, "autocompletion", self.list_entry["xmlapi"] + ".xml")
+        return AutocompleteXML(lexer, path)

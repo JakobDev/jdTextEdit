@@ -1,14 +1,20 @@
 from PyQt6.QtWidgets import QWidget, QSplitter, QHBoxLayout
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
 from jdTextEdit.gui.CodeEdit import CodeEdit
-from jdTextEdit.Enviroment import Enviroment
-from typing import List
+from jdTextEdit.Environment import Environment
+from typing import TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    from jdTextEdit.gui.MainWindow import MainWindow
+
 
 class SplitViewWidget(QWidget):
-    def __init__(self,env: Enviroment):
+    def __init__(self, env: Environment, mainWindow: "MainWindow"):
         super().__init__()
         self.env = env
         self.activeID = 0
+        self._mainWindow = mainWindow
 
         self.splitterWidget = QSplitter(self)
 
@@ -34,7 +40,7 @@ class SplitViewWidget(QWidget):
         """
         return self.splitterWidget.widget(self.activeID)
 
-    def getAllTabWidgets(self) -> List[EditTabWidget]:
+    def getAllTabWidgets(self) -> list[EditTabWidget]:
         """
         Returns a list with tab widgets
         :return: lsi with widgets
@@ -44,7 +50,7 @@ class SplitViewWidget(QWidget):
             widgetList.append(self.splitterWidget.widget(i))
         return widgetList
 
-    def setActiveWidget(self,splitID: int):
+    def setActiveWidget(self, splitID: int):
         """
         Sets the widget with the id as active
         """
@@ -98,7 +104,7 @@ class SplitViewWidget(QWidget):
             data["tabWidgets"].append(tabData)
         return data
 
-    def restoreSession(self,data: dict):
+    def restoreSession(self, data: dict):
         """
         Restores a session. This function should not be called outside restoreSession() of MainWindow.
         :param data: The session data
@@ -109,14 +115,17 @@ class SplitViewWidget(QWidget):
             self.splitterWidget.widget(self.splitterWidget.count() - 1).restoreSession(data, old_version=True)
             return
         for i in data["tabWidgets"]:
-            self.splitterWidget.addWidget(EditTabWidget(self.env, self,self.splitterWidget.count()))
-            self.splitterWidget.widget(self.splitterWidget.count()-1).restoreSession(i)
+            self.splitterWidget.addWidget(EditTabWidget(self.env, self, self.splitterWidget.count()))
+            self.splitterWidget.widget(self.splitterWidget.count() - 1).restoreSession(i)
         if self.splitterWidget.count() > 1:
-            self.env.mainWindow.deleteCurrentViewAction.setEnabled(True)
+            self._mainWindow.deleteCurrentViewAction.setEnabled(True)
 
     def updateTabWidgetID(self):
         """
         Update the IDs of the TabWidgets. This is needed is a TabWidget is removed.
         """
-        for count,i in enumerate(self.getAllTabWidgets()):
+        for count, i in enumerate(self.getAllTabWidgets()):
             i.splitID = count
+
+    def getMainWindow(self) -> "MainWindow":
+        return self._mainWindow

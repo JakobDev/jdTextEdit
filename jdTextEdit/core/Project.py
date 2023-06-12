@@ -1,10 +1,15 @@
 from PyQt6.QtCore import QObject, QFileSystemWatcher
+from typing import TYPE_CHECKING
 import glob
 import os
 
 
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
 class Project(QObject):
-    def __init__(self, env, project_id: str, name: str, path: str):
+    def __init__(self, env: "Environment", project_id: str, name: str, path: str):
         super().__init__()
         self.env = env
 
@@ -16,7 +21,6 @@ class Project(QObject):
         self._name = name
 
         self._updateList()
-        #print(self._watcher.directories())
         self._watcher.directoryChanged.connect(self._directory_changed)
 
     def _updateList(self):

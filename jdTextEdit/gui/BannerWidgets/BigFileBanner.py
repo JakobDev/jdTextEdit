@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QHBoxLayout
 
+
 class BigFileBanner(QWidget):
     def __init__(self,env,parent):
         super().__init__()

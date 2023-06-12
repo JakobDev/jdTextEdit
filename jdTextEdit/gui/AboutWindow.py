@@ -1,12 +1,18 @@
 from PyQt6.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QLayout
-from jdTextEdit.Functions import getThemeIcon, restoreWindowState
+from jdTextEdit.Functions import getThemeIcon
+from typing import TYPE_CHECKING
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import Qt
 import webbrowser
 import os
 
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
 class AboutWindow(QWidget):
-    def __init__(self, env):
+    def __init__(self, env: "Environment"):
         super().__init__()
         logo = QLabel()
         logo.setPixmap(QIcon(os.path.join(env.programDir, "Logo.svg")).pixmap(100, 100))
@@ -14,13 +20,12 @@ class AboutWindow(QWidget):
         text = "<center>"
         text += (env.translate("aboutWindow.label.title") % env.version) + "<br><br>"
         text += env.translate("aboutWindow.label.description") + "<br><br>"
-        text +=  env.translate("aboutWindow.label.license") + "<br><br>"
+        text += env.translate("aboutWindow.label.license") + "<br><br>"
         text += env.translate("aboutWindow.label.logoAuthor") + "<br><br>"
         if "aboutMessage" in env.distributionSettings:
             text += env.distributionSettings["aboutMessage"] + "<br><br>"
         text += "Copyright © 2019-2022 JakobDev</center>"
         label = QLabel(text)
-        #label = QLabel("<center>" + (env.translate("aboutWindow.label.title") % env.version) + "<br><br>" + env.translate("aboutWindow.label.description") + "<br><br>"+ env.translate("aboutWindow.label.license") + "<br><br>"  + env.translate("aboutWindow.label.logoAuthor") + "<br><br>Copyright © 2019-2021 JakobDev</center>")
         viewSourceButton = QPushButton(env.translate("aboutWindow.button.viewSource"))
         closeButton = QPushButton(env.translate("button.close"))
 

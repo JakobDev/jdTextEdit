@@ -1,8 +1,9 @@
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from PyQt6.Qsci import QsciLexer
 
+
 class ThemeBase():
-    def applyTheme(self,editWidget: CodeEdit, lexer: QsciLexer):
+    def applyTheme(self, editWidget: CodeEdit, lexer: QsciLexer) -> None:
         pass
 
     def getName(self) -> str:

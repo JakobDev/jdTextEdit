@@ -1,9 +1,9 @@
 from PyQt6.QtWidgets import QMainWindow, QMenu, QApplication, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog, QMessageBox
 from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciPrinter
-from PyQt6.QtGui import QIcon, QAction
+from PyQt6.QtGui import QIcon, QAction, QCloseEvent, QDropEvent
 from PyQt6.QtPrintSupport import QPrintDialog
 from PyQt6.QtCore import Qt, QFileSystemWatcher, QTimer, QCoreApplication
-from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid, saveProjects, clearStatusBar
+from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid, saveProjects, clearStatusBar, formatDateTime
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
 from jdTextEdit.gui.SplitViewWidget import SplitViewWidget
 from jdTextEdit.EncodingList import getEncodingList
@@ -12,14 +12,21 @@ from jdTextEdit.Updater import searchForUpdates
 from jdTextEdit.gui.BannerWidgets.WrongEncodingBanner import WrongEncodingBanner
 from jdTextEdit.gui.BannerWidgets.WrongEolBanner import WrongEolBanner
 from jdTextEdit.gui.BannerWidgets.BigFileBanner import BigFileBanner
+from jdTextEdit.gui.BannerWidgets.SimpleMessageBanner import SimpleMessageBanner
+from jdTextEdit.gui.ManageTemplatesWindow import ManageTemplatesWindow
+from jdTextEdit.gui.Windows.ExportDataWindow import ExportDataWindow
+from jdTextEdit.gui.Windows.LanguageOverwritesWindow import LanguageOverwritesWindow
+from jdTextEdit.gui.Windows.ManageThemesWindow.ManageThemeListWindow import ManageThemeListWindow
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
-from jdTextEdit.Enviroment import Enviroment
+from jdTextEdit.Environment import Environment
 from jdTextEdit.api.StatusBarWidgetBase import StatusBarWidgetBase
 from string import ascii_uppercase
-from typing import List
+from typing import Optional
 import webbrowser
 import traceback
+import datetime
+import zipfile
 import random
 import shutil
 import atexit
@@ -29,25 +36,25 @@ import os
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, env: Enviroment):
+    def __init__(self, env: Environment):
         super().__init__()
         self.env = env
-        self.currentMacro = None
+        self.currentMacro: Optional[QsciMacro] = None
         self.setupMenubar()
-        self.splitViewWidget = SplitViewWidget(env)
+        self.splitViewWidget = SplitViewWidget(env, self)
         self.toolbar = self.addToolBar("toolbar")
         self.setCentralWidget(self.splitViewWidget)
         self.autoSaveTimer = QTimer()
         #self.autoSaveTimer.setInterval(2147483647)
         self.autoSaveTimer.timeout.connect(self.autoSaveTimeout)
         if "MainWindow" in env.windowState:
-            restoreWindowState(self,env.windowState,"MainWindow")
+            restoreWindowState(self, env.windowState ,"MainWindow")
         else:
             self.setGeometry(0, 0, 800, 600)
 
     def setup(self):
         #This is called, after all at least
-        if os.path.isfile(os.path.join(self.env.dataDir,"session.json")) and not self.env.args["disableSessionRestore"]:
+        if os.path.isfile(os.path.join(self.env.dataDir, "session.json")) and not self.env.args["disableSessionRestore"]:
             try:
                 self.restoreSession()
             except Exception as e:
@@ -65,24 +72,24 @@ class MainWindow(QMainWindow):
         if len(self.env.args["filename"]) == 1:
             self.openFileCommandline(os.path.abspath(self.env.args["filename"][0]))
         #self.getMenuActions(self.menubar)
-        self.env.sidepane = DockWidget(self.env)
-        self.env.sidepane.hide()
-        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea,self.env.sidepane)
+        self.sidepane = DockWidget(self.env)
+        self.sidepane.hide()
+        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.sidepane)
         for tabWidget in self.splitViewWidget.getAllTabWidgets():
             for i in range(tabWidget.count()):
                 widget = tabWidget.widget(i).getCodeEditWidget()
                 widget.modificationStateChange(widget.isModified())
-        if self.env.settings.showSidepane:
+        if self.env.settings.get("showSidepane"):
             self.toggleSidebarClicked()
-        self.env.sidepane.content.setCurrentWidget(self.env.settings.sidepaneWidget)
+        self.sidepane.content.setCurrentWidget(self.env.settings.get("sidepaneWidget"))
         self.getTextEditWidget().updateEolMenu()
         self.getTextEditWidget().updateEncodingMenu()
         self.env.settingsWindow.setup()
         self.env.dayTipWindow.setup()
         self.updateSettings(self.env.settings)
-        if self.env.settings.searchUpdates and self.env.enableUpdater:
+        if self.env.settings.get("searchUpdates") and self.env.enableUpdater:
             searchForUpdates(self.env, True)
-        if self.env.settings.useIPC:
+        if self.env.settings.get("useIPC"):
             open(getTempOpenFilePath(), "w").close()
             self.tempFileOpenWatcher = QFileSystemWatcher()
             self.tempFileOpenWatcher.addPath(getTempOpenFilePath())
@@ -91,7 +98,7 @@ class MainWindow(QMainWindow):
         self.env.mainWindowSignals.windowInit.emit(self)
         self.show()
         #self.getTextEditWidget().ensureCursorVisible()
-        if self.env.settings.startupDayTip:
+        if self.env.settings.get("startupDayTip"):
             self.env.dayTipWindow.openWindow()
 
     def openFileCommandline(self, path: str):
@@ -109,11 +116,11 @@ class MainWindow(QMainWindow):
                 if os.path.isdir(path):
                     print("Can't open directory")
                 else:
-                    self.getTabWidget().createTab(os.path.basename(path),focus=True)
+                    self.getTabWidget().createTab(os.path.basename(path), focus=True)
                     editWidget = self.getTextEditWidget()
                     editWidget.setFilePath(path)
                     editWidget.isNew = False
-                    if self.env.settings.useEditorConfig:
+                    if self.env.settings.get("useEditorConfig"):
                         editWidget.loadEditorConfig()
 
     def getTextEditWidget(self) -> CodeEdit:
@@ -130,7 +137,7 @@ class MainWindow(QMainWindow):
         """
         return self.splitViewWidget.getCurrentTabWidget()
 
-    def openTempFileSignal(self,path: str):
+    def openTempFileSignal(self, path: str):
         if os.path.getsize(path) == 0:
             return
         with open(path) as f:
@@ -141,7 +148,7 @@ class MainWindow(QMainWindow):
         self.tempFileOpenWatcher.addPath(path)
         QApplication.setActiveWindow(self)
 
-    def setupMenubar(self):
+    def setupMenubar(self) -> None:
         """
         Creates the Menubar with all Actions
         """
@@ -335,23 +342,29 @@ class MainWindow(QMainWindow):
         self.convertCase.addAction(convertUppercase)
         self.env.pluginAPI.addAction(convertUppercase)
 
-        convertLowercase = QAction(self.env.translate("mainWindow.menu.edit.convertCase.lowercase"),self)
-        convertLowercase.triggered.connect(lambda: self.getTextEditWidget().replaceSelectedText(self.getTextEditWidget().selectedText().lower()))
+        convertLowercase = QAction(self.env.translate("mainWindow.menu.edit.convertCase.lowercase"), self)
+        convertLowercase.triggered.connect(lambda: self.getTextEditWidget().setCurrentText(self.getTextEditWidget().getCurrentText().lower()))
         convertLowercase.setData(["convertLowercase"])
         self.convertCase.addAction(convertLowercase)
         self.env.pluginAPI.addAction(convertLowercase)
 
-        convertTitle = QAction(self.env.translate("mainWindow.menu.edit.convertCase.title"),self)
-        convertTitle.triggered.connect(lambda: self.getTextEditWidget().replaceSelectedText(self.getTextEditWidget().selectedText().title()))
+        convertTitle = QAction(self.env.translate("mainWindow.menu.edit.convertCase.title"), self)
+        convertTitle.triggered.connect(lambda: self.getTextEditWidget().setCurrentText(self.getTextEditWidget().getCurrentText().title()))
         convertTitle.setData(["convertTitle"])
         self.convertCase.addAction(convertTitle)
         self.env.pluginAPI.addAction(convertTitle)
 
-        convertSwap = QAction(self.env.translate("mainWindow.menu.edit.convertCase.swap"),self)
-        convertSwap.triggered.connect(lambda: self.getTextEditWidget().replaceSelectedText(self.getTextEditWidget().selectedText().swapcase()))
+        convertSwap = QAction(self.env.translate("mainWindow.menu.edit.convertCase.swap"), self)
+        convertSwap.triggered.connect(lambda: self.getTextEditWidget().setCurrentText(self.getTextEditWidget().getCurrentText().swapcase()))
         convertSwap.setData(["convertSwap"])
         self.convertCase.addAction(convertSwap)
         self.env.pluginAPI.addAction(convertSwap)
+
+        convertCaseRandomAction = QAction(QCoreApplication.translate("MainWindow", "Random"), self)
+        convertCaseRandomAction.triggered.connect(self.convertCaseRandom)
+        convertCaseRandomAction.setData(["convertCaseRandom"])
+        self.convertCase.addAction(convertCaseRandomAction)
+        self.env.pluginAPI.addAction(convertCaseRandomAction)
 
         self.editMenu.addMenu(self.convertCase)
 
@@ -383,7 +396,7 @@ class MainWindow(QMainWindow):
 
         self.editMenu.addMenu(self.lineOperationsMenu)
 
-        self.eolModeMenu = QMenu(self.env.translate("mainWindow.menu.edit.eol"),self)
+        self.eolModeMenu = QMenu(self.env.translate("mainWindow.menu.edit.eol"), self)
 
         self.eolModeWindows = QAction("Windows",self)
         self.eolModeWindows.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolMode.EolWindows))
@@ -407,26 +420,20 @@ class MainWindow(QMainWindow):
         self.env.pluginAPI.addAction(self.eolModeMac)
 
         self.editMenu.addMenu(self.eolModeMenu)
-        self.editMenu.addSeparator()
-
-        settings = QAction("&" + self.env.translate("mainWindow.menu.edit.settings"),self)
-        settings.setIcon(getThemeIcon(self.env,"preferences-other"))
-        settings.triggered.connect(lambda: self.env.settingsWindow.openWindow())
-        settings.setData(["settings"])
-        self.editMenu.addAction(settings)
-        self.env.pluginAPI.addAction(settings)
 
         self.viewMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.view"))
 
-        self.zoomMenu = QMenu(self.env.translate("mainWindow.menu.view.zoom"),self)
+        self.zoomMenu = QMenu(self.env.translate("mainWindow.menu.view.zoom"), self)
 
-        zoomIn = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomIn"),self)
+        zoomIn = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomIn"), self)
+        zoomIn.setIcon(getThemeIcon(self.env, "zoom-in"))
         zoomIn.triggered.connect(lambda: self.getTextEditWidget().zoomIn())
         zoomIn.setData(["zoomIn"])
         self.zoomMenu.addAction(zoomIn)
         self.env.pluginAPI.addAction(zoomIn)
 
-        zoomOut = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomOut"),self)
+        zoomOut = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomOut"), self)
+        zoomOut.setIcon(getThemeIcon(self.env, "zoom-out"))
         zoomOut.triggered.connect(lambda: self.getTextEditWidget().zoomOut())
         zoomOut.setData(["zoomOut"])
         self.zoomMenu.addAction(zoomOut)
@@ -479,6 +486,7 @@ class MainWindow(QMainWindow):
         self.zoomMenu.addSeparator()
 
         zoomDefault = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomDefault"), self)
+        zoomDefault.setIcon(getThemeIcon(self.env, "zoom-original"))
         zoomDefault.triggered.connect(lambda: self.getTextEditWidget().zoomTo(self.env.settings.defaultZoom))
         zoomDefault.setData(["zoomDefault"])
         self.zoomMenu.addAction(zoomDefault)
@@ -556,7 +564,7 @@ class MainWindow(QMainWindow):
 
         searchAndReplace = QAction("&" + self.env.translate("mainWindow.menu.search.searchAndReplace"), self)
         searchAndReplace.setIcon(getThemeIcon(self.env, "edit-find-replace"))
-        searchAndReplace.triggered.connect(self.searchAndReplaceMenuBarClicked)
+        searchAndReplace.triggered.connect(lambda: self.env.searchReplaceWindow.display(self.getTextEditWidget()))
         searchAndReplace.setData(["findReplaceWindow"])
         self.searchmenu.addAction(searchAndReplace)
         self.env.pluginAPI.addAction(searchAndReplace)
@@ -614,6 +622,41 @@ class MainWindow(QMainWindow):
         regExGrepAction.setData(["regExGrep"])
         self.toolsMenu.addAction(regExGrepAction)
         self.env.pluginAPI.addAction(regExGrepAction)
+
+        self.settingsMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "Settings"))
+
+        settingsAction = QAction("&" + self.env.translate("mainWindow.menu.edit.settings"), self)
+        settingsAction.setIcon(getThemeIcon(self.env, "preferences-other"))
+        settingsAction.triggered.connect(lambda: self.env.settingsWindow.openWindow())
+        settingsAction.setData(["settings"])
+        self.settingsMenu.addAction(settingsAction)
+        self.env.pluginAPI.addAction(settingsAction)
+
+        overwriteLanguageAction = QAction(QCoreApplication.translate("MainWindow", "Hallo"))
+        overwriteLanguageAction.triggered.connect(lambda: LanguageOverwritesWindow(self.env).exec())
+        overwriteLanguageAction .setData(["overwriteLanguage"])
+        self.settingsMenu.addAction(overwriteLanguageAction )
+        self.env.pluginAPI.addAction(overwriteLanguageAction )
+
+        editThemesAction = QAction("&" + self.env.translate("mainWindow.menu.edit.settings"), self)
+        editThemesAction.triggered.connect(lambda: ManageThemeListWindow(self.env).exec())
+        editThemesAction.setData(["editThemes"])
+        self.settingsMenu.addAction(editThemesAction)
+        self.env.pluginAPI.addAction(editThemesAction)
+
+        self.settingsMenu.addSeparator()
+
+        exportDataAction = QAction(QCoreApplication.translate("MainWindow", "Export data"))
+        exportDataAction.triggered.connect(lambda: ExportDataWindow(self.env).exec())
+        exportDataAction.setData(["exportData"])
+        self.settingsMenu.addAction(exportDataAction)
+        self.env.pluginAPI.addAction(exportDataAction)
+
+        importDataAction = QAction(QCoreApplication.translate("MainWindow", "Import data"))
+        importDataAction.triggered.connect(self._importDataClicked)
+        importDataAction.setData(["importData"])
+        self.settingsMenu.addAction(importDataAction)
+        self.env.pluginAPI.addAction(importDataAction)
 
         self.languageMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.language"))
 
@@ -718,7 +761,7 @@ class MainWindow(QMainWindow):
 
         if self.env.enableUpdater:
             searchForUpdatesAction = QAction(self.env.translate("mainWindow.menu.about.searchForUpdates"),self)
-            searchForUpdatesAction.triggered.connect(lambda: searchForUpdates(self.env,False))
+            searchForUpdatesAction.triggered.connect(lambda: searchForUpdates(self.env, False))
             searchForUpdatesAction.setData(["searchForUpdates"])
             self.aboutMenu.addAction(searchForUpdatesAction)
             self.env.pluginAPI.addAction(searchForUpdatesAction)
@@ -784,16 +827,6 @@ class MainWindow(QMainWindow):
                 if i in self.env.menuActions:
                     self.toolbar.addAction(self.env.menuActions[i])
 
-    def getMenuActions(self, menu):
-        for action in menu.actions():
-            try:
-                if isinstance(action.data()[0], str):
-                    self.env.menuActions[action.data()[0]] = action
-            except Exception:
-                pass
-            if action.menu():
-                self.getMenuActions(action.menu())
-
     def languageActionClicked(self):
         action = self.sender()
         if action:
@@ -807,13 +840,13 @@ class MainWindow(QMainWindow):
         self.templateMenu.clear()
 
         if len(self.env.templates) == 0:
-            empty = QAction(self.env.translate("mainWindow.menu.file.newTemplate.empty"),self)
+            empty = QAction(self.env.translate("mainWindow.menu.file.newTemplate.empty"), self)
             empty.setEnabled(False)
             self.templateMenu.addAction(empty)
         else:
             for i in self.env.templates:
                 templateAction = QAction(i[0],self)
-                templateAction.setData([False,i[1]])
+                templateAction.setData([False, i[1]])
                 templateAction.triggered.connect(self.openTemplate)
                 self.templateMenu.addAction(templateAction)
 
@@ -828,10 +861,14 @@ class MainWindow(QMainWindow):
         addFileAction.triggered.connect(self.addFileTemplate)
         addMenu.addAction(addFileAction)
 
+        manageAction = QAction(QCoreApplication.translate("MainWindow", "Manage"), self)
+        manageAction.triggered.connect(self._manageTemplatesClicked)
+        self.templateMenu.addAction(manageAction)
+
     def openTemplate(self):
         action = self.sender()
         if action:
-            self.openFile(action.data()[1],template=True)
+            self.openFile(action.data()[1], template=True)
 
     def addCurrentDocumentTemplate(self):
         """
@@ -845,7 +882,7 @@ class MainWindow(QMainWindow):
             return
         path = os.path.join(self.env.dataDir,"templates",name)
         self.saveFile(self.getTextEditWidget(),path=path,template=True)
-        self.env.templates.append([name,path])
+        self.env.templates.append([name, path])
         self.updateTemplateMenu()
 
     def addFileTemplate(self):
@@ -861,10 +898,13 @@ class MainWindow(QMainWindow):
         if not isFilenameValid(name):
             showMessageBox(self.env.translate("invalidFilename.title"),self.env.translate("invalidFilename.text"))
             return
-        template_path = os.path.join(self.env.dataDir,"templates",name)
-        shutil.copyfile(original_path[0],template_path)
-        self.env.templates.append([name,template_path])
+        template_path = os.path.join(self.env.dataDir, "templates", name)
+        shutil.copyfile(original_path[0], template_path)
+        self.env.templates.append([name, template_path])
         self.updateTemplateMenu()
+
+    def _manageTemplatesClicked(self):
+        ManageTemplatesWindow(self.env).openWindow(self)
 
     def updateRecentFilesMenu(self):
         self.recentFilesMenu.clear()
@@ -912,15 +952,15 @@ class MainWindow(QMainWindow):
         self.languageMenu.clear()
         alphabet = {}
         for i in self.env.languageList:
-            startLetter = i.getName()[0]
-            if not startLetter in alphabet:
+            startLetter = i.getName()[0].upper()
+            if startLetter not in alphabet:
                 alphabet[startLetter] = []
             alphabet[startLetter].append(i)
         for c in ascii_uppercase:
             if c in alphabet:
-                letterMenu = QMenu(c,self)
+                letterMenu = QMenu(c, self)
                 for i in alphabet[c]:
-                    languageAction = QAction(i.getName(),self)
+                    languageAction = QAction(i.getName(), self)
                     languageAction.setData(i)
                     languageAction.setCheckable(True)
                     languageAction.triggered.connect(self.languageActionClicked)
@@ -960,7 +1000,7 @@ class MainWindow(QMainWindow):
         if not editWidget.language:
             self.env.languagePlainTextAction.setChecked(True)
         else:
-             self.env.languagePlainTextAction.setChecked(False)
+            self.env.languagePlainTextAction.setChecked(False)
 
     def updateEncodingMenu(self):
         self.encodingMenu.clear()
@@ -990,7 +1030,7 @@ class MainWindow(QMainWindow):
         if action:
             self.getTextEditWidget().setUsedEncoding(action.text())
 
-    def updateMacroMenu(self):
+    def updateMacroMenu(self) -> None:
         self.macroMenu.clear()
         self.macroMenu.addAction(self.recordMacroAction)
         self.macroMenu.addAction(self.stopMacroAction)
@@ -1015,14 +1055,14 @@ class MainWindow(QMainWindow):
             singleMacroAction.setData([None,i["macro"]])
             self.macroMenu.addAction(singleMacroAction)
 
-    def playMenuMacro(self):
+    def playMenuMacro(self) -> None:
         action = self.sender()
         if action:
             macro = QsciMacro(self.getTextEditWidget())
             macro.load(action.data()[1])
             macro.play()
 
-    def updateExecuteMenu(self):
+    def updateExecuteMenu(self) -> None:
         self.executeMenu.clear()
 
         self.executeMenu.addAction(self.executeCommandAction)
@@ -1048,8 +1088,7 @@ class MainWindow(QMainWindow):
 
         self.executeMenu.addAction(self.editCommandsAction)
 
-
-    def openFile(self, path: str, template=None, reload=None):
+    def openFile(self, path: str, template: bool = False, reload: bool = False) -> None:
         #Check if the file is already open
         if not template:
             for tabWidget in self.splitViewWidget.getAllTabWidgets():
@@ -1078,21 +1117,32 @@ class MainWindow(QMainWindow):
         else:
             isBigFile = False
         if self.env.settings.detectEncoding and not(isBigFile and self.env.settings.bigFileDisableEncodingDetect):
-            encoding = self.env.encodingDetectFunctions[self.env.settings.encodingDetectLib](fileBytes)["encoding"]
-            if not encoding:
-                encoding = "UTF-8"
-            elif encoding == "ascii":
-                encoding = "UTF-8"
-            for i in getEncodingList():
-                if encoding in i:
-                    encoding = i[0]
+            if self.env.settings.get("encodingDetectLib") in self.env.encodingDetectFunctions:
+                encoding = self.env.encodingDetectFunctions[self.env.settings.get("encodingDetectLib")](fileBytes)["encoding"]
+                if not encoding:
+                    encoding = "UTF-8"
+                elif encoding == "ascii":
+                    encoding = "UTF-8"
+                for i in getEncodingList():
+                    if encoding in i:
+                        encoding = i[0]
+            else:
+                print("Encoding detection module " + self.env.settings.get("encodingDetectLib") + " was not found", file=sys.stderr)
+                encoding = self.env.settings.get("defaultEncoding")
         else:
-            encoding = self.env.settings.defaultEncoding
-        fileContent = fileBytes.decode(encoding, errors="replace")
+            encoding = self.env.settings.get("defaultEncoding")
+
+        try:
+            fileContent = fileBytes.decode(encoding)
+            encodingError = False
+        except UnicodeDecodeError:
+            fileContent = fileBytes.decode(encoding, errors="replace")
+            encodingError = True
+
         filehandle.close()
         tabWidget = self.getTabWidget()
         if (not self.getTextEditWidget().isNew) and (not reload):
-            tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
+            tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"), focus=True)
         containerWidget = tabWidget.currentWidget()
         editWidget = containerWidget.getCodeEditWidget()
         if isBigFile and self.env.settings.bigFileDisableHighlight:
@@ -1126,48 +1176,54 @@ class MainWindow(QMainWindow):
             self.env.recentFiles.insert(0,path)
             self.env.recentFiles = self.env.recentFiles[:self.env.settings.maxRecentFiles]
             self.updateRecentFilesMenu()
+
         if self.env.settings.detectLanguage and not(isBigFile and self.env.settings.bigFileDisableHighlight):
-            languageFound = False
             for i in self.env.languageList:
                 for e in i.getExtensions():
                     if path.endswith(e):
                         editWidget.setLanguage(i)
-                        languageFound = True
                         break
-                if languageFound:
+                else:
                     break
+
                 for e in i.getStarttext():
                     if fileContent.startswith(e):
                         editWidget.setLanguage(i)
-                        languageFound = True
                         break
-                if languageFound:
+                else:
                     break
+
+                if self.env.mimeDatabase.mimeTypeForFile(path).name() in i.getMimeType():
+                    editWidget.setLanguage(i)
+                    break
+
         containerWidget.clearBanner()
         if self.env.settings.useEditorConfig and not template:
             editWidget.loadEditorConfig()
         if editWidget.settings.defaultEncoding != encoding and self.env.settings.showEncodingBanner:
-            containerWidget.showBanner(WrongEncodingBanner(self.env,containerWidget))
+            containerWidget.showBanner(WrongEncodingBanner(self.env, containerWidget))
         if self.env.settings.showEolBanner:
             if editWidget.eolMode() == QsciScintilla.EolMode.EolWindows and editWidget.settings.defaultEolMode != 0:
-                containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
+                containerWidget.showBanner(WrongEolBanner(self.env, containerWidget))
             elif editWidget.eolMode() == QsciScintilla.EolMode.EolUnix and editWidget.settings.defaultEolMode != 1:
-                containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
+                containerWidget.showBanner(WrongEolBanner(self.env, containerWidget))
             elif editWidget.eolMode() == QsciScintilla.EolMode.EolMac and editWidget.settings.defaultEolMode != 2:
-                containerWidget.showBanner(WrongEolBanner(self.env,containerWidget))
+                containerWidget.showBanner(WrongEolBanner(self.env, containerWidget))
         if isBigFile and self.env.settings.bigFileShowBanner:
-            containerWidget.showBanner(BigFileBanner(self.env,containerWidget))
+            containerWidget.showBanner(BigFileBanner(self.env, containerWidget))
+        if encodingError:
+            containerWidget.showBanner(SimpleMessageBanner(containerWidget, QCoreApplication.translate("MainWindow", "This file has some decoding errors")))
         self.env.editorSignals.openFile.emit(editWidget)
         tabWidget.setActive()
 
-    def saveFile(self, editWidget: CodeEdit, path: str = None,template: bool = False):
+    def saveFile(self, editWidget: CodeEdit, path: Optional[str] = None, template: bool = False) -> None:
         containerWidget = editWidget.container
         if not path:
             path = editWidget.getFilePath()
         if not template:
             containerWidget.fileWatcher.removePath(path)
-            if os.path.isfile(path) and self.env.settings.saveBackupEnabled:
-                shutil.copyfile(path,path + self.env.settings.saveBackupExtension)
+            if os.path.isfile(path) and self.env.settings.get("saveBackupEnabled"):
+                shutil.copyfile(path, path + self.env.settings.get("saveBackupExtension"))
         text = editWidget.text()
         eolChar = editWidget.getEolChar()
         if editWidget.settings.eolFileEnd:
@@ -1180,15 +1236,15 @@ class MainWindow(QMainWindow):
             if not text.endswith(eolChar):
                 new_text = new_text[:-1]
             text = new_text
-        text = text.encode(editWidget.getUsedEncoding(),errors="replace")
+        text = text.encode(editWidget.getUsedEncoding(), errors="replace")
         try:
             filehandle = open(path, "wb")
         except PermissionError:
-            showMessageBox(self.env.translate("noWritePermission.title"),self.env.translate("noWritePermission.text") % editWidget.getFilePath())
+            showMessageBox(self.env.translate("noWritePermission.title"), self.env.translate("noWritePermission.text") % editWidget.getFilePath())
             return
         except Exception as e:
             print(e)
-            showMessageBox(self.env.translate("unknownError.title"),self.env.translate("unknownError.text"))
+            showMessageBox(self.env.translate("unknownError.title"), self.env.translate("unknownError.text"))
             return
         filehandle.write(text)
         filehandle.close()
@@ -1202,21 +1258,23 @@ class MainWindow(QMainWindow):
         else:
             isBigFile = False
         if self.env.settings.get("detectLanguage") and not(isBigFile and self.env.settings.get("bigFileDisableHighlight")):
-            languageFound = False
             for i in self.env.languageList:
                 for e in i.getExtensions():
                     if path.endswith(e):
                         editWidget.setLanguage(i)
-                        languageFound = True
                         break
-                if languageFound:
+                else:
                     break
+
                 for e in i.getStarttext():
                     if text.startswith(e.encode("utf-8")):
                         editWidget.setLanguage(i)
-                        languageFound = True
                         break
-                if languageFound:
+                else:
+                    break
+
+                if self.env.mimeDatabase.mimeTypeForFile(path).name() in i.getMimeType():
+                    editWidget.setLanguage(i)
                     break
 
     def newMenuBarClicked(self):
@@ -1243,7 +1301,7 @@ class MainWindow(QMainWindow):
         pathTypeSetting = self.env.settings.get("openFilePathType")
         if pathTypeSetting == 0:
             #Use path of current file
-            startPath =os.path.dirname(self.getTextEditWidget().getFilePath())
+            startPath = os.path.dirname(self.getTextEditWidget().getFilePath())
         elif pathTypeSetting == 1:
             #Use latest Path
             startPath = self.env.lastOpenPath
@@ -1271,41 +1329,41 @@ class MainWindow(QMainWindow):
         self.getTextEditWidget().cut()
         self.env.clipboard.setText(lastText)
 
-    def saveAsMenuBarClicked(self,editWidget: CodeEdit):
+    def saveAsMenuBarClicked(self, editWidget: CodeEdit) -> None:
         pathTypeSetting = self.env.settings.get("saveFilePathType")
         if pathTypeSetting == 0:
             # Use path of current file
-            startPath =os.path.dirname(editWidget.getFilePath())
+            startPath = os.path.dirname(editWidget.getFilePath())
         elif pathTypeSetting == 1:
             # Use latest Path
             startPath = self.env.lastSavePath
         elif pathTypeSetting == 2:
             # Use custom path
             startPath = self.env.settings.get("saveFileCustomPath")
-        path = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"), startPath, self.env.fileNameFilters)
+        path = QFileDialog.getSaveFileName(self, self.env.translate("mainWindow.saveAsDialog.title"), startPath, self.env.fileNameFilters)
 
         if path[0]:
             self.getTextEditWidget().setFilePath(path[0])
             self.saveFile(editWidget)
             tabWidget = editWidget.container.getTabWidget()
-            tabWidget.setTabText(editWidget.tabid,os.path.basename(path[0]))
+            tabWidget.setTabText(editWidget.tabid, os.path.basename(path[0]))
             tabWidget.tabsChanged.emit()
             self.updateWindowTitle()
             self.env.lastSavePath = path
 
-    def saveAllMenuBarClicked(self):
+    def saveAllMenuBarClicked(self) -> None:
         for tabWidget in self.splitViewWidget.getAllTabWidgets():
             for i in range(tabWidget.count()):
                 self.saveMenuBarClicked(tabWidget.widget(i))
 
-    def closeAllTabs(self):
+    def closeAllTabs(self) -> None:
         for tabWidget in self.splitViewWidget.getAllTabWidgets():
             for i in range(tabWidget.count()-1,-1,-1):
                 tabWidget.tabCloseClicked(i,notCloseProgram=True)
         self.splitViewWidget.initTabWidget()
         self.getTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
 
-    def printMenuBarClicked(self):
+    def printMenuBarClicked(self) -> None:
         """
         This function is called when the user clicks File>Print
         :return:
@@ -1317,7 +1375,7 @@ class MainWindow(QMainWindow):
             editWidget = self.getTextEditWidget()
             printer.printRange(editWidget)
 
-    def getCurrentLines(self) -> List[str]:
+    def getCurrentLines(self) -> list[str]:
         """
         Retruns the current selected lines. Returns all lines if nothing is selected.
         :return: lines
@@ -1338,7 +1396,7 @@ class MainWindow(QMainWindow):
             lines[-1] += eolChar
         return lines
 
-    def replaceCurrentLines(self,lines: List[str]):
+    def replaceCurrentLines(self, lines: list[str]):
         """
         Replaces the current lines with the given lines
         """
@@ -1355,6 +1413,15 @@ class MainWindow(QMainWindow):
         editWidget.setCursorPosition(startLine, editWidget.lineLength(startLine))
         for i in lines:
             editWidget.insertText(i)
+
+    def convertCaseRandom(self):
+        new_text = ""
+        for i in self.getTextEditWidget().getCurrentText():
+            if random.randrange(2) == 0:
+                new_text += i.lower()
+            else:
+                new_text += i.upper()
+        self.getTextEditWidget().setCurrentText(new_text)
 
     def duplicateCurrentLine(self):
         """
@@ -1484,13 +1551,13 @@ class MainWindow(QMainWindow):
         editWidget.setCursorPosition(line,0)
 
     def toggleSidebarClicked(self):
-        if self.env.sidepane.enabled:
-            self.env.sidepane.enabled = False
-            self.env.sidepane.hide()
+        if self.sidepane.enabled:
+            self.sidepane.enabled = False
+            self.sidepane.hide()
         else:
-            self.env.sidepane.enabled = True
-            self.env.sidepane.show()
-        self.toggleSidebarAction.setChecked(self.env.sidepane.enabled)
+            self.sidepane.enabled = True
+            self.sidepane.show()
+        self.toggleSidebarAction.setChecked(self.sidepane.enabled)
 
     def addRemoveBookmark(self):
         editWidget = self.getTextEditWidget()
@@ -1543,13 +1610,79 @@ class MainWindow(QMainWindow):
         self.currentMacro.play()
 
     def saveMacro(self):
-        name, ok = QInputDialog.getText(self,self.env.translate("mainWindow.messageBox.saveMacro.title"),self.env.translate("mainWindow.messageBox.saveMacro.text"))
+        name, ok = QInputDialog.getText(self, self.env.translate("mainWindow.messageBox.saveMacro.title"), self.env.translate("mainWindow.messageBox.saveMacro.text"))
         if not ok or name == '':
             return
-        self.env.macroList.append({"name":name,"macro":self.currentMacro.save(),"shortcut":""})
+        self.env.macroList.append({"name": name, "macro": self.currentMacro.save(), "shortcut": ""})
         self.updateMacroMenu()
-        with open(os.path.join(self.env.dataDir,"macros.json"), 'w', encoding='utf-8') as f:
+        with open(os.path.join(self.env.dataDir, "macros.json"), "w", encoding="utf-8") as f:
             json.dump(self.env.macroList, f, ensure_ascii=False, indent=4)
+
+    def _importDataClicked(self):
+        zipFilterText = QCoreApplication.translate("MainWindow", "Zip Files")
+        allFilterText = QCoreApplication.translate("MainWindow", "All Files")
+
+        path = QFileDialog.getOpenFileName(self, filter=f"{zipFilterText} (*.zip);;{allFilterText} (*)")[0]
+
+        if path == "":
+            return
+
+        try:
+            zf = zipfile.ZipFile(path, "r")
+            exportData = json.loads(zf.read("jdTextEditExportData.json").decode("utf-8"))
+            assert isinstance(exportData["dateTime"], str)
+            assert isinstance(exportData["platform"], str)
+            assert isinstance(exportData["version"], str)
+            assert isinstance(exportData["dataList"], list)
+        except (zipfile.BadZipFile, KeyError, json.decoder.JSONDecodeError, AssertionError):
+            QMessageBox.critical(self, QCoreApplication.translate("MainWindow", "Invalid file"), QCoreApplication.translate("MainWindow", "This file does not contains valid exported data from jdTextEdit"))
+            try:
+                zf.close()
+            except UnboundLocalError:
+                pass
+            return
+        except Exception:
+            QMessageBox.critical(self, QCoreApplication.translate("MainWindow", "Unknown error"), QCoreApplication.translate("MainWindow", "An unknown error happened"))
+            return
+
+        text = QCoreApplication.translate("MainWindow", "Are you sure you want to import the following data?") + "<br><br>"
+
+        text += QCoreApplication.translate("MainWindow", "Date and Time: {{DateTime}}").replace("{{DateTime}}", formatDateTime(self.env.settings, datetime.datetime.fromisoformat(exportData["dateTime"]))) + "<br>"
+        text += QCoreApplication.translate("MainWindow", "Platform: {{Platform}}").replace("{{Platform}}", exportData["platform"]) + "<br>"
+        text += QCoreApplication.translate("MainWindow", "Version: {{Version}}").replace("{{Version}}", exportData["version"]) + "<br><br>"
+
+        text += QCoreApplication.translate("MainWindow", "It includes the following:") + "<br>"
+        for i in self.env.exportDataList:
+            if i["id"] in exportData["dataList"]:
+                text += i["name"] + "<br>"
+                exportData["dataList"].remove(i["id"])
+        for i in exportData["dataList"]:
+            text += i + "<br>"
+
+        text += "<br>" + QCoreApplication.translate("MainWindow", "If you continue, your data will be overwritten and jdTextEdit will restart")
+
+        if QMessageBox.question(self, QCoreApplication.translate("MainWindow", "Import data"), text) != QMessageBox.StandardButton.Yes:
+            zf.close()
+            return
+
+        for i in zf.namelist():
+            if i == "jdTextEditExportData.json":
+                continue
+            dataRootPath = os.path.join(self.env.dataDir, i.split("/")[0])
+            if os.path.isfile(dataRootPath):
+                os.remove(dataRootPath)
+            elif os.path.isdir(dataRootPath):
+                shutil.rmtree(dataRootPath)
+            zf.extract(i, self.env.dataDir)
+
+        zf.close()
+
+        QMessageBox.information(self, QCoreApplication.translate("MainWindow", "Import complete"), QCoreApplication.translate("MainWindow", "The Import is now completed. jdTextEdit will now close."))
+
+        if self.env.settings.get("saveSession"):
+            self.saveSession()
+
+        sys.exit(0)
 
     def deleteAllData(self):
         if QMessageBox.question(self, QCoreApplication.translate("MainWindow", "Delete all data"), QCoreApplication.translate("MainWindow", "This will delete all data of jdTextEdit. After that, jdTextEdit will behave like the first run. jdTexEdit will exit after doing that. Are you sure?")) != QMessageBox.StandardButton.Yes:
@@ -1565,7 +1698,7 @@ class MainWindow(QMainWindow):
         sys.exit(0)
 
     def autoSaveTimeout(self):
-        if self.autoSaveTimer.timeout == 0 or not self.env.settings.enableAutoSave:
+        if self.autoSaveTimer.timeout == 0 or not self.env.settings.get("enableAutoSave"):
             return
         for tabWidget in self.splitViewWidget.getAllTabWidgets():
             for i in range(tabWidget.count()):
@@ -1583,8 +1716,8 @@ class MainWindow(QMainWindow):
             self.toolbar.show()
         else:
             self.toolbar.close()
-        toolbarPositionList = [Qt.ToolBarArea.TopToolBarArea,Qt.ToolBarArea.BottomToolBarArea,Qt.ToolBarArea.LeftToolBarArea,Qt.ToolBarArea.RightToolBarArea]
-        self.addToolBar(toolbarPositionList[settings.toolbarPosition],self.toolbar)
+        toolbarPositionList = [Qt.ToolBarArea.TopToolBarArea, Qt.ToolBarArea.BottomToolBarArea, Qt.ToolBarArea.LeftToolBarArea, Qt.ToolBarArea.RightToolBarArea]
+        self.addToolBar(toolbarPositionList[settings.toolbarPosition], self.toolbar)
         if settings.applicationStyle == "default":
             QApplication.setStyle(QStyleFactory.create(self.env.defaultStyle))
         else:
@@ -1617,7 +1750,7 @@ class MainWindow(QMainWindow):
         self.updateStatusBar()
 
     def updateWindowTitle(self):
-        if self.env.settings.windowFileTitle:
+        if self.env.settings.get("windowFileTitle"):
             tabWidget = self.getTabWidget()
             self.setWindowTitle(tabWidget.tabText(tabWidget.currentIndex()) + " - jdTextEdit")
         else:
@@ -1634,11 +1767,11 @@ class MainWindow(QMainWindow):
         data = self.splitViewWidget.getSessionData()
         if self.currentMacro:
             data["currentMacro"] = self.currentMacro.save()
-        with open(os.path.join(self.env.dataDir, "session.json"), 'w', encoding='utf-8') as f:
+        with open(os.path.join(self.env.dataDir, "session.json"), "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
     def restoreSession(self):
-        with open(os.path.join(self.env.dataDir,"session.json"),"r",encoding="utf-8") as f:
+        with open(os.path.join(self.env.dataDir, "session.json"), "r", encoding="utf-8") as f:
             data = json.load(f)
         self.splitViewWidget.restoreSession(data)
         self.updateSelectedLanguage()
@@ -1651,13 +1784,13 @@ class MainWindow(QMainWindow):
         shutil.rmtree(os.path.join(self.env.dataDir, "session_data"))
 
     def saveDataClose(self):
-        self.env.settings.showSidepane = self.env.sidepane.enabled
-        self.env.settings.sidepaneWidget = self.env.sidepane.content.getSelectedWidget()
+        self.env.settings.showSidepane = self.sidepane.enabled
+        self.env.settings.sidepaneWidget = self.sidepane.content.getSelectedWidget()
         self.env.settings.save(os.path.join(self.env.dataDir, "settings.json"))
         saveProjects(self.env.projects, os.path.join(self.env.dataDir, "projects.json"))
         if self.env.settings.saveWindowState:
             windowState = {}
-            saveWindowState(self,windowState, "MainWindow")
+            saveWindowState(self, windowState, "MainWindow")
             saveWindowState(self.env.settingsWindow, windowState, "SettingsWindow")
             saveWindowState(self.env.dayTipWindow, windowState, "DayTipWindow")
             saveWindowState(self.env.editCommandsWindow, windowState, "EditCommandsWindow")
@@ -1669,15 +1802,15 @@ class MainWindow(QMainWindow):
                 json.dump(windowState, f, ensure_ascii=False, indent=4)
         else:
             try:
-                os.remove(os.path.join(self.env.dataDir,"windowstate.json"))
+                os.remove(os.path.join(self.env.dataDir, "windowstate.json"))
             except Exception:
                 pass
         with open(os.path.join(self.env.dataDir, "lastversion.txt"), "w", encoding="utf-8") as f:
             f.write(self.env.version)
 
-    def closeEvent(self, event):
+    def closeEvent(self, event: QCloseEvent):
         self.saveDataClose()
-        if self.env.settings.saveSession:
+        if self.env.settings.get("saveSession"):
             try:
                 self.saveSession()
             except Exception as e:
@@ -1685,9 +1818,9 @@ class MainWindow(QMainWindow):
             sys.exit(0)
         else:
             for tabWidget in self.splitViewWidget.getAllTabWidgets():
-                for i in range(tabWidget.count()-1,-1,-1):
+                for i in range(tabWidget.count()-1, -1, -1):
                     try:
-                        tabWidget.tabCloseClicked(i,forceExit=True)
+                        tabWidget.tabCloseClicked(i, forceExit=True)
                     except Exception as e:
                         print(traceback.format_exc(), end="", file=sys.stderr)
             event.ignore()
@@ -1704,10 +1837,10 @@ class MainWindow(QMainWindow):
         else:
             event.ingore()
 
-    def dropEvent(self, event):
+    def dropEvent(self, event: QDropEvent) -> None:
         for i in event.mimeData().urls():
-            if i.url().startswith("file://"):
-                self.openFile(i.url()[7:])
+            if i.isLocalFile():
+                self.openFile(i.toLocalFile())
 
     def contextMenuEvent(self, event):
         pass

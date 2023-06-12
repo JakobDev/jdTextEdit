@@ -1,54 +1,80 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QApplication, QTableWidget, QTableWidgetItem, QVBoxLayout, QHBoxLayout, QHeaderView, QAbstractItemView, QRadioButton, QLineEdit, QLabel, QPushButton
-from jdTextEdit.Functions import restoreWindowState
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QDialog, QListWidget, QVBoxLayout, QHBoxLayout, QInputDialog, QMessageBox, QRadioButton, QLineEdit, QLabel, QPushButton
+from jdTextEdit.Functions import restoreWindowState, readJsonFile
+from typing import Optional, TYPE_CHECKING
+from PyQt6.QtCore import QCoreApplication
 import time
+import json
+import os
 
 
-class DateTimeWindow(QWidget):
-    def __init__(self,env):
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+    from jdTextEdit.gui.CodeEdit import CodeEdit
+
+
+class DateTimeWindow(QDialog):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
-        self.templates = []
-        self.templates.append("%a %d %b %Y %H:%M:%S %Z")
-        self.templates.append("%d.%m.%Y")
-        self.templates.append("%H:%M:%S")
-        self.templates.append("%d.%m.%Y %H:%M:%S")
-        self.templates.append("%d-%m-%Y %H:%M:%S")
-        self.templates.append("%a %b %d %H:%M:%S %Z %Y")
-        self.templates.append("%a %b %d %H:%M:%S %Y")
-        self.templates.append("%a %d %b %Y %H:%M:%S")
-        self.templates.append("%d/%m/%Y")
-        self.templates.append("%d/%m/%y")
-        self.templates.append("%A %d %B %Y")
-        self.templates.append("%A %B %d %Y")
-        self.templates.append("%d-%m-%Y")
-        self.templates.append("%d %B %Y")
-        self.templates.append("%B %d %Y")
-        self.templates.append("%A %b %d")
-        self.templates.append("%H:%M")
+
+        defaultTemplates = [
+            "%a %d %b %Y %H:%M:%S %Z",
+            "%d.%m.%Y",
+            "%H:%M:%S",
+            "%d.%m.%Y %H:%M:%S",
+            "%d-%m-%Y %H:%M:%S",
+            "%a %b %d %H:%M:%S %Z %Y",
+            "%a %b %d %H:%M:%S %Y",
+            "%a %d %b %Y %H:%M:%S",
+            "%d/%m/%Y",
+            "%d/%m/%y",
+            "%A %d %B %Y",
+            "%A %B %d %Y",
+            "%d-%m-%Y",
+            "%d %B %Y",
+            "%B %d %Y",
+            "%A %b %d",
+            "%H:%M"
+        ]
+
+        self.templates: list[str] = readJsonFile(os.path.join(self.env.dataDir, "dateTimeFormats.json"), defaultTemplates)
 
         self.useTemplate = QRadioButton(env.translate("dateTimeWindow.radioButton.useTemplate"))
-        self.templateTable = QTableWidget(0,1)
+        self.templateList = QListWidget()
+        self.templateAddButton = QPushButton(QCoreApplication.translate("DateTimeWindow", "Add"))
+        self.templateEditButton = QPushButton(QCoreApplication.translate("DateTimeWindow", "Edit"))
+        self.templateRemoveButton = QPushButton(QCoreApplication.translate("DateTimeWindow", "Remove"))
         self.useCustom = QRadioButton(env.translate("dateTimeWindow.radioButton.useCustom"))
         self.customEdit = QLineEdit()
         self.previewLabel = QLabel()
-        okButton = QPushButton(env.translate("button.ok"))
+        self.okButton = QPushButton(env.translate("button.ok"))
         cancelButton = QPushButton(env.translate("button.cancel"))
 
         self.useTemplate.toggled.connect(self.updateCheckbox)
+        self.templateList.itemSelectionChanged.connect(self.updateTemplateButtons)
+        self.templateAddButton.clicked.connect(lambda: self.addEditTemplateClicked(None))
+        self.templateEditButton.clicked.connect(lambda: self.addEditTemplateClicked(self.templateList.currentRow()))
+        self.templateRemoveButton.clicked.connect(self.removeTemplateClicked)
         self.useCustom.toggled.connect(self.updateCheckbox)
         self.customEdit.textChanged.connect(self.updatePreviewLabel)
         cancelButton.clicked.connect(lambda: self.close())
-        okButton.clicked.connect(self.okButtonClicked)
-
-        self.templateTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
-        self.templateTable.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
-        self.templateTable.horizontalHeader().hide()
-        self.templateTable.verticalHeader().hide()
-        self.templateTable.setCurrentCell(0,0)
+        self.okButton.clicked.connect(self.okButtonClicked)
 
         self.useTemplate.setChecked(True)
         self.customEdit.setText("%d/%m/%Y %H:%M:%S")
+
+        templateButtonLayout = QHBoxLayout()
+        templateButtonLayout.addWidget(self.templateAddButton)
+        templateButtonLayout.addWidget(self.templateEditButton)
+        templateButtonLayout.addWidget(self.templateRemoveButton)
+        templateButtonLayout.setSpacing(0)
+        templateButtonLayout.setContentsMargins(0, 0, 0, 0)
+
+        templateLayout = QVBoxLayout()
+        templateLayout.addWidget(self.templateList)
+        templateLayout.addLayout(templateButtonLayout)
+        templateLayout.setSpacing(0)
+        templateLayout.setContentsMargins(0, 0, 0, 0)
 
         customLayout = QHBoxLayout()
         customLayout.addWidget(self.customEdit)
@@ -57,15 +83,15 @@ class DateTimeWindow(QWidget):
         buttonLayout = QHBoxLayout()
         buttonLayout.addStretch(1)
         if env.settings.get("swapOkCancel"):
-            buttonLayout.addWidget(okButton)
+            buttonLayout.addWidget(self.okButton)
             buttonLayout.addWidget(cancelButton)
         else:
             buttonLayout.addWidget(cancelButton)
-            buttonLayout.addWidget(okButton)
+            buttonLayout.addWidget(self.okButton)
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(self.useTemplate)
-        mainLayout.addWidget(self.templateTable)
+        mainLayout.addLayout(templateLayout)
         mainLayout.addWidget(self.useCustom)
         mainLayout.addLayout(customLayout)
         mainLayout.addLayout(buttonLayout)
@@ -76,36 +102,75 @@ class DateTimeWindow(QWidget):
         self.updateTemplateList()
 
     def updateTemplateList(self):
-        count = 0
+        self.templateList.clear()
         for i in self.templates:
-            item = QTableWidgetItem(time.strftime(i))
-            item.setFlags(item.flags() ^ Qt.ItemFlag.ItemIsEditable)
-            self.templateTable.insertRow(count)
-            self.templateTable.setItem(count,0,item)
-            count += 1
+            self.templateList.addItem(time.strftime(i))
+        self.updateTemplateButtons()
 
     def updatePreviewLabel(self, text):
-        self.previewLabel.setText(self.env.translate("dateTimeWindow.label.preview") % time.strftime(text))
+        try:
+            self.previewLabel.setText(self.env.translate("dateTimeWindow.label.preview") % time.strftime(text))
+        except ValueError:
+            self.previewLabel.setText(QCoreApplication.translate("DateTimeWindow", "Invalid"))
+
+    def updateTemplateButtons(self):
+        enabled = self.useTemplate.isChecked() and self.templateList.currentRow() != -1
+        self.templateEditButton.setEnabled(enabled)
+        self.templateRemoveButton.setEnabled(enabled)
+
+        self.okButton.setEnabled(not (self.useTemplate.isChecked() and self.templateList.currentRow() == -1))
 
     def updateCheckbox(self):
         if self.useTemplate.isChecked():
-            self.templateTable.setEnabled(True)
+            self.templateList.setEnabled(True)
+            self.templateAddButton.setEnabled(True)
             self.customEdit.setEnabled(False)
             self.previewLabel.setEnabled(False)
         else:
-            self.templateTable.setEnabled(False)
+            self.templateList.setEnabled(False)
+            self.templateAddButton.setEnabled(False)
             self.customEdit.setEnabled(True)
             self.previewLabel.setEnabled(True)
+        self.updateTemplateButtons()
+
+    def saveTemplates(self):
+        with open(os.path.join(self.env.dataDir, "dateTimeFormats.json"), "w", encoding="utf-8") as f:
+            json.dump(self.templates, f, ensure_ascii=False, indent=4)
+
+    def addEditTemplateClicked(self, position: Optional[int]):
+        text = QInputDialog.getText(self, QCoreApplication.translate("DateTimeWindow", "Enter format"), QCoreApplication.translate("DateTimeWindow", "Please enter a format"), text=(lambda: self.templates[position] if position is not None else "")())[0]
+
+        if text.strip() == "":
+            return
+
+        try:
+            time.strftime(text)
+        except ValueError:
+            QMessageBox.critical(self, QCoreApplication.translate("DateTimeWindow", "Invalid format"), QCoreApplication.translate("DateTimeWindow", "This format is invalid"))
+            return
+
+        if position is None:
+            self.templates.append(text)
+        else:
+            self.templates[position] = text
+
+        self.updateTemplateList()
+        self.saveTemplates()
+
+    def removeTemplateClicked(self):
+        del self.templates[self.templateList.currentRow()]
+        self.updateTemplateList()
+        self.saveTemplates()
 
     def okButtonClicked(self):
         if self.useTemplate.isChecked():
-            self.editWidget.insertText(time.strftime(self.templates[self.templateTable.currentRow()]))
+            self.editWidget.insertText(time.strftime(self.templates[self.templateList.currentRow()]))
         else:
             self.editWidget.insertText(time.strftime(self.customEdit.text()))
         self.editWidget.ensureCursorVisible()
         self.close()
 
-    def openWindow(self, editWidget):
+    def openWindow(self, editWidget: "CodeEdit"):
         self.editWidget = editWidget
-        self.show()
-        QApplication.setActiveWindow(self)
+        self.updateTemplateList()
+        self.exec()

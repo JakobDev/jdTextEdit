@@ -21,5 +21,8 @@ You can use enviroment variables in all paths.
         "_description_": "This message is shown in the About Window.",
 
         "templateDirectories": [],
-         "_description_": "Add template directories"
+        "_description_": "Add template directories",
+
+        "enableTranslationWarning": false,
+        "_description_": "Show a warning when no language is build"
     }

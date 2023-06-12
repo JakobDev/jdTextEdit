@@ -1,9 +1,10 @@
 from PyQt6.QtWidgets import QMenu
-from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro
-from PyQt6.QtGui import QFontMetrics, QFont, QCursor
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciLexer
+from PyQt6.QtGui import QFontMetrics, QFont, QCursor, QContextMenuEvent, QDragEnterEvent, QDropEvent, QFocusEvent
+from PyQt6.QtCore import QPoint, pyqtSignal
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase
+from typing import Optional, Any, TYPE_CHECKING
 import traceback
 import copy
 import sys
@@ -16,39 +17,56 @@ except ModuleNotFoundError:
     print("editorconfig module not found", file=sys.stderr)
 
 
+if TYPE_CHECKING:
+    from jdTextEdit.gui.EditContainer import EditContainer
+    from jdTextEdit.gui.MainWindow import MainWindow
+    from jdTextEdit.api.ThemeBase import ThemeBase
+    from jdTextEdit.Environment import Environment
+    from jdTextEdit.Settings import Settings
+
+
 class CodeEdit(QsciScintilla):
     pathChanged = pyqtSignal("QString")
-    def __init__(self, env, preview=None, isNew=False, container=None):
+
+    def __init__(self, env: "Environment", preview: bool = False, isNew: bool = False, container: Optional["EditContainer"] = None):
         super().__init__()
         self.env = env
         self.isPreview = preview
         self.isNew = isNew
         self.container = container
-        self.currentLexer = None
+        self.currentLexer: Optional[QsciLexer] = None
         self.apiCompletion = None
         self.searchText = ""
-        self.tabid = None
-        self.usedEncoding = env.settings.defaultEncoding
+        self.tabid: Optional[int] = None
+        self.usedEncoding = env.settings.get("defaultEncoding")
         self.filePath = ""
         self.cursorPosLine = 0
         self.cursorPosIndex = 0
-        self.bookmarkList = []
+        self.bookmarkList: list[int] = []
         self.settings = copy.copy(self.env.settings)
         self.custom_settings = {}
         self.language = None
         self.bigFile = False
-        self.currentIdicatorNumber = 0
-        self.cursorPosString = env.translate("mainWindow.statusBar.cursorPosLabel") % (1,1)
+        self.customTabName = ""
+        self.currentIndicatorNumber = 0
+        self._customTheme = None
+        self.cursorPosString = env.translate("mainWindow.statusBar.cursorPosLabel") % (1, 1)
         self.languageName = env.translate("mainWindow.menu.language.plainText")
-        self.foldStyles = [QsciScintilla.FoldStyle.NoFoldStyle,QsciScintilla.FoldStyle.PlainFoldStyle,QsciScintilla.FoldStyle.CircledFoldStyle,QsciScintilla.FoldStyle.BoxedFoldStyle,QsciScintilla.FoldStyle.CircledTreeFoldStyle,QsciScintilla.FoldStyle.BoxedTreeFoldStyle]
-        eolModeList = [QsciScintilla.EolMode.EolWindows,QsciScintilla.EolMode.EolUnix,QsciScintilla.EolMode.EolMac]
+        self.foldStyles = [QsciScintilla.FoldStyle.NoFoldStyle, QsciScintilla.FoldStyle.PlainFoldStyle, QsciScintilla.FoldStyle.CircledFoldStyle, QsciScintilla.FoldStyle.BoxedFoldStyle, QsciScintilla.FoldStyle.CircledTreeFoldStyle, QsciScintilla.FoldStyle.BoxedTreeFoldStyle]
+
+        if container is not None:
+            self._mainWindow: Optional["MainWindow"] = container.getTabWidget().getSplitViewWidget().getMainWindow()
+        else:
+            self._mainWindow: Optional["MainWindow"] = None
+
+        eolModeList = [QsciScintilla.EolMode.EolWindows, QsciScintilla.EolMode.EolUnix, QsciScintilla.EolMode.EolMac]
         self.changeEolMode(eolModeList[self.settings.defaultEolMode])
         self.updateSettings(self.settings)
         self.setMarginLineNumbers(0, True)
         self.setUtf8(True)
         self.modificationChanged.connect(self.modificationStateChange)
         self.marginClicked.connect(self.marginClickCallback)
-        self.setMarginSensitivity(1,True)
+        self.setMarginSensitivity(1, True)
         #self.modificationStateChange(False)
         #self.setMarginsBackgroundColor(QColor("#cccccc"))
         #self.setWrapVisualFlags(QsciScintilla.WrapVisualFlag.WrapFlagByText)
@@ -59,27 +77,27 @@ class CodeEdit(QsciScintilla):
 
         self.linesChanged.connect(lambda: self.env.editorSignals.linesChanged.emit(self))
         self.textChanged.connect(lambda: self.env.editorSignals.textChanged.emit(self))
-        self.indicatorClicked.connect(lambda line,index,keys: self.env.editorSignals.indicatorClicked.emit(self,line,index,keys))
-        self.indicatorReleased.connect(lambda line,index,keys: self.env.editorSignals.indicatorReleased.emit(self,line,index,keys))
+        self.indicatorClicked.connect(lambda line, index, keys: self.env.editorSignals.indicatorClicked.emit(self, line, index, keys))
+        self.indicatorReleased.connect(lambda line, index, keys: self.env.editorSignals.indicatorReleased.emit(self, line, index, keys))
 
         if self.settings.defaultLanguage != "plain":
-            for l in self.env.languageList:
-                if l.getID() == self.settings.defaultLanguage:
-                    self.setLanguage(l)
+            lang = env.getLanguageByID(self.settings.get("defaultLanguage"))
+            if lang is not None:
+                self.setLanguage(lang)
 
         self.setMarginType(1, QsciScintilla.MarginType.SymbolMargin)
         sym_4 = QsciScintilla.MarkerSymbol.Circle
         self.markerDefine(sym_4, 0)
         #self.setMarginWidth(1, 10)
 
-        self.zoomTo(self.settings.defaultZoom)
+        self.zoomTo(self.settings.get("defaultZoom"))
 
         self.env.editorSignals.editorInit.emit(self)
 
     def updateStatusBar(self):
-        if self.isPreview or not hasattr(self.env, "mainWindow"):
+        if self.isPreview or self._mainWindow is None:
             return
-        self.env.mainWindow.updateStatusBar()
+        self._mainWindow.updateStatusBar()
 
     def setLanguage(self, lang: LanguageBase):
         """
@@ -93,11 +111,10 @@ class CodeEdit(QsciScintilla):
         if not self.isPreview:
             self.languageName = lang.getName()
             self.updateStatusBar()
-            if not hasattr(self.env, "mainWindow"):
-                return
-            self.env.mainWindow.updateSelectedLanguage()
+            if self._mainWindow is not None:
+                self._mainWindow.updateSelectedLanguage()
         self.updateSettings(self.settings)
-        self.env.editorSignals.languageChanged.emit(self,lang)
+        self.env.editorSignals.languageChanged.emit(self, lang)
 
     def removeLanguage(self):
         """
@@ -109,22 +126,22 @@ class CodeEdit(QsciScintilla):
         self.updateSettings(self.settings)
         self.lexerName = self.env.translate("mainWindow.menu.language.plainText")
         self.updateStatusBar()
-        self.env.editorSignals.languageChanged.emit(self,None)
+        self.env.editorSignals.languageChanged.emit(self, None)
 
     def insertText(self, text: str):
         self.insert(text)
         line, pos = self.getCursorPosition()
-        self.setCursorPosition(line,pos + len(text))
+        self.setCursorPosition(line, pos + len(text))
 
-    def modificationStateChange(self, state):
+    def modificationStateChange(self, state: bool):
         if self.isPreview:
             return
         tabWidget = self.container.getTabWidget()
         try:
             if state:
-                tabWidget.setTabIcon(self.tabid,self.env.documentUnsavedIcon)
+                tabWidget.setTabIcon(self.tabid, self.env.documentUnsavedIcon)
             else:
-                tabWidget.setTabIcon(self.tabid,self.env.documentSavedIcon)
+                tabWidget.setTabIcon(self.tabid, self.env.documentSavedIcon)
         except Exception:
             pass
 
@@ -132,62 +149,62 @@ class CodeEdit(QsciScintilla):
         if self.isPreview:
             return
         self.isNew = False
-        if not hasattr(self.env, "mainWindow"):
+        if self._mainWindow is None:
             return
         if self.isUndoAvailable():
-            self.env.mainWindow.undoMenubarItem.setEnabled(True)
+            self._mainWindow.undoMenubarItem.setEnabled(True)
         else:
-            self.env.mainWindow.undoMenubarItem.setEnabled(False)
+            self._mainWindow.undoMenubarItem.setEnabled(False)
         if self.isRedoAvailable():
-            self.env.mainWindow.redoMenubarItem.setEnabled(True)
+            self._mainWindow.redoMenubarItem.setEnabled(True)
         else:
-            self.env.mainWindow.redoMenubarItem.setEnabled(False)
+            self._mainWindow.redoMenubarItem.setEnabled(False)
 
     def editSelectionChanged(self):
         if self.isPreview:
             return
         try:
             if self.hasSelectedText():
-                self.env.mainWindow.cutMenubarItem.setEnabled(True)
-                self.env.mainWindow.copyMenubarItem.setEnabled(True)
-                self.env.mainWindow.deleteMenubarItem.setEnabled(True)
+                self._mainWindow.cutMenubarItem.setEnabled(True)
+                self._mainWindow.copyMenubarItem.setEnabled(True)
+                self._mainWindow.deleteMenubarItem.setEnabled(True)
             else:
-                self.env.mainWindow.cutMenubarItem.setEnabled(False)
-                self.env.mainWindow.copyMenubarItem.setEnabled(False)
-                self.env.mainWindow.deleteMenubarItem.setEnabled(False)
+                self._mainWindow.cutMenubarItem.setEnabled(False)
+                self._mainWindow.copyMenubarItem.setEnabled(False)
+                self._mainWindow.deleteMenubarItem.setEnabled(False)
         except Exception:
             pass
 
-    def updateCursor(self, line, pos):
+    def updateCursor(self, line: int, pos: int):
         #self.SendScintilla(QsciScintillaBase.SCI_INDICATORFILLRANGE,0,10)
         self.cursorPosLine = line
         self.cursorPosIndex = pos
         self.updateStatusBar()
 
-    def marginClickCallback(self, margin, line):
+    def marginClickCallback(self, margin: int, line: int):
         if margin == 1:
             self.addRemoveBookmark(line)
 
-    def addRemoveBookmark(self, line):
+    def addRemoveBookmark(self, line: int):
         if line in self.bookmarkList:
-            self.markerDelete(line,0)
+            self.markerDelete(line, 0)
             self.bookmarkList.remove(line)
         else:
             self.markerAdd(line, 0)
             self.bookmarkList.append(line)
 
-    def updateEolMenu(self):
-        if self.isPreview or not hasattr(self.env, "mainWindow"):
+    def updateEolMenu(self) -> None:
+        if self.isPreview or self._mainWindow is None:
             return
-        self.env.mainWindow.eolModeWindows.setChecked(False)
-        self.env.mainWindow.eolModeUnix.setChecked(False)
-        self.env.mainWindow.eolModeMac.setChecked(False)
+        self._mainWindow.eolModeWindows.setChecked(False)
+        self._mainWindow.eolModeUnix.setChecked(False)
+        self._mainWindow.eolModeMac.setChecked(False)
         if self.eolMode() == QsciScintilla.EolMode.EolWindows:
-            self.env.mainWindow.eolModeWindows.setChecked(True)
+            self._mainWindow.eolModeWindows.setChecked(True)
         elif self.eolMode() == QsciScintilla.EolMode.EolUnix:
-            self.env.mainWindow.eolModeUnix.setChecked(True)
+            self._mainWindow.eolModeUnix.setChecked(True)
         elif self.eolMode() == QsciScintilla.EolMode.EolMac:
-            self.env.mainWindow.eolModeMac.setChecked(True)
+            self._mainWindow.eolModeMac.setChecked(True)
 
     def changeEolMode(self, mode):
         self.setEolMode(mode)
@@ -195,7 +212,7 @@ class CodeEdit(QsciScintilla):
         self.updateEolMenu()
         self.updateStatusBar()
 
-    def getEolChar(self):
+    def getEolChar(self) -> str:
         if self.eolMode() == QsciScintilla.EolMode.EolWindows:
             return "\r\n"
         elif self.eolMode() == QsciScintilla.EolMode.EolUnix:
@@ -203,49 +220,61 @@ class CodeEdit(QsciScintilla):
         elif self.eolMode() == QsciScintilla.EolMode.EolMac:
             return "\r"
 
-    def setUsedEncoding(self, encoding):
+    def setUsedEncoding(self, encoding: str):
         self.usedEncoding = encoding
         self.updateEncodingMenu()
         self.updateStatusBar()
 
-    def getUsedEncoding(self):
+    def getUsedEncoding(self) -> str:
         return self.usedEncoding
 
-    def updateEncodingMenu(self):
+    def getCurrentText(self) -> str:
+        if len(self.selectedText()) == 0:
+            return self.text()
+        else:
+            return self.selectedText()
+
+    def setCurrentText(self, text: str) -> None:
+        if len(self.selectedText()) == 0:
+            self.setText(text)
+        else:
+            self.replaceSelectedText(text)
+
+    def updateEncodingMenu(self) -> None:
         for i in self.env.encodingActions:
             if i.text() == self.usedEncoding:
                 i.setChecked(True)
             else:
                 i.setChecked(False)
 
-    def setFilePath(self, path):
+    def setFilePath(self, path: str) -> None:
         self.filePath = path
         self.updateStatusBar()
         self.pathChanged.emit(path)
 
-    def getFilePath(self):
+    def getFilePath(self) -> str:
         return self.filePath
 
-    def updateMenuActions(self):
-        if self.isPreview:
+    def updateMenuActions(self) -> None:
+        if self.isPreview or self._mainWindow is None:
             return
         if self.isUndoAvailable():
-            self.env.mainWindow.undoMenubarItem.setEnabled(True)
+            self._mainWindow.undoMenubarItem.setEnabled(True)
         else:
-            self.env.mainWindow.undoMenubarItem.setEnabled(False)
+            self._mainWindow.undoMenubarItem.setEnabled(False)
         if self.isRedoAvailable():
-            self.env.mainWindow.redoMenubarItem.setEnabled(True)
+            self._mainWindow.redoMenubarItem.setEnabled(True)
         else:
-            self.env.mainWindow.redoMenubarItem.setEnabled(False)
+            self._mainWindow.redoMenubarItem.setEnabled(False)
         self.editSelectionChanged()
         self.updateEncodingMenu()
-        if not hasattr(self.env, "mainWindow"):
-            return
-        self.env.mainWindow.updateSelectedLanguage()
+        self._mainWindow.updateSelectedLanguage()
 
-    def contextMenuEvent(self, event):
+    def contextMenuEvent(self, event: QContextMenuEvent):
+        if self.isPreview:
+            return
         event.setAccepted(False)
-        self.env.editorSignals.contextMenu.emit(self,event)
+        self.env.editorSignals.contextMenu.emit(self, event)
         if event.isAccepted():
             return
         event.accept()
@@ -259,20 +288,20 @@ class CodeEdit(QsciScintilla):
         menu.setTearOffEnabled(True)
         menu.popup(QCursor.pos())
 
-    def dragEnterEvent(self, event):
+    def dragEnterEvent(self, event: QDragEnterEvent):
         if event.mimeData().hasUrls:
             event.accept()
         else:
-            event.ingore()
+            event.ignore()
 
-    def dropEvent(self, event):
+    def dropEvent(self, event: QDropEvent):
         for i in event.mimeData().urls():
-            if i.url().startswith("file://"):
-                self.env.mainWindow.openFile(i.url()[7:])
+            if i.isLocalFile() and self._mainWindow is not None:
+                self._mainWindow.openFile(i.toLocalFile())
         if event.mimeData().text() != "" and len(event.mimeData().urls()) == 0:
             self.insertText(event.mimeData().text())
 
-    def getSaveMetaData(self):
+    def getSaveMetaData(self) -> dict[str, Any]:
         if self.language:
             syntax = self.language.getID()
         else:
@@ -297,42 +326,44 @@ class CodeEdit(QsciScintilla):
             "zoom": self.getZoom(),
             "customSettings": self.custom_settings,
             "overwriteMode": self.overwriteMode(),
+            "customTabName": self.customTabName,
             "fileChangedBannerVisible": fileChangedBannerVisible,
-            "modificationTime": modificationTime
+            "modificationTime": modificationTime,
         }
-        self.env.editorSignals.saveSession.emit(self,data)
+        self.env.editorSignals.saveSession.emit(self, data)
         return data
 
-    def restoreSaveMetaData(self,data):
-        path = data.get("path","")
+    def restoreSaveMetaData(self, data: dict[str, Any]) -> None:
+        path = data.get("path", "")
         self.setFilePath(path)
         self.setModified(data["modified"])
-        self.setUsedEncoding(data.get("encoding",self.settings.defaultEncoding))
+        self.setUsedEncoding(data.get("encoding", self.settings.defaultEncoding))
         syntax = data.get("language", "")
         if syntax != "":
             for l in self.env.languageList:
-                if  l.getID() == syntax:
+                if l.getID() == syntax:
                     self.setLanguage(l)
-        self.bookmarkList = data.get("bookmarks",[])
+        self.bookmarkList = data.get("bookmarks", [])
         for line in self.bookmarkList:
             self.markerAdd(line, 0)
-        self.setCursorPosition(data["cursorPosLine"],data["cursorPosIndex"])
-        self.zoomTo(data.get("zoom",self.settings.defaultZoom))
-        self.custom_settings = data.get("customSettings",{})
+        self.setCursorPosition(data["cursorPosLine"], data["cursorPosIndex"])
+        self.zoomTo(data.get("zoom", self.settings.defaultZoom))
+        self.custom_settings = data.get("customSettings", {})
         self.settings.loadDict(self.custom_settings)
         if len(self.custom_settings) != 0:
             self.updateSettings(self.settings)
-        self.setOverwriteMode(data.get("overwriteMode",False))
-        modificationTime = data.get("modificationTime",0)
+        self.setOverwriteMode(data.get("overwriteMode", False))
+        modificationTime = data.get("modificationTime", 0)
         if self.container:
             if not os.path.exists(path) and path != "":
                 self.container.showFileDeletedBanner()
-            elif data.get("fileChangedBannerVisible",False):
+            elif data.get("fileChangedBannerVisible", False):
                 self.container.showFileChangedBanner()
             elif modificationTime != 0:
                 if modificationTime != os.path.getmtime(path):
                     self.container.showFileChangedBanner()
-        self.env.editorSignals.restoreSession.emit(self,data)
+        self.customTabName = data.get("customTabName", "")
+        self.env.editorSignals.restoreSession.emit(self, data)
 
     def loadEditorConfig(self):
         """
@@ -380,42 +411,54 @@ class CodeEdit(QsciScintilla):
         if self.container and self.settings.editorConfigShowBanner:
             self.container.showBanner(EditorconfigBanner(self.env,self.container))
 
-    def changeFont(self,font,settings):
+    def setCustomTheme(self, theme: Optional["ThemeBase"]) -> None:
+        self._customTheme = theme
+        self.updateSettings(self.settings)
+
+    def changeFont(self, font: QFont, settings: "Settings"):
         self.setFont(font)
         self.setMarginsFont(font)
         fontmetrics = QFontMetrics(font)
         if settings.editShowLineNumbers:
             self.setMarginWidth(0, fontmetrics.averageCharWidth() * 6)
         else:
-            self.setMarginWidth(0,0)
+            self.setMarginWidth(0, 0)
         if self.currentLexer:
             self.currentLexer.setFont(font)
             self.currentLexer.setDefaultFont(font)
 
-    def setSettings(self, settings):
+    def setSettings(self, settings: "Settings"):
         settings = copy.copy(settings)
         settings.loadDict(self.custom_settings)
         self.updateSettings(settings)
-        self.env.editorSignals.settingsChanged.emit(self,settings)
+        self.env.editorSignals.settingsChanged.emit(self, settings)
 
-    def updateSettings(self, settings):
-        if settings.editTheme in self.env.themes:
+    def updateSettings(self, settings: "Settings"):
+        if self._customTheme is not None:
             try:
-                self.env.themes[settings.editTheme].applyTheme(self,self.currentLexer)
+                self._customTheme.applyTheme(self, self.currentLexer)
             except Exception as e:
                 print(traceback.format_exc(), end="", file=sys.stderr)
                 self.env.themes["builtin.default"].applyTheme(self, self.currentLexer)
         else:
-            print("The selected Theme could not be found. Falling back to the default Theme.",file=sys.stderr)
-            self.env.themes["builtin.default"].applyTheme(self,self.currentLexer)
+            if settings.get("editTheme") in self.env.themes:
+                try:
+                    self.env.themes[settings.get("editTheme")].applyTheme(self, self.currentLexer)
+                except Exception as e:
+                    print(traceback.format_exc(), end="", file=sys.stderr)
+                    self.env.themes["builtin.default"].applyTheme(self, self.currentLexer)
+            else:
+                print("The selected Theme could not be found. Falling back to the default Theme.", file=sys.stderr)
+                self.env.themes["builtin.default"].applyTheme(self, self.currentLexer)
+
         if settings.useCustomFont:
-            self.changeFont(settings.editFont,settings)
+            self.changeFont(settings.get("editFont"), settings)
         else:
-            self.changeFont(QFont(),settings)
-        self.setFolding(self.foldStyles[settings.editFoldStyle])
-        self.setCaretLineVisible(settings.highlightCurrentLine)
-        self.setTabWidth(settings.editTabWidth)
-        self.setIndentationsUseTabs(not settings.editTabSpaces)
+            self.changeFont(QFont(), settings)
+        self.setFolding(self.foldStyles[settings.get("editFoldStyle")])
+        self.setCaretLineVisible(settings.get("highlightCurrentLine"))
+        self.setTabWidth(settings.get("editTabWidth"))
+        self.setIndentationsUseTabs(not settings.get("editTabSpaces"))
         if settings.get("editTextWrap"):
             self.setWrapMode(QsciScintilla.WrapMode.WrapWord)
         else:
@@ -424,22 +467,22 @@ class CodeEdit(QsciScintilla):
             self.setWhitespaceVisibility(QsciScintilla.WhitespaceVisibility.WsVisible)
         else:
             self.setWhitespaceVisibility(QsciScintilla.WhitespaceVisibility.WsInvisible)
-        self.setAutoIndent(settings.editAutoIndent)
-        self.setEolVisibility(settings.editShowEol)
-        self.setIndentationGuides(settings.showIndentationGuides)
+        self.setAutoIndent(settings.get("editAutoIndent"))
+        self.setEolVisibility(settings.get("editShowEol"))
+        self.setIndentationGuides(settings.get("showIndentationGuides"))
         if settings.enableAutocompletion:
-            if settings.autocompletionUseDocument and settings.autocompletionUseAPI:
+            if settings.autocompletionUseDocument and settings.get("autocompletionUseAPI"):
                 self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsAll)
-            elif settings.autocompletionUseDocument:
+            elif settings.get("autocompletionUseDocument"):
                 self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsDocument)
-            elif settings.autocompletionUseAPI:
+            elif settings.get("autocompletionUseAPI"):
                 self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsAPIs)
             else:
                 self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsNone)
-            self.setAutoCompletionCaseSensitivity(settings.autocompletionCaseSensitive)
-            self.setAutoCompletionThreshold(settings.autocompleteThreshold)
-            self.setAutoCompletionReplaceWord(settings.autocompletionReplaceWord)
-            if self.currentLexer and settings.autocompletionUseAPI and self.language:
+            self.setAutoCompletionCaseSensitivity(settings.get("autocompletionCaseSensitive"))
+            self.setAutoCompletionThreshold(settings.get("autocompleteThreshold"))
+            self.setAutoCompletionReplaceWord(settings.get("autocompletionReplaceWord"))
+            if self.currentLexer and settings.get("autocompletionUseAPI") and self.language:
                 api = self.language.getAPI(self.currentLexer)
                 #if api:
                     #com
@@ -451,17 +494,17 @@ class CodeEdit(QsciScintilla):
             self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsNone)
         self.settings = settings
 
-    def positionFromPoint(self,point):
-        return self.SendScintilla(QsciScintilla.SCI_POSITIONFROMPOINTCLOSE,point.x(), point.y())
+    def positionFromPoint(self, point: QPoint) -> int:
+        return self.SendScintilla(QsciScintilla.SCI_POSITIONFROMPOINTCLOSE, point.x(), point.y())
 
-    def isBigFile(self):
+    def isBigFile(self) -> bool:
         return self.bigFile
 
-    def getIndicatorNumber(self):
-        self.currentIdicatorNumber += 1
-        return self.currentIdicatorNumber - 1
+    def getIndicatorNumber(self) -> int:
+        self.currentIndicatorNumber += 1
+        return self.currentIndicatorNumber - 1
 
-    def getLanguage(self):
+    def getLanguage(self) -> Optional[LanguageBase]:
         return self.language
 
     def getZoom(self) -> int:
@@ -476,19 +519,20 @@ class CodeEdit(QsciScintilla):
         Updates the other widgets like MainWindow or the statusbar
         :return:
         """
+        if self._mainWindow is None:
+            return
         self.updateEolMenu()
         self.updateStatusBar()
         self.updateMenuActions()
-        self.env.mainWindow.updateWindowTitle()
-        if self.env.mainWindow.currentMacro:
-            self.env.mainWindow.stopMacroRecording()
-            macro = self.env.mainWindow.currentMacro.save()
-            self.env.mainWindow.currentMacro = QsciMacro(self)
-            self.env.mainWindow.currentMacro.load(macro)
+        self._mainWindow.updateWindowTitle()
+        if self._mainWindow.currentMacro:
+            self._mainWindow.stopMacroRecording()
+            macro = self._mainWindow.currentMacro.save()
+            self._mainWindow.currentMacro = QsciMacro(self)
+            self._mainWindow.currentMacro.load(macro)
 
-    def focusInEvent(self, event):
-        if self.isPreview:
-            return
-        self.container.getTabWidget().markWidgetAsActive()
-        self.updateOtherWidgets()
+    def focusInEvent(self, event: QFocusEvent):
+        if self.container is not None:
+            self.container.getTabWidget().markWidgetAsActive()
+            self.updateOtherWidgets()
         super().focusInEvent(event)

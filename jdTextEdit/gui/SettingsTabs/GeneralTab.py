@@ -1,10 +1,16 @@
 from PyQt6.QtWidgets import QWidget, QComboBox, QLabel, QCheckBox, QGridLayout, QVBoxLayout, QSpinBox
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
+from typing import TYPE_CHECKING
 import os
 
-class GeneralTab(QWidget,SettingsTabBase):
-    def __init__(self,env):
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
+class GeneralTab(QWidget, SettingsTabBase):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
 
@@ -23,11 +29,11 @@ class GeneralTab(QWidget,SettingsTabBase):
         self.languageComboBox.setItemData(0,"default")
 
         count = 1
-        languageList = os.listdir(os.path.join(env.programDir,"translation"))
+        languageList = os.listdir(os.path.join(env.programDir, "translation"))
         for i in languageList:
             language = i[:-5]
             self.languageComboBox.addItem(env.translate("language." + language))
-            self.languageComboBox.setItemData(count,language)
+            self.languageComboBox.setItemData(count, language)
             count +=1
 
         gridLayout = QGridLayout()

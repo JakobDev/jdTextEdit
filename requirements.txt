@@ -7,3 +7,4 @@ charset_normalizer
 cchardet
 EditorConfig
 pyenchant
+lxml

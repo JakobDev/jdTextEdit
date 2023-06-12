@@ -1,10 +1,17 @@
 from PyQt6.QtWidgets import QWidget, QCheckBox, QComboBox, QLabel, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Functions import selectComboBoxItem
+from jdTextEdit.Constants import Constants
 from jdTextEdit.Settings import Settings
+from typing import TYPE_CHECKING
 
-class OpenTab(QWidget,SettingsTabBase):
-    def __init__(self, env):
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
+class OpenTab(QWidget, SettingsTabBase):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
 
@@ -36,22 +43,25 @@ class OpenTab(QWidget,SettingsTabBase):
         self.setLayout(mainLayout)
 
     def updateTab(self, settings: Settings):
-        self.useIPCCheckBox.setChecked(settings.useIPC)
-        self.detectLanguage.setChecked(settings.detectLanguage)
-        self.detectEol.setChecked(settings.detectEol)
-        self.detectEncoding.setChecked(settings.detectEncoding)
-        self.encodingBannerCheckBox.setChecked(settings.showEncodingBanner)
-        self.eolBannerCheckBox.setChecked(settings.showEolBanner)
-        selectComboBoxItem(self.detectLibComboBox,settings.encodingDetectLib)
+        self.useIPCCheckBox.setChecked(settings.get("useIPC"))
+        self.detectLanguage.setChecked(settings.get("detectLanguage"))
+        self.detectEol.setChecked(settings.get("detectEol"))
+        self.detectEncoding.setChecked(settings.get("detectEncoding"))
+        self.encodingBannerCheckBox.setChecked(settings.get("showEncodingBanner"))
+        self.eolBannerCheckBox.setChecked(settings.get("showEolBanner"))
+        selectComboBoxItem(self.detectLibComboBox, settings.get("encodingDetectLib"))
 
     def getSettings(self, settings: Settings):
-        settings.set("useIPC",self.useIPCCheckBox.isChecked())
-        settings.set("detectLanguage",self.detectLanguage.isChecked())
-        settings.set("detectEncoding",self.detectEncoding.isChecked())
-        settings.set("detectEol",self.detectEol.isChecked())
-        settings.set("showEncodingBanner",self.encodingBannerCheckBox.isChecked())
-        settings.set("showEolBanner",self.eolBannerCheckBox.isChecked())
-        settings.set("encodingDetectLib",self.detectLibComboBox.itemText(self.detectLibComboBox.currentIndex()))
+        settings.set("useIPC", self.useIPCCheckBox.isChecked())
+        settings.set("detectLanguage", self.detectLanguage.isChecked())
+        settings.set("detectEncoding", self.detectEncoding.isChecked())
+        settings.set("detectEol", self.detectEol.isChecked())
+        settings.set("showEncodingBanner", self.encodingBannerCheckBox.isChecked())
+        settings.set("showEolBanner", self.eolBannerCheckBox.isChecked())
+        if len(self.env.encodingDetectFunctions) == 0:
+            settings.set("encodingDetectLib", Constants.DEFAULT_ENCODING_DETECT_LIB)
+        else:
+            settings.set("encodingDetectLib", self.detectLibComboBox.itemText(self.detectLibComboBox.currentIndex()))
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.open")

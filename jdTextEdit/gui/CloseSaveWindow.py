@@ -1,8 +1,15 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QFileDialog, QLayout
+from typing import  TYPE_CHECKING
 import sys
 
+
+if TYPE_CHECKING:
+    from jdTextEdit.gui.EditTabWidget import EditTabWidget
+    from jdTextEdit.Environment import Environment
+
+
 class CloseSaveWindow(QWidget):
-    def __init__(self,env):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
         noCloseButton = QPushButton(env.translate("closeSaveWindow.button.noSave"))
@@ -34,7 +41,7 @@ class CloseSaveWindow(QWidget):
 
     def saveFile(self):
         if self.tabWidget.widget(self.tabid).getCodeEditWidget().getFilePath() == "":
-            pickedPath = QFileDialog.getSaveFileName(self,self.env.translate("mainWindow.saveAsDialog.title"),None,self.env.fileNameFilters)
+            pickedPath = QFileDialog.getSaveFileName(self ,self.env.translate("mainWindow.saveAsDialog.title"), None, self.env.fileNameFilters)
             if pickedPath[0]:
                 path = pickedPath[0]
             else:
@@ -45,7 +52,7 @@ class CloseSaveWindow(QWidget):
         self.env.mainWindow.saveFile(self.tabid)
         self.closeFile()
 
-    def openWindow(self, tabid: int, tabWidget):
+    def openWindow(self, tabid: int, tabWidget: "EditTabWidget"):
         self.tabid = tabid
         self.tabWidget = tabWidget
         filename = self.tabWidget.tabText(tabid)

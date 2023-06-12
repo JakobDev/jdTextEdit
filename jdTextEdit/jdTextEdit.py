@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
 from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QApplication, QMessageBox
+from PyQt6.QtWidgets import QApplication, QMessageBox, QCheckBox
 from jdTextEdit.gui.MainWindow import MainWindow
-from jdTextEdit.Enviroment import Enviroment
+from jdTextEdit.Environment import Environment
 from jdTextEdit.gui.CloseSaveWindow import CloseSaveWindow
 from jdTextEdit.gui.SettingsWindow import SettingsWindow
 from jdTextEdit.gui.SearchWindow import SearchWindow
@@ -19,9 +18,13 @@ from jdTextEdit.gui.AboutWindow import AboutWindow
 from jdTextEdit.gui.AddProjectWindow import AddProjectWindow
 from jdTextEdit.gui.Tools.RegExGrep.RegExGrepWindow import RegExGrepWindow
 from jdTextEdit.gui.DebugInfoWindow import DebugInfoWindow
-from jdTextEdit.Functions import getTempOpenFilePath
-from jdTextEdit.core.PluginLoader import loadPlugins
+from jdTextEdit.Functions import getTempOpenFilePath, compareLists
+from jdTextEdit.core.PluginLoader import loadPlugins, loadSinglePlugin
 from jdTextEdit.gui.StatusBarWidgets import addBuiltinStatusBarWidgets
+from jdTextEdit.Constants import Constants
+from PyQt6.QtCore import QCoreApplication
+import importlib
+import glob
 import time
 import sys
 import os
@@ -33,10 +36,43 @@ from jdTextEdit.gui.SidebarWidgets.ClipboardWidget import ClipboardWidget
 from jdTextEdit.gui.SidebarWidgets.CharacterMapWidget import CharacterMapWidget
 from jdTextEdit.gui.SidebarWidgets.ProjectWidget import ProjectWidget
 
+
+def checkOptionalModules(env: Environment):
+    notFoundModules = []
+
+    for i in ("lxml", "editorconfig", "requests", Constants.DEFAULT_ENCODING_DETECT_LIB):
+        try:
+            importlib.import_module(i)
+        except ModuleNotFoundError:
+            notFoundModules.append(i)
+
+    if len(notFoundModules) == 0 or compareLists(notFoundModules, env.settings.get("optionalModulesWarningWhitelist", [])):
+        return
+
+    text = QCoreApplication.translate("jdTextEdit", "The following optional Python modules are missing:") + "<br>"
+    for i in notFoundModules:
+        text += i + "<br>"
+    text += "<br>" + QCoreApplication.translate("jdTextEdit", "jdTextEdit will run without this modules, but some features are not working. You probably want to install them.")
+
+    messageBox = QMessageBox()
+    checkBox = QCheckBox(QCoreApplication.translate("jdTextEdit", "Don't show this again"))
+
+    messageBox.setCheckBox(checkBox)
+    messageBox.setWindowTitle(QCoreApplication.translate("jdTextEdit", "Missing optional modules"))
+    messageBox.setText(text)
+
+    messageBox.exec()
+
+    if checkBox.isChecked():
+        env.settings.set("optionalModulesWarningWhitelist", notFoundModules)
+    else:
+        env.settings.set("optionalModulesWarningWhitelist", [])
+
+
 def main():
     temp_open_path = getTempOpenFilePath()
     if os.path.isfile(temp_open_path):
-        with open(temp_open_path,"w") as f:
+        with open(temp_open_path, "w") as f:
             if len(sys.argv) == 2:
                 f.write("openFile" + "\n" + os.path.abspath(sys.argv[1]))
             else:
@@ -52,7 +88,10 @@ def main():
     app.setApplicationName("jdTextEdit")
     app.setDesktopFileName("com.gitlab.JakobDev.jdTextEdit")
 
-    env = Enviroment(app)
+    env = Environment(app)
+
+    if not env.debugMode and env.distributionSettings.get("enableTranslationWarning", True) and len(glob.glob(os.path.join(env.programDir, "i18n", "*.qm"))) == 0:
+        QMessageBox.warning(None, "No translations found", "No translation were found. It looks like the translations of jdTextEdit were not build. jdTextEdit is currently only available in English.")
 
     env.clipboard = QApplication.clipboard()
     env.closeSaveWindow = CloseSaveWindow(env)
@@ -73,8 +112,10 @@ def main():
     env.regExGrepWindow = RegExGrepWindow(env)
     env.debugInfoWindow = DebugInfoWindow(env)
     if env.settings.get("loadPlugins") and not env.args["disablePlugins"]:
-        loadPlugins(os.path.join(env.programDir,"plugins"),env)
-        loadPlugins(os.path.join(env.dataDir,"plugins"),env)
+        loadPlugins(os.path.join(env.programDir, "plugins"), env)
+        loadPlugins(os.path.join(env.dataDir, "plugins"), env)
+        if env.args["debugPlugin"]:
+            loadSinglePlugin(env.args["debugPlugin"], env)
 
     env.pluginAPI.addSidebarWidget(NotesWidget(env))
     env.pluginAPI.addSidebarWidget(TabListWidget(env))
@@ -85,20 +126,22 @@ def main():
 
     addBuiltinStatusBarWidgets(env)
 
-    if os.path.isfile(os.path.join(env.dataDir,"userChrome.css")) and env.settings.get("enableUserChrome"):
+    if os.path.isfile(os.path.join(env.dataDir, "userChrome.css")) and env.settings.get("enableUserChrome"):
         f = open(os.path.join(env.dataDir, "userChrome.css"), "r", encoding="utf-8")
         app.setStyleSheet(f.read())
         f.close()
 
     app.setWindowIcon(QIcon(os.path.join(env.programDir, "Logo.svg")))
 
+    checkOptionalModules(env)
+
     # Ask for automatic updates on first run
     if env.firstRun and env.enableUpdater:
         answer = QMessageBox.question(env.mainWindow, env.translate("automaticUpdateSearch.title"), env.translate("automaticUpdateSearch.text"))
         if answer == QMessageBox.StandardButton.Yes:
-            env.settings.searchUpdates = True
+            env.settings.set("searchUpdates", True)
         else:
-            env.settings.searchUpdates = False
+            env.settings.set("searchUpdates", False)
 
     env.mainWindow.setup()
     sys.exit(app.exec())

@@ -1,10 +1,17 @@
 from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
 from PyQt6.QtGui import QFileSystemModel
 from PyQt6.QtWidgets import QTreeView
+from PyQt6.QtCore import QModelIndex
+from typing import TYPE_CHECKING
 import os
 
-class FileTreeWidget(QTreeView,SidebarWidgetBase):
-    def __init__(self, env):
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
+class FileTreeWidget(QTreeView, SidebarWidgetBase):
+    def __init__(self, env: "Environment"):
         QTreeView.__init__(self)
         self.env = env
         model = QFileSystemModel()
@@ -15,10 +22,10 @@ class FileTreeWidget(QTreeView,SidebarWidgetBase):
         self.hideColumn(3)
         self.doubleClicked.connect(self.fileOpen)
 
-    def fileOpen(self, signal):
-        path=self.model().filePath(signal)
+    def fileOpen(self, signal: QModelIndex) -> None:
+        path = self.model().filePath(signal)
         if os.path.isfile(path):
-            self.env.mainWindow.openFile(path)
+            self.env.pluginAPI.openFile(path)
 
     def getName(self) -> str:
         return self.env.translate("sidebar.files")

@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, QVB
 from PyQt6.Qsci import QsciScintilla, QsciLexerJSON
 from jdTextEdit.Functions import restoreWindowState
 from PyQt6.QtCore import QCoreApplication
+from typing import TYPE_CHECKING
 import configparser
 import platform
 import json
@@ -9,8 +10,12 @@ import sys
 import os
 
 
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
 class DebugInfoWindow(QWidget):
-    def __init__(self, env):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
 

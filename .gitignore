@@ -25,4 +25,5 @@ doc/build
 
 #Idea
 .idea/
+.run/
 venv/

@@ -3,19 +3,21 @@ from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 from PyQt6.QtGui import QIcon
 
+
 class CustomWidgetItem(QListWidgetItem):
     def __init__(self,name: str):
         super().__init__(name)
         self.actionNameString = ""
 
-    def setActionName(self, name):
+    def setActionName(self, name: str):
         self.actionNameString = name
 
-    def actionName(self):
+    def actionName(self) -> str:
         return self.actionNameString
 
-class ContextMenuTab(QWidget,SettingsTabBase):
-    def __init__(self,env):
+
+class ContextMenuTab(QWidget, SettingsTabBase):
+    def __init__(self, env):
         super().__init__()
         self.env = env
         self.actionsList = QListWidget()
@@ -106,6 +108,7 @@ class ContextMenuTab(QWidget,SettingsTabBase):
             #item.setIcon(data.icon())
             item.setActionName(data.data()[0])
             self.actionsList.addItem(item)
+            self.actionsList.sortItems()
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.contextMenu")

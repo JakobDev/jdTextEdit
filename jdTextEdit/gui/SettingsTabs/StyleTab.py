@@ -1,13 +1,18 @@
 from PyQt6.QtWidgets import QWidget, QCheckBox, QPushButton, QFontDialog, QGridLayout, QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QSlider
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
-from PyQt6.QtGui import QFont
-from PyQt6.QtCore import Qt
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
+from PyQt6.QtGui import QFont
+from PyQt6.QtCore import Qt
+from typing import TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
 
 
 class StyleTab(QWidget, SettingsTabBase):
-    def __init__(self,env):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.font = QFont()
         self.env = env
@@ -19,10 +24,10 @@ class StyleTab(QWidget, SettingsTabBase):
         self.lineNumberCheckBox = QCheckBox(env.translate("settingsWindow.style.checkBox.showLineNumbers"))
         self.highlightLineCheckBox = QCheckBox(env.translate("settingsWindow.style.checkBox.highlightCurrentLine"))
         self.zoomSlider = QSlider(Qt.Orientation.Horizontal)
-        self.editorPreview = CodeEdit(env,preview=True)
+        self.editorPreview = CodeEdit(env, preview=True)
 
         for key, value in env.themes.items():
-            self.themeSelect.addItem(value.getName(),key)
+            self.themeSelect.addItem(value.getName(), key)
 
         self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.none"))
         self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.plain"))
@@ -78,10 +83,7 @@ class StyleTab(QWidget, SettingsTabBase):
         self.setLayout(mainLayout)
 
     def fontCheckBoxChanged(self):
-        if self.fontCheckBox.checkState():
-            self.fontButton.setEnabled(True)
-        else:
-            self.fontButton.setEnabled(False)
+        self.fontButton.setEnabled(self.fontCheckBox.isChecked())
         self.updatePreviewEdit()
 
     def fontButtonClicked(self):

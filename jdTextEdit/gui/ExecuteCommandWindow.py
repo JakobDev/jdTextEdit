@@ -1,9 +1,16 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QCheckBox, QHBoxLayout, QVBoxLayout, QLayout
 from jdTextEdit.Functions import executeCommand
+from typing import TYPE_CHECKING
 import os
 
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+    from jdTextEdit.gui.CodeEdit import CodeEdit
+
+
 class ExecuteCommandWindow(QWidget):
-    def __init__(self, env):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
 
@@ -36,7 +43,7 @@ class ExecuteCommandWindow(QWidget):
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("executeCommandWindow.title"))
 
-    def openWindow(self, editWidget):
+    def openWindow(self, editWidget: "CodeEdit"):
         self.editWidget = editWidget
         self.show()
         QApplication.setActiveWindow(self)

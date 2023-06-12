@@ -7,7 +7,7 @@ def main(env):
     env.translations.loadDirectory(os.path.join(currentDir,"translation"))
     env.pluginManagerWindow = PluginManagerWindow(env)
 
-    openPluginManager = QAction(env.translate("pluginManagerWindow.title"),env.mainWindow)
+    openPluginManager = QAction(env.translate("pluginManagerWindow.title"), env.mainWindow)
     openPluginManager.triggered.connect(env.pluginManagerWindow.openWindow)
     openPluginManager.setData(["openPluginManager"])
     env.mainWindow.editMenu.addAction(openPluginManager)

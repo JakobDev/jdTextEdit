@@ -1,9 +1,15 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox, QSpinBox, QPushButton, QHBoxLayout, QVBoxLayout, QGridLayout, QLayout
 from jdTextEdit.Functions import getThemeIcon, restoreWindowState
+from typing import TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+    from jdTextEdit.gui.CodeEdit import CodeEdit
 
 
 class SearchWindow(QWidget):
-    def __init__(self, env):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.searchEdit = QLineEdit()
         self.regEx = QCheckBox(env.translate("searchWindow.checkBox.regularExpression"))
@@ -23,8 +29,8 @@ class SearchWindow(QWidget):
         self.wrap.setChecked(True)
         self.showText.setChecked(True)
 
-        self.lineSpinBox.setRange(0,2147483647)
-        self.indexSpinBox.setRange(0,2147483647)
+        self.lineSpinBox.setRange(0, 2147483647)
+        self.indexSpinBox.setRange(0, 2147483647)
 
         self.lineSpinBox.setValue(0)
         self.indexSpinBox.setValue(0)
@@ -41,10 +47,10 @@ class SearchWindow(QWidget):
         searchTextLayout.addWidget(self.searchEdit)
 
         numberLayout = QGridLayout()
-        numberLayout.addWidget(self.lineLabel,0,0)
-        numberLayout.addWidget(self.lineSpinBox,0,1)
-        numberLayout.addWidget(self.indexLabel,1,0)
-        numberLayout.addWidget(self.indexSpinBox,1,1)
+        numberLayout.addWidget(self.lineLabel, 0, 0)
+        numberLayout.addWidget(self.lineSpinBox, 0, 1)
+        numberLayout.addWidget(self.indexLabel, 1, 0)
+        numberLayout.addWidget(self.indexSpinBox, 1, 1)
 
         buttonLayout = QHBoxLayout()
         buttonLayout.addStretch(1)
@@ -67,8 +73,8 @@ class SearchWindow(QWidget):
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("searchWindow.title"))
 
-    def searchButtonClicked(self):
-        if bool(self.searchRange.checkState()):
+    def searchButtonClicked(self) -> None:
+        if self.searchRange.isChecked():
             line = self.lineSpinBox.value()
             index = self.indexSpinBox.value()
         else:
@@ -94,7 +100,7 @@ class SearchWindow(QWidget):
         self.lineSpinBox.setEnabled(enabled)
         self.indexSpinBox.setEnabled(enabled)
 
-    def openWindow(self, editWidget):
+    def openWindow(self, editWidget: "CodeEdit"):
         self.editWidget = editWidget
         self.searchRangeEnableUpdated()
         self.show()

@@ -1,4 +1,5 @@
 from jdTextEdit.Functions import showMessageBox, readJsonFile, isFlatpak
+from jdTextEdit.Constants import Constants
 from PyQt6.QtGui import QFont, QKeySequence
 from typing import Dict, Any
 from pathlib import Path
@@ -6,6 +7,7 @@ import platform
 import json
 import copy
 import os
+
 
 class Settings():
     def __init__(self, defaultSettings=None):
@@ -48,7 +50,7 @@ class Settings():
         self.detectEncoding = True
         self.detectEol = True
         self.detectLanguage = True
-        self.encodingDetectLib = "chardet"
+        self.encodingDetectLib = Constants.DEFAULT_ENCODING_DETECT_LIB
         self.saveBackupEnabled = False
         self.saveBackupExtension = ".bak"
         self.highlightCurrentLine = True
@@ -61,7 +63,7 @@ class Settings():
         self.autocompletionReplaceWord = False
         self.autocompleteThreshold = 3
         self.editContextMenu = ["undo", "redo", "separator", "cut", "copy", "paste", "delete", "separator", "selectAll"]
-        self.toolBar = ["newFile", "openFile", "saveFile", "separator", "cut", "copy", "paste", "delete", "separator", "undo", "redo"]
+        self.toolBar = ["newFile", "openFile", "saveFile", "separator", "cut", "copy", "paste", "delete", "separator", "undo", "redo", "separator", "find", "findReplaceWindow"]
         self.statusBarWidgetsLeft = ["builtin.path"]
         self.statusBarWidgetsRight = ["builtin.eol", "builtin.encoding", "builtin.language", "builtin.cursorPos"]
         self.showSidepane = False
@@ -89,6 +91,8 @@ class Settings():
         self.settingsWindowUseModernDesign = True
         self.enableUserChrome = True
         self.swapOkCancel = True
+        self.useCustomDateTimeFormat = False
+        self.customDateTimeFormat = Constants.DEFAULT_DATE_TIME_FORMAT
         self.disabledPlugins = []
         self.shortcut = {
             "newFile": QKeySequence(QKeySequence.StandardKey.New).toString(),
@@ -121,6 +125,7 @@ class Settings():
         }
         self.useCustomTerminalEmulator = False
         self.customTerminalEmulator = ""
+        self.optionalModulesWarningWhitelist = []
         if platform.system() == 'Windows':
             self.defaultEolMode = 0
         else:
@@ -169,15 +174,20 @@ class Settings():
             json.dump(data, f, ensure_ascii=False, indent=4)
         self.editFont = font
 
-    def get(self, key: str) -> Any:
+    def get(self, key: str, defaultValue: Any = None) -> Any:
         """
         Returns the Value of a Setting
         :param key: The Key
+        :param defaultValue A value that is returned when the Key is not found
         :return: The Value
         """
-        return vars(self)[key]
+        settingsDict = vars(self)
+        if key in settingsDict:
+            return settingsDict[key]
+        else:
+            return defaultValue
 
-    def set(self,key: str, value: Any):
+    def set(self, key: str, value: Any):
         """
         Sets a setting
         :param key: The Key
@@ -186,7 +196,7 @@ class Settings():
         """
         vars(self)[key] = value
 
-    def register(self,key: str,value: Any):
+    def register(self, key: str,value: Any):
         """
         Register a new setting
         :param key: The Key

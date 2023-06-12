@@ -1,9 +1,15 @@
 from PyQt6.QtWidgets import QWidget, QCheckBox, QSpinBox, QLabel, QVBoxLayout, QHBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
+from typing import TYPE_CHECKING
 
-class AutocompletionTab(QWidget,SettingsTabBase):
-    def __init__(self, env):
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
+class AutocompletionTab(QWidget, SettingsTabBase):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
 
@@ -33,7 +39,7 @@ class AutocompletionTab(QWidget,SettingsTabBase):
         self.setLayout(mainLayout)
 
     def updateSettingsEnabled(self):
-        enabled = bool(self.enableAutocompletionCheckBox.checkState())
+        enabled = self.enableAutocompletionCheckBox.isChecked()
         self.useWordsFromDocument.setEnabled(enabled)
         self.useAPI.setEnabled(enabled)
         self.caseSensitive.setEnabled(enabled)
@@ -51,12 +57,12 @@ class AutocompletionTab(QWidget,SettingsTabBase):
         self.updateSettingsEnabled()
 
     def getSettings(self, settings: Settings):
-        settings.set("enableAutocompletion",self.enableAutocompletionCheckBox.isChecked())
-        settings.set("autocompletionUseDocument",self.useWordsFromDocument.isChecked())
-        settings.set("autocompletionUseAPI",self.useAPI.isChecked())
-        settings.set("autocompletionCaseSensitive",self.caseSensitive.isChecked())
-        settings.set("autocompletionReplaceWord",self.replaceWord.isChecked())
-        settings.set("autocompleteThreshold",self.thresholdSpinBox.value())
+        settings.set("enableAutocompletion", self.enableAutocompletionCheckBox.isChecked())
+        settings.set("autocompletionUseDocument", self.useWordsFromDocument.isChecked())
+        settings.set("autocompletionUseAPI", self.useAPI.isChecked())
+        settings.set("autocompletionCaseSensitive", self.caseSensitive.isChecked())
+        settings.set("autocompletionReplaceWord", self.replaceWord.isChecked())
+        settings.set("autocompleteThreshold", self.thresholdSpinBox.value())
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.autocompletion")

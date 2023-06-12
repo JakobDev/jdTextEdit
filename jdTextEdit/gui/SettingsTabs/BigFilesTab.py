@@ -3,6 +3,7 @@ from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 from PyQt6.QtGui import QIntValidator
 
+
 class BigFilesTab(QWidget,SettingsTabBase):
     def __init__(self,env):
         super().__init__()
@@ -41,7 +42,7 @@ class BigFilesTab(QWidget,SettingsTabBase):
         self.setLayout(mainLayout)
 
     def enableFilesChanged(self):
-        enabled = bool(self.enableBigFiles.checkState())
+        enabled = self.enableBigFiles.isChecked()
         self.filesFromLabel.setEnabled(enabled)
         self.bytesEdit.setEnabled(enabled)
         self.bytesLabel.setEnabled(enabled)
@@ -51,7 +52,7 @@ class BigFilesTab(QWidget,SettingsTabBase):
         for i in self.pluginCheckBoxList:
             i[0].setEnabled(enabled)
 
-    def updateTab(self,settings: Settings):
+    def updateTab(self, settings: Settings):
         self.enableBigFiles.setChecked(settings.enableBigFileLimit)
         self.bytesEdit.setText(str(settings.bigFileSize))
         self.disableHighlight.setChecked(settings.bigFileDisableHighlight)

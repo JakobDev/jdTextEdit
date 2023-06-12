@@ -1,10 +1,10 @@
 from jdTranslationHelper import jdTranslationHelper
 from PyQt6.QtWidgets import QApplication
-from PyQt6.QtCore import QLocale, QTranslator, QLibraryInfo
+from PyQt6.QtCore import QLocale, QTranslator, QLibraryInfo, QCoreApplication, QMimeDatabase
 from PyQt6.QtGui import QIcon
 from jdTextEdit.Settings import Settings
 from jdTextEdit.LexerList import getLexerList
-from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox, readJsonFile, getFullPath, loadProjects, isFlatpak
+from jdTextEdit.Functions import getTemplates, getDataPath, showMessageBox, readJsonFile, getFullPath, loadProjects, isFlatpak, getParentDirectory
 from jdTextEdit.core.BuiltinLanguage import BuiltinLanguage
 from jdTextEdit.core.api.EditorSignals import EditorSignals
 from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
@@ -15,15 +15,22 @@ from jdTextEdit.core.api.PluginAPI import PluginAPI
 from jdTextEdit.core.DefaultTheme import DefaultTheme
 from jdTextEdit.core.FileTheme import FileTheme
 from jdTextEdit.api.LanguageBase import LanguageBase
-from typing import List
+from typing import Optional, Callable, TYPE_CHECKING
+import importlib
 import argparse
-import chardet
 import shutil
 import json
 import sys
 import os
 
-class Enviroment():
+
+if TYPE_CHECKING:
+    from jdTextEdit.api.ThemeBase import ThemeBase
+    from jdTextEdit.api.Types import *
+    from PyQt6.QtGui import QAction
+
+
+class Environment():
     def __init__(self, app: QApplication):
         self.programDir = os.path.dirname(os.path.realpath(__file__))
         self.app = app
@@ -41,17 +48,17 @@ class Enviroment():
         parser.add_argument("--distribution-file", dest="distributionFile", help="Sets custom distribution.json")
         parser.add_argument("--language", dest="language", help="Starts jdTextEdit in the given language")
         parser.add_argument("--debug", action="store_true", dest="debug", help="Enable Debug mode")
+        parser.add_argument("--debug-plugin", dest="debugPlugin", help="Loads a single Plugin from a directory")
         self.args = parser.parse_args().__dict__
 
-        #if distributionFile:
-        #    self.distributionSettings = readJsonFile(getFullPath(distributionFile),{})
-        #else:
-        self.distributionSettings = readJsonFile(self.args["distributionFile"] or os.path.join(self.programDir, "distribution.json"), {})
+        self.distributionSettings: DistributionSettingsType = readJsonFile(self.args["distributionFile"] or os.path.join(self.programDir, "distribution.json"), {})
 
         if self.args["portable"]:
-            self.dataDir = os.path.join(self.programDir, "data")
+            self.dataDir = os.path.join(getParentDirectory(self.programDir), "jdTextEditData")
         else:
             self.dataDir = getDataPath(self)
+
+        self.debugMode = bool(self.args["debug"])
 
         if not os.path.isdir(self.dataDir):
             self.firstRun = True
@@ -77,42 +84,29 @@ class Enviroment():
         if os.path.isfile(os.path.join(self.dataDir, "settings.json")):
             self.settings.load(os.path.join(self.dataDir, "settings.json"))
 
-        self._translator = QTranslator()
-        self._qt_translator = QTranslator()
-        self._qscintilla_translator = QTranslator()
-        qt_trans_dir = QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath)
+        self._qtTranslator: list[QTranslator] = []
+        self.loadQtTranslations(os.path.join(self.programDir, "i18n"), "jdTextEdit_{{Lang}}.qm")
+        self.loadQtTranslations(QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath), "qt_{{Lang}}.qm")
         if self.args["language"]:
             self.translations = jdTranslationHelper(lang=self.args["language"], default_language="en")
-            self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + self.args["language"] + ".qm"))
-            self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + self.args["language"] + ".qm"))
-            self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + self.args["language"] + ".qm"))
         elif self.settings.language == "default":
             system_lang = QLocale.system().name().split("_")[0]
             self.translations = jdTranslationHelper(lang=system_lang, default_language="en")
-            self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + system_lang + ".qm"))
-            self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + system_lang + ".qm"))
-            self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + system_lang + ".qm"))
         else:
             self.translations = jdTranslationHelper(lang=self.settings.get("language"), default_language="en")
-            self._translator.load(os.path.join(self.programDir, "i18n", "jdTextEdit_" + self.settings.get("language") + ".qm"))
-            self._qt_translator.load(os.path.join(qt_trans_dir, "qt_" + self.settings.get("language") + ".qm"))
-            self._qscintilla_translator.load(os.path.join(qt_trans_dir, "qscintilla_" + self.settings.get("language") + ".qm"))
         self.translations.loadDirectory(os.path.join(self.programDir, "translation"))
-        app.installTranslator(self._translator)
-        app.installTranslator(self._qt_translator)
-        app.installTranslator(self._qscintilla_translator)
 
-        self.recentFiles = readJsonFile(os.path.join(self.dataDir, "recentfiles.json"),[])
+        self.recentFiles: list[str] = readJsonFile(os.path.join(self.dataDir, "recentfiles.json"), [])
 
-        self.windowState = readJsonFile(os.path.join(self.dataDir, "windowstate.json"),{})
+        self.windowState: dict[str, dict[str, str]] = readJsonFile(os.path.join(self.dataDir, "windowstate.json"), {})
 
-        self.macroList = readJsonFile(os.path.join(self.dataDir, "macros.json"),[])
-        self.global_macroList = readJsonFile(os.path.join(self.programDir, "macros.json"),[])
+        self.macroList: list[dict[str, str]] = readJsonFile(os.path.join(self.dataDir, "macros.json"), [])
+        self.global_macroList: list[dict[str, str]] = readJsonFile(os.path.join(self.programDir, "macros.json"), [])
 
-        self.commands = readJsonFile(os.path.join(self.dataDir, "commands.json"),[])
-        self.global_commands = readJsonFile(os.path.join(self.programDir, "commands.json"),[])
+        self.commands = readJsonFile(os.path.join(self.dataDir, "commands.json"), [])
+        self.global_commands = readJsonFile(os.path.join(self.programDir, "commands.json"), [])
 
-        self.themes = {}
+        self.themes: dict[str, "ThemeBase"] = {}
         #self.loadThemeDirectory(os.path.join(self.programDir,"themes"))
         #user_themes = os.path.join(self.dataDir,"themes")
         #if os.path.isdir(user_themes):
@@ -125,44 +119,31 @@ class Enviroment():
 
         self.lexerList = getLexerList()
 
-        self.languageList: List[LanguageBase] = []
+        self.languageList: list[LanguageBase] = []
         for i in self.lexerList:
-            lang = BuiltinLanguage(self,i)
+            lang = BuiltinLanguage(self, i)
             self.languageList.append(lang)
 
-        self.templates = []
-        getTemplates(os.path.join(self.programDir,"templates"),self.templates)
-        getTemplates(os.path.join(self.dataDir,"templates"),self.templates)
-        if "templateDirectories" in self.distributionSettings:
-            if isinstance(self.distributionSettings["templateDirectories"], list):
-                for i in self.distributionSettings["templateDirectories"]:
-                    getTemplates(getFullPath(i), self.templates)
-            else:
-                print("templateDirectories in distribution.json must be a list", file=sys.stderr)
+        self.updateTemplates()
 
         self.statusBarWidgetDict = {}
 
         self.dockWidgets = []
-        self.menuActions = {}
-        self.encodingAction = []
+        self.menuActions: dict[str, "QAction"] = {}
+        self.encodingAction: list["QAction"] = []
         self.projects = loadProjects(self, os.path.join(self.dataDir, "projects.json"))
-        self.plugins = {}
+        self.plugins: dict[str, dict[str, str]] = {}
 
-        self.encodingDetectFunctions = {
-            "chardet": chardet.detect
-        }
+        self.encodingDetectFunctions: dict[str, Callable[[bytes], EncodingDetectFunctionResult]] = {}
+        for i in ("chardet", "charset_normalizer", "cchardet"):
+            try:
+                module = importlib.import_module(i)
+                self.encodingDetectFunctions[i] = module.detect
+            except ModuleNotFoundError:
+                pass
 
-        try:
-            import charset_normalizer
-            self.encodingDetectFunctions["charset_normalizer"] =  charset_normalizer.detect
-        except ImportError:
-            pass
-
-        try:
-            import cchardet
-            self.encodingDetectFunctions["cChardet"] = cchardet.detect
-        except ImportError:
-            pass
+        if len(self.encodingDetectFunctions) == 0:
+            print("No libs for encoding detection found", file=sys.stderr)
 
         self.lastSavePath = ""
         self.lastOpenPath = ""
@@ -178,14 +159,21 @@ class Enviroment():
         self.tabWidgetSignals = TabWidgetSignals()
         self.projectSignals = ProjectSignals()
         self.customSettingsTabs = []
-        self.customBigFilesSettings = []
-        self.defaultSettings = []
+        self.customBigFilesSettings: list[list[str]] = []
+        self.defaultSettings: list[tuple[str, str]] = []
         self.pluginAPI = PluginAPI(self)
 
         self.pluginAPI.addTheme(DefaultTheme(self))
 
-        self.loadThemeDirectory(os.path.join(self.programDir,"themes"))
+        self.loadThemeDirectory(os.path.join(self.programDir, "themes"))
         self.loadThemeDirectory(os.path.join(self.dataDir, "themes"))
+
+        self.exportDataList: list["ExportDataType"] = [
+            {"id": "settings", "name": QCoreApplication.translate("Environment", "Settings"), "path": ["settings.json"]},
+            {"id": "templates", "name": QCoreApplication.translate("Environment", "Templates"), "path": ["templates"]}
+        ]
+
+        self.mimeDatabase = QMimeDatabase()
 
     def translate(self, key: str) -> str:
         """
@@ -195,7 +183,20 @@ class Enviroment():
         """
         return self.translations.translate(key)
 
-    def loadThemeDirectory(self,path):
+    def loadQtTranslations(self, directory: str, filename: str) -> None:
+        translator = QTranslator()
+        if self.args["language"]:
+            translator.load(os.path.join(directory, filename.replace("{{Lang}}", self.args["language"])))
+        elif self.settings.get("language") == "default":
+            systemLang = QLocale.system().name()
+            translator.load(os.path.join(directory, filename.replace("{{Lang}}", systemLang.split("_")[0])))
+            translator.load(os.path.join(directory, filename.replace("{{Lang}}", systemLang)))
+        else:
+            translator.load(os.path.join(directory, filename.replace("{{Lang}}", self.settings.get("language"))))
+        self.app.installTranslator(translator)
+        self._qtTranslator.append(translator)
+
+    def loadThemeDirectory(self, path: str) -> None:
         if not os.path.isdir(path):
             try:
                 os.makedirs(path)
@@ -204,11 +205,28 @@ class Enviroment():
         themeList = os.listdir(path)
         for i in themeList:
             try:
-                theme = FileTheme(os.path.join(path,i))
+                theme = FileTheme(os.path.join(path, i))
                 self.pluginAPI.addTheme(theme)
             except Exception:
                 pass
 
-    def saveRecentFiles(self):
+    def saveRecentFiles(self) -> None:
         with open(os.path.join(self.dataDir, "recentfiles.json"), 'w', encoding='utf-8') as f:
             json.dump(self.recentFiles, f, ensure_ascii=False, indent=4)
+
+    def updateTemplates(self) -> None:
+        self.templates: list[list[str]] = []
+        getTemplates(os.path.join(self.programDir, "templates"), self.templates)
+        getTemplates(os.path.join(self.dataDir, "templates"), self.templates)
+        if "templateDirectories" in self.distributionSettings:
+            if isinstance(self.distributionSettings["templateDirectories"], list):
+                for i in self.distributionSettings["templateDirectories"]:
+                    getTemplates(getFullPath(i), self.templates)
+            else:
+                print("templateDirectories in distribution.json must be a list", file=sys.stderr)
+
+    def getLanguageByID(self, languageID: str) -> Optional[LanguageBase]:
+        for i in self.languageList:
+            if i.getID() == languageID:
+                return i
+        return None

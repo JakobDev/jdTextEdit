@@ -137,6 +137,7 @@ class ToolbarTab(QWidget,SettingsTabBase):
                 item = CustomWidgetItem(data.text())
             item.setActionName(data.data()[0])
             self.actionsList.addItem(item)
+        self.actionsList.sortItems()
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.toolbar")

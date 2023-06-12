@@ -1,43 +1,41 @@
 from PyQt6.Qsci import *
 
+
 def getLexerList():
-    lexerList = []
-    lexerList.append({"lexer":QsciLexerAVS,"name":"AVS","extension":[],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerBash,"name":"Bash","extension":[".sh",".bash",".bsh",".csh",".bash_profile",".bashrc",".profile",".recipe"],"xmlapi":"","startswith":["#!/bin/sh","#!/bin/bash"]})
-    lexerList.append({"lexer":QsciLexerBatch,"name":"Batch","extension":[".bat",".batch",".cmd",".nt"],"xmlapi":"batch"})
-    lexerList.append({"lexer":QsciLexerCMake,"name":"CMake","extension":[".cmake"],"xmlapi":"cmake"})
-    lexerList.append({"lexer":QsciLexerCoffeeScript,"name":"CoffeeScript","extension":[".coffe"".litcoffee"],"xmlapi":"coffee"})
-    lexerList.append({"lexer":QsciLexerCPP,"name":"C++","extension":[".cpp",".h",".hh",".hpp",".hxx",".cxx",".cc",".ino"],"xmlapi":"cpp"})
-    lexerList.append({"lexer":QsciLexerCSharp,"name":"C#","extension":["cs"],"xmlapi":"cs"})
-    lexerList.append({"lexer":QsciLexerIDL,"name":"IDL","extension":[".idl"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerJava,"name":"Java","extension":[".java"],"xmlapi":"java"})
-    lexerList.append({"lexer":QsciLexerJavaScript,"name":"JavaScript","extension":[".js",".jsm",".jsx",".ts",".tsx"],"xmlapi":"javascript"})
-    lexerList.append({"lexer":QsciLexerCSS,"name":"CSS","extension":[".css",".qss"],"xmlapi":"css"})
-    lexerList.append({"lexer":QsciLexerD,"name":"D","extension":[".d"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerDiff,"name":"Diff","extension":[".diff",".patch"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerFortran,"name":"Fortran","extension":[".f90",".f95",".f03"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerFortran77,"name":"Fortran77","extension":[".f",".for"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerHTML,"name":"HTML","extension":[".html",".htm"],"xmlapi":"html","startswith":["<!DOCTYPE html>"]})
-    lexerList.append({"lexer":QsciLexerXML,"name":"XML","extension":[".xml",".xaml",".xsl",".xslt",".xsd",",.xul",".kml",".svg",".mxml",".xsml",".wsdl",".xlf",".xliff",".xbl",".sxbl",".sitemap",".gml",".gpx",".plist"],"xmlapi":"xml","startswith":["<?xml"]})
-    lexerList.append({"lexer":QsciLexerJSON,"name":"JSON","extension":[".json"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerLua,"name":"LUA","extension":[".lua"],"xmlapi":"lua","startswith":["#!/usr/bin/lua","#!/usr/bin/env lua"]})
-    lexerList.append({"lexer":QsciLexerMakefile,"name":"Makefile","extension":[".am"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerMarkdown,"name":"Markdown","extension":[".md"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerMatlab,"name":"Matlab","extension":[".m"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerOctave,"name":"Octave","extension":[],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerPascal,"name":"Pascal","extension":[".pp"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerPerl,"name":"Perl","extension":[".pl"],"xmlapi":"perl","startswith":["#!/usr/bin/perl","#!/usr/bin/env perl"]})
-    lexerList.append({"lexer":QsciLexerPO,"name":"PO","extension":[],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerPOV,"name":"POV","extension":[],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerPostScript,"name":"PostScript","extension":[],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerProperties,"name":"Properties","extension":[".properties"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerPython,"name":"Python","extension":[".py",".pyw"],"xmlapi":"python","startswith":["#!/usr/bin/python","#!/usr/bin/env python"]})
-    lexerList.append({"lexer":QsciLexerRuby,"name":"Ruby","extension":[".rb",".rbw"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerSpice,"name":"Spice","extension":[".scp",".out"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerSQL,"name":"SQL","extension":[],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerTCL,"name":"TCL","extension":[".tcl"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerTeX,"name":"TeX","extension":[".tex"],"xmlapi":"tex"})
-    lexerList.append({"lexer":QsciLexerVerilog,"name":"Verilog","extension":[".v",".sv",".vh",".svh"],"xmlapi":""})
-    lexerList.append({"lexer":QsciLexerVHDL,"name":"VHDL","extension":[],"xmlapi":"vhdl"})
-    lexerList.append({"lexer":QsciLexerYAML,"name":"YAML","extension":[".yml",".yaml"],"xmlapi":""})
-    return lexerList
+    return [
+        {"lexer": QsciLexerAVS, "name": "AVS", "extension": [], "xmlapi": ""},
+        {"lexer": QsciLexerBash, "name": "Bash", "extension": [".sh", ".bash", ".bsh", ".csh", ".bash_profile", ".bashrc", ".profile", ".recipe"], "xmlapi": "", "startswith": ["#!/bin/sh", "#!/bin/bash"]},
+        {"lexer": QsciLexerBatch, "name": "Batch", "extension": [".bat", ".batch", ".cmd", ".nt"], "xmlapi": "batch"},
+        {"lexer": QsciLexerCMake, "name": "CMake", "extension": [".cmake"], "xmlapi": "cmake"},
+        {"lexer": QsciLexerCoffeeScript, "name": "CoffeeScript", "extension": [".coffe"".litcoffee"], "xmlapi": "coffee"}, {"lexer": QsciLexerCPP, "name": "C++", "extension": [".cpp", ".h", ".hh", ".hpp", ".hxx", ".cxx", ".cc", ".ino"], "xmlapi": "cpp"},
+        {"lexer": QsciLexerCSharp, "name": "C#", "extension": ["cs"], "xmlapi": "cs"},
+        {"lexer": QsciLexerIDL, "name": "IDL", "extension": [".idl"], "xmlapi": ""},
+        {"lexer": QsciLexerJava, "name": "Java", "extension": [".java"], "xmlapi": "java"},
+        {"lexer": QsciLexerJavaScript, "name": "JavaScript", "extension": [".js", ".jsm", ".jsx", ".ts", ".tsx"], "xmlapi": "javascript"},
+        {"lexer": QsciLexerCSS, "name": "CSS", "extension": [".css", ".qss"], "xmlapi": "css"},
+        {"lexer": QsciLexerD, "name": "D", "extension": [".d"], "xmlapi": ""},
+        {"lexer": QsciLexerDiff, "name": "Diff", "extension": [".diff", ".patch"], "xmlapi": ""},
+        {"lexer": QsciLexerFortran, "name": "Fortran", "extension": [".f90", ".f95", ".f03"], "xmlapi": ""},
+        {"lexer": QsciLexerFortran77, "name": "Fortran77", "extension": [".f", ".for"], "xmlapi": ""},
+        {"lexer": QsciLexerHTML, "name": "HTML", "extension": [".html", ".htm"], "xmlapi": "html", "startswith": ["<!DOCTYPE html>"]}, {"lexer": QsciLexerXML, "name": "XML", "extension": [".xml", ".xaml", ".xsl", ".xslt", ".xsd", ",.xul", ".kml", ".svg", ".mxml", ".xsml", ".wsdl", ".xlf", ".xliff", ".xbl", ".sxbl", ".sitemap", ".gml", ".gpx", ".plist"], "xmlapi": "xml", "startswith": ["<?xml"]},
+        {"lexer": QsciLexerJSON, "name": "JSON", "extension": [".json"], "xmlapi": ""},
+        {"lexer": QsciLexerLua, "name": "LUA", "extension": [".lua"], "xmlapi": "lua", "startswith": ["#!/usr/bin/lua", "#!/usr/bin/env lua"]},
+        {"lexer": QsciLexerMakefile, "name": "Makefile", "extension": [".am"], "xmlapi": ""},
+        {"lexer": QsciLexerMarkdown, "name": "Markdown", "extension": [".md"], "xmlapi": ""},
+        {"lexer": QsciLexerMatlab, "name": "Matlab", "extension": [".m"], "xmlapi": ""},
+        {"lexer": QsciLexerOctave, "name": "Octave", "extension": [], "xmlapi": ""},
+        {"lexer": QsciLexerPascal, "name": "Pascal", "extension": [".pp"], "xmlapi": ""},
+        {"lexer": QsciLexerPerl, "name": "Perl", "extension": [".pl"], "xmlapi": "perl", "startswith": ["#!/usr/bin/perl", "#!/usr/bin/env perl"]},
+        {"lexer": QsciLexerPO, "name": "PO", "extension": [], "xmlapi": ""},
+        {"lexer": QsciLexerPOV, "name": "POV", "extension": [], "xmlapi": ""},
+        {"lexer": QsciLexerPostScript, "name": "PostScript", "extension": [], "xmlapi": ""},
+        {"lexer": QsciLexerProperties, "name": "Properties", "extension": [".properties"], "xmlapi": ""},
+        {"lexer": QsciLexerPython, "name": "Python", "extension": [".py", ".pyw"], "xmlapi": "python", "startswith": ["#!/usr/bin/python", "#!/usr/bin/env python"]},
+        {"lexer": QsciLexerRuby, "name": "Ruby", "extension": [".rb", ".rbw"], "xmlapi": ""},
+        {"lexer": QsciLexerSpice, "name": "Spice", "extension": [".scp", ".out"], "xmlapi": ""},
+        {"lexer": QsciLexerSQL, "name": "SQL", "extension": [], "xmlapi": ""},
+        {"lexer": QsciLexerTCL, "name": "TCL", "extension": [".tcl"], "xmlapi": ""},
+        {"lexer": QsciLexerTeX, "name": "TeX", "extension": [".tex"], "xmlapi": "tex"},
+        {"lexer": QsciLexerVerilog, "name": "Verilog", "extension": [".v", ".sv", ".vh", ".svh"], "xmlapi": ""}, {"lexer": QsciLexerVHDL, "name": "VHDL", "extension": [], "xmlapi": "vhdl"},
+        {"lexer": QsciLexerYAML, "name": "YAML", "extension": [".yml", ".yaml"], "xmlapi": ""}
+    ]

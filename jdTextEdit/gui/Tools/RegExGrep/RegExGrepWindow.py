@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QMessageBox
+from jdTextEdit.Functions import getRegExErrorMessage
 from .RegExGrepListDialog import RegExGrepListDialog
-from jdTextEdit.Functions import isRegExValid
 from PyQt6.QtCore import QCoreApplication
 from PyQt6 import uic
 import os
@@ -37,8 +37,8 @@ class RegExGrepWindow(QWidget):
             QMessageBox.information(self, QCoreApplication.translate("RegExGrepWindow", "No RegEx"), QCoreApplication.translate("RegExGrepWindow", "You have not entered a RegEx"))
             return
 
-        if not isRegExValid(self.regExEdit.text()):
-            QMessageBox.critical(self, QCoreApplication.translate("RegExGrepWindow", "Invalid RegEx"), QCoreApplication.translate("RegExGrepWindow", "Your RegEx is invalid"))
+        if errorMsg := getRegExErrorMessage(self.regExEdit.text()):
+            QMessageBox.critical(self, QCoreApplication.translate("RegExGrepWindow", "Invalid RegEx"), errorMsg)
             return
 
         self.resultsList.clear()

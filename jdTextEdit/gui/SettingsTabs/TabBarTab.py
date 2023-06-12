@@ -2,7 +2,8 @@ from PyQt6.QtWidgets import QWidget, QComboBox, QCheckBox, QLabel, QHBoxLayout, 
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
 
-class TabBarTab(QWidget,SettingsTabBase):
+
+class TabBarTab(QWidget, SettingsTabBase):
     def __init__(self, env):
         super().__init__()
         self.env = env

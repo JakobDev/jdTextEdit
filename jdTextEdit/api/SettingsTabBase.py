@@ -1,13 +1,14 @@
 from jdTextEdit.Settings import Settings
 
-class SettingsTabBase():
+
+class SettingsTabBase:
     def updateTab(self, settings: Settings):
         pass
 
     def getSettings(self, settings: Settings):
         pass
 
-    def setup(self):
+    def setup(self) -> None:
         pass
 
     def title(self) -> str:

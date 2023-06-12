@@ -1,9 +1,15 @@
 from PyQt6.QtWidgets import QWidget, QCheckBox, QLineEdit, QLabel, QSpinBox, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from jdTextEdit.Settings import Settings
+from typing import TYPE_CHECKING
 
-class SaveTab(QWidget,SettingsTabBase):
-    def __init__(self, env):
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
+class SaveTab(QWidget, SettingsTabBase):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
 
@@ -40,32 +46,32 @@ class SaveTab(QWidget,SettingsTabBase):
         self.setLayout(mainLayout)
 
     def updateBackupExtensionEnabled(self):
-        enabled = bool(self.backupCheckBox.checkState())
+        enabled = self.backupCheckBox.isChecked()
         self.backupLabel.setEnabled(enabled)
         self.backupExtensionEdit.setEnabled(enabled)
 
     def updateAutoSaveEnabled(self):
-        enabled =  bool(self.autoSaveCheckBox.checkState())
+        enabled = self.autoSaveCheckBox.isChecked()
         self.autoSaveLabel.setEnabled(enabled)
         self.autoSaveIntervalSpinBox.setEnabled(enabled)
 
-    def updateTab(self, settings: Settings):
-        self.eolFileEndCheckBox.setChecked(settings.eolFileEnd)
-        self.stripSpacesCheckBox.setChecked(settings.stripSpacesSave)
-        self.backupCheckBox.setChecked(settings.saveBackupEnabled)
-        self.backupExtensionEdit.setText(settings.saveBackupExtension)
-        self.autoSaveCheckBox.setChecked(settings.enableAutoSave)
-        self.autoSaveIntervalSpinBox.setValue(settings.autoSaveInterval)
+    def updateTab(self, settings: Settings) -> None:
+        self.eolFileEndCheckBox.setChecked(settings.get("eolFileEnd"))
+        self.stripSpacesCheckBox.setChecked(settings.get("stripSpacesSave"))
+        self.backupCheckBox.setChecked(settings.get("saveBackupEnabled"))
+        self.backupExtensionEdit.setText(settings.get("saveBackupExtension"))
+        self.autoSaveCheckBox.setChecked(settings.get("enableAutoSave"))
+        self.autoSaveIntervalSpinBox.setValue(settings.get("autoSaveInterval"))
         self.updateBackupExtensionEnabled()
         self.updateAutoSaveEnabled()
 
-    def getSettings(self, settings: Settings):
-        settings.set("eolFileEnd",self.eolFileEndCheckBox.isChecked())
-        settings.set("stripSpacesSave",self.stripSpacesCheckBox.isChecked())
-        settings.set("saveBackupEnabled",self.backupCheckBox.isChecked())
-        settings.set("saveBackupExtension",self.backupExtensionEdit.text())
-        settings.set("enableAutoSave",self.autoSaveCheckBox.isChecked())
-        settings.set("autoSaveInterval",self.autoSaveIntervalSpinBox.value())
+    def getSettings(self, settings: Settings) -> None:
+        settings.set("eolFileEnd", self.eolFileEndCheckBox.isChecked())
+        settings.set("stripSpacesSave", self.stripSpacesCheckBox.isChecked())
+        settings.set("saveBackupEnabled", self.backupCheckBox.isChecked())
+        settings.set("saveBackupExtension", self.backupExtensionEdit.text())
+        settings.set("enableAutoSave", self.autoSaveCheckBox.isChecked())
+        settings.set("autoSaveInterval", self.autoSaveIntervalSpinBox.value())
 
     def title(self) -> str:
         return self.env.translate("settingsWindow.save")

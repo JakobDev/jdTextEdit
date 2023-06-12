@@ -1,14 +1,20 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QTextBrowser, QPushButton, QCheckBox, QHBoxLayout, QVBoxLayout
 from jdTextEdit.Functions import restoreWindowState
+from PyQt6.QtGui import QCloseEvent
+from typing import TYPE_CHECKING
 import random
 
 
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
 class DayTipWindow(QWidget):
-    def __init__(self,env):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
 
-        self.textArea =  QTextBrowser()
+        self.textArea = QTextBrowser()
         self.showStartup = QCheckBox(env.translate("dayTipWindow.showStartup"))
         nextTipButton = QPushButton(env.translate("dayTipWindow.nextTip"))
         closeButton = QPushButton(env.translate("button.close"))
@@ -27,7 +33,7 @@ class DayTipWindow(QWidget):
 
         self.setLayout(mainLayout)
         self.setWindowTitle(env.translate("dayTipWindow.title"))
-        restoreWindowState(self,self.env.windowState,"DayTipWindow")
+        restoreWindowState(self, self.env.windowState, "DayTipWindow")
 
     def setup(self):
         self.tips = []
@@ -37,7 +43,7 @@ class DayTipWindow(QWidget):
         self.selectedTip = None
 
     def nextTip(self):
-        tip = random.randint(0,len(self.tips)-1)
+        tip = random.randint(0, len(self.tips)-1)
         if tip == self.selectedTip:
             self.nextTip()
         else:
@@ -50,6 +56,6 @@ class DayTipWindow(QWidget):
         self.show()
         QApplication.setActiveWindow(self)
 
-    def closeEvent(self, event):
-        self.env.settings.set("startupDayTip",self.showStartup.isChecked())
+    def closeEvent(self, event: QCloseEvent):
+        self.env.settings.set("startupDayTip", self.showStartup.isChecked())
         event.accept()
