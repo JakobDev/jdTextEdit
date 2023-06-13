@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QFileDialog, QLayout
-from typing import  TYPE_CHECKING
+from PyQt6.QtCore import QCoreApplication
+from typing import TYPE_CHECKING
 import sys
 
 
@@ -12,8 +13,9 @@ class CloseSaveWindow(QWidget):
     def __init__(self, env: "Environment"):
         super().__init__()
         self.env = env
-        noCloseButton = QPushButton(env.translate("closeSaveWindow.button.noSave"))
-        cancelButton = QPushButton(env.translate("button.cancel"))
+
+        noCloseButton = QPushButton(QCoreApplication.translate("CloseSaveWindow", "Close without Saving"))
+        cancelButton = QPushButton(QCoreApplication.translate("CloseSaveWindow", "Cancel"))
         self.saveButton = QPushButton()
         self.text = QLabel()
 
@@ -41,7 +43,7 @@ class CloseSaveWindow(QWidget):
 
     def saveFile(self):
         if self.tabWidget.widget(self.tabid).getCodeEditWidget().getFilePath() == "":
-            pickedPath = QFileDialog.getSaveFileName(self ,self.env.translate("mainWindow.saveAsDialog.title"), None, self.env.fileNameFilters)
+            pickedPath = QFileDialog.getSaveFileName(self, QCoreApplication.translate("CloseSaveWindow", "Save as ..."), None, self.env.fileNameFilters)
             if pickedPath[0]:
                 path = pickedPath[0]
             else:
@@ -56,11 +58,11 @@ class CloseSaveWindow(QWidget):
         self.tabid = tabid
         self.tabWidget = tabWidget
         filename = self.tabWidget.tabText(tabid)
-        self.text.setText(self.env.translate("closeSaveWindow.text") % filename)
-        self.setWindowTitle(self.env.translate("closeSaveWindow.title") % filename)
+        self.text.setText(QCoreApplication.translate("CloseSaveWindow", "{{path}} has been edited. Do you want to save it?").replace("{{path}}", filename))
+        self.setWindowTitle(CoreApplication.translate("CloseSaveWindow", "Save {{path}}").replace("{{path}}", filename))
         if self.tabWidget.widget(self.tabid).getCodeEditWidget().getFilePath() == "":
-            self.saveButton.setText(self.env.translate("closeSaveWindow.button.saveAs"))
+            self.saveButton.setText(QCoreApplication.translate("CloseSaveWindow", "Save as ..."))
         else:
-            self.saveButton.setText(self.env.translate("closeSaveWindow.button.save"))
+            self.saveButton.setText(QCoreApplication.translate("CloseSaveWindow", "Save"))
         self.show()
         QApplication.setActiveWindow(self)

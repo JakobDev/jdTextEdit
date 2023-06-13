@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QLineEdit, QListWidget, QListWidgetItem, QPushButton, QHBoxLayout, QVBoxLayout
 from jdTextEdit.Functions import showMessageBox, restoreWindowState, sortActionDict
+from PyQt6.QtCore import QCoreApplication
 from typing import TYPE_CHECKING
 from PyQt6.QtGui import QAction
 import traceback
@@ -18,8 +19,8 @@ class ActionSearchWindow(QWidget):
 
         self._searchBox = QLineEdit()
         self._resultList = QListWidget()
-        self._okButton = QPushButton(env.translate("button.ok"))
-        cancelButton = QPushButton(env.translate("button.cancel"))
+        self._okButton = QPushButton(QCoreApplication.translate("ActionSearchWindow", "OK"))
+        cancelButton = QPushButton(QCoreApplication.translate("ActionSearchWindow", "Cancel"))
 
         self._searchBox.textChanged.connect(self._doSearch)
         self._resultList.itemClicked.connect(lambda: self._okButton.setEnabled(True))
@@ -41,7 +42,7 @@ class ActionSearchWindow(QWidget):
         mainLayout.addWidget(self._resultList)
         mainLayout.addLayout(buttonLayout)
 
-        self.setWindowTitle(env.translate("searchActionWindow.title"))
+        self.setWindowTitle(QCoreApplication.translate("ActionSearchWindow", "Search Action"))
         self.setLayout(mainLayout)
 
         restoreWindowState(self, env.windowState, "ActionSearchWindow")
@@ -67,7 +68,7 @@ class ActionSearchWindow(QWidget):
             self.close()
         except Exception:
             print(traceback.format_exc(), end="", file=sys.stderr)
-            showMessageBox(self._env.translate("unknownError.title"), self._env.translate("unknownError.text"))
+            showMessageBox(QCoreApplication.translate("ActionSearchWindow", "Unknown error"), QCoreApplication.translate("ActionSearchWindow", "An unknown error occured"))
 
     def openWindow(self):
         self._searchBox.setText("")

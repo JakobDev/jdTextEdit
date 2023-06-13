@@ -2,54 +2,217 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>AboutWindow</name>
+    <message>
+        <location filename="../gui/AboutWindow.py" line="21"/>
+        <source>jdTextEdit version {{version}}</source>
+        <translation>jdTextEdit Version {{version}}</translation>
+    </message>
+    <message>
+        <location filename="../gui/AboutWindow.py" line="22"/>
+        <source>jdTextEdit is a feature rich text editor with plugin support</source>
+        <translation>jdTextEdit ist ein umfangreicher Texteditor mit Plugin Support</translation>
+    </message>
+    <message>
+        <location filename="../gui/AboutWindow.py" line="23"/>
+        <source>This Program is licensed under GPL 3</source>
+        <translation>Dieses Programm ist unter der GPL 3  lizenziert</translation>
+    </message>
+    <message>
+        <location filename="../gui/AboutWindow.py" line="24"/>
+        <source>The logo was made by Axel-Erfurt</source>
+        <translation>Das Logo wurde von Axel-Erfurt erstellt</translation>
+    </message>
+    <message>
+        <location filename="../gui/AboutWindow.py" line="29"/>
+        <source>View Source</source>
+        <translation>Quelltext ansehen</translation>
+    </message>
+    <message>
+        <location filename="../gui/AboutWindow.py" line="30"/>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
+    <message>
+        <location filename="../gui/AboutWindow.py" line="49"/>
+        <source>About</source>
+        <translation>Über</translation>
+    </message>
+</context>
+<context>
+    <name>ActionSearchWindow</name>
+    <message>
+        <location filename="../gui/ActionSearchWindow.py" line="22"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/ActionSearchWindow.py" line="23"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/ActionSearchWindow.py" line="45"/>
+        <source>Search Action</source>
+        <translation>Aktion suchen</translation>
+    </message>
+    <message>
+        <location filename="../gui/ActionSearchWindow.py" line="71"/>
+        <source>Unknown error</source>
+        <translation>Unbekannter Fehler</translation>
+    </message>
+    <message>
+        <location filename="../gui/ActionSearchWindow.py" line="71"/>
+        <source>An unknown error occured</source>
+        <translation>An unbekannter fehler ist aufgetreten</translation>
+    </message>
+</context>
+<context>
+    <name>AddProjectWindow</name>
+    <message>
+        <location filename="../gui/AddProjectWindow.py" line="19"/>
+        <source>Browse</source>
+        <translation>Durchsuchen</translation>
+    </message>
+    <message>
+        <location filename="../gui/AddProjectWindow.py" line="20"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/AddProjectWindow.py" line="21"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/AddProjectWindow.py" line="28"/>
+        <source>Name:</source>
+        <translation>Name:</translation>
+    </message>
+    <message>
+        <location filename="../gui/AddProjectWindow.py" line="30"/>
+        <source>Path:</source>
+        <translation>Pfad:</translation>
+    </message>
+    <message>
+        <location filename="../gui/AddProjectWindow.py" line="65"/>
+        <source>No name</source>
+        <translation>Kein Name</translation>
+    </message>
+    <message>
+        <location filename="../gui/AddProjectWindow.py" line="65"/>
+        <source>You have to give a name</source>
+        <translation>DU must einen Namen angeben</translation>
+    </message>
+    <message>
+        <location filename="../gui/AddProjectWindow.py" line="69"/>
+        <source>Invalid Path</source>
+        <translation>Ungültiger Pfad</translation>
+    </message>
+    <message>
+        <location filename="../gui/AddProjectWindow.py" line="69"/>
+        <source>The given Path does not exists</source>
+        <translation>Der angegebene Pfad existiert nicht</translation>
+    </message>
+</context>
+<context>
     <name>BannerWidgets</name>
     <message>
         <location filename="../gui/BannerWidgets/SimpleMessageBanner.py" line="14"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>CloseSaveWindow</name>
+    <message>
+        <location filename="../gui/CloseSaveWindow.py" line="17"/>
+        <source>Close without Saving</source>
+        <translation>Schließen ohne zu speichern</translation>
+    </message>
+    <message>
+        <location filename="../gui/CloseSaveWindow.py" line="18"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/CloseSaveWindow.py" line="64"/>
+        <location filename="../gui/CloseSaveWindow.py" line="46"/>
+        <source>Save as ...</source>
+        <translation>Speichern unter ...</translation>
+    </message>
+    <message>
+        <location filename="../gui/CloseSaveWindow.py" line="61"/>
+        <source>{{path}} has been edited. Do you want to save it?</source>
+        <translation>66path}} wurde verändert. Möchtest du speichern?</translation>
+    </message>
+    <message>
+        <location filename="../gui/CloseSaveWindow.py" line="62"/>
+        <source>Save {{path}}</source>
+        <translation>Speichere {{path}}</translation>
+    </message>
+    <message>
+        <location filename="../gui/CloseSaveWindow.py" line="66"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
     </message>
 </context>
 <context>
     <name>DateTimeWindow</name>
     <message>
+        <location filename="../gui/DateTimeWindow.py" line="42"/>
+        <source>Use the selected format</source>
+        <translation>Folgendes Format verwenden</translation>
+    </message>
+    <message>
         <location filename="../gui/DateTimeWindow.py" line="44"/>
         <source>Add</source>
-        <translation type="unfinished">Hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="45"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="46"/>
         <source>Remove</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <location filename="../gui/DateTimeWindow.py" line="100"/>
+        <source>Insert Date and Time</source>
+        <translation>Datum und Uhrzeit einfügen</translation>
+    </message>
+    <message>
+        <location filename="../gui/DateTimeWindow.py" line="112"/>
+        <source>Preview: {{preview}}</source>
+        <translation>Vorschau: {{preview}}</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="114"/>
         <source>Invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültig</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="141"/>
         <source>Enter format</source>
-        <translation type="unfinished"></translation>
+        <translation>Format eingeben</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="141"/>
         <source>Please enter a format</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte gib ein Format ein</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="149"/>
         <source>Invalid format</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültiges Format</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="149"/>
         <source>This format is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Format ist ungültig</translation>
     </message>
 </context>
 <context>
@@ -71,26 +234,69 @@
     </message>
 </context>
 <context>
+    <name>DocumentStatistics</name>
+    <message>
+        <location filename="../gui/DocumentStatistics.py" line="16"/>
+        <source>Selection</source>
+        <translation>Auswahl</translation>
+    </message>
+    <message>
+        <location filename="../gui/DocumentStatistics.py" line="25"/>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
+    <message>
+        <location filename="../gui/DocumentStatistics.py" line="31"/>
+        <source>Document</source>
+        <translation>Dokument</translation>
+    </message>
+    <message>
+        <location filename="../gui/DocumentStatistics.py" line="33"/>
+        <source>Lines</source>
+        <translation>zeilen</translation>
+    </message>
+    <message>
+        <location filename="../gui/DocumentStatistics.py" line="36"/>
+        <source>Words</source>
+        <translation>Wörter</translation>
+    </message>
+    <message>
+        <location filename="../gui/DocumentStatistics.py" line="39"/>
+        <source>Characters (with spaces)</source>
+        <translation>Zeichen (mit Leerzeichen)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DocumentStatistics.py" line="42"/>
+        <source>Characters (no spaces)</source>
+        <translation>Zeichen (ohne Leerzeichen)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DocumentStatistics.py" line="56"/>
+        <source>Document Statistics</source>
+        <translation>Statistiken zum Dokument</translation>
+    </message>
+</context>
+<context>
     <name>EditTabWidget</name>
     <message>
         <location filename="../gui/EditTabWidget.py" line="123"/>
         <source>Set custom tab name</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenen Namen festlegen</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="128"/>
         <source>Remove custom tab name</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenen Namen entfernen</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="135"/>
         <source>Enter name</source>
-        <translation type="unfinished">Namen eingeben</translation>
+        <translation>Namen eingeben</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="135"/>
         <source>Please enter a custom name for this tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte gib einen eigenen Namen ein</translation>
     </message>
 </context>
 <context>
@@ -205,32 +411,55 @@
     </message>
 </context>
 <context>
+    <name>GotoLineWindow</name>
+    <message>
+        <location filename="../gui/GotoLineWindow.py" line="17"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/GotoLineWindow.py" line="18"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/GotoLineWindow.py" line="33"/>
+        <source>Please enter the line number:</source>
+        <translation>Bitt gib die Zeilennummer ein:</translation>
+    </message>
+    <message>
+        <location filename="../gui/GotoLineWindow.py" line="39"/>
+        <source>Goto Line</source>
+        <translation>Gehe zu Zeile</translation>
+    </message>
+</context>
+<context>
     <name>InterfaceTab</name>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="18"/>
         <source>Use custom Datetime format</source>
-        <translation type="unfinished"></translation>
+        <translation>benutze eigenes Datumszeit Format</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="58"/>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="20"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="38"/>
         <source>Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Format:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="60"/>
         <source>Format invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültiges Format</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="60"/>
         <source>This format is not valid</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Format ist nicht gültig</translation>
     </message>
 </context>
 <context>
@@ -238,12 +467,12 @@
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="61"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="62"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -987,83 +1216,116 @@
     </message>
 </context>
 <context>
+    <name>ManageMacrosWindow</name>
+    <message>
+        <location filename="../gui/ManageMacrosWindow.py" line="29"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/ManageMacrosWindow.py" line="30"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/ManageMacrosWindow.py" line="56"/>
+        <source>Manage macros</source>
+        <translation>Makros verwalten</translation>
+    </message>
+    <message>
+        <location filename="../gui/ManageMacrosWindow.py" line="75"/>
+        <source>No macros available</source>
+        <translation>Keine Makros verfügbar</translation>
+    </message>
+    <message>
+        <location filename="../gui/ManageMacrosWindow.py" line="75"/>
+        <source>There are currently no macros available. You have to record some before you can manage them.</source>
+        <translation>Es sind momentan keine Makros vorhanden. Du musst erst welche aufnehmen, bevor du sie verwalten kannst.</translation>
+    </message>
+    <message>
+        <location filename="../gui/ManageMacrosWindow.py" line="87"/>
+        <source>Remove macro</source>
+        <translation>Makro löschen</translation>
+    </message>
+</context>
+<context>
     <name>ManageTemplatesWindow</name>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="14"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="15"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="16"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportieren</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="17"/>
         <source>Close</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="36"/>
         <source>Manage templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorlagen verwalten</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="55"/>
         <source>Delete {{name}}</source>
-        <translation type="unfinished"></translation>
+        <translation>{{name}} löschen</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="55"/>
         <source>Are you sure you want to delete {{name}}?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bist du sicher, dass du {{name}} löschen willst?</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="103"/>
         <location filename="../gui/ManageTemplatesWindow.py" line="85"/>
         <location filename="../gui/ManageTemplatesWindow.py" line="62"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="62"/>
         <source>A error occurred while deleting</source>
-        <translation type="unfinished"></translation>
+        <translation>Während des Löschens ist ein Fehler aufgetreten</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="72"/>
         <source>Enter name</source>
-        <translation type="unfinished">Namen eingeben</translation>
+        <translation>Namen eingeben</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="72"/>
         <source>Please enter the new name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte gib einen Namen ein</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="78"/>
         <source>Name exists</source>
-        <translation type="unfinished"></translation>
+        <translation>name existiert</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="78"/>
         <source>There is already a template with this name</source>
-        <translation type="unfinished"></translation>
+        <translation>Es gibt bereits eine Vorlage mit diesem Namen</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="85"/>
         <source>A error occurred while renaming</source>
-        <translation type="unfinished"></translation>
+        <translation>Während des Umbenennens ist ein Fehler aufgetreten</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="103"/>
         <source>A error occurred while exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Während des exportierens ist ein Fehler aufgetreten</translation>
     </message>
 </context>
 <context>
@@ -1324,6 +1586,52 @@
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>SearchAndReplaceWindow</name>
+    <message>
+        <location filename="../gui/SearchAndReplaceWindow.py" line="10"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchAndReplaceWindow.py" line="11"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchAndReplaceWindow.py" line="26"/>
+        <source>Search for:</source>
+        <translation>Suche nach:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchAndReplaceWindow.py" line="28"/>
+        <source>Replace with:</source>
+        <translation>Ersetze durch:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchAndReplaceWindow.py" line="33"/>
+        <source>Find and Replace</source>
+        <translation>Suchen und Ersetzen</translation>
+    </message>
+</context>
+<context>
+    <name>SearchBar</name>
+    <message>
+        <location filename="../gui/SearchBar.py" line="25"/>
+        <source>Jump to next match</source>
+        <translation>Zur nächsten Übereinstimmung springen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchBar.py" line="26"/>
+        <source>Jump to first match</source>
+        <translation>Zur ersten Übereinstimmung springen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchBar.py" line="30"/>
+        <source>Search:</source>
+        <translation>Suche:</translation>
     </message>
 </context>
 <context>

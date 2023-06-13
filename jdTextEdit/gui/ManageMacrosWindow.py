@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QPushButton, QKeySequenceEdit, QHBoxLayout, QVBoxLayout
 from jdTextEdit.Functions import restoreWindowState, showMessageBox
+from PyQt6.QtCore import QCoreApplication
 from typing import TYPE_CHECKING
 import json
 import os
@@ -25,8 +26,8 @@ class ManageMacrosWindow(QWidget):
         self.env = env
 
         self.macroTable = QTableWidget(1, 3)
-        okButton = QPushButton(env.translate("button.ok"))
-        cancelButton = QPushButton(env.translate("button.cancel"))
+        okButton = QPushButton(QCoreApplication.translate("ManageMacrosWindow", "OK"))
+        cancelButton = QPushButton(QCoreApplication.translate("ManageMacrosWindow", "Cancel"))
 
         self.macroTable.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.macroTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
@@ -52,7 +53,7 @@ class ManageMacrosWindow(QWidget):
         mainLayout.addLayout(buttonLayout)
 
         self.setLayout(mainLayout)
-        self.setWindowTitle(self.env.translate("manageMacrosWindow.title"))
+        self.setWindowTitle(QCoreApplication.translate("ManageMacrosWindow", "Manage macros"))
         self.resize(700, 500)
         restoreWindowState(self, env.windowState, "ManageMacrosWindow")
 
@@ -71,16 +72,19 @@ class ManageMacrosWindow(QWidget):
 
     def openWindow(self):
         if len(self.env.macroList) == 0:
-            showMessageBox(self.env.translate("manageMacrosWindow.noMacros.title"), self.env.translate("manageMacrosWindow.noMacros.text"))
+            showMessageBox(QCoreApplication.translate("ManageMacrosWindow", "No macros available"), QCoreApplication.translate("ManageMacrosWindow", "There are currently no macros available. You have to record some before you can manage them."))
             return
+
         while self.macroTable.rowCount() > 0:
             self.macroTable.removeRow(0)
+
         for count, i in enumerate(self.env.macroList):
             self.macroTable.insertRow(count)
             self.macroTable.setItem(count, 0, QTableWidgetItem(i["name"]))
             shortcutEdit = QKeySequenceEdit(i["shortcut"])
             shortcutEdit.setClearButtonEnabled(True)
             self.macroTable.setCellWidget(count, 1, shortcutEdit)
-            self.macroTable.setCellWidget(count, 2, RemoveMacroButton(self.env.translate("manageMacrosWindow.button.removeMacro"), count, self.macroTable, i["macro"]))
+            self.macroTable.setCellWidget(count, 2, RemoveMacroButton(QCoreApplication.translate("ManageMacrosWindow", "Remove macro"), count, self.macroTable, i["macro"]))
+
         self.show()
         QApplication.setActiveWindow(self)

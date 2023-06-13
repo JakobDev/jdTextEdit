@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QDialog, QSpinBox, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QLayout
+from PyQt6.QtCore import QCoreApplication
 from typing import TYPE_CHECKING
 
 
@@ -13,8 +14,8 @@ class GotoLineWindow(QDialog):
 
         self.lineBox = QSpinBox()
         self.lineBox.setMinimum(1)
-        okButton = QPushButton(env.translate("button.ok"))
-        cancelButton = QPushButton(env.translate("button.cancel"))
+        okButton = QPushButton(QCoreApplication.translate("GotoLineWindow", "OK"))
+        cancelButton = QPushButton(QCoreApplication.translate("GotoLineWindow", "Cancel"))
 
         okButton.clicked.connect(self.okButtonClicked)
         cancelButton.clicked.connect(self.close)
@@ -29,13 +30,13 @@ class GotoLineWindow(QDialog):
             buttonLayout.addWidget(okButton)
 
         mainLayout = QVBoxLayout()
-        mainLayout.addWidget(QLabel(env.translate("gotoLineWindow.text")))
+        mainLayout.addWidget(QLabel(QCoreApplication.translate("GotoLineWindow", "Please enter the line number:")))
         mainLayout.addWidget(self.lineBox)
         mainLayout.addLayout(buttonLayout)
         mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
         self.setLayout(mainLayout)
-        self.setWindowTitle(env.translate("gotoLineWindow.title"))
+        self.setWindowTitle(QCoreApplication.translate("GotoLineWindow", "Goto Line"))
 
     def openWindow(self, editWidget: "CodeEdit") -> None:
         self.editWidget = editWidget

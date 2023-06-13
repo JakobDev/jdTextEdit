@@ -39,7 +39,7 @@ class DateTimeWindow(QDialog):
 
         self.templates: list[str] = readJsonFile(os.path.join(self.env.dataDir, "dateTimeFormats.json"), defaultTemplates)
 
-        self.useTemplate = QRadioButton(env.translate("dateTimeWindow.radioButton.useTemplate"))
+        self.useTemplate = QRadioButton(QCoreApplication.translate("DateTimeWindow", "Use the selected format"))
         self.templateList = QListWidget()
         self.templateAddButton = QPushButton(QCoreApplication.translate("DateTimeWindow", "Add"))
         self.templateEditButton = QPushButton(QCoreApplication.translate("DateTimeWindow", "Edit"))
@@ -97,7 +97,7 @@ class DateTimeWindow(QDialog):
         mainLayout.addLayout(buttonLayout)
 
         self.setLayout(mainLayout)
-        self.setWindowTitle(env.translate("dateTimeWindow.title"))
+        self.setWindowTitle(QCoreApplication.translate("DateTimeWindow", "Insert Date and Time"))
         restoreWindowState(self,env.windowState, "DateTimeWindow")
         self.updateTemplateList()
 
@@ -109,7 +109,7 @@ class DateTimeWindow(QDialog):
 
     def updatePreviewLabel(self, text):
         try:
-            self.previewLabel.setText(self.env.translate("dateTimeWindow.label.preview") % time.strftime(text))
+            self.previewLabel.setText(QCoreApplication.translate("DateTimeWindow", "Preview: {{preview}}").replace("{{preview}}", time.strftime(text)))
         except ValueError:
             self.previewLabel.setText(QCoreApplication.translate("DateTimeWindow", "Invalid"))
 

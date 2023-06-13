@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QWidget, QLineEdit, QPushButton, QLabel, QHBoxLayout
+from PyQt6.QtCore import QCoreApplication
 from typing import TYPE_CHECKING
 
 
@@ -21,12 +22,12 @@ class SearchBar(QWidget):
         nextButton.clicked.connect(lambda: self.container.getCodeEditWidget().findNext())
         firstButton.clicked.connect(self._searchTextChanged)
 
-        nextButton.setToolTip(env.translate("searchBar.tooltip.findNext"))
-        firstButton.setToolTip(env.translate("searchBar.tooltip.findFirst"))
+        nextButton.setToolTip(QCoreApplication.translate("SearchBar", "Jump to next match"))
+        firstButton.setToolTip(QCoreApplication.translate("SearchBar", "Jump to first match"))
 
         mainLayout = QHBoxLayout()
         mainLayout.addWidget(closeButton)
-        mainLayout.addWidget(QLabel(env.translate("searchBar.label.search")))
+        mainLayout.addWidget(QLabel(QCoreApplication.translate("SearchBar", "Search:")))
         mainLayout.addWidget(self.textBox)
         mainLayout.addWidget(nextButton)
         mainLayout.addWidget(firstButton)
