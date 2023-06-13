@@ -64,10 +64,10 @@ class MainWindow(QMainWindow):
                 shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
                 tabWidget = self.splitViewWidget.getCurrentTabWidget()
                 if tabWidget.count() == 0:
-                    tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"))
+                    tabWidget.createTab(QCoreApplication.translate("MainWindow", "Untitled"))
         else:
             self.splitViewWidget.initTabWidget()
-            self.splitViewWidget.getCurrentTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"))
+            self.splitViewWidget.getCurrentTabWidget().createTab(QCoreApplication.translate("MainWindow", "Untitled"))
         self.updateLanguageMenu()
         if len(self.env.args["filename"]) == 1:
             self.openFileCommandline(os.path.abspath(self.env.args["filename"][0]))
@@ -153,34 +153,34 @@ class MainWindow(QMainWindow):
         Creates the Menubar with all Actions
         """
         self.menubar = self.menuBar()
-        self.recentFilesMenu = QMenu(self.env.translate("mainWindow.menu.openRecent"))
-        self.recentFilesMenu.setIcon(getThemeIcon(self.env,"document-open-recent"))
+        self.recentFilesMenu = QMenu(QCoreApplication.translate("MainWindow", "Open Recent Files"))
+        self.recentFilesMenu.setIcon(getThemeIcon(self.env, "document-open-recent"))
 
-        self.filemenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.file"))
+        self.filemenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "&File"))
 
-        new = QAction("&" + self.env.translate("mainWindow.menu.file.new"),self)
+        new = QAction(QCoreApplication.translate("MainWindow", "&New"), self)
         new.setIcon(getThemeIcon(self.env,"document-new"))
         new.triggered.connect(self.newMenuBarClicked)
         new.setData(["newFile"])
         self.filemenu.addAction(new)
         self.env.pluginAPI.addAction(new)
 
-        self.templateMenu = QMenu(self.env.translate("mainWindow.menu.file.newTemplate"),self)
-        self.templateMenu.setIcon(getThemeIcon(self.env,"document-new"))
+        self.templateMenu = QMenu(QCoreApplication.translate("MainWindow", "New (from Template)"), self)
+        self.templateMenu.setIcon(getThemeIcon(self.env, "document-new"))
         self.updateTemplateMenu()
         self.filemenu.addMenu(self.templateMenu)
 
         self.filemenu.addSeparator()
 
-        openmenu = QAction("&" + self.env.translate("mainWindow.menu.file.open"),self)
-        openmenu.setIcon(getThemeIcon(self.env,"document-open"))
+        openmenu = QAction(QCoreApplication.translate("MainWindow", "&Open"), self)
+        openmenu.setIcon(getThemeIcon(self.env, "document-open"))
         openmenu.triggered.connect(self.openMenuBarClicked)
         openmenu.setData(["openFile"])
         self.filemenu.addAction(openmenu)
         self.env.pluginAPI.addAction(openmenu)
 
-        openDirectoryMenu = QAction(self.env.translate("mainWindow.menu.file.openDirectory"),self)
-        openDirectoryMenu.setIcon(getThemeIcon(self.env,"folder-open"))
+        openDirectoryMenu = QAction(QCoreApplication.translate("MainWindow", "Open Directory"), self)
+        openDirectoryMenu.setIcon(getThemeIcon(self.env, "folder-open"))
         openDirectoryMenu.triggered.connect(self.openDirectoryMenuBarClicked)
         openDirectoryMenu.setData(["directoryOpen"])
         self.filemenu.addAction(openDirectoryMenu)
@@ -190,22 +190,22 @@ class MainWindow(QMainWindow):
 
         self.filemenu.addSeparator()
 
-        save = QAction("&" + self.env.translate("mainWindow.menu.file.save"),self)
-        save.setIcon(getThemeIcon(self.env,"document-save"))
+        save = QAction(QCoreApplication.translate("MainWindow", "&Save"), self)
+        save.setIcon(getThemeIcon(self.env, "document-save"))
         save.triggered.connect(lambda: self.saveMenuBarClicked(self.getTextEditWidget()))
         save.setData(["saveFile"])
         self.filemenu.addAction(save)
         self.env.pluginAPI.addAction(save)
 
-        saveAs = QAction("&" + self.env.translate("mainWindow.menu.file.saveAs"),self)
-        saveAs.setIcon(getThemeIcon(self.env,"document-save-as"))
+        saveAs = QAction(QCoreApplication.translate("MainWindow", "Save as ..."), self)
+        saveAs.setIcon(getThemeIcon(self.env, "document-save-as"))
         saveAs.triggered.connect(lambda: self.saveAsMenuBarClicked(self.getTextEditWidget()))
         saveAs.setData(["saveAsFile"])
         self.filemenu.addAction(saveAs)
         self.env.pluginAPI.addAction(saveAs)
 
-        saveAll = QAction(self.env.translate("mainWindow.menu.file.saveAll"),self)
-        saveAll.setIcon(getThemeIcon(self.env,"document-save-all"))
+        saveAll = QAction(QCoreApplication.translate("MainWindow", "Save all"), self)
+        saveAll.setIcon(getThemeIcon(self.env, "document-save-all"))
         saveAll.triggered.connect(self.saveAllMenuBarClicked)
         saveAll.setData(["saveAll"])
         self.filemenu.addAction(saveAll)
@@ -213,15 +213,15 @@ class MainWindow(QMainWindow):
 
         self.filemenu.addSeparator()
 
-        closeTab = QAction(self.env.translate("mainWindow.menu.file.close"),self)
-        closeTab.setIcon(QIcon(os.path.join(self.env.programDir,"icons","document-close.png")))
+        closeTab = QAction(QCoreApplication.translate("MainWindow", "Close"), self)
+        closeTab.setIcon(QIcon(os.path.join(self.env.programDir, "icons", "document-close.png")))
         closeTab.triggered.connect(lambda: self.getTabWidget().tabCloseClicked(self.getTabWidget().currentIndex()))
         closeTab.setData(["closeTab"])
         self.filemenu.addAction(closeTab)
         self.env.pluginAPI.addAction(closeTab)
 
-        closeAllTabsAction = QAction(self.env.translate("mainWindow.menu.file.closeAllTabs"),self)
-        closeAllTabsAction.setIcon(QIcon(os.path.join(self.env.programDir,"icons","document-close-all.png")))
+        closeAllTabsAction = QAction(QCoreApplication.translate("MainWindow", "Close all tabs"), self)
+        closeAllTabsAction.setIcon(QIcon(os.path.join(self.env.programDir, "icons", "document-close-all.png")))
         closeAllTabsAction.triggered.connect(self.closeAllTabs)
         closeAllTabsAction.setData(["closeAllTabs"])
         self.filemenu.addAction(closeAllTabsAction)
@@ -229,14 +229,14 @@ class MainWindow(QMainWindow):
 
         self.filemenu.addSeparator()
 
-        printMenuItem = QAction("&" + self.env.translate("mainWindow.menu.file.print"),self)
+        printMenuItem = QAction(QCoreApplication.translate("MainWindow", "&Print"), self)
         printMenuItem.setIcon(getThemeIcon(self.env,"document-print"))
         printMenuItem.triggered.connect(self.printMenuBarClicked)
         printMenuItem.setData(["print"])
         self.filemenu.addAction(printMenuItem)
         self.env.pluginAPI.addAction(printMenuItem)
 
-        exit = QAction("&" + self.env.translate("mainWindow.menu.file.exit"),self)
+        exit = QAction(QCoreApplication.translate("MainWindow", "&Exit"), self)
         exit.setIcon(getThemeIcon(self.env,"application-exit"))
         exit.triggered.connect(self.close)
         exit.setData(["exit"])
@@ -244,18 +244,18 @@ class MainWindow(QMainWindow):
         self.env.pluginAPI.addAction(exit)
 
         self.menubar.addMenu(self.filemenu)
-        self.editMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.edit"))
+        self.editMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "&Edit"))
 
-        self.undoMenubarItem = QAction("&" + self.env.translate("mainWindow.menu.edit.undo"),self)
-        self.undoMenubarItem.setIcon(getThemeIcon(self.env,"edit-undo"))
+        self.undoMenubarItem = QAction(QCoreApplication.translate("MainWindow", "&Undo"), self)
+        self.undoMenubarItem.setIcon(getThemeIcon(self.env, "edit-undo"))
         self.undoMenubarItem.triggered.connect(lambda: self.getTextEditWidget().undo())
         self.undoMenubarItem.setData(["undo"])
         self.editMenu.addAction(self.undoMenubarItem)
         self.env.pluginAPI.addAction(self.undoMenubarItem)
         self.undoMenubarItem.setEnabled(False)
 
-        self.redoMenubarItem = QAction("&" + self.env.translate("mainWindow.menu.edit.redo"),self)
-        self.redoMenubarItem.setIcon(getThemeIcon(self.env,"edit-redo"))
+        self.redoMenubarItem = QAction(QCoreApplication.translate("MainWindow", "&Redo"), self)
+        self.redoMenubarItem.setIcon(getThemeIcon(self.env, "edit-redo"))
         self.redoMenubarItem.triggered.connect(lambda: self.getTextEditWidget().redo())
         self.redoMenubarItem.setData(["redo"])
         self.editMenu.addAction(self.redoMenubarItem)
@@ -264,31 +264,31 @@ class MainWindow(QMainWindow):
 
         self.editMenu.addSeparator()
 
-        self.cutMenubarItem = QAction("&" + self.env.translate("mainWindow.menu.edit.cut"),self)
-        self.cutMenubarItem.setIcon(getThemeIcon(self.env,"edit-cut"))
+        self.cutMenubarItem = QAction(QCoreApplication.translate("MainWindow", "&Cut"), self)
+        self.cutMenubarItem.setIcon(getThemeIcon(self.env, "edit-cut"))
         self.cutMenubarItem.triggered.connect(lambda: self.getTextEditWidget().cut())
         self.cutMenubarItem.setData(["cut"])
         self.editMenu.addAction(self.cutMenubarItem)
         self.env.pluginAPI.addAction(self.cutMenubarItem)
         self.cutMenubarItem.setEnabled(False)
 
-        self.copyMenubarItem = QAction("&" + self.env.translate("mainWindow.menu.edit.copy"),self)
-        self.copyMenubarItem.setIcon(getThemeIcon(self.env,"edit-copy"))
+        self.copyMenubarItem = QAction(QCoreApplication.translate("MainWindow", "&Copy"), self)
+        self.copyMenubarItem.setIcon(getThemeIcon(self.env, "edit-copy"))
         self.copyMenubarItem.triggered.connect(lambda: self.getTextEditWidget().copy())
         self.copyMenubarItem.setData(["copy"])
         self.editMenu.addAction(self.copyMenubarItem)
         self.env.pluginAPI.addAction(self.copyMenubarItem)
         self.copyMenubarItem.setEnabled(False)
 
-        paste = QAction("&" + self.env.translate("mainWindow.menu.edit.paste"),self)
+        paste = QAction(QCoreApplication.translate("MainWindow", "&Paste"), self)
         paste.setIcon(getThemeIcon(self.env,"edit-paste"))
         paste.triggered.connect(lambda: self.getTextEditWidget().paste())
         paste.setData(["paste"])
         self.editMenu.addAction(paste)
         self.env.pluginAPI.addAction(paste)
 
-        self.deleteMenubarItem = QAction("&" + self.env.translate("mainWindow.menu.edit.delete"),self)
-        self.deleteMenubarItem.setIcon(getThemeIcon(self.env,"edit-delete"))
+        self.deleteMenubarItem = QAction(QCoreApplication.translate("MainWindow", "&Delete"), self)
+        self.deleteMenubarItem.setIcon(getThemeIcon(self.env, "edit-delete"))
         self.deleteMenubarItem.triggered.connect(lambda: self.getTextEditWidget().removeSelectedText())
         self.deleteMenubarItem.setData(["delete"])
         self.editMenu.addAction(self.deleteMenubarItem)
@@ -297,8 +297,8 @@ class MainWindow(QMainWindow):
 
         self.editMenu.addSeparator()
 
-        selectAll = QAction("&" + self.env.translate("mainWindow.menu.edit.selectAll"),self)
-        selectAll.setIcon(getThemeIcon(self.env,"edit-select-all"))
+        selectAll = QAction(QCoreApplication.translate("MainWindow", "&Select All"), self)
+        selectAll.setIcon(getThemeIcon(self.env, "edit-select-all"))
         selectAll.triggered.connect(lambda: self.getTextEditWidget().selectAll())
         selectAll.setData(["selectAll"])
         self.editMenu.addAction(selectAll)
@@ -306,27 +306,27 @@ class MainWindow(QMainWindow):
 
         self.editMenu.addSeparator()
 
-        self.clipboardCopyMenu = QMenu(self.env.translate("mainWindow.menu.edit.copyClipboard"),self)
+        self.clipboardCopyMenu = QMenu(QCoreApplication.translate("MainWindow", "Copy to Clipboard"), self)
 
-        copyPath = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyPath"),self)
+        copyPath = QAction(QCoreApplication.translate("MainWindow", "Copy Full Path to Clipboard"), self)
         copyPath.triggered.connect(lambda: self.env.clipboard.setText(self.getTextEditWidget().getFilePath()))
         copyPath.setData(["copyPath"])
         self.clipboardCopyMenu.addAction(copyPath)
         self.env.pluginAPI.addAction(copyPath)
 
-        copyDirectory = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyDirectory"),self)
+        copyDirectory = QAction(QCoreApplication.translate("MainWindow", "Copy Directory to Clipboard"), self)
         copyDirectory.triggered.connect(lambda: self.env.clipboard.setText(os.path.dirname(self.getTextEditWidget().getFilePath())))
         copyDirectory.setData(["copyDirectory"])
         self.clipboardCopyMenu.addAction(copyDirectory)
         self.env.pluginAPI.addAction(copyDirectory)
 
-        copyFilename = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyFilename"),self)
+        copyFilename = QAction(QCoreApplication.translate("MainWindow", "Copy Filename to Clipboard"), self)
         copyFilename.triggered.connect(lambda: self.env.clipboard.setText(os.path.basename(self.getTextEditWidget().getFilePath())))
         copyFilename.setData(["copyFilename"])
         self.clipboardCopyMenu.addAction(copyFilename)
         self.env.pluginAPI.addAction(copyFilename)
 
-        copyUrlAction = QAction(self.env.translate("mainWindow.menu.edit.copyClipboard.copyURL"),self)
+        copyUrlAction = QAction(QCoreApplication.translate("MainWindow", "Copy URL to Clipboard"), self)
         copyUrlAction.triggered.connect(lambda: self.env.clipboard.setText("file://" + self.getTextEditWidget().getFilePath()))
         copyUrlAction.setData(["copyUrl"])
         self.clipboardCopyMenu.addAction(copyUrlAction)
@@ -334,27 +334,27 @@ class MainWindow(QMainWindow):
 
         self.editMenu.addMenu(self.clipboardCopyMenu)
 
-        self.convertCase = QMenu(self.env.translate("mainWindow.menu.edit.convertCase"),self)
+        self.convertCase = QMenu(QCoreApplication.translate("MainWindow", "Convert Case to"), self)
 
-        convertUppercase = QAction(self.env.translate("mainWindow.menu.edit.convertCase.uppercase"),self)
+        convertUppercase = QAction(QCoreApplication.translate("MainWindow", "Uppercase"), self)
         convertUppercase.triggered.connect(lambda: self.getTextEditWidget().replaceSelectedText(self.getTextEditWidget().selectedText().upper()))
         convertUppercase.setData(["convertUppercase"])
         self.convertCase.addAction(convertUppercase)
         self.env.pluginAPI.addAction(convertUppercase)
 
-        convertLowercase = QAction(self.env.translate("mainWindow.menu.edit.convertCase.lowercase"), self)
+        convertLowercase = QAction(QCoreApplication.translate("MainWindow", "Lowercase"), self)
         convertLowercase.triggered.connect(lambda: self.getTextEditWidget().setCurrentText(self.getTextEditWidget().getCurrentText().lower()))
         convertLowercase.setData(["convertLowercase"])
         self.convertCase.addAction(convertLowercase)
         self.env.pluginAPI.addAction(convertLowercase)
 
-        convertTitle = QAction(self.env.translate("mainWindow.menu.edit.convertCase.title"), self)
+        convertTitle = QAction(QCoreApplication.translate("MainWindow", "Title"), self)
         convertTitle.triggered.connect(lambda: self.getTextEditWidget().setCurrentText(self.getTextEditWidget().getCurrentText().title()))
         convertTitle.setData(["convertTitle"])
         self.convertCase.addAction(convertTitle)
         self.env.pluginAPI.addAction(convertTitle)
 
-        convertSwap = QAction(self.env.translate("mainWindow.menu.edit.convertCase.swap"), self)
+        convertSwap = QAction(QCoreApplication.translate("MainWindow", "Swap"), self)
         convertSwap.triggered.connect(lambda: self.getTextEditWidget().setCurrentText(self.getTextEditWidget().getCurrentText().swapcase()))
         convertSwap.setData(["convertSwap"])
         self.convertCase.addAction(convertSwap)
@@ -368,27 +368,27 @@ class MainWindow(QMainWindow):
 
         self.editMenu.addMenu(self.convertCase)
 
-        self.lineOperationsMenu = QMenu(self.env.translate("mainWindow.menu.edit.lineOperations"),self)
+        self.lineOperationsMenu = QMenu(QCoreApplication.translate("MainWindow", "Line operations"), self)
 
-        duplicateCurrentLineAction = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.duplicateCurrentLine"),self)
+        duplicateCurrentLineAction = QAction(QCoreApplication.translate("MainWindow", "Duplicate Current Line"), self)
         duplicateCurrentLineAction.triggered.connect(self.duplicateCurrentLine)
         duplicateCurrentLineAction.setData(["duplicateCurrentLine"])
         self.lineOperationsMenu.addAction(duplicateCurrentLineAction)
         self.env.pluginAPI.addAction(duplicateCurrentLineAction)
 
-        deleteCurrentLineAction = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.deleteCurrentLine"),self)
+        deleteCurrentLineAction = QAction(QCoreApplication.translate("MainWindow", "Delete Current Line"), self)
         deleteCurrentLineAction.triggered.connect(self.removeCurrentLine)
         deleteCurrentLineAction.setData(["removeCurrentLine"])
         self.lineOperationsMenu.addAction(deleteCurrentLineAction)
         self.env.pluginAPI.addAction(deleteCurrentLineAction)
 
-        sortAlphabetical = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.sortAlphabetical"),self)
+        sortAlphabetical = QAction(QCoreApplication.translate("MainWindow", "Sort lines alphabetically"), self)
         sortAlphabetical.triggered.connect(self.sortLinesAlphabetical)
         sortAlphabetical.setData(["sortAlphabetical"])
         self.lineOperationsMenu.addAction(sortAlphabetical)
         self.env.pluginAPI.addAction(sortAlphabetical)
 
-        shuffleLinesAction = QAction(self.env.translate("mainWindow.menu.edit.lineOperations.shuffleLines"),self)
+        shuffleLinesAction = QAction(QCoreApplication.translate("MainWindow", "Shuffle Lines"), self)
         shuffleLinesAction.triggered.connect(self.shuffleLines)
         shuffleLinesAction.setData(["shuffleLines"])
         self.lineOperationsMenu.addAction(shuffleLinesAction)
@@ -396,7 +396,7 @@ class MainWindow(QMainWindow):
 
         self.editMenu.addMenu(self.lineOperationsMenu)
 
-        self.eolModeMenu = QMenu(self.env.translate("mainWindow.menu.edit.eol"), self)
+        self.eolModeMenu = QMenu(QCoreApplication.translate("MainWindow", "End of line"), self)
 
         self.eolModeWindows = QAction("Windows",self)
         self.eolModeWindows.triggered.connect(lambda: self.getTextEditWidget().changeEolMode(QsciScintilla.EolMode.EolWindows))
@@ -421,18 +421,18 @@ class MainWindow(QMainWindow):
 
         self.editMenu.addMenu(self.eolModeMenu)
 
-        self.viewMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.view"))
+        self.viewMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "&View"))
 
-        self.zoomMenu = QMenu(self.env.translate("mainWindow.menu.view.zoom"), self)
+        self.zoomMenu = QMenu(QCoreApplication.translate("MainWindow", "Zoom"), self)
 
-        zoomIn = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomIn"), self)
+        zoomIn = QAction(QCoreApplication.translate("MainWindow", "Zoom in"), self)
         zoomIn.setIcon(getThemeIcon(self.env, "zoom-in"))
         zoomIn.triggered.connect(lambda: self.getTextEditWidget().zoomIn())
         zoomIn.setData(["zoomIn"])
         self.zoomMenu.addAction(zoomIn)
         self.env.pluginAPI.addAction(zoomIn)
 
-        zoomOut = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomOut"), self)
+        zoomOut = QAction(QCoreApplication.translate("MainWindow", "Zoom out"), self)
         zoomOut.setIcon(getThemeIcon(self.env, "zoom-out"))
         zoomOut.triggered.connect(lambda: self.getTextEditWidget().zoomOut())
         zoomOut.setData(["zoomOut"])
@@ -485,14 +485,14 @@ class MainWindow(QMainWindow):
 
         self.zoomMenu.addSeparator()
 
-        zoomDefault = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomDefault"), self)
+        zoomDefault = QAction(QCoreApplication.translate("MainWindow", "Default Zoom"), self)
         zoomDefault.setIcon(getThemeIcon(self.env, "zoom-original"))
         zoomDefault.triggered.connect(lambda: self.getTextEditWidget().zoomTo(self.env.settings.defaultZoom))
         zoomDefault.setData(["zoomDefault"])
         self.zoomMenu.addAction(zoomDefault)
         self.env.pluginAPI.addAction(zoomDefault)
 
-        zoomCustom = QAction(self.env.translate("mainWindow.menu.view.zoom.zoomCustom"), self)
+        zoomCustom = QAction(QCoreApplication.translate("MainWindow", "Custom"), self)
         zoomCustom.triggered.connect(self.setCustomZoom)
         zoomCustom.setData(["zoomCustom"])
         self.zoomMenu.addAction(zoomCustom)
@@ -500,14 +500,14 @@ class MainWindow(QMainWindow):
 
         self.viewMenu.addMenu(self.zoomMenu)
 
-        self.fullscreenAction = QAction(self.env.translate("mainWindow.menu.view.fullscreen"), self)
+        self.fullscreenAction = QAction(QCoreApplication.translate("MainWindow", "Fullscreen"), self)
         self.fullscreenAction.triggered.connect(self.fullscreenMenuBarClicked)
         self.fullscreenAction.setData(["fullscreen"])
         self.fullscreenAction.setCheckable(True)
         self.viewMenu.addAction(self.fullscreenAction)
         self.env.pluginAPI.addAction(self.fullscreenAction)
 
-        self.toggleSidebarAction = QAction(self.env.translate("mainWindow.menu.view.sidebar"), self)
+        self.toggleSidebarAction = QAction(QCoreApplication.translate("MainWindow", "Sidebar"), self)
         self.toggleSidebarAction.triggered.connect(self.toggleSidebarClicked)
         self.toggleSidebarAction.setData(["toggleSidebar"])
         self.toggleSidebarAction.setCheckable(True)
@@ -516,13 +516,13 @@ class MainWindow(QMainWindow):
 
         self.viewMenu.addSeparator()
 
-        foldAllAction = QAction(self.env.translate("mainWindow.menu.view.foldAll"),self)
+        foldAllAction = QAction(QCoreApplication.translate("MainWindow", "Fold All"), self)
         foldAllAction.triggered.connect(lambda: self.getTextEditWidget().SendScintilla(QsciScintillaBase.SCI_FOLDALL,0))
         foldAllAction.setData(["foldAll"])
         self.viewMenu.addAction(foldAllAction)
         self.env.pluginAPI.addAction(foldAllAction)
 
-        unfoldAllAction = QAction(self.env.translate("mainWindow.menu.view.unfoldAll"),self)
+        unfoldAllAction = QAction(QCoreApplication.translate("MainWindow", "Unfold All"), self)
         unfoldAllAction.triggered.connect(lambda: self.getTextEditWidget().SendScintilla(QsciScintillaBase.SCI_FOLDALL,1))
         unfoldAllAction.setData(["unfoldAll"])
         self.viewMenu.addAction(unfoldAllAction)
@@ -530,15 +530,15 @@ class MainWindow(QMainWindow):
 
         self.viewMenu.addSeparator()
 
-        self.splitViewMenu = QMenu(self.env.translate("mainWindow.menu.view.splitView"), self)
+        self.splitViewMenu = QMenu(QCoreApplication.translate("MainWindow", "Split View"), self)
 
-        splitVerticalAction = QAction(self.env.translate("mainWindow.menu.view.splitView.splitVertical"), self)
+        splitVerticalAction = QAction(QCoreApplication.translate("MainWindow", "Split Vertical"), self)
         splitVerticalAction.triggered.connect(lambda: self.splitViewWidget.splitVertical())
         splitVerticalAction.setData(["splitVertical"])
         self.splitViewMenu.addAction(splitVerticalAction)
         self.env.pluginAPI.addAction(splitVerticalAction)
 
-        self.deleteCurrentViewAction = QAction(self.env.translate("mainWindow.menu.view.splitView.deleteCurrentView"), self)
+        self.deleteCurrentViewAction = QAction(QCoreApplication.translate("MainWindow", "Close Current View"), self)
         self.deleteCurrentViewAction.triggered.connect(lambda: self.splitViewWidget.deleteCurrentView())
         self.deleteCurrentViewAction.setData(["deleteCurrentView"])
         self.deleteCurrentViewAction.setEnabled(False)
@@ -547,49 +547,49 @@ class MainWindow(QMainWindow):
 
         self.viewMenu.addMenu(self.splitViewMenu)
 
-        self.searchmenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.search"))
+        self.searchmenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "&Search"))
 
-        search = QAction("&" + self.env.translate("mainWindow.menu.search.search"), self)
-        search.setIcon(getThemeIcon(self.env,"edit-find"))
+        search = QAction(QCoreApplication.translate("MainWindow", "&Find"), self)
+        search.setIcon(getThemeIcon(self.env, "edit-find"))
         search.triggered.connect(lambda: self.getTabWidget().currentWidget().showSearchBar())
         search.setData(["find"])
         self.searchmenu.addAction(search)
         self.env.pluginAPI.addAction(search)
 
-        advancedSearch = QAction(self.env.translate("mainWindow.menu.search.advancedSearch"), self)
-        advancedSearch.setIcon(getThemeIcon(self.env,"edit-find"))
+        advancedSearch = QAction(QCoreApplication.translate("MainWindow", "Advanced Search"), self)
+        advancedSearch.setIcon(getThemeIcon(self.env, "edit-find"))
         advancedSearch.triggered.connect(lambda: self.env.searchWindow.openWindow(self.getTextEditWidget()))
         self.searchmenu.addAction(advancedSearch)
         self.env.pluginAPI.addAction(advancedSearch)
 
-        searchAndReplace = QAction("&" + self.env.translate("mainWindow.menu.search.searchAndReplace"), self)
+        searchAndReplace = QAction(QCoreApplication.translate("MainWindow", "&Find and Replace"), self)
         searchAndReplace.setIcon(getThemeIcon(self.env, "edit-find-replace"))
         searchAndReplace.triggered.connect(lambda: self.env.searchReplaceWindow.display(self.getTextEditWidget()))
         searchAndReplace.setData(["findReplaceWindow"])
         self.searchmenu.addAction(searchAndReplace)
         self.env.pluginAPI.addAction(searchAndReplace)
 
-        gotoLine = QAction(self.env.translate("mainWindow.menu.search.gotoLine"), self)
+        gotoLine = QAction(QCoreApplication.translate("MainWindow", "Goto Line"), self)
         gotoLine.triggered.connect(lambda: self.env.gotoLineWindow.openWindow(self.getTextEditWidget()))
         gotoLine.setData(["gotoLine"])
         self.searchmenu.addAction(gotoLine)
         self.env.pluginAPI.addAction(gotoLine)
 
-        self.toolsMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.tools"))
+        self.toolsMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "&Tools"))
 
-        pickColor = QAction(self.env.translate("mainWindow.menu.tools.pickColor"), self)
+        pickColor = QAction(QCoreApplication.translate("MainWindow", "Pick Color"), self)
         pickColor.triggered.connect(self.pickColorClicked)
         pickColor.setData(["pickColor"])
         self.toolsMenu.addAction(pickColor)
         self.env.pluginAPI.addAction(pickColor)
 
-        documentStatistics = QAction("&" + self.env.translate("mainWindow.menu.tools.documentStatistics"), self)
+        documentStatistics = QAction(QCoreApplication.translate("MainWindow", "&Document Statistics"), self)
         documentStatistics.triggered.connect(lambda: self.env.documentStatistics.openWindow(self.getTextEditWidget()))
         documentStatistics.setData(["documentStatistics"])
         self.toolsMenu.addAction(documentStatistics)
         self.env.pluginAPI.addAction(documentStatistics)
 
-        insertDateTime = QAction("&" + self.env.translate("mainWindow.menu.tools.insertDateTime"), self)
+        insertDateTime = QAction(QCoreApplication.translate("MainWindow", "&Insert Date and Time"), self)
         insertDateTime.triggered.connect(lambda: self.env.dateTimeWindow.openWindow(self.getTextEditWidget()))
         insertDateTime.setData(["insertDateTime"])
         self.toolsMenu.addAction(insertDateTime)
@@ -597,19 +597,19 @@ class MainWindow(QMainWindow):
 
         self.toolsMenu.addSeparator()
 
-        stripSpacesAction = QAction(self.env.translate("mainWindow.menu.tools.stripSpaces"),self)
+        stripSpacesAction = QAction(QCoreApplication.translate("MainWindow", "Strip Trailing Spaces"), self)
         stripSpacesAction.triggered.connect(self.stripSpaces)
         stripSpacesAction.setData(["stripSpaces"])
         self.toolsMenu.addAction(stripSpacesAction)
         self.env.pluginAPI.addAction(stripSpacesAction)
 
-        replaceTabSpacesAction = QAction(self.env.translate("mainWindow.menu.tools.replaceTabSpaces"),self)
+        replaceTabSpacesAction = QAction(QCoreApplication.translate("MainWindow", "Replace Tabs with Spaces"), self)
         replaceTabSpacesAction.triggered.connect(self.replaceTabSpaces)
         replaceTabSpacesAction.setData(["replaceTabSpaces"])
         self.toolsMenu.addAction(replaceTabSpacesAction)
         self.env.pluginAPI.addAction(replaceTabSpacesAction)
 
-        replaceSpacesTabAction = QAction(self.env.translate("mainWindow.menu.tools.replaceSpacesTab"),self)
+        replaceSpacesTabAction = QAction(QCoreApplication.translate("MainWindow", "Replace Spaces with Tabs"), self)
         replaceSpacesTabAction.triggered.connect(self.replaceSpacesTab)
         replaceSpacesTabAction.setData(["replaceSpacesTab"])
         self.toolsMenu.addAction(replaceSpacesTabAction)
@@ -625,20 +625,20 @@ class MainWindow(QMainWindow):
 
         self.settingsMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "Settings"))
 
-        settingsAction = QAction("&" + self.env.translate("mainWindow.menu.edit.settings"), self)
+        settingsAction = QAction(QCoreApplication.translate("MainWindow", "&Settings"), self)
         settingsAction.setIcon(getThemeIcon(self.env, "preferences-other"))
         settingsAction.triggered.connect(lambda: self.env.settingsWindow.openWindow())
         settingsAction.setData(["settings"])
         self.settingsMenu.addAction(settingsAction)
         self.env.pluginAPI.addAction(settingsAction)
 
-        overwriteLanguageAction = QAction(QCoreApplication.translate("MainWindow", "Hallo"))
+        overwriteLanguageAction = QAction(QCoreApplication.translate("MainWindow", "Manage languages"))
         overwriteLanguageAction.triggered.connect(lambda: LanguageOverwritesWindow(self.env).exec())
         overwriteLanguageAction .setData(["overwriteLanguage"])
         self.settingsMenu.addAction(overwriteLanguageAction )
         self.env.pluginAPI.addAction(overwriteLanguageAction )
 
-        editThemesAction = QAction("&" + self.env.translate("mainWindow.menu.edit.settings"), self)
+        editThemesAction = QAction(QCoreApplication.translate("MainWindow", "Manage custom themes"), self)
         editThemesAction.triggered.connect(lambda: ManageThemeListWindow(self.env).exec())
         editThemesAction.setData(["editThemes"])
         self.settingsMenu.addAction(editThemesAction)
@@ -658,79 +658,79 @@ class MainWindow(QMainWindow):
         self.settingsMenu.addAction(importDataAction)
         self.env.pluginAPI.addAction(importDataAction)
 
-        self.languageMenu = self.menubar.addMenu("&" + self.env.translate("mainWindow.menu.language"))
+        self.languageMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "&Language"))
 
         #self.updateLanguageMenu()
 
-        self.encodingMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.encoding"))
+        self.encodingMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "Encoding"))
         self.updateEncodingMenu()
 
-        self.bookmarkMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.bookmarks"))
+        self.bookmarkMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "Bookmarks"))
 
-        addRemoveBookmarkAction = QAction(self.env.translate("mainWindow.menu.bookmarks.addRemoveBookmark"), self)
+        addRemoveBookmarkAction = QAction(QCoreApplication.translate("MainWindow", "Set/delete bookmark"), self)
         addRemoveBookmarkAction.triggered.connect(self.addRemoveBookmark)
         addRemoveBookmarkAction.setData(["addRemoveBookmark"])
         self.bookmarkMenu.addAction(addRemoveBookmarkAction)
         self.env.pluginAPI.addAction(addRemoveBookmarkAction)
 
-        nextBookmarkAction = QAction(self.env.translate("mainWindow.menu.bookmarks.nextBookmark"), self)
+        nextBookmarkAction = QAction(QCoreApplication.translate("MainWindow", "Next bookmark"), self)
         nextBookmarkAction.triggered.connect(self.nextBookmark)
         nextBookmarkAction.setData(["nextBookmark"])
         self.bookmarkMenu.addAction(nextBookmarkAction)
         self.env.pluginAPI.addAction(nextBookmarkAction)
 
-        previousBookmarkAction = QAction(self.env.translate("mainWindow.menu.bookmarks.previousBookmark"), self)
+        previousBookmarkAction = QAction(QCoreApplication.translate("MainWindow", "Previous bookmark"), self)
         previousBookmarkAction.triggered.connect(self.previousBookmark)
         previousBookmarkAction.setData(["previousBookmark"])
         self.bookmarkMenu.addAction(previousBookmarkAction)
         self.env.pluginAPI.addAction(previousBookmarkAction)
 
-        clearBookmarksAction = QAction(self.env.translate("mainWindow.menu.bookmarks.clearBookmarks"), self)
+        clearBookmarksAction = QAction(QCoreApplication.translate("MainWindow", "Clear all bookmarks"), self)
         clearBookmarksAction.triggered.connect(self.clearBookmarks)
         clearBookmarksAction.setData(["clearBookmarks"])
         self.bookmarkMenu.addAction(clearBookmarksAction)
         self.env.pluginAPI.addAction(clearBookmarksAction)
 
-        self.macroMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.macro"))
+        self.macroMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "Macros"))
 
-        self.recordMacroAction = QAction(self.env.translate("mainWindow.menu.macro.startRecording"), self)
+        self.recordMacroAction = QAction(QCoreApplication.translate("MainWindow", "Start recording"), self)
         self.recordMacroAction.triggered.connect(self.startMacroRecording)
         self.recordMacroAction.setData(["recordMacro"])
         self.env.pluginAPI.addAction(self.recordMacroAction)
 
-        self.stopMacroAction = QAction(self.env.translate("mainWindow.menu.macro.stopRecording"), self)
+        self.stopMacroAction = QAction(QCoreApplication.translate("MainWindow", "Stop recording"), self)
         self.stopMacroAction.triggered.connect(self.stopMacroRecording)
         self.stopMacroAction.setData(["stopMacro"])
         self.env.pluginAPI.addAction(self.stopMacroAction)
         self.stopMacroAction.setEnabled(False)
 
-        self.playMacroAction = QAction(self.env.translate("mainWindow.menu.macro.playMacro"), self)
+        self.playMacroAction = QAction(QCoreApplication.translate("MainWindow", "Execute macro"), self)
         self.playMacroAction.triggered.connect(self.playMacro)
         self.playMacroAction.setData(["playMacro"])
         self.env.pluginAPI.addAction(self.playMacroAction)
         self.playMacroAction.setEnabled(False)
 
-        self.saveMacroAction = QAction(self.env.translate("mainWindow.menu.macro.saveMacro"), self)
+        self.saveMacroAction = QAction(QCoreApplication.translate("MainWindow", "Save macro"), self)
         self.saveMacroAction.triggered.connect(self.saveMacro)
         self.saveMacroAction.setData(["saveMacro"])
         self.env.pluginAPI.addAction(self.saveMacroAction)
         self.saveMacroAction.setEnabled(False)
 
-        self.manageMacrosAction = QAction(self.env.translate("mainWindow.menu.macro.manageMacros"), self)
+        self.manageMacrosAction = QAction(QCoreApplication.translate("MainWindow", "Manage Macros"), self)
         self.manageMacrosAction.triggered.connect(lambda: self.env.manageMacrosWindow.openWindow())
         self.manageMacrosAction.setData(["manageMacros"])
         self.env.pluginAPI.addAction(self.manageMacrosAction)
 
         self.updateMacroMenu()
 
-        self.executeMenu = self.menubar.addMenu(self.env.translate("mainWindow.menu.execute"))
+        self.executeMenu = self.menubar.addMenu(QCoreApplication.translate("MainWindow", "Execute"))
 
-        self.executeCommandAction = QAction(self.env.translate("mainWindow.menu.execute.executeCommand"), self)
+        self.executeCommandAction = QAction(QCoreApplication.translate("MainWindow", "Execute Command"), self)
         self.executeCommandAction.triggered.connect(lambda: self.env.executeCommandWindow.openWindow(self.getTextEditWidget()))
         self.executeCommandAction.setData(["executeCommand"])
         self.env.pluginAPI.addAction(self.executeCommandAction)
 
-        self.editCommandsAction = QAction(self.env.translate("mainWindow.menu.execute.editCommands"), self)
+        self.editCommandsAction = QAction(QCoreApplication.translate("MainWindow", "Edit Commands"), self)
         self.editCommandsAction.triggered.connect(lambda: self.env.editCommandsWindow.openWindow())
         self.editCommandsAction.setData(["editCommands"])
         self.env.pluginAPI.addAction(self.editCommandsAction)
@@ -739,7 +739,7 @@ class MainWindow(QMainWindow):
 
         self.aboutMenu = self.menubar.addMenu("&?")
 
-        searchAction = QAction(self.env.translate("mainWindow.menu.about.searchAction"), self)
+        searchAction = QAction(QCoreApplication.translate("MainWindow", "Search Action"), self)
         searchAction.triggered.connect(lambda: self.env.actionSearchWindow.openWindow())
         searchAction.setData(["searchAction"])
         self.aboutMenu.addAction(searchAction)
@@ -747,38 +747,38 @@ class MainWindow(QMainWindow):
 
         self.aboutMenu.addSeparator()
 
-        openDataFolder = QAction(self.env.translate("mainWindow.menu.about.openDataDir"),self)
+        openDataFolder = QAction(QCoreApplication.translate("MainWindow", "Open data directory"), self)
         openDataFolder.triggered.connect(lambda: openFileDefault(self.env.dataDir))
         openDataFolder.setData(["openDataFolder"])
         self.aboutMenu.addAction(openDataFolder)
         self.env.pluginAPI.addAction(openDataFolder)
 
-        openProgramFolder = QAction(self.env.translate("mainWindow.menu.about.openProgramDir"),self)
+        openProgramFolder = QAction(QCoreApplication.translate("MainWindow", "Open program directory"), self)
         openProgramFolder.triggered.connect(lambda: openFileDefault(self.env.programDir))
         openProgramFolder.setData(["openProgramFolder"])
         self.aboutMenu.addAction(openProgramFolder)
         self.env.pluginAPI.addAction(openProgramFolder)
 
         if self.env.enableUpdater:
-            searchForUpdatesAction = QAction(self.env.translate("mainWindow.menu.about.searchForUpdates"),self)
+            searchForUpdatesAction = QAction(QCoreApplication.translate("MainWindow", "Search for Updates"), self)
             searchForUpdatesAction.triggered.connect(lambda: searchForUpdates(self.env, False))
             searchForUpdatesAction.setData(["searchForUpdates"])
             self.aboutMenu.addAction(searchForUpdatesAction)
             self.env.pluginAPI.addAction(searchForUpdatesAction)
 
-        showDayTip = QAction(self.env.translate("mainWindow.menu.about.dayTip"),self)
+        showDayTip = QAction(QCoreApplication.translate("MainWindow", "Tip of the Day"), self)
         showDayTip.triggered.connect(lambda: self.env.dayTipWindow.openWindow())
         showDayTip.setData(["showDayTip"])
         self.aboutMenu.addAction(showDayTip)
         self.env.pluginAPI.addAction(showDayTip)
 
-        reportBugAction = QAction(self.env.translate("mainWindow.menu.about.reportBug"),self)
+        reportBugAction = QAction(QCoreApplication.translate("MainWindow", "Report Bug"), self)
         reportBugAction.triggered.connect(lambda: webbrowser.open("https://gitlab.com/JakobDev/jdTextEdit/issues/new"))
         reportBugAction.setData(["reportBug"])
         self.aboutMenu.addAction(reportBugAction)
         self.env.pluginAPI.addAction(reportBugAction)
 
-        viewDocumentationAction = QAction(self.env.translate("mainWindow.menu.about.viewDocumentation"),self)
+        viewDocumentationAction = QAction(QCoreApplication.translate("MainWindow", "View Documentation"), self)
         viewDocumentationAction.triggered.connect(lambda: webbrowser.open("https://jdtextedit.readthedocs.io"))
         viewDocumentationAction.setData(["viewDocumentation"])
         self.aboutMenu.addAction(viewDocumentationAction)
@@ -800,13 +800,13 @@ class MainWindow(QMainWindow):
 
         self.aboutMenu.addSeparator()
 
-        about = QAction(self.env.translate("mainWindow.menu.about.about"),self)
+        about = QAction(QCoreApplication.translate("MainWindow", "About"), self)
         about.triggered.connect(lambda: self.env.aboutWindow.show())
         about.setData(["about"])
         self.aboutMenu.addAction(about)
         self.env.pluginAPI.addAction(about)
 
-        aboutQt = QAction(self.env.translate("mainWindow.menu.about.aboutQt"),self)
+        aboutQt = QAction(QCoreApplication.translate("MainWindow", "About Qt"), self)
         aboutQt.triggered.connect(QApplication.instance().aboutQt)
         aboutQt.setData(["aboutQt"])
         self.aboutMenu.addAction(aboutQt)
@@ -814,7 +814,7 @@ class MainWindow(QMainWindow):
 
         self.updateRecentFilesMenu()
         #self.getMenuActions(self.menubar)
-        separator = QAction(self.env.translate("mainWindow.separator"))
+        separator = QAction(QCoreApplication.translate("MainWindow", "Seperator"))
         separator.setData(["separator"])
         self.env.menuActions["separator"] = separator
 
@@ -840,7 +840,7 @@ class MainWindow(QMainWindow):
         self.templateMenu.clear()
 
         if len(self.env.templates) == 0:
-            empty = QAction(self.env.translate("mainWindow.menu.file.newTemplate.empty"), self)
+            empty = QAction(QCoreApplication.translate("MainWindow", "No Templates found"), self)
             empty.setEnabled(False)
             self.templateMenu.addAction(empty)
         else:
@@ -851,13 +851,13 @@ class MainWindow(QMainWindow):
                 self.templateMenu.addAction(templateAction)
 
         self.templateMenu.addSeparator()
-        addMenu = self.templateMenu.addMenu(self.env.translate("mainWindow.menu.file.newTemplate.add"))
+        addMenu = self.templateMenu.addMenu(QCoreApplication.translate("MainWindow", "Add"))
 
-        addCurrentDocumentAction = QAction(self.env.translate("mainWindow.menu.file.newTemplate.add.document"),self)
+        addCurrentDocumentAction = QAction(QCoreApplication.translate("MainWindow", "Save current document as template"), self)
         addCurrentDocumentAction.triggered.connect(self.addCurrentDocumentTemplate)
         addMenu.addAction(addCurrentDocumentAction)
 
-        addFileAction = QAction(self.env.translate("mainWindow.menu.file.newTemplate.add.file"),self)
+        addFileAction = QAction(QCoreApplication.translate("MainWindow", "Add file as template"),self)
         addFileAction.triggered.connect(self.addFileTemplate)
         addMenu.addAction(addFileAction)
 
@@ -874,14 +874,14 @@ class MainWindow(QMainWindow):
         """
         This function is called when the user clicks on Templates>Add>Save Document as Template
         """
-        name, ok = QInputDialog.getText(self,self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.title"),self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.text"))
+        name, ok = QInputDialog.getText(self, QCoreApplication.translate("MainWindow", "Enter name"), QCoreApplication.translate("MainWindow", "Please enter a name for the template"))
         if not ok or name == "":
             return
         if not isFilenameValid(name):
-            showMessageBox(self.env.translate("invalidFilename.title"),self.env.translate("invalidFilename.text"))
+            showMessageBox(QCoreApplication.translate("MainWindow", "Invalid filename"), QCoreApplication.translate("MainWindow", "The Filename is invalid"))
             return
-        path = os.path.join(self.env.dataDir,"templates",name)
-        self.saveFile(self.getTextEditWidget(),path=path,template=True)
+        path = os.path.join(self.env.dataDir, "templates", name)
+        self.saveFile(self.getTextEditWidget(), path=path, template=True)
         self.env.templates.append([name, path])
         self.updateTemplateMenu()
 
@@ -892,12 +892,15 @@ class MainWindow(QMainWindow):
         original_path = QFileDialog.getOpenFileName(self)
         if not original_path[0]:
             return
-        name, ok = QInputDialog.getText(self,self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.title"),self.env.translate("mainWindow.menu.file.newTemplate.add.dialog.text"))
+
+        name, ok = QInputDialog.getText(self, QCoreApplication.translate("MainWindow", "Enter name"), QCoreApplication.translate("MainWindow", "Please enter a name for the template"))
         if not ok or name == "":
             return
+
         if not isFilenameValid(name):
-            showMessageBox(self.env.translate("invalidFilename.title"),self.env.translate("invalidFilename.text"))
+            showMessageBox(QCoreApplication.translate("MainWindow", "Invalid filename"), QCoreApplication.translate("MainWindow", "The Filename is invalid"))
             return
+
         template_path = os.path.join(self.env.dataDir, "templates", name)
         shutil.copyfile(original_path[0], template_path)
         self.env.templates.append([name, template_path])
@@ -910,22 +913,22 @@ class MainWindow(QMainWindow):
         self.recentFilesMenu.clear()
 
         if len(self.env.recentFiles) == 0:
-            empty = QAction(self.env.translate("mainWindow.menu.openRecent.empty"),self)
+            empty = QAction(QCoreApplication.translate("MainWindow", "No recent files"), self)
             empty.setEnabled(False)
             self.recentFilesMenu.addAction(empty)
         else:
             count = 1
             for i in self.env.recentFiles:
-                fileItem = QAction(str(count) + ". " + i,self)
+                fileItem = QAction(str(count) + ". " + i, self)
                 fileItem.setData([False,i])
                 fileItem.triggered.connect(self.openRecentFile)
                 self.recentFilesMenu.addAction(fileItem)
                 count += 1
             self.recentFilesMenu.addSeparator()
-            clear = QAction(self.env.translate("mainWindow.menu.openRecent.clear"),self)
+            clear = QAction(QCoreApplication.translate("MainWindow", "Clear"), self)
             clear.triggered.connect(self.clearRecentFiles)
             self.recentFilesMenu.addAction(clear)
-            openAll = QAction(self.env.translate("mainWindow.menu.openRecent.openAll"),self)
+            openAll = QAction(QCoreApplication.translate("MainWindow", "Open all"), self)
             openAll.triggered.connect(self.openAllRecentFiles)
             self.recentFilesMenu.addAction(openAll)
         self.env.saveRecentFiles()
@@ -948,7 +951,7 @@ class MainWindow(QMainWindow):
         This function creates the language menu
         """
         self.env.languageActionList = []
-        self.env.fileNameFilters = self.env.translate("mainWindow.fileNameFilter.allFiles") + " (*);;"
+        self.env.fileNameFilters = QCoreApplication.translate("MainWindow", "All files") + " (*);;"
         self.languageMenu.clear()
         alphabet = {}
         for i in self.env.languageList:
@@ -979,18 +982,19 @@ class MainWindow(QMainWindow):
                     self.env.fileNameFilters = self.env.fileNameFilters + ";;"
                 self.languageMenu.addMenu(letterMenu)
         self.languageMenu.addSeparator()
-        noneAction = QAction(self.env.translate("mainWindow.menu.language.plainText"),self)
+        noneAction = QAction(QCoreApplication.translate("MainWindow", "Plain Text"), self)
         noneAction.triggered.connect(self.languagePlainTextClicked)
         noneAction.setCheckable(True)
         self.env.languagePlainTextAction = noneAction
         self.languageMenu.addAction(noneAction)
-        self.env.fileNameFilters = self.env.fileNameFilters + self.env.translate("mainWindow.menu.language.plainText") + " (*.txt)"
+        self.env.fileNameFilters = self.env.fileNameFilters + QCoreApplication.translate("MainWindow", "Plain Text") + " (*.txt)"
         if hasattr(self, "tabWidget"):
-           self.updateSelectedLanguage()
+            self.updateSelectedLanguage()
 
     def updateSelectedLanguage(self):
         if not hasattr(self.env, "languageActionList"):
             return
+
         editWidget = self.getTextEditWidget()
         for i in self.env.languageActionList:
             if i.data().getName() == editWidget.languageName:
@@ -1052,7 +1056,7 @@ class MainWindow(QMainWindow):
             singleMacroAction = QAction(i["name"],self)
             singleMacroAction.triggered.connect(self.playMenuMacro)
             singleMacroAction.setShortcut(i["shortcut"])
-            singleMacroAction.setData([None,i["macro"]])
+            singleMacroAction.setData([None, i["macro"]])
             self.macroMenu.addAction(singleMacroAction)
 
     def playMenuMacro(self) -> None:
@@ -1103,13 +1107,13 @@ class MainWindow(QMainWindow):
             return
         #Open the file and show error, if it fails
         try:
-            filehandle = open(path,"rb")
+            filehandle = open(path, "rb")
         except PermissionError:
-            showMessageBox(self.env.translate("noReadPermission.title"),self.env.translate("noReadPermission.text") % path)
+            showMessageBox(QCoreApplication.translate("MainWindow", "Can't open file"), QCoreApplication.translate("MainWindow", "You don't have the permission to open {{path}}").replace("{{path}}", path))
             return
         except Exception as e:
-            print(e)
-            showMessageBox(self.env.translate("unknownError.title"),self.env.translate("unknownError.text"))
+            print(e, file=sys.stderr)
+            showMessageBox(QCoreApplication.translate("MainWindow", "Unknown error"), QCoreApplication.translate("MainWindow", "An unknown error has occurred"))
             return
         fileBytes = filehandle.read()
         if len(fileBytes) >= self.env.settings.bigFileSize and self.env.settings.enableBigFileLimit:
@@ -1142,7 +1146,7 @@ class MainWindow(QMainWindow):
         filehandle.close()
         tabWidget = self.getTabWidget()
         if (not self.getTextEditWidget().isNew) and (not reload):
-            tabWidget.createTab(self.env.translate("mainWindow.newTabTitle"), focus=True)
+            tabWidget.createTab(QCoreApplication.translate("MainWindow", "Untitled"), focus=True)
         containerWidget = tabWidget.currentWidget()
         editWidget = containerWidget.getCodeEditWidget()
         if isBigFile and self.env.settings.bigFileDisableHighlight:
@@ -1218,17 +1222,21 @@ class MainWindow(QMainWindow):
 
     def saveFile(self, editWidget: CodeEdit, path: Optional[str] = None, template: bool = False) -> None:
         containerWidget = editWidget.container
+
         if not path:
             path = editWidget.getFilePath()
+
         if not template:
             containerWidget.fileWatcher.removePath(path)
             if os.path.isfile(path) and self.env.settings.get("saveBackupEnabled"):
                 shutil.copyfile(path, path + self.env.settings.get("saveBackupExtension"))
+
         text = editWidget.text()
         eolChar = editWidget.getEolChar()
         if editWidget.settings.eolFileEnd:
             if not text.endswith(eolChar):
                 text = text + eolChar
+
         if editWidget.settings.stripSpacesSave:
             new_text = ""
             for i in text.splitlines():
@@ -1236,16 +1244,19 @@ class MainWindow(QMainWindow):
             if not text.endswith(eolChar):
                 new_text = new_text[:-1]
             text = new_text
+
         text = text.encode(editWidget.getUsedEncoding(), errors="replace")
+
         try:
             filehandle = open(path, "wb")
         except PermissionError:
-            showMessageBox(self.env.translate("noWritePermission.title"), self.env.translate("noWritePermission.text") % editWidget.getFilePath())
+            QMessageBox.critical(self, QCoreApplication.translate("MainWindow", "Can't save file"), QCoreApplication.translate("MainWindow", "You don't have the permission to write {{path}}").replace("{{path}}", editWidget.getFilePath()))
             return
         except Exception as e:
             print(e)
-            showMessageBox(self.env.translate("unknownError.title"), self.env.translate("unknownError.text"))
+            QMessageBox.critical(self, QCoreApplication.translate("MainWindow", "Unknown error"), QCoreApplication.translate("MainWindow", "An unknown error has occurred"))
             return
+
         filehandle.write(text)
         filehandle.close()
         if template:
@@ -1278,7 +1289,7 @@ class MainWindow(QMainWindow):
                     break
 
     def newMenuBarClicked(self):
-        self.getTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"), focus=True)
+        self.getTabWidget().createTab(QCoreApplication.translate("MainWindow", "Untitled"), focus=True)
 
     def openMenuBarClicked(self):
         pathTypeSetting = self.env.settings.get("openFilePathType")
@@ -1292,7 +1303,7 @@ class MainWindow(QMainWindow):
             #Use custom path
             startPath = self.env.settings.get("openFileCustomPath")
 
-        path = QFileDialog.getOpenFileName(self,self.env.translate("mainWindow.openFileDialog.title"), startPath, self.env.fileNameFilters)
+        path = QFileDialog.getOpenFileName(self, QCoreApplication.translate("MainWindow", "Open"), startPath, self.env.fileNameFilters)
         if path[0]:
             self.openFile(path[0])
             self.env.lastOpenPath = path[0]
@@ -1309,7 +1320,7 @@ class MainWindow(QMainWindow):
             #Use custom path
             startPath = self.env.settings.get("openFileCustomPath")
 
-        path = QFileDialog.getExistingDirectory(self, self.env.translate("mainWindow.openDirectoryDialog.title"),startPath)
+        path = QFileDialog.getExistingDirectory(self, QCoreApplication.translate("MainWindow", "Open Directory"), startPath)
         if path:
             self.env.lastOpenPath = path
             fileList = os.listdir(path)
@@ -1340,7 +1351,7 @@ class MainWindow(QMainWindow):
         elif pathTypeSetting == 2:
             # Use custom path
             startPath = self.env.settings.get("saveFileCustomPath")
-        path = QFileDialog.getSaveFileName(self, self.env.translate("mainWindow.saveAsDialog.title"), startPath, self.env.fileNameFilters)
+        path = QFileDialog.getSaveFileName(self, QCoreApplication.translate("MainWindow", "Save as ..."), startPath, self.env.fileNameFilters)
 
         if path[0]:
             self.getTextEditWidget().setFilePath(path[0])
@@ -1361,7 +1372,7 @@ class MainWindow(QMainWindow):
             for i in range(tabWidget.count()-1,-1,-1):
                 tabWidget.tabCloseClicked(i,notCloseProgram=True)
         self.splitViewWidget.initTabWidget()
-        self.getTabWidget().createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
+        self.getTabWidget().createTab(QCoreApplication.translate("MainWindow", "Untitled"), focus=True)
 
     def printMenuBarClicked(self) -> None:
         """
@@ -1370,7 +1381,7 @@ class MainWindow(QMainWindow):
         """
         printer = QsciPrinter()
         dialog = QPrintDialog(printer)
-        dialog.setWindowTitle(self.env.translate("mainWindow.printDialog.title"))
+        dialog.setWindowTitle(QCoreApplication.translate("MainWindow", "Print"))
         if dialog.exec() == QDialog.DialogCode.Accepted:
             editWidget = self.getTextEditWidget()
             printer.printRange(editWidget)
@@ -1475,7 +1486,7 @@ class MainWindow(QMainWindow):
         """
         editWidget = self.getTextEditWidget()
         currentZoom = (editWidget.getZoom()+10)*10
-        scale,ok = QInputDialog.getInt(self,self.env.translate("mainWindow.menu.view.zoom.zoomCustom.titel"), self.env.translate("mainWindow.menu.view.zoom.zoomCustom.text"),currentZoom,0,300,10)
+        scale,ok = QInputDialog.getInt(self, QCoreApplication.translate("MainWindow", "Custom zoom"), QCoreApplication.translate("MainWindow", "Please enter a value for the zoom in percent"), currentZoom, 0, 300, 10)
         if not ok:
             return
         scale -= 100
@@ -1526,11 +1537,11 @@ class MainWindow(QMainWindow):
         line = editWidget.cursorPosLine
         if editWidget.selectedText() == "":
             text = editWidget.text()
-            text = text.replace("\t",spaceString)
+            text = text.replace("\t", spaceString)
             editWidget.setText(text)
         else:
             text = editWidget.selectedText()
-            text = text.replace("\t",spaceString)
+            text = text.replace("\t", spaceString)
             editWidget.replaceSelectedText(text)
         editWidget.setCursorPosition(line,0)
 
@@ -1542,11 +1553,11 @@ class MainWindow(QMainWindow):
         line = editWidget.cursorPosLine
         if editWidget.selectedText() == "":
             text = editWidget.text()
-            text = text.replace(spaceString,"\t")
+            text = text.replace(spaceString, "\t")
             editWidget.setText(text)
         else:
             text = editWidget.selectedText()
-            text = text.replace(spaceString,"\t")
+            text = text.replace(spaceString, "\t")
             editWidget.replaceSelectedText(text)
         editWidget.setCursorPosition(line,0)
 
@@ -1610,7 +1621,7 @@ class MainWindow(QMainWindow):
         self.currentMacro.play()
 
     def saveMacro(self):
-        name, ok = QInputDialog.getText(self, self.env.translate("mainWindow.messageBox.saveMacro.title"), self.env.translate("mainWindow.messageBox.saveMacro.text"))
+        name, ok = QInputDialog.getText(self, QCoreApplication.translate("MainWindow", "Save macro"), sQCoreApplication.translate("MainWindow", "Please enter a name for the macro"))
         if not ok or name == '':
             return
         self.env.macroList.append({"name": name, "macro": self.currentMacro.save(), "shortcut": ""})
@@ -1659,7 +1670,7 @@ class MainWindow(QMainWindow):
         for i in exportData["dataList"]:
             text += i + "<br>"
 
-        text += "<br>" + QCoreApplication.translate("MainWindow", "If you continue, your data will be overwritten and jdTextEdit will restart")
+        text += "<br>" + QCoreApplication.translate("MainWindow", "If you continue, your data will be overwritten and jdTextEdit will be closed")
 
         if QMessageBox.question(self, QCoreApplication.translate("MainWindow", "Import data"), text) != QMessageBox.StandardButton.Yes:
             zf.close()
@@ -1692,7 +1703,7 @@ class MainWindow(QMainWindow):
             shutil.rmtree(self.env.dataDir)
         except Exception:
             print(traceback.format_exc(), end="", file=sys.stderr)
-            showMessageBox(self.env.translate("unknownError.title"), self.env.translate("unknownError.text"))
+            showMessageBox(QCoreApplication.translate("MainWindow", "Unknown error"), QCoreApplication.translate("MainWindow", "An unknown error has occurred"))
             return
 
         sys.exit(0)
