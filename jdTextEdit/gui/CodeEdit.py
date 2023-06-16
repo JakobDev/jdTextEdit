@@ -409,7 +409,7 @@ class CodeEdit(QsciScintilla):
         self.settings.loadDict(self.custom_settings)
         self.updateSettings(self.settings)
         if self.container and self.settings.editorConfigShowBanner:
-            self.container.showBanner(EditorconfigBanner(self.env,self.container))
+            self.container.showBanner(EditorconfigBanner(self.container))
 
     def setCustomTheme(self, theme: Optional["ThemeBase"]) -> None:
         self._customTheme = theme

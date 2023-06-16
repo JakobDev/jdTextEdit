@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QLabel, QWidget, QCheckBox, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
 from PyQt6.QtCore import  QCoreApplication
 from jdTextEdit.Settings import Settings
-
+from typing import TYPE_CHECKING
 
 try:
     import editorconfig
@@ -10,8 +10,12 @@ except ModuleNotFoundError:
     pass
 
 
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
 class EditorconfigTab(QWidget, SettingsTabBase):
-    def __init__(self, env):
+    def __init__(self, env: "Environment") -> None:
         super().__init__()
         self.env = env
 
@@ -26,13 +30,13 @@ class EditorconfigTab(QWidget, SettingsTabBase):
             font-weight: bold;
         """)
 
-        self.useEditorConfig = QCheckBox(env.translate("settingsWindow.editorconfig.checkBox.useEditorConfig"))
-        self.useIndentStyle = QCheckBox(env.translate("settingsWindow.editorconfig.checkBox.useIndentStyle"))
-        self.tabWidth = QCheckBox(env.translate("settingsWindow.editorconfig.checkBox.tabWidth"))
-        self.endOfLine = QCheckBox(env.translate("settingsWindow.editorconfig.checkBox.endOfLine"))
-        self.trimWhitespace = QCheckBox(env.translate("settingsWindow.editorconfig.checkBox.trimWhitespace"))
-        self.insertNewline = QCheckBox(env.translate("settingsWindow.editorconfig.checkBox.insertNewline"))
-        self.showBanner = QCheckBox(env.translate("settingsWindow.editorconfig.checkBox.showBanner"))
+        self.useEditorConfig = QCheckBox(QCoreApplication.translate("EditorconfigTab", "Use .editorconfig if available"))
+        self.useIndentStyle = QCheckBox(QCoreApplication.translate("EditorconfigTab", "Use indentation style from .editorconfig"))
+        self.tabWidth = QCheckBox(QCoreApplication.translate("EditorconfigTab", "Use tab width from .editorconfig"))
+        self.endOfLine = QCheckBox(QCoreApplication.translate("EditorconfigTab", "Use end of line from .editorconfig"))
+        self.trimWhitespace = QCheckBox(QCoreApplication.translate("EditorconfigTab", "Use setting to trim whitespaces from .editorconfig"))
+        self.insertNewline = QCheckBox(QCoreApplication.translate("EditorconfigTab", "Use setting to insert end of line from .editorconfig"))
+        self.showBanner = QCheckBox(QCoreApplication.translate("EditorconfigTab", "Show notice when .editorconfig is used"))
 
         self.useEditorConfig.stateChanged.connect(self.toogleCheckBoxEnabled)
 
@@ -55,7 +59,7 @@ class EditorconfigTab(QWidget, SettingsTabBase):
 
         self.setLayout(mainLayout)
 
-    def toogleCheckBoxEnabled(self):
+    def toogleCheckBoxEnabled(self) -> None:
         try:
             editorconfig
             enabled = self.useEditorConfig.isChecked()
@@ -68,7 +72,7 @@ class EditorconfigTab(QWidget, SettingsTabBase):
         self.insertNewline.setEnabled(enabled)
         self.showBanner.setEnabled(enabled)
 
-    def updateTab(self, settings: Settings):
+    def updateTab(self, settings: Settings) -> None:
         self.useEditorConfig.setChecked(settings.useEditorConfig)
         self.useIndentStyle.setChecked(settings.editorConfigUseIndentStyle)
         self.tabWidth.setChecked(settings.editorConfigTabWidth)
@@ -78,14 +82,14 @@ class EditorconfigTab(QWidget, SettingsTabBase):
         self.showBanner.setChecked(settings.editorConfigShowBanner)
         self.toogleCheckBoxEnabled()
 
-    def getSettings(self, settings: Settings):
-        settings.set("useEditorConfig",self.useEditorConfig.isChecked())
-        settings.set("editorConfigUseIndentStyle",self.useIndentStyle.isChecked())
-        settings.set("editorConfigTabWidth",self.tabWidth.isChecked())
-        settings.set("editorConfigEndOfLine",self.endOfLine.isChecked())
-        settings.set("editorConfigTrimWhitespace",self.trimWhitespace.isChecked())
-        settings.set("editorConfigInsertNewline",self.insertNewline.isChecked())
-        settings.set("editorConfigShowBanner",self.showBanner.isChecked())
+    def getSettings(self, settings: Settings) -> None:
+        settings.set("useEditorConfig", self.useEditorConfig.isChecked())
+        settings.set("editorConfigUseIndentStyle", self.useIndentStyle.isChecked())
+        settings.set("editorConfigTabWidth", self.tabWidth.isChecked())
+        settings.set("editorConfigEndOfLine", self.endOfLine.isChecked())
+        settings.set("editorConfigTrimWhitespace", self.trimWhitespace.isChecked())
+        settings.set("editorConfigInsertNewline", self.insertNewline.isChecked())
+        settings.set("editorConfigShowBanner", self.showBanner.isChecked())
 
     def title(self) -> str:
-        return self.env.translate("settingsWindow.editorconfig")
+        return QCoreApplication.translate("EditorconfigTab", "Editorconfig")

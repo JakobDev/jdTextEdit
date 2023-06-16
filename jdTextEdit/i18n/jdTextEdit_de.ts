@@ -116,11 +116,147 @@
     </message>
 </context>
 <context>
+    <name>AutocompletionTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="17"/>
+        <source>Enable Autocompletion</source>
+        <translation>Autovervollständigung aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="18"/>
+        <source>Use Words from Document</source>
+        <translation>Benutze Wörter aus dem Dokument</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="19"/>
+        <source>Use API</source>
+        <translation>Benutze API</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="20"/>
+        <source>Case Sensitive</source>
+        <translation>Groß- und Kleinschreibung beachten</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="21"/>
+        <source>Replace Word</source>
+        <translation>Wort ersetzen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="22"/>
+        <source>Autocomplete at this char:</source>
+        <translation>Autovervollständigung ab diesem Zeichen:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="69"/>
+        <source>Autocompletion</source>
+        <translation>Autovervollständigung</translation>
+    </message>
+</context>
+<context>
     <name>BannerWidgets</name>
     <message>
         <location filename="../gui/BannerWidgets/SimpleMessageBanner.py" line="14"/>
+        <location filename="../gui/BannerWidgets/EditorconfigBanner.py" line="14"/>
+        <location filename="../gui/BannerWidgets/BigFileBanner.py" line="16"/>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/BigFileBanner.py" line="21"/>
+        <source>Due to the size of the file some features have been disabled</source>
+        <translation>Aufgrund der Größe der Datei wurden einige Features deaktiviert</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/EditorconfigBanner.py" line="19"/>
+        <source>Some settings from an .editorconfig file are used</source>
+        <translation>Es werden einige Einstellungen aus einer .editorconfig benutzt</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="17"/>
+        <source>Reload</source>
+        <translation>Neuladen</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="21"/>
+        <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="20"/>
+        <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="18"/>
+        <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="20"/>
+        <source>Ignore</source>
+        <translation>Ignorieren</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="24"/>
+        <source>This file was changed by another program</source>
+        <translation>Die Datei wurde auf dem Laufwerk geändert</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="15"/>
+        <source>Close File</source>
+        <translation>Datei schließen</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="22"/>
+        <source>This file was deleted by another program</source>
+        <translation>Die Datei wurde von einem anderen Programm gelöscht</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="17"/>
+        <source>Change to {{encoding}}</source>
+        <translation>Wechsle zu {{encoding}}</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="24"/>
+        <source>The encoding does not correspond to the default settings</source>
+        <translation>Die Zeichenkodierung entspricht nicht drn Standardeinstellung</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="18"/>
+        <source>Change to {{eol}}</source>
+        <translation>Wechsle zu {{eol}}</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="25"/>
+        <source>The end of line does not correspond to the default settings</source>
+        <translation>Das Zeilenende entspricht nicht der Standardeinstellung</translation>
+    </message>
+</context>
+<context>
+    <name>BigFilesTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/BigFilesTab.py" line="18"/>
+        <source>Limit big files</source>
+        <translation>Große Dateien limitieren</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/BigFilesTab.py" line="19"/>
+        <source>Files from</source>
+        <translation>Dateien ab</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/BigFilesTab.py" line="21"/>
+        <source>bytes</source>
+        <translation>Bytes</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/BigFilesTab.py" line="22"/>
+        <source>Disable syntax highlighting</source>
+        <translation>Syntaxhervorhebung deaktivieren</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/BigFilesTab.py" line="23"/>
+        <source>Disable encoding detect</source>
+        <translation>Erkenennen der Kodierung deaktiviere</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/BigFilesTab.py" line="24"/>
+        <source>Show banner</source>
+        <translation>Hinweis zeigen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/BigFilesTab.py" line="79"/>
+        <source>Big Files</source>
+        <translation>Große Dateien</translation>
     </message>
 </context>
 <context>
@@ -155,6 +291,39 @@
         <location filename="../gui/CloseSaveWindow.py" line="66"/>
         <source>Save</source>
         <translation>Speichern</translation>
+    </message>
+</context>
+<context>
+    <name>ContextMenuTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="30"/>
+        <source>Add</source>
+        <translation>Hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="31"/>
+        <source>Remove</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="32"/>
+        <source>Up</source>
+        <translation>Nach oben</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="33"/>
+        <source>Down</source>
+        <translation>Nach unten</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="99"/>
+        <source>Unknown Action</source>
+        <translation>Unbekannte Aktion</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="119"/>
+        <source>Context menu</source>
+        <translation>Kontextmenü</translation>
     </message>
 </context>
 <context>
@@ -325,9 +494,49 @@
 <context>
     <name>EditorconfigTab</name>
     <message>
-        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="18"/>
+        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="22"/>
         <source>The editorconfig module was not found</source>
         <translation>Das editorconfig Modul wurde nicht gefunden</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="33"/>
+        <source>Use .editorconfig if available</source>
+        <translation>Benutze .editorconfig wenn vorhanden</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="34"/>
+        <source>Use indentation style from .editorconfig</source>
+        <translation>Benutze Einrückstil aus .editorconfig</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="35"/>
+        <source>Use tab width from .editorconfig</source>
+        <translation>Benutze Tabulatorbreite aus .editorconfig</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="36"/>
+        <source>Use end of line from .editorconfig</source>
+        <translation>Benutze Zeilenende aus .editorconfig</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="37"/>
+        <source>Use setting to trim whitespaces from .editorconfig</source>
+        <translation>Benutze Einstellung zum Enfernen von Leerzeichen aus .editorconfig</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="38"/>
+        <source>Use setting to insert end of line from .editorconfig</source>
+        <translation>Benutze Einstellung zum Einfügen vom Zeilenende aus .editorconfig</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="39"/>
+        <source>Show notice when .editorconfig is used</source>
+        <translation>Zeige Hinweis wenn .editorconfig benutzt wird</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="95"/>
+        <source>Editorconfig</source>
+        <translation>Editorconfig</translation>
     </message>
 </context>
 <context>
@@ -425,7 +634,7 @@
     <message>
         <location filename="../gui/GotoLineWindow.py" line="33"/>
         <source>Please enter the line number:</source>
-        <translation>Bitt gib die Zeilennummer ein:</translation>
+        <translation>Bitte gib die Zeilennummer ein:</translation>
     </message>
     <message>
         <location filename="../gui/GotoLineWindow.py" line="39"/>

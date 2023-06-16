@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 
 class SimpleMessageBanner(QWidget):
-    def __init__(self, parent: "EditContainer", text: str):
+    def __init__(self, parent: "EditContainer", text: str) -> None:
         super().__init__()
 
         okButton = QPushButton(QCoreApplication.translate("BannerWidgets", "OK"))

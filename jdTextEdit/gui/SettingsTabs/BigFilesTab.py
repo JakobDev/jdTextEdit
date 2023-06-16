@@ -1,28 +1,34 @@
 from PyQt6.QtWidgets import QWidget, QLineEdit, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from PyQt6.QtCore import QCoreApplication
 from jdTextEdit.Settings import Settings
 from PyQt6.QtGui import QIntValidator
+from typing import TYPE_CHECKING
 
 
-class BigFilesTab(QWidget,SettingsTabBase):
-    def __init__(self,env):
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
+class BigFilesTab(QWidget, SettingsTabBase):
+    def __init__(self, env: "Environment") -> None:
         super().__init__()
         self.env = env
 
-        self.enableBigFiles = QCheckBox(env.translate("settingsWindow.bigFiles.checkBox.enableBigFiles"))
-        self.filesFromLabel = QLabel(env.translate("settingsWindow.bigFiles.label.filesFrom"))
+        self.enableBigFiles = QCheckBox(QCoreApplication.translate("BigFilesTab", "Limit big files"))
+        self.filesFromLabel = QLabel(QCoreApplication.translate("BigFilesTab", "Files from"))
         self.bytesEdit = QLineEdit()
-        self.bytesLabel = QLabel(env.translate("settingsWindow.bigFiles.label.bytes"))
-        self.disableHighlight = QCheckBox(env.translate("settingsWindow.bigFiles.checkBox.disableHighlight"))
-        self.disableEncodingDetect =  QCheckBox(env.translate("settingsWindow.bigFiles.disableEncodingDetect"))
-        self.showBanner = QCheckBox(env.translate("settingsWindow.bigFiles.showBanner"))
+        self.bytesLabel = QLabel(QCoreApplication.translate("BigFilesTab", "bytes"))
+        self.disableHighlight = QCheckBox(QCoreApplication.translate("BigFilesTab", "Disable syntax highlighting"))
+        self.disableEncodingDetect = QCheckBox(QCoreApplication.translate("BigFilesTab", "Disable encoding detect"))
+        self.showBanner = QCheckBox(QCoreApplication.translate("BigFilesTab", "Show banner"))
 
         self.enableBigFiles.stateChanged.connect(self.enableFilesChanged)
-        self.bytesEdit.setValidator(QIntValidator(0,2147483647))
+        self.bytesEdit.setValidator(QIntValidator(0, 2147483647))
 
         self.pluginCheckBoxList = []
         for i in env.customBigFilesSettings:
-            self.pluginCheckBoxList.append([QCheckBox(i[1]),i[0]])
+            self.pluginCheckBoxList.append([QCheckBox(i[1]), i[0]])
 
         editLayout = QHBoxLayout()
         editLayout.addWidget(self.filesFromLabel)
@@ -41,7 +47,7 @@ class BigFilesTab(QWidget,SettingsTabBase):
 
         self.setLayout(mainLayout)
 
-    def enableFilesChanged(self):
+    def enableFilesChanged(self) -> None:
         enabled = self.enableBigFiles.isChecked()
         self.filesFromLabel.setEnabled(enabled)
         self.bytesEdit.setEnabled(enabled)
@@ -52,7 +58,7 @@ class BigFilesTab(QWidget,SettingsTabBase):
         for i in self.pluginCheckBoxList:
             i[0].setEnabled(enabled)
 
-    def updateTab(self, settings: Settings):
+    def updateTab(self, settings: Settings) -> None:
         self.enableBigFiles.setChecked(settings.enableBigFileLimit)
         self.bytesEdit.setText(str(settings.bigFileSize))
         self.disableHighlight.setChecked(settings.bigFileDisableHighlight)
@@ -62,7 +68,7 @@ class BigFilesTab(QWidget,SettingsTabBase):
         for i in self.pluginCheckBoxList:
             i[0].setChecked(settings.get(i[1]))
 
-    def getSettings(self,settings: Settings):
+    def getSettings(self, settings: Settings) -> None:
         settings.set("enableBigFileLimit",self.enableBigFiles.isChecked())
         settings.set("bigFileSize",int(self.bytesEdit.text()))
         settings.set("bigFileDisableHighlight",self.disableHighlight.isChecked())
@@ -70,4 +76,4 @@ class BigFilesTab(QWidget,SettingsTabBase):
         settings.set("bigFileShowBanner",self.showBanner.isChecked())
 
     def title(self) -> str:
-        return self.env.translate("settingsWindow.bigFiles")
+        return QCoreApplication.translate("BigFilesTab", "Big Files")

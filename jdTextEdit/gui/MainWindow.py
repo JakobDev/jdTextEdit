@@ -1214,7 +1214,7 @@ class MainWindow(QMainWindow):
             elif editWidget.eolMode() == QsciScintilla.EolMode.EolMac and editWidget.settings.defaultEolMode != 2:
                 containerWidget.showBanner(WrongEolBanner(self.env, containerWidget))
         if isBigFile and self.env.settings.bigFileShowBanner:
-            containerWidget.showBanner(BigFileBanner(self.env, containerWidget))
+            containerWidget.showBanner(BigFileBanner(containerWidget))
         if encodingError:
             containerWidget.showBanner(SimpleMessageBanner(containerWidget, QCoreApplication.translate("MainWindow", "This file has some decoding errors")))
         self.env.editorSignals.openFile.emit(editWidget)

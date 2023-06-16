@@ -23,8 +23,8 @@ class EditContainer(QWidget):
         self.codeWidget.pathChanged.connect(self.newPath)
         self.searchBar = None
 
-        self.fileChangedWidget = FileChangedBanner(self.env, self)
-        self.fileDeletedWidget = FileDeletedBanner(self.env, self)
+        self.fileChangedWidget = FileChangedBanner(env, self)
+        self.fileDeletedWidget = FileDeletedBanner(self)
 
         self.fileWatcher = QFileSystemWatcher()
         self.fileWatcher.fileChanged.connect(self.fileChanged)
