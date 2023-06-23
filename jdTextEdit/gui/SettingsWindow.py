@@ -17,6 +17,7 @@ from jdTextEdit.gui.SettingsTabs.StatusBarTab import StatusBarTab
 from jdTextEdit.gui.SettingsTabs.TerminalEmulatorTab import TerminalEmulatorTab
 from jdTextEdit.gui.SettingsTabs.PluginTab import PluginTab
 from jdTextEdit.Functions import restoreWindowState
+from PyQt6.QtCore import QCoreApplication
 from jdTextEdit.Settings import Settings
 from typing import TYPE_CHECKING
 import platform
@@ -35,9 +36,9 @@ class SettingsWindow(QWidget):
         self.listWidget = QListWidget()
         self.tabs: list[SettingsTabBase] = []
 
-        okButton = QPushButton(env.translate("button.ok"))
-        cancelButton = QPushButton(env.translate("button.cancel"))
-        defaultButton = QPushButton(env.translate("settingsWindow.button.default"))
+        okButton = QPushButton(QCoreApplication.translate("SettingsWindow", "OK"))
+        cancelButton = QPushButton(QCoreApplication.translate("SettingsWindow", "Cancel"))
+        defaultButton = QPushButton(QCoreApplication.translate("SettingsWindow", "Default"))
 
         self.listWidget.currentItemChanged.connect(self.changeWidget)
         okButton.clicked.connect(self.okButtonClicked)
@@ -67,7 +68,7 @@ class SettingsWindow(QWidget):
             mainLayout.addLayout(buttonLayout)
 
         self.setLayout(mainLayout)
-        self.setWindowTitle(env.translate("settingsWindow.title"))
+        self.setWindowTitle(QCoreApplication.translate("SettingsWindow", "Settings"))
         restoreWindowState(self, env.windowState, "SettingsWindow")
 
     def changeWidget(self) -> None:

@@ -88,7 +88,7 @@ class MainWindow(QMainWindow):
         self.env.dayTipWindow.setup()
         self.updateSettings(self.env.settings)
         if self.env.settings.get("searchUpdates") and self.env.enableUpdater:
-            searchForUpdates(self.env, True)
+            searchForUpdates(self, self.env, True)
         if self.env.settings.get("useIPC"):
             open(getTempOpenFilePath(), "w").close()
             self.tempFileOpenWatcher = QFileSystemWatcher()
@@ -761,7 +761,7 @@ class MainWindow(QMainWindow):
 
         if self.env.enableUpdater:
             searchForUpdatesAction = QAction(QCoreApplication.translate("MainWindow", "Search for Updates"), self)
-            searchForUpdatesAction.triggered.connect(lambda: searchForUpdates(self.env, False))
+            searchForUpdatesAction.triggered.connect(lambda: searchForUpdates(self, self.env, False))
             searchForUpdatesAction.setData(["searchForUpdates"])
             self.aboutMenu.addAction(searchForUpdatesAction)
             self.env.pluginAPI.addAction(searchForUpdatesAction)

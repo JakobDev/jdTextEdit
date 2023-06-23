@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QCheckBox, QSpinBox, QPushButton, QHBoxLayout, QVBoxLayout, QGridLayout, QLayout
-from jdTextEdit.Functions import getThemeIcon, restoreWindowState
+from jdTextEdit.Functions import getThemeIcon
+from PyQt6.QtCore import QCoreApplication
 from typing import TYPE_CHECKING
 
 
@@ -12,22 +13,22 @@ class SearchWindow(QWidget):
     def __init__(self, env: "Environment"):
         super().__init__()
         self.searchEdit = QLineEdit()
-        self.regEx = QCheckBox(env.translate("searchWindow.checkBox.regularExpression"))
-        self.caseSensitive = QCheckBox(env.translate("searchWindow.checkBox.caseSensitive"))
-        self.wholeWord = QCheckBox(env.translate("searchWindow.checkBox.wholeWord"))
-        self.wrap = QCheckBox(env.translate("searchWindow.checkBox.wrap"))
-        self.backward = QCheckBox(env.translate("searchWindow.checkBox.backwards"))
-        self.showText = QCheckBox(env.translate("searchWindow.checkBox.showText"))
-        self.searchRange = QCheckBox(env.translate("searchWindow.checkBox.searchRange"))
-        self.lineLabel = QLabel(env.translate("searchWindow.label.searchLine"))
-        self.indexLabel = QLabel(env.translate("searchWindow.label.searchColumn"))
+        self.regEx = QCheckBox(QCoreApplication.translate("SearchWindow", "Regular Expression"))
+        self.caseSensitive = QCheckBox(QCoreApplication.translate("SearchWindow", "Match case"))
+        self.wholeWord = QCheckBox(QCoreApplication.translate("SearchWindow", "Match entire word only"))
+        self.wrap = QCheckBox(QCoreApplication.translate("SearchWindow", "Wrap around"))
+        self.backward = QCheckBox(QCoreApplication.translate("SearchWindow", "Search backwards"))
+        self.showHiddenText = QCheckBox(QCoreApplication.translate("SearchWindow", "Show text if hidden"))
+        self.searchRange = QCheckBox(QCoreApplication.translate("SearchWindow", "Search from a certain range"))
+        self.lineLabel = QLabel(QCoreApplication.translate("SearchWindow", "Search at Line:"))
+        self.indexLabel = QLabel(QCoreApplication.translate("SearchWindow", "Search at Column:"))
         self.lineSpinBox = QSpinBox()
         self.indexSpinBox = QSpinBox()
-        self.closeButton = QPushButton(env.translate("button.close"))
-        self.searchButton = QPushButton(env.translate("searchWindow.button.search"))
+        self.closeButton = QPushButton(QCoreApplication.translate("SearchWindow", "Close"))
+        self.searchButton = QPushButton(QCoreApplication.translate("SearchWindow", "Find"))
 
         self.wrap.setChecked(True)
-        self.showText.setChecked(True)
+        self.showHiddenText.setChecked(True)
 
         self.lineSpinBox.setRange(0, 2147483647)
         self.indexSpinBox.setRange(0, 2147483647)
@@ -35,15 +36,15 @@ class SearchWindow(QWidget):
         self.lineSpinBox.setValue(0)
         self.indexSpinBox.setValue(0)
 
-        self.closeButton.setIcon(getThemeIcon(env,"window-close"))
-        self.searchButton.setIcon(getThemeIcon(env,"edit-find"))
+        self.closeButton.setIcon(getThemeIcon(env, "window-close"))
+        self.searchButton.setIcon(getThemeIcon(env, "edit-find"))
 
         self.searchRange.stateChanged.connect(self.searchRangeEnableUpdated)
         self.closeButton.clicked.connect(self.close)
         self.searchButton.clicked.connect(self.searchButtonClicked)
 
         searchTextLayout = QHBoxLayout()
-        searchTextLayout.addWidget(QLabel(env.translate("searchWindow.label.searchFor")))
+        searchTextLayout.addWidget(QLabel(QCoreApplication.translate("SearchWindow", "Search for:")))
         searchTextLayout.addWidget(self.searchEdit)
 
         numberLayout = QGridLayout()
@@ -64,14 +65,14 @@ class SearchWindow(QWidget):
         mainLayout.addWidget(self.wholeWord)
         mainLayout.addWidget(self.wrap)
         mainLayout.addWidget(self.backward)
-        mainLayout.addWidget(self.showText)
+        mainLayout.addWidget(self.showHiddenText)
         mainLayout.addWidget(self.searchRange)
         mainLayout.addLayout(numberLayout)
         mainLayout.addLayout(buttonLayout)
         mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
         self.setLayout(mainLayout)
-        self.setWindowTitle(env.translate("searchWindow.title"))
+        self.setWindowTitle(QCoreApplication.translate("SearchWindow", "Find"))
 
     def searchButtonClicked(self) -> None:
         if self.searchRange.isChecked():
@@ -90,7 +91,7 @@ class SearchWindow(QWidget):
             not self.backward.isChecked(),
             line,
             index,
-            self.showText.isChecked()
+            self.showHiddenText.isChecked()
         )
 
     def searchRangeEnableUpdated(self):

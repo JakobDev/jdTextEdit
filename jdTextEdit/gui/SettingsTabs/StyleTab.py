@@ -1,10 +1,10 @@
 from PyQt6.QtWidgets import QWidget, QCheckBox, QPushButton, QFontDialog, QGridLayout, QVBoxLayout, QHBoxLayout, QComboBox, QLabel, QSlider
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from PyQt6.QtCore import Qt, QCoreApplication
 from jdTextEdit.gui.CodeEdit import CodeEdit
 from jdTextEdit.Settings import Settings
-from PyQt6.QtGui import QFont
-from PyQt6.QtCore import Qt
 from typing import TYPE_CHECKING
+from PyQt6.QtGui import QFont
 
 
 if TYPE_CHECKING:
@@ -19,22 +19,22 @@ class StyleTab(QWidget, SettingsTabBase):
 
         self.themeSelect = QComboBox()
         self.foldSelect = QComboBox()
-        self.fontCheckBox = QCheckBox(env.translate("settingsWindow.style.checkBox.font"))
+        self.fontCheckBox = QCheckBox(QCoreApplication.translate("StyleTab", "Font:"))
         self.fontButton = QPushButton()
-        self.lineNumberCheckBox = QCheckBox(env.translate("settingsWindow.style.checkBox.showLineNumbers"))
-        self.highlightLineCheckBox = QCheckBox(env.translate("settingsWindow.style.checkBox.highlightCurrentLine"))
+        self.lineNumberCheckBox = QCheckBox(QCoreApplication.translate("StyleTab", "Show line numbers"))
+        self.highlightLineCheckBox = QCheckBox(QCoreApplication.translate("StyleTab", "Highlight current line"))
         self.zoomSlider = QSlider(Qt.Orientation.Horizontal)
         self.editorPreview = CodeEdit(env, preview=True)
 
         for key, value in env.themes.items():
             self.themeSelect.addItem(value.getName(), key)
 
-        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.none"))
-        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.plain"))
-        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.circled"))
-        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.boxed"))
-        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.circledTree"))
-        self.foldSelect.addItem(env.translate("settingsWindow.style.foldStyle.boxedTree"))
+        self.foldSelect.addItem(QCoreApplication.translate("StyleTab", "None"))
+        self.foldSelect.addItem(QCoreApplication.translate("StyleTab", "Plain"))
+        self.foldSelect.addItem(QCoreApplication.translate("StyleTab", "Circled"))
+        self.foldSelect.addItem(QCoreApplication.translate("StyleTab", "Boxed"))
+        self.foldSelect.addItem(QCoreApplication.translate("StyleTab", "CircledTree"))
+        self.foldSelect.addItem(QCoreApplication.translate("StyleTab", "BoxedTree"))
 
         self.zoomSlider.setMaximum(20)
         self.zoomSlider.setMinimum(-10)
@@ -61,15 +61,15 @@ class StyleTab(QWidget, SettingsTabBase):
                 self.editorPreview.setLanguage(i)
 
         gridLayout = QGridLayout()
-        gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.theme")),0,0)
-        gridLayout.addWidget(self.themeSelect,0,1)
-        gridLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.foldStyle")),1,0)
-        gridLayout.addWidget(self.foldSelect,1,1)
-        gridLayout.addWidget(self.fontCheckBox,2,0)
-        gridLayout.addWidget(self.fontButton,2,1)
+        gridLayout.addWidget(QLabel(QCoreApplication.translate("StyleTab", "Editor theme:")), 0, 0)
+        gridLayout.addWidget(self.themeSelect, 0, 1)
+        gridLayout.addWidget(QLabel(QCoreApplication.translate("StyleTab", "Fold style:")), 1, 0)
+        gridLayout.addWidget(self.foldSelect, 1, 1)
+        gridLayout.addWidget(self.fontCheckBox, 2, 0)
+        gridLayout.addWidget(self.fontButton, 2, 1)
 
         zoomLayout = QHBoxLayout()
-        zoomLayout.addWidget(QLabel(env.translate("settingsWindow.style.label.defaultZoom")))
+        zoomLayout.addWidget(QLabel(QCoreApplication.translate("StyleTab", "Default zoom:")))
         zoomLayout.addStretch()
         zoomLayout.addWidget(self.zoomSlider)
 
@@ -115,14 +115,14 @@ class StyleTab(QWidget, SettingsTabBase):
         self.updatePreviewEdit()
 
     def getSettings(self, settings: Settings):
-        settings.set("editTheme",self.themeSelect.itemData(self.themeSelect.currentIndex()))
-        settings.set("editFoldStyle",self.foldSelect.currentIndex())
-        settings.set("useCustomFont",self.fontCheckBox.isChecked())
-        settings.set("editFont",self.font)
-        settings.set("editShowLineNumbers",self.lineNumberCheckBox.isChecked())
-        settings.set("highlightCurrentLine",self.highlightLineCheckBox.isChecked())
-        settings.set("defaultZoom",self.zoomSlider.value())
+        settings.set("editTheme", self.themeSelect.itemData(self.themeSelect.currentIndex()))
+        settings.set("editFoldStyle", self.foldSelect.currentIndex())
+        settings.set("useCustomFont", self.fontCheckBox.isChecked())
+        settings.set("editFont", self.font)
+        settings.set("editShowLineNumbers", self.lineNumberCheckBox.isChecked())
+        settings.set("highlightCurrentLine", self.highlightLineCheckBox.isChecked())
+        settings.set("defaultZoom", self.zoomSlider.value())
         return settings
 
     def title(self) -> str:
-        return self.env.translate("settingsWindow.style")
+        return QCoreApplication.translate("StyleTab", "Style")

@@ -385,6 +385,29 @@
     </message>
 </context>
 <context>
+    <name>DayTipWindow</name>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="19"/>
+        <source>Show tips on startup</source>
+        <translation>Tipps beim Programmstart anzeigen</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="20"/>
+        <source>Next tip</source>
+        <translation>Nächster Tipp</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="21"/>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="36"/>
+        <source>Tip of the day</source>
+        <translation>Tipp des Tages</translation>
+    </message>
+</context>
+<context>
     <name>DebugInfoWindow</name>
     <message>
         <location filename="../gui/DebugInfoWindow.py" line="23"/>
@@ -400,6 +423,14 @@
         <location filename="../gui/DebugInfoWindow.py" line="42"/>
         <source>Debug Information</source>
         <translation>Debuginformationen</translation>
+    </message>
+</context>
+<context>
+    <name>DefaultTheme</name>
+    <message>
+        <location filename="../core/DefaultTheme.py" line="38"/>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1633,6 +1664,70 @@
     </message>
 </context>
 <context>
+    <name>PluginLoader</name>
+    <message>
+        <location filename="../core/PluginLoader.py" line="35"/>
+        <source>Additional Packages required</source>
+        <translation>Zusätzliche Pakete benötigt</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="35"/>
+        <source>{{plugin}} requires some additional packages. Do you want to install them?</source>
+        <translation>{{plugin}} benötigt zusätzliche Pakete. Möchtest du sie instalieren?</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="41"/>
+        <source>Installing packages...&lt;br&gt;This may take some time</source>
+        <comment>The &lt;br&gt; marks a line break</comment>
+        <translation type="unfinished">Installiere Pakete...&lt;br&gt;Das dauert möglicherweise entwas</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="47"/>
+        <source>Pip not found</source>
+        <translation>Pip nicht gefudnen</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="47"/>
+        <source>Pip was not found</source>
+        <translation>Pip wurde nicht gefunden</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="52"/>
+        <source>Instalation failed</source>
+        <translation>Installation fehlgeschlagen</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="52"/>
+        <source>The instalation of the packages failed</source>
+        <translation>Die Instalation der Pakete ist fehlgeschlage</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="57"/>
+        <source>Directory {{path}} does not exists</source>
+        <translation>Verzeichnis {{path}} existiert nicht</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="62"/>
+        <source>{{path}} has no manifest.json</source>
+        <translation>{{path}} hat keine manifest.json</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="71"/>
+        <source>{{path}} has no key {{key}}</source>
+        <translation>{{path}} hat keinen Schlüssel {{key}}</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="76"/>
+        <source>Skipping loading of Plugin {{id}}</source>
+        <translation>Überspringe laden von Plugin {{id}}</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="84"/>
+        <source>A Plugin with ID {{id}} is already loaded</source>
+        <translation>EIn Plugin mit der ID {{id}} ist bereits geladen</translation>
+    </message>
+</context>
+<context>
     <name>ProjectWidget</name>
     <message>
         <location filename="../gui/SidebarWidgets/ProjectWidget.py" line="132"/>
@@ -1844,6 +1939,93 @@
     </message>
 </context>
 <context>
+    <name>SearchWindow</name>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="16"/>
+        <source>Regular Expression</source>
+        <translation>Regulärer Ausdruck</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="17"/>
+        <source>Match case</source>
+        <translation>Groß- und Kleinschreibung beachten</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="18"/>
+        <source>Match entire word only</source>
+        <translation>Nur vollständige Wörter berücksichtigen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="19"/>
+        <source>Wrap around</source>
+        <translation>Suche beim Erreichen des Endes am Anfang fortsetzen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="20"/>
+        <source>Search backwards</source>
+        <translation>Rückwärts suchen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="21"/>
+        <source>Show text if hidden</source>
+        <translation>Zeige Text wenn versteckt</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="22"/>
+        <source>Search from a certain range</source>
+        <translation>Ab bestimmtem Bereich suchen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="23"/>
+        <source>Search at Line:</source>
+        <translation>Suche ab Zeile:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="24"/>
+        <source>Search at Column:</source>
+        <translation>Suche ab Spalte:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="27"/>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="75"/>
+        <location filename="../gui/SearchWindow.py" line="28"/>
+        <source>Find</source>
+        <translation>Suchen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SearchWindow.py" line="47"/>
+        <source>Search for:</source>
+        <translation>Suche nach:</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsWindow</name>
+    <message>
+        <location filename="../gui/SettingsWindow.py" line="39"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsWindow.py" line="40"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsWindow.py" line="41"/>
+        <source>Default</source>
+        <translation>Standard</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsWindow.py" line="71"/>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+</context>
+<context>
     <name>StatusBarTab</name>
     <message>
         <location filename="../gui/SettingsTabs/StatusBarTab.py" line="17"/>
@@ -1892,6 +2074,74 @@
         <location filename="../gui/StatusBarWidgets/PathWidget.py" line="13"/>
         <source>Path</source>
         <translation>Pfad</translation>
+    </message>
+</context>
+<context>
+    <name>StyleTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="22"/>
+        <source>Font:</source>
+        <translation>Schriftart:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="24"/>
+        <source>Show line numbers</source>
+        <translation>Zeige Zeilennummern</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="25"/>
+        <source>Highlight current line</source>
+        <translation>Aktuelle Zeile hervorheben</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="32"/>
+        <source>None</source>
+        <translation>Keiner</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="33"/>
+        <source>Plain</source>
+        <translation>Schlicht</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="34"/>
+        <source>Circled</source>
+        <translation>Kreisförmig</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="35"/>
+        <source>Boxed</source>
+        <translation>Kasten</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="36"/>
+        <source>CircledTree</source>
+        <translation>Kreisförmiger Baum</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="37"/>
+        <source>BoxedTree</source>
+        <translation>Kastenbaum</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="64"/>
+        <source>Editor theme:</source>
+        <translation>Editordesign:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="66"/>
+        <source>Fold style:</source>
+        <translation>Einklapp Stil:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="72"/>
+        <source>Default zoom:</source>
+        <translation>Standardzoom:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/StyleTab.py" line="128"/>
+        <source>Style</source>
+        <translation>Style</translation>
     </message>
 </context>
 <context>
@@ -1951,8 +2201,162 @@
     </message>
 </context>
 <context>
+    <name>TipOfTheDay</name>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="41"/>
+        <source>You can install plugins by putting them into the plugins directory in the data directory.</source>
+        <translation>Du kannst Plugins installieren indem du sie in den plugins Ordner im Speicherordner kopierst.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="42"/>
+        <source>jdTextEdit is available in multiple languages. You can change the language in the preferences.</source>
+        <translation>jdTextEdit ist in mehreren Sprachen verfügbar. Du kannst die Sprache im Einstellungsmenü ändern.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="43"/>
+        <source>You can open the data directory in the about menu.</source>
+        <translation>Du kannst den Speicherordner über das Hilfemenü öffnen.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="44"/>
+        <source>You can change the syntax highlighter in the language menu.</source>
+        <translation>Du kannst die Syntaxhervorhebung im Sprachmenü ändern.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="45"/>
+        <source>You can edit the Context menu and the toolbar in the preferences.</source>
+        <translation>Du kannst das Kontextmenü und die Werkzeugleiste in den Einstellungen bearbeiten.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="46"/>
+        <source>You can add your own templates to the templates menu by putting them into the templates folder in the data directory.</source>
+        <translation>Du kannst Vorlagen zum Menü hinzufügen indem du sie in den templates Ordner im Speicherordner kopierst.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="47"/>
+        <source>Don&apos;t like the default shortcuts? You can edit all shortcuts in the &quot;Shortcuts&quot; tab of the &quot;Preferences&quot; window.</source>
+        <translation>Bist du mit den normalen Tastenkombinationen unzufrieden? Du kannst alle im Einstellungsmenü unter dem Punkt &quot;Tastenkombinationen&quot; ändern.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="48"/>
+        <source>jdTextEdit has a sidebar with a lot of features! You can enabled it in the &quot;View&quot; menu.</source>
+        <translation>jdTextEdit besitzt eine Seitenleiste mit jeder menge Funktionen! Du kannst sie im &quot;Ansicht&quot; Menü aktivieren.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="49"/>
+        <source>Start jdTextEdit with -p to use it in portable mode.</source>
+        <translation>Starte jdTextEdit mit -p um es im portablen Modus zu nutzen.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="50"/>
+        <source>You can use bookmarks to quickly jump to important points in the code.</source>
+        <translation>Du kannst Lesezeichen benutzen, um schnell zu wichtigen Punkten im Code zu springen.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="51"/>
+        <source>By clicking on the border you can set or remove bookmarks.</source>
+        <translation>Durch einen Klick auf den Rand kannst du Lesezeichen setzen oder entfernen.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="52"/>
+        <source>jdTextEdit automatically checks for updates at startup. You can disable this in the settings. Alternatively you can use the about menu to check for updates.</source>
+        <translation>jdTextEdit sucht beim Start automatisch nach Updates. Du kannst das in den Einstellungen deaktivieren. Alternativ kannst du über das Hilfemenü direkt nach Updates suchen.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="53"/>
+        <source>If you would like to redesign jdTextEdit with your own CSS code, you can create the file userChrome.css in the data directory. You can disable this in the settings.</source>
+        <translation>Wenn du gerne jdTextEdit mit eigenem CSS Code umstylen möchtest, kannst du die Datei userChrome.css im Speicherordner anlegen.
+dayTip.saveSession=jdTextEdit speichert automatisch deine Sitzung, sodass du beim nächsten Mal da weitermachen kannst, wo du aufgehört hast. Du kannst dieses Verhalten in den Einstellungen deaktivieren.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="54"/>
+        <source>jdTextEdit automatically saves your session, so next time you can continue where you left off. You can disable this behavior in the preferences.</source>
+        <translation>jdTextEdit speichert automatisch deine Sitzung, so dass du nächstes Mal da weitermachen kannst, wo du aufgehört hast. Du kannst dieses Verhalten in den Einstellungen deaktivieren.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="55"/>
+        <source>jdTextEdit automatically detects language, line end and encoding of text files. You can disable this in the settings.</source>
+        <translation>jdTextEdit erkennt automatisch Sprache, Zeilenende und Kodierung von Textdateien. Du kannst dies in den Einstellungen deaktivieren.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="56"/>
+        <source>jdTextEdit supports different line ends. The line end of the file is automatically recognized unless you have disabled it in the settings. You can change the line end of the current file in the edit menu. You can also change the settings to show the end of line.</source>
+        <translation>jdTextEdit unterstützt verschiedene Zeilenenden. Das Zeilenende der Datei wird automatisch erkannt, sofern du es in den Einstellungen nicht deaktiviert hast. Du kannst das Zeilenende der aktuellen Datei im Bearbeitenmenü ändern. Über die Einstellungen kannst du dir auch das Zeilenende anzeigen lassen.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="57"/>
+        <source>You can display the current clipboard content in the sidebar.</source>
+        <translation>Du kannst dir den aktuellen Inhalt der Zwischenablage in der Seitenleiste anzeigen lassen.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="58"/>
+        <source>You can set the data folder using the JDTEXTEDIT_DATA_PATH environment variable.</source>
+        <translation>Du kannst den Speicherordner mithilfe der Umgebungsvariable JDTEXTEDIT_DATA_PATH festlegen.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="59"/>
+        <source>If the directory &quot;default_data&quot; is located in the installation folder, it will be used when creating a new storage directory. You can use this to set preferences for multiple computers.</source>
+        <translation>Wenn sich im Installationsorder der Ordner &quot;default_data&quot; befindet, wird dieser beim anlegen eines neuen Speicherordners benutzt. Du kannst dies nutzen, um Voreinstellungn für mehrere Computer zu treffen.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="60"/>
+        <source>You can open files by dragging and dropping them into the window.</source>
+        <translation>Du kannst Dateien öffnen, indem du sie per Drag and Drop in das Fenster ziehst.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="61"/>
+        <source>jdTextEdit supports the .editorconfig standard.</source>
+        <translation>jdTextEdit unterstützt den .editorconfig Standard.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="62"/>
+        <source>Read the documentation of jdTextEdit at https://jdtextedit.readthedocs.io</source>
+        <translation>Wirf einen Blick auf die Dokumentation von jdTextEdit unter https://jdtextedit.readthedocs.io</translation>
+    </message>
+    <message>
+        <location filename="../gui/DayTipWindow.py" line="63"/>
+        <source>Did you know that jdTextEdit runs on Linux, Windows macOS and Haiku?</source>
+        <translation>Weiist du, dass jdTextEdit unter Windows, macOS, Linux und Haiku läuft?</translation>
+    </message>
+</context>
+<context>
     <name>Updater</name>
     <message>
+        <location filename="../Updater.py" line="26"/>
+        <source>No write permission</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="26"/>
+        <source>You do not have write access to the installation folder. Please download the latest version by yourself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="68"/>
+        <location filename="../Updater.py" line="34"/>
+        <source>No internet connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="68"/>
+        <location filename="../Updater.py" line="34"/>
+        <source>An Internet connection is required for this feature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="73"/>
+        <location filename="../Updater.py" line="36"/>
+        <source>Unknown error</source>
+        <translation type="unfinished">Unbekannter Fehler</translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="73"/>
+        <location filename="../Updater.py" line="36"/>
+        <source>An unknown error has occurred</source>
+        <translation type="unfinished">Ein Unbekannter Fehler ist aufgetreten</translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="59"/>
         <location filename="../Updater.py" line="57"/>
         <source>requests not found</source>
         <translation type="unfinished"></translation>
@@ -1960,6 +2364,41 @@
     <message>
         <location filename="../Updater.py" line="57"/>
         <source>This feature needs the Python requests module installed to work</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="66"/>
+        <source>You need a internet connection to search for updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="77"/>
+        <source>New Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="78"/>
+        <source>Version {{version}} of jdTextEdit is now aviable. Do you want do download it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="79"/>
+        <source>Yes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="80"/>
+        <source>No</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="86"/>
+        <source>No updates available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Updater.py" line="86"/>
+        <source>There are currently no updates available. You are using the latest version.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
