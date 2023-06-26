@@ -1183,21 +1183,48 @@ class MainWindow(QMainWindow):
 
         if self.env.settings.detectLanguage and not(isBigFile and self.env.settings.bigFileDisableHighlight):
             for i in self.env.languageList:
-                for e in i.getExtensions():
+                languageOverwrite = self.env.languageOverwrites.get(i.getID(), {})
+
+                print(languageOverwrite)
+                if "extensions" in languageOverwrite and languageOverwrite["extensions"]["enabled"]:
+                    print("HHHH")
+                    extensions = languageOverwrite["extensions"]["textList"]
+                else:
+                    extensions = i.getExtensions()
+
+                if "starttext" in languageOverwrite and languageOverwrite["starttext"]["enabled"]:
+                    starttext = languageOverwrite["starttext"]["textList"]
+                else:
+                    starttext = i.getStarttext()
+
+                if "mimetypes" in languageOverwrite and languageOverwrite["mimetypes"]["enabled"]:
+                    mimetypes= languageOverwrite["mimetypes"]["textList"]
+                else:
+                    mimetypes = i.getMimeType()
+
+                foundExtension = False
+
+                for e in extensions:
                     if path.endswith(e):
+                        foundExtension = True
                         editWidget.setLanguage(i)
                         break
-                else:
+
+                if foundExtension:
                     break
 
-                for e in i.getStarttext():
+                foundStarttext = False
+
+                for e in starttext:
                     if fileContent.startswith(e):
+                        foundStarttext = True
                         editWidget.setLanguage(i)
                         break
-                else:
+
+                if foundStarttext:
                     break
 
-                if self.env.mimeDatabase.mimeTypeForFile(path).name() in i.getMimeType():
+                if self.env.mimeDatabase.mimeTypeForFile(path).name() in mimetypes:
                     editWidget.setLanguage(i)
                     break
 
@@ -1208,11 +1235,11 @@ class MainWindow(QMainWindow):
             containerWidget.showBanner(WrongEncodingBanner(self.env, containerWidget))
         if self.env.settings.showEolBanner:
             if editWidget.eolMode() == QsciScintilla.EolMode.EolWindows and editWidget.settings.defaultEolMode != 0:
-                containerWidget.showBanner(WrongEolBanner(self.env, containerWidget))
+                containerWidget.showBanner(WrongEolBanner(containerWidget))
             elif editWidget.eolMode() == QsciScintilla.EolMode.EolUnix and editWidget.settings.defaultEolMode != 1:
-                containerWidget.showBanner(WrongEolBanner(self.env, containerWidget))
+                containerWidget.showBanner(WrongEolBanner(containerWidget))
             elif editWidget.eolMode() == QsciScintilla.EolMode.EolMac and editWidget.settings.defaultEolMode != 2:
-                containerWidget.showBanner(WrongEolBanner(self.env, containerWidget))
+                containerWidget.showBanner(WrongEolBanner(containerWidget))
         if isBigFile and self.env.settings.bigFileShowBanner:
             containerWidget.showBanner(BigFileBanner(containerWidget))
         if encodingError:

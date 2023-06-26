@@ -19,3 +19,14 @@ class EncodingDetectFunctionResult(TypedDict):
     encoding: str
     language: str
     confidence: float
+
+
+class LanguageOverwriteEntryData(TypedDict):
+    textList: list[str]
+    enabled: bool
+
+
+class LanguageOverwriteEntry(TypedDict):
+    extensions: LanguageOverwriteEntryData
+    starttext: LanguageOverwriteEntryData
+    mimetypes: LanguageOverwriteEntryData

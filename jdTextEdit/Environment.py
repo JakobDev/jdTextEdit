@@ -15,6 +15,7 @@ from jdTextEdit.core.api.PluginAPI import PluginAPI
 from jdTextEdit.core.DefaultTheme import DefaultTheme
 from jdTextEdit.core.FileTheme import FileTheme
 from jdTextEdit.api.LanguageBase import LanguageBase
+from jdTextEdit.api.Types import LanguageOverwriteEntry
 from typing import Optional, Callable, TYPE_CHECKING
 import importlib
 import argparse
@@ -124,6 +125,7 @@ class Environment():
             lang = BuiltinLanguage(self, i)
             self.languageList.append(lang)
 
+        self.languageOverwrites: dict[str, LanguageOverwriteEntry] = readJsonFile(os.path.join(self.dataDir, "languageOverwrites.json"), {"overwrites": {}})["overwrites"]
         self.updateTemplates()
 
         self.statusBarWidgetDict = {}

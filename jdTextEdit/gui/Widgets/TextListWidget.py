@@ -3,7 +3,7 @@ from PyQt6.QtCore import QCoreApplication
 
 
 class TextListWidget(QWidget):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self._listWidget = QListWidget()
@@ -14,6 +14,8 @@ class TextListWidget(QWidget):
 
         self._listWidget.itemSelectionChanged.connect(self._updateButtonsEnabled)
         addButton.clicked.connect(self._addButtonClicked)
+        self._editButton.clicked.connect(self._editButtonClicked)
+        self._removeButton.clicked.connect(self._removeButtonClicked)
 
         buttonLayout = QHBoxLayout()
         buttonLayout.addWidget(addButton)
@@ -35,7 +37,21 @@ class TextListWidget(QWidget):
         self._listWidget.addItem(text)
         self._updateButtonsEnabled()
 
-    def _updateButtonsEnabled(self):
+    def _editButtonClicked(self) -> None:
+        item = self._listWidget.currentItem()
+        text = QInputDialog.getText(self, QCoreApplication.translate("TextListWidget", "Edit Item"), QCoreApplication.translate("TextListWidget", "Please edit a text"), text=item.text())[0]
+
+        if text == "":
+            return
+
+        item.setText(text)
+        self._updateButtonsEnabled()
+
+    def _removeButtonClicked(self) -> None:
+        self._listWidget.takeItem(self._listWidget.currentRow())
+        self._updateButtonsEnabled()
+
+    def _updateButtonsEnabled(self) -> None:
         enabled = self._listWidget.currentRow() != -1
         self._editButton.setEnabled(enabled)
         self._removeButton.setEnabled(enabled)
@@ -46,7 +62,7 @@ class TextListWidget(QWidget):
         self._updateButtonsEnabled()
 
     def getTextList(self) -> list[str]:
-        textList = []
+        textList: list[str] = []
         for i in range(self._listWidget.count()):
             textList.append(self._listWidget.item(i).text())
         return textList

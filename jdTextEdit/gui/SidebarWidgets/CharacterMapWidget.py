@@ -1,13 +1,20 @@
 from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView
 from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
+from PyQt6.QtCore import QCoreApplication
+from typing import TYPE_CHECKING
 from PyQt6.QtCore import Qt
 
 
-class CharacterMapWidget(QTableWidget,SidebarWidgetBase):
-    def __init__(self, env):
-        super().__init__(256,2)
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
+class CharacterMapWidget(QTableWidget, SidebarWidgetBase):
+    def __init__(self, env: "Environment") -> None:
+        super().__init__(256, 2)
         self.env = env
-        self.setHorizontalHeaderLabels((env.translate("sidebar.charactermap.decimal"),env.translate("sidebar.charactermap.character")))
+
+        self.setHorizontalHeaderLabels((QCoreApplication.translate("CharacterMapWidget", "Decimal"), QCoreApplication.translate("CharacterMapWidget", "Character"),))
         self.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
         self.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
         self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
@@ -22,7 +29,7 @@ class CharacterMapWidget(QTableWidget,SidebarWidgetBase):
         self.cellClicked.connect(lambda row, column: env.mainWindow.getTextEditWidget().insertText(chr(row)))
 
     def getName(self) -> str:
-        return self.env.translate("sidebar.charactermap")
+        return QCoreApplication.translate("CharacterMapWidget", "Character Map")
 
     def getID(self) -> str:
         return "charactermap"

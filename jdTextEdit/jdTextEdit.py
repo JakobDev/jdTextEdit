@@ -137,7 +137,8 @@ def main():
 
     # Ask for automatic updates on first run
     if env.firstRun and env.enableUpdater:
-        answer = QMessageBox.question(env.mainWindow, env.translate("automaticUpdateSearch.title"), env.translate("automaticUpdateSearch.text"))
+        answer = QMessageBox.question(env.mainWindow, QCoreApplication.translate("jdTextEdit", "Enable automatic update search"), QCoreApplication.translate("jdTextEdit", "jdTextEdit offers the possibility to automatically check for updates every time the programme is started. Do you want to activate this? You can change this behaviour later in the settings."))
+
         if answer == QMessageBox.StandardButton.Yes:
             env.settings.set("searchUpdates", True)
         else:

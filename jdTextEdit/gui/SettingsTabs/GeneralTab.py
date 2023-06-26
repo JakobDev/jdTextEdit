@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QComboBox, QLabel, QCheckBox, QGridLayout, QVBoxLayout, QSpinBox
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from PyQt6.QtCore import QCoreApplication
 from jdTextEdit.Settings import Settings
 from typing import TYPE_CHECKING
 import os
@@ -10,23 +11,24 @@ if TYPE_CHECKING:
 
 
 class GeneralTab(QWidget, SettingsTabBase):
-    def __init__(self, env: "Environment"):
+    def __init__(self, env: "Environment") -> None:
         super().__init__()
         self.env = env
 
         self.languageComboBox = QComboBox()
         self.recentFilesSpinBox = QSpinBox()
-        self.saveCloseCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveClose"))
-        self.saveSessionCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveSession"))
-        self.pluginsCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.loadPlugins"))
-        self.nativeIconsCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.useNativeIcons"))
-        self.dayTipCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.dayTip"))
-        self.windowTitleCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.windowFileTitle"))
-        self.searchUpdatesCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.searchUpdates"))
-        self.windowStateCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.saveWindowState"))
-        self.fileChangedBannerCheckBox = QCheckBox(env.translate("settingsWindow.general.checkBox.showFileChangedBanner"))
-        self.languageComboBox.addItem(env.translate("settingsWindow.general.combobox.systemDefault"))
-        self.languageComboBox.setItemData(0,"default")
+        self.saveCloseCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Ask for save, when trying to close a edited file"))
+        self.saveSessionCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Save Session"))
+        self.pluginsCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Load Plugins"))
+        self.nativeIconsCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Use native Icons"))
+        self.dayTipCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Show tip of the day on startup"))
+        self.windowTitleCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Show filename in window title"))
+        self.searchUpdatesCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Check for updates at startup"))
+        self.windowStateCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Save window status"))
+        self.fileChangedBannerCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Monitor open files for changes"))
+
+        self.languageComboBox.addItem(QCoreApplication.translate("GeneralTab", "Use system default"))
+        self.languageComboBox.setItemData(0, "default")
 
         count = 1
         languageList = os.listdir(os.path.join(env.programDir, "translation"))
@@ -34,13 +36,13 @@ class GeneralTab(QWidget, SettingsTabBase):
             language = i[:-5]
             self.languageComboBox.addItem(env.translate("language." + language))
             self.languageComboBox.setItemData(count, language)
-            count +=1
+            count += 1
 
         gridLayout = QGridLayout()
-        gridLayout.addWidget(QLabel(env.translate("settingsWindow.general.label.languageSelect")),0,0)
-        gridLayout.addWidget(self.languageComboBox,0,1)
-        gridLayout.addWidget(QLabel(env.translate("settingsWindow.general.label.maxRecentFiles")),1,0)
-        gridLayout.addWidget(self.recentFilesSpinBox,1,1)
+        gridLayout.addWidget(QLabel(QCoreApplication.translate("GeneralTab", "Language (needs restart):")), 0, 0)
+        gridLayout.addWidget(self.languageComboBox, 0, 1)
+        gridLayout.addWidget(QLabel(QCoreApplication.translate("GeneralTab", "Length of recent files list")), 1, 0)
+        gridLayout.addWidget(self.recentFilesSpinBox, 1, 1)
 
         mainLayout = QVBoxLayout()
         mainLayout.addLayout(gridLayout)
@@ -58,10 +60,11 @@ class GeneralTab(QWidget, SettingsTabBase):
 
         self.setLayout(mainLayout)
 
-    def updateTab(self, settings: Settings):
+    def updateTab(self, settings: Settings) -> None:
         for i in range(self.languageComboBox.count()):
             if self.languageComboBox.itemData(i) == settings.language:
                 self.languageComboBox.setCurrentIndex(i)
+
         self.recentFilesSpinBox.setValue(settings.maxRecentFiles)
         self.saveCloseCheckBox.setChecked(settings.saveClose)
         self.saveSessionCheckBox.setChecked(settings.saveSession)
@@ -73,18 +76,18 @@ class GeneralTab(QWidget, SettingsTabBase):
         self.windowStateCheckBox.setChecked(settings.saveWindowState)
         self.fileChangedBannerCheckBox.setChecked(settings.showFileChangedBanner)
 
-    def getSettings(self, settings: Settings):
-        settings.set("language",self.languageComboBox.itemData(self.languageComboBox.currentIndex()))
-        settings.set("maxRecentFiles",self.recentFilesSpinBox.value())
-        settings.set("saveClose",self.saveCloseCheckBox.isChecked())
-        settings.set("saveSession",self.saveSessionCheckBox.isChecked())
-        settings.set("loadPlugins",self.pluginsCheckBox.isChecked())
-        settings.set("useNativeIcons",self.nativeIconsCheckBox.isChecked())
-        settings.set("startupDayTip",self.dayTipCheckBox.isChecked())
-        settings.set("windowFileTitle",self.windowTitleCheckBox.isChecked())
-        settings.set("searchUpdates",self.searchUpdatesCheckBox.isChecked())
-        settings.set("saveWindowState",self.windowStateCheckBox.isChecked())
-        settings.set("showFileChangedBanner",self.fileChangedBannerCheckBox.isChecked())
+    def getSettings(self, settings: Settings) -> None:
+        settings.set("language", self.languageComboBox.itemData(self.languageComboBox.currentIndex()))
+        settings.set("maxRecentFiles", self.recentFilesSpinBox.value())
+        settings.set("saveClose", self.saveCloseCheckBox.isChecked())
+        settings.set("saveSession", self.saveSessionCheckBox.isChecked())
+        settings.set("loadPlugins", self.pluginsCheckBox.isChecked())
+        settings.set("useNativeIcons", self.nativeIconsCheckBox.isChecked())
+        settings.set("startupDayTip", self.dayTipCheckBox.isChecked())
+        settings.set("windowFileTitle", self.windowTitleCheckBox.isChecked())
+        settings.set("searchUpdates", self.searchUpdatesCheckBox.isChecked())
+        settings.set("saveWindowState", self.windowStateCheckBox.isChecked())
+        settings.set("showFileChangedBanner", self.fileChangedBannerCheckBox.isChecked())
 
     def title(self) -> str:
-        return self.env.translate("settingsWindow.general")
+        return QCoreApplication.translate("GeneralTab", "General")

@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QCheckBox, QLineEdit, QLabel, QSpinBox, QHBoxLayout, QVBoxLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from PyQt6.QtCore import QCoreApplication
 from jdTextEdit.Settings import Settings
 from typing import TYPE_CHECKING
 
@@ -9,16 +10,16 @@ if TYPE_CHECKING:
 
 
 class SaveTab(QWidget, SettingsTabBase):
-    def __init__(self, env: "Environment"):
+    def __init__(self, env: "Environment") -> None:
         super().__init__()
         self.env = env
 
-        self.eolFileEndCheckBox = QCheckBox(env.translate("settingsWindow.save.checkBox.eolFileEnd"))
-        self.stripSpacesCheckBox = QCheckBox(env.translate("settingsWindow.save.checkBox.stripSpaces"))
-        self.backupCheckBox = QCheckBox(env.translate("settingsWindow.save.checkBox.enableBackup"))
-        self.autoSaveCheckBox = QCheckBox(env.translate("settingsWindow.save.checkBox.enableAutoSave"))
-        self.autoSaveLabel = QLabel(env.translate("settingsWindow.save.label.autoSaveInterval"))
-        self.backupLabel = QLabel(env.translate("settingsWindow.save.label.backupExtension"))
+        self.eolFileEndCheckBox = QCheckBox(QCoreApplication.translate("SaveTab", "Insert end of line at end of file when saving"))
+        self.stripSpacesCheckBox = QCheckBox(QCoreApplication.translate("SaveTab", "Remove all spaces at the end of the line when saving"))
+        self.backupCheckBox = QCheckBox(QCoreApplication.translate("SaveTab", "Create a backup copy of files before saving"))
+        self.autoSaveCheckBox = QCheckBox(QCoreApplication.translate("SaveTab", "Enable automatic saving"))
+        self.autoSaveLabel = QLabel(QCoreApplication.translate("SaveTab", "Saving interval in seconds:"))
+        self.backupLabel = QLabel(QCoreApplication.translate("SaveTab", "Backup extension:"))
         self.autoSaveIntervalSpinBox = QSpinBox()
         self.backupExtensionEdit = QLineEdit()
 
@@ -45,12 +46,12 @@ class SaveTab(QWidget, SettingsTabBase):
 
         self.setLayout(mainLayout)
 
-    def updateBackupExtensionEnabled(self):
+    def updateBackupExtensionEnabled(self) -> None:
         enabled = self.backupCheckBox.isChecked()
         self.backupLabel.setEnabled(enabled)
         self.backupExtensionEdit.setEnabled(enabled)
 
-    def updateAutoSaveEnabled(self):
+    def updateAutoSaveEnabled(self) -> None:
         enabled = self.autoSaveCheckBox.isChecked()
         self.autoSaveLabel.setEnabled(enabled)
         self.autoSaveIntervalSpinBox.setEnabled(enabled)
@@ -74,4 +75,4 @@ class SaveTab(QWidget, SettingsTabBase):
         settings.set("autoSaveInterval", self.autoSaveIntervalSpinBox.value())
 
     def title(self) -> str:
-        return self.env.translate("settingsWindow.save")
+        return QCoreApplication.translate("SaveTab", "Save")

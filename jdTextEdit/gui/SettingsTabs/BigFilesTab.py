@@ -69,11 +69,11 @@ class BigFilesTab(QWidget, SettingsTabBase):
             i[0].setChecked(settings.get(i[1]))
 
     def getSettings(self, settings: Settings) -> None:
-        settings.set("enableBigFileLimit",self.enableBigFiles.isChecked())
-        settings.set("bigFileSize",int(self.bytesEdit.text()))
-        settings.set("bigFileDisableHighlight",self.disableHighlight.isChecked())
-        settings.set("bigFileDisableEncodingDetect",self.disableEncodingDetect.isChecked())
-        settings.set("bigFileShowBanner",self.showBanner.isChecked())
+        settings.set("enableBigFileLimit", self.enableBigFiles.isChecked())
+        settings.set("bigFileSize", int(self.bytesEdit.text()))
+        settings.set("bigFileDisableHighlight", self.disableHighlight.isChecked())
+        settings.set("bigFileDisableEncodingDetect", self.disableEncodingDetect.isChecked())
+        settings.set("bigFileShowBanner", self.showBanner.isChecked())
 
     def title(self) -> str:
         return QCoreApplication.translate("BigFilesTab", "Big Files")

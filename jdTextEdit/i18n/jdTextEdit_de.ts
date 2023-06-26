@@ -260,6 +260,24 @@
     </message>
 </context>
 <context>
+    <name>CharacterMapWidget</name>
+    <message>
+        <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="17"/>
+        <source>Decimal</source>
+        <translation>Dezimal</translation>
+    </message>
+    <message>
+        <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="17"/>
+        <source>Character</source>
+        <translation>Zeichen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="32"/>
+        <source>Character Map</source>
+        <translation>Zeichentabelle</translation>
+    </message>
+</context>
+<context>
     <name>CloseSaveWindow</name>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="17"/>
@@ -349,6 +367,21 @@
         <translation>Löschen</translation>
     </message>
     <message>
+        <location filename="../gui/DateTimeWindow.py" line="47"/>
+        <source>Use custom format</source>
+        <translation>Eigenes Format benutzen</translation>
+    </message>
+    <message>
+        <location filename="../gui/DateTimeWindow.py" line="50"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/DateTimeWindow.py" line="51"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
         <location filename="../gui/DateTimeWindow.py" line="100"/>
         <source>Insert Date and Time</source>
         <translation>Datum und Uhrzeit einfügen</translation>
@@ -430,7 +463,7 @@
     <message>
         <location filename="../core/DefaultTheme.py" line="38"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard</translation>
     </message>
 </context>
 <context>
@@ -504,22 +537,85 @@
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="128"/>
         <source>Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprache:</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="159"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="160"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="175"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Name:</translation>
+    </message>
+</context>
+<context>
+    <name>EditorTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="22"/>
+        <source>Insert Spaces instead of Tabs</source>
+        <translation>Benutze Leerzeichen anstelle von Tabs</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="23"/>
+        <source>Enable Text wrapping</source>
+        <translation>Automatischen Zeilenumbruch aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="24"/>
+        <source>Show Whitespaces</source>
+        <translation>Alle Zeichen anzeigen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="25"/>
+        <source>Automatic indentation</source>
+        <translation>Automatischer Einzug</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="26"/>
+        <source>Show indentation guides</source>
+        <translation>Zeige Einrückhilfen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="27"/>
+        <source>Show end of line</source>
+        <translation>Zeige Zeilenende</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="36"/>
+        <source>Plain Text</source>
+        <translation>Reiner Text</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="39"/>
+        <source>Default encoding:</source>
+        <translation>Standardkodierung:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="41"/>
+        <source>Default end of line:</source>
+        <translation>Standardzeilenende:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="43"/>
+        <source>Default language:</source>
+        <translation>Standardsprache:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="45"/>
+        <source>Default width:</source>
+        <translation>Tabulatorbreite:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="98"/>
+        <source>Editor</source>
+        <translation>Editor</translation>
     </message>
 </context>
 <context>
@@ -573,12 +669,12 @@
 <context>
     <name>Environment</name>
     <message>
-        <location filename="../Environment.py" line="172"/>
+        <location filename="../Environment.py" line="174"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../Environment.py" line="173"/>
+        <location filename="../Environment.py" line="175"/>
         <source>Templates</source>
         <translation>Vorlagen</translation>
     </message>
@@ -651,6 +747,74 @@
     </message>
 </context>
 <context>
+    <name>GeneralTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="20"/>
+        <source>Ask for save, when trying to close a edited file</source>
+        <translation>Vor dem schließen einer Datei nachfragen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="21"/>
+        <source>Save Session</source>
+        <translation>Sitzung speichern</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="22"/>
+        <source>Load Plugins</source>
+        <translation>Plugins laden</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="23"/>
+        <source>Use native Icons</source>
+        <translation>Native Icons benutzen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="24"/>
+        <source>Show tip of the day on startup</source>
+        <translation>Zeige Tipp des Tages beim starten</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="25"/>
+        <source>Show filename in window title</source>
+        <translation>Dateiname in Fenstertitel zeigen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="26"/>
+        <source>Check for updates at startup</source>
+        <translation>Beim Starten nach Updates suchen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="27"/>
+        <source>Save window status</source>
+        <translation>Status der Fenster speichern</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="28"/>
+        <source>Monitor open files for changes</source>
+        <translation>Geöffnete Dateien auf Änderungen überwachen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="30"/>
+        <source>Use system default</source>
+        <translation>Benutze Systemsprache</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="42"/>
+        <source>Language (needs restart):</source>
+        <translation>SPrache (benötigt Neustart):</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="44"/>
+        <source>Length of recent files list</source>
+        <translation>Länge der Liste der zuletzt geöffneten Dateien</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="93"/>
+        <source>General</source>
+        <translation>Allgemein</translation>
+    </message>
+</context>
+<context>
     <name>GotoLineWindow</name>
     <message>
         <location filename="../gui/GotoLineWindow.py" line="17"/>
@@ -676,43 +840,128 @@
 <context>
     <name>InterfaceTab</name>
     <message>
-        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="18"/>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="21"/>
+        <source>Swap position of OK and Cancel (needs restart)</source>
+        <translation>Position von OK und Abbrechen tauschen (benötigt Neustart)</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="22"/>
+        <source>Enable loading of userChrome.css</source>
+        <translation>Benutze userChrome.css wenn vorhanden</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="23"/>
         <source>Use custom Datetime format</source>
         <translation>benutze eigenes Datumszeit Format</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="58"/>
-        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="20"/>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="63"/>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="25"/>
         <source>Preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="38"/>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="27"/>
+        <source>System style</source>
+        <translation>Systemdesign</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="30"/>
+        <source>Modern</source>
+        <translation>Modern</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="31"/>
+        <source>Classic</source>
+        <translation>Klassisch</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="37"/>
+        <source>Application style:</source>
+        <translation>Anwendungsdesign:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="39"/>
+        <source>Settings Design (needs restart):</source>
+        <translation>Einstellungsdesign (benötigt Neustart):</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="43"/>
         <source>Format:</source>
         <translation>Format:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="60"/>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="65"/>
         <source>Format invalid</source>
         <translation>Ungültiges Format</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="60"/>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="65"/>
         <source>This format is not valid</source>
         <translation>Dieses Format ist nicht gültig</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/InterfaceTab.py" line="102"/>
+        <source>Interface</source>
+        <translation>Oberfläche</translation>
     </message>
 </context>
 <context>
     <name>LanguageOverwritesWindow</name>
     <message>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="20"/>
+        <source>Enable overwrite</source>
+        <translation>Überschreiben aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="21"/>
+        <source>Reset</source>
+        <translation>Zurücksetzen</translation>
+    </message>
+    <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="61"/>
+        <source>Filenames with this Extension are detected as the current Language</source>
+        <translation>Dateinamen mit dieser Endung werden als die aktuelle Sprache erkannst</translation>
+    </message>
+    <message>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="62"/>
+        <source>Files that start with this Text are detected as the current Language</source>
+        <translation>dateien die mit diesem text starten werden als die aktuelle Sprache erkannst</translation>
+    </message>
+    <message>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="63"/>
+        <source>Files that have this MimeType are detected as the current Language</source>
+        <translation>Dateien mit diesem MimeType werden als diese Sprache erkannt</translation>
+    </message>
+    <message>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="65"/>
+        <source>Extensions</source>
+        <translation>Dateierweiterungen</translation>
+    </message>
+    <message>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="66"/>
+        <source>Starts with</source>
+        <translation>Beginnt mit</translation>
+    </message>
+    <message>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="67"/>
+        <source>MimeType</source>
+        <translation>MimeType</translation>
+    </message>
+    <message>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="97"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="62"/>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="98"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="123"/>
+        <source>Manage languages</source>
+        <translation>Sprachen verwalten</translation>
     </message>
 </context>
 <context>
@@ -741,8 +990,8 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../gui/MainWindow.py" line="1375"/>
-        <location filename="../gui/MainWindow.py" line="1292"/>
+        <location filename="../gui/MainWindow.py" line="1402"/>
+        <location filename="../gui/MainWindow.py" line="1319"/>
         <location filename="../gui/MainWindow.py" line="1149"/>
         <location filename="../gui/MainWindow.py" line="70"/>
         <location filename="../gui/MainWindow.py" line="67"/>
@@ -775,7 +1024,7 @@
         <translation>&amp;Öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1323"/>
+        <location filename="../gui/MainWindow.py" line="1350"/>
         <location filename="../gui/MainWindow.py" line="182"/>
         <source>Open Directory</source>
         <translation>Verzeichnis öffnen</translation>
@@ -786,7 +1035,7 @@
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1354"/>
+        <location filename="../gui/MainWindow.py" line="1381"/>
         <location filename="../gui/MainWindow.py" line="200"/>
         <source>Save as ...</source>
         <translation>Speichern unter ...</translation>
@@ -1097,7 +1346,7 @@
         <translation>Daten exportieren</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1675"/>
+        <location filename="../gui/MainWindow.py" line="1702"/>
         <location filename="../gui/MainWindow.py" line="655"/>
         <source>Import data</source>
         <translation>Daten importieren</translation>
@@ -1158,7 +1407,7 @@
         <translation>Makro ausführen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1624"/>
+        <location filename="../gui/MainWindow.py" line="1651"/>
         <location filename="../gui/MainWindow.py" line="713"/>
         <source>Save macro</source>
         <translation>Aufgenommenes Makro speichern</translation>
@@ -1224,7 +1473,7 @@
         <translation>Debuginformationen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1699"/>
+        <location filename="../gui/MainWindow.py" line="1726"/>
         <location filename="../gui/MainWindow.py" line="795"/>
         <source>Delete all data</source>
         <translation>Alle Daten löschen</translation>
@@ -1330,127 +1579,127 @@
         <translation>Du hast nicht die Berechtigung, um {{path}} zu öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1706"/>
-        <location filename="../gui/MainWindow.py" line="1656"/>
-        <location filename="../gui/MainWindow.py" line="1257"/>
+        <location filename="../gui/MainWindow.py" line="1733"/>
+        <location filename="../gui/MainWindow.py" line="1683"/>
+        <location filename="../gui/MainWindow.py" line="1284"/>
         <location filename="../gui/MainWindow.py" line="1116"/>
         <source>Unknown error</source>
         <translation>Unbekannter Fehler</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1706"/>
-        <location filename="../gui/MainWindow.py" line="1257"/>
+        <location filename="../gui/MainWindow.py" line="1733"/>
+        <location filename="../gui/MainWindow.py" line="1284"/>
         <location filename="../gui/MainWindow.py" line="1116"/>
         <source>An unknown error has occurred</source>
         <translation>Ein Unbekannter Fehler ist aufgetreten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1219"/>
+        <location filename="../gui/MainWindow.py" line="1246"/>
         <source>This file has some decoding errors</source>
         <translation>Diese Datei hat einige Fehler in ihrer Kodierung</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1253"/>
+        <location filename="../gui/MainWindow.py" line="1280"/>
         <source>Can&apos;t save file</source>
         <translation>Kann Datei nicht speichern</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1253"/>
+        <location filename="../gui/MainWindow.py" line="1280"/>
         <source>You don&apos;t have the permission to write {{path}}</source>
         <translation>Du hast nicht die Berechtigung, um {{path}} zu schreiben</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1306"/>
+        <location filename="../gui/MainWindow.py" line="1333"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1384"/>
+        <location filename="../gui/MainWindow.py" line="1411"/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1489"/>
+        <location filename="../gui/MainWindow.py" line="1516"/>
         <source>Custom zoom</source>
         <translation>Eigener Zoom</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1489"/>
+        <location filename="../gui/MainWindow.py" line="1516"/>
         <source>Please enter a value for the zoom in percent</source>
         <translation>Gib einen Wert für den Zoom in Prozent an</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1624"/>
+        <location filename="../gui/MainWindow.py" line="1651"/>
         <source>Please enter a name for the macro</source>
         <translation>Bitte gib einen Namen für das Makro ein</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1633"/>
+        <location filename="../gui/MainWindow.py" line="1660"/>
         <source>Zip Files</source>
         <translation>Zip Dateien</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1634"/>
+        <location filename="../gui/MainWindow.py" line="1661"/>
         <source>All Files</source>
         <translation>Alle Dateien</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1649"/>
+        <location filename="../gui/MainWindow.py" line="1676"/>
         <source>Invalid file</source>
         <translation>Ungültige Datei</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1649"/>
+        <location filename="../gui/MainWindow.py" line="1676"/>
         <source>This file does not contains valid exported data from jdTextEdit</source>
         <translation>Diese Datei enthält nicht valide Exportdaten von jdTextEdit</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1656"/>
+        <location filename="../gui/MainWindow.py" line="1683"/>
         <source>An unknown error happened</source>
         <translation>Ein unbekannter Fehler ist aufgetreten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1659"/>
+        <location filename="../gui/MainWindow.py" line="1686"/>
         <source>Are you sure you want to import the following data?</source>
         <translation>Bist du sicher, dass du die folgenden Daten importieren willst?</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1661"/>
+        <location filename="../gui/MainWindow.py" line="1688"/>
         <source>Date and Time: {{DateTime}}</source>
         <translation>datum und Uhrzeit: {{DateTime}}</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1662"/>
+        <location filename="../gui/MainWindow.py" line="1689"/>
         <source>Platform: {{Platform}}</source>
         <translation>Platform: {{Platform}}</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1663"/>
+        <location filename="../gui/MainWindow.py" line="1690"/>
         <source>Version: {{Version}}</source>
         <translation>Version: {{Version}}</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1665"/>
+        <location filename="../gui/MainWindow.py" line="1692"/>
         <source>It includes the following:</source>
         <translation>Sie enthalten das folgende:</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1673"/>
+        <location filename="../gui/MainWindow.py" line="1700"/>
         <source>If you continue, your data will be overwritten and jdTextEdit will be closed</source>
         <translation>Wenn du fortfährst, werden deine Daten überschreiben und jdTextEdit wird sich schließen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1691"/>
+        <location filename="../gui/MainWindow.py" line="1718"/>
         <source>Import complete</source>
         <translation>Import abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1691"/>
+        <location filename="../gui/MainWindow.py" line="1718"/>
         <source>The Import is now completed. jdTextEdit will now close.</source>
         <translation>Der import ist jetzt abgeschlossen. jdTextEdit wird sich jetzt schließen.</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1699"/>
+        <location filename="../gui/MainWindow.py" line="1726"/>
         <source>This will delete all data of jdTextEdit. After that, jdTextEdit will behave like the first run. jdTexEdit will exit after doing that. Are you sure?</source>
         <translation>Alle Daten von jdTextEdit werden gelöscht. Danch wird sich jdTextEdit wie beim ersten Start verhalten. jdTextEdit beendet sich nach dem löschen. Willst du Fortfahren?</translation>
     </message>
@@ -1573,94 +1822,132 @@
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="60"/>
         <source>Enter name</source>
-        <translation type="unfinished">Namen eingeben</translation>
+        <translation>Namen eingeben</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="60"/>
         <source>Please enter a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte gib einen Namen ein</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="66"/>
         <source>Name exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Name existiert</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="66"/>
         <source>This name already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieser Name existiert bereits</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="84"/>
         <source>Delete {{name}}</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösche {{name}}</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="84"/>
         <source>Are you sure you want to delete {{name}}?</source>
-        <translation type="unfinished"></translation>
+        <translation>Bist du sicher, dass du {{name}} löschen möchtest?</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="116"/>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="93"/>
         <source>JSON Files</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON Dateien</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="117"/>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="94"/>
         <source>All Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Dateien</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="110"/>
         <source>Invalid file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültige Datei</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="110"/>
         <source>This file is not a valid theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Datei ist kein gültiges Thema</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Manage custom themes</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Themen verwalten</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopieren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Importieren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportieren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Close</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Schließen</translation>
+    </message>
+</context>
+<context>
+    <name>PathsTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/PathsTab.py" line="18"/>
+        <source>Follow current document</source>
+        <translation>Wie aktuelle Datei</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PathsTab.py" line="19"/>
+        <source>Remember last used directory</source>
+        <translation>Letztes Verzeichnis merken</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PathsTab.py" line="20"/>
+        <source>Use custom directory</source>
+        <translation>Eigenes Verzeichnis benutzen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PathsTab.py" line="22"/>
+        <source>Browse</source>
+        <translation>Durchsuchen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PathsTab.py" line="84"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PathsTab.py" line="85"/>
+        <source>Open</source>
+        <translation>Öffnen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PathsTab.py" line="103"/>
+        <source>Paths</source>
+        <translation>Pfade</translation>
     </message>
 </context>
 <context>
@@ -1679,7 +1966,7 @@
         <location filename="../core/PluginLoader.py" line="41"/>
         <source>Installing packages...&lt;br&gt;This may take some time</source>
         <comment>The &lt;br&gt; marks a line break</comment>
-        <translation type="unfinished">Installiere Pakete...&lt;br&gt;Das dauert möglicherweise entwas</translation>
+        <translation>Installiere Pakete...&lt;br&gt;Das dauert möglicherweise etwas</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="47"/>
@@ -1725,6 +2012,34 @@
         <location filename="../core/PluginLoader.py" line="84"/>
         <source>A Plugin with ID {{id}} is already loaded</source>
         <translation>EIn Plugin mit der ID {{id}} ist bereits geladen</translation>
+    </message>
+</context>
+<context>
+    <name>PluginTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="19"/>
+        <source>Enabled</source>
+        <translation>Aktiviert</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="20"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="21"/>
+        <source>Version</source>
+        <translation>Version</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="22"/>
+        <source>Author</source>
+        <translation>Autor</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="65"/>
+        <source>Plugins</source>
+        <translation>Plugins</translation>
     </message>
 </context>
 <context>
@@ -1893,6 +2208,44 @@
     </message>
 </context>
 <context>
+    <name>SaveTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/SaveTab.py" line="17"/>
+        <source>Insert end of line at end of file when saving</source>
+        <translation>Beim Speichern Zeilenende am Dateiende einfügen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/SaveTab.py" line="18"/>
+        <source>Remove all spaces at the end of the line when saving</source>
+        <translation>Beim Speichern alle Leerzeichen am Zeilenende entfernen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/SaveTab.py" line="19"/>
+        <source>Create a backup copy of files before saving</source>
+        <translation>Vor dem Speichern ein Backup erstellen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/SaveTab.py" line="20"/>
+        <source>Enable automatic saving</source>
+        <translation>Automatisches speichern aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/SaveTab.py" line="21"/>
+        <source>Saving interval in seconds:</source>
+        <translation>Speicherintervall in Sekunden:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/SaveTab.py" line="22"/>
+        <source>Backup extension:</source>
+        <translation>Backupdateiendung:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/SaveTab.py" line="78"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+</context>
+<context>
     <name>SearchAndReplaceWindow</name>
     <message>
         <location filename="../gui/SearchAndReplaceWindow.py" line="10"/>
@@ -2026,6 +2379,19 @@
     </message>
 </context>
 <context>
+    <name>ShortcutTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/ShortcutTab.py" line="45"/>
+        <source>Reset</source>
+        <translation>Zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ShortcutTab.py" line="70"/>
+        <source>Shortcuts</source>
+        <translation>Tastenkombinationen</translation>
+    </message>
+</context>
+<context>
     <name>StatusBarTab</name>
     <message>
         <location filename="../gui/SettingsTabs/StatusBarTab.py" line="17"/>
@@ -2145,6 +2511,64 @@
     </message>
 </context>
 <context>
+    <name>TabBarTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="18"/>
+        <source>Hide Tabbar when only 1 tab is open</source>
+        <translation>Verstecke Tableiste, wenn nur 1 Tab geöffnet ist</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="19"/>
+        <source>Exit jdTextEdit when the last tab is closed</source>
+        <translation>jdTextEdit beenden wenn der letzte Tab geschlossen wird</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="20"/>
+        <source>Show close button on each tab</source>
+        <translation>Schließen-Kreuz auf jedem Tab</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="21"/>
+        <source>Allow moving tabs with the mouse</source>
+        <translation>Tabs können mit der Maus verschoben werden</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="22"/>
+        <source>Close tabs with double click</source>
+        <translation>Tabs mit einem Doppelklick schließen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="24"/>
+        <source>Up</source>
+        <translation>Oben</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="25"/>
+        <source>Bottom</source>
+        <translation>Unten</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="26"/>
+        <source>Left</source>
+        <translation>Links</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="27"/>
+        <source>Right</source>
+        <translation>Rechts</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="30"/>
+        <source>Position:</source>
+        <translation>Position:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/TabBarTab.py" line="61"/>
+        <source>Tabbar</source>
+        <translation>Tableiste</translation>
+    </message>
+</context>
+<context>
     <name>TerminalEmulatorTab</name>
     <message>
         <location filename="../gui/SettingsTabs/TerminalEmulatorTab.py" line="11"/>
@@ -2177,27 +2601,37 @@
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="11"/>
         <source>Add</source>
-        <translation type="unfinished">Hinzufügen</translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="12"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="13"/>
         <source>Remove</source>
-        <translation type="unfinished">Löschen</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../gui/Widgets/TextListWidget.py" line="30"/>
+        <location filename="../gui/Widgets/TextListWidget.py" line="32"/>
         <source>New Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Item</translation>
     </message>
     <message>
-        <location filename="../gui/Widgets/TextListWidget.py" line="30"/>
+        <location filename="../gui/Widgets/TextListWidget.py" line="32"/>
         <source>Please enter a text</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte gib einen Text ein</translation>
+    </message>
+    <message>
+        <location filename="../gui/Widgets/TextListWidget.py" line="42"/>
+        <source>Edit Item</source>
+        <translation>Item bearbeiten</translation>
+    </message>
+    <message>
+        <location filename="../gui/Widgets/TextListWidget.py" line="42"/>
+        <source>Please edit a text</source>
+        <translation>Bitte bearbeite den Text</translation>
     </message>
 </context>
 <context>
@@ -2324,82 +2758,82 @@ dayTip.saveSession=jdTextEdit speichert automatisch deine Sitzung, sodass du bei
     <message>
         <location filename="../Updater.py" line="26"/>
         <source>No write permission</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Schreibrechte</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="26"/>
         <source>You do not have write access to the installation folder. Please download the latest version by yourself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du hast keine Schreibrechte für den Installationsordner. Bitte lade die neuste Version selbst herunter.</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="68"/>
         <location filename="../Updater.py" line="34"/>
         <source>No internet connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Internetverbindung</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="68"/>
         <location filename="../Updater.py" line="34"/>
         <source>An Internet connection is required for this feature</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum nutzen dieses features ist eine Internetverbindung erforderlich</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="73"/>
         <location filename="../Updater.py" line="36"/>
         <source>Unknown error</source>
-        <translation type="unfinished">Unbekannter Fehler</translation>
+        <translation>Unbekannter Fehler</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="73"/>
         <location filename="../Updater.py" line="36"/>
         <source>An unknown error has occurred</source>
-        <translation type="unfinished">Ein Unbekannter Fehler ist aufgetreten</translation>
+        <translation>Ein Unbekannter Fehler ist aufgetreten</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="59"/>
         <location filename="../Updater.py" line="57"/>
         <source>requests not found</source>
-        <translation type="unfinished"></translation>
+        <translation>requests not found</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="57"/>
         <source>This feature needs the Python requests module installed to work</source>
-        <translation type="unfinished"></translation>
+        <translation>DIe requests Python Bibliothek muss installiert sein, damit dieses feature funktioniert</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="66"/>
         <source>You need a internet connection to search for updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Zum Suchen nach Updates wird eine Internetverbindung benötigt</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="77"/>
         <source>New Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Version</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="78"/>
         <source>Version {{version}} of jdTextEdit is now aviable. Do you want do download it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Version {{version}} von jdTextEdit ist jetzt verfügbar. Möchtest du sie herunterladen?</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="79"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="80"/>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Nein</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="86"/>
         <source>No updates available</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Updates verfügbar</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="86"/>
         <source>There are currently no updates available. You are using the latest version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es sind keine Updates verfügbar. Du nutzt bereits die neuste Version.</translation>
     </message>
 </context>
 <context>
@@ -2407,22 +2841,32 @@ dayTip.saveSession=jdTextEdit speichert automatisch deine Sitzung, sodass du bei
     <message>
         <location filename="../jdTextEdit.py" line="52"/>
         <source>The following optional Python modules are missing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Die folgenden python Module fehlen:</translation>
     </message>
     <message>
         <location filename="../jdTextEdit.py" line="55"/>
         <source>jdTextEdit will run without this modules, but some features are not working. You probably want to install them.</source>
-        <translation type="unfinished"></translation>
+        <translation>jdTextEdit wird auch ohne siese module starten, allerdings funktionieren ein paar Features nicht. DU willst diese module wahrscheinlich installieren.</translation>
     </message>
     <message>
         <location filename="../jdTextEdit.py" line="58"/>
         <source>Don&apos;t show this again</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht erneut anzeigen</translation>
     </message>
     <message>
         <location filename="../jdTextEdit.py" line="61"/>
         <source>Missing optional modules</source>
-        <translation type="unfinished"></translation>
+        <translation>fehlende optionale Module</translation>
+    </message>
+    <message>
+        <location filename="../jdTextEdit.py" line="140"/>
+        <source>Enable automatic update search</source>
+        <translation>Automatische Suche nach Updates aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../jdTextEdit.py" line="140"/>
+        <source>jdTextEdit offers the possibility to automatically check for updates every time the programme is started. Do you want to activate this? You can change this behaviour later in the settings.</source>
+        <translation>jdTextEdit bietet die Möglichkeit bei jedem Programmstart automatisch nach Updates zu suchen. Möchtest du dies aktivieren? Du kannst dieses Verhalten später in den Einstellungen noch ändern.</translation>
     </message>
 </context>
 </TS>
