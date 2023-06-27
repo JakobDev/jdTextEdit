@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 class EditTabWidget(QTabWidget):
     tabsChanged = pyqtSignal()
 
-    def __init__(self, env: "Environment", splitViewWidget: "SplitViewWidget", splitID: int):
+    def __init__(self, env: "Environment", splitViewWidget: "SplitViewWidget", splitID: int) -> None:
         super().__init__()
         self.env = env
         self.splitViewWidget = splitViewWidget
@@ -27,7 +27,7 @@ class EditTabWidget(QTabWidget):
         self.currentChanged.connect(self.tabChange)
         self.tabBarDoubleClicked.connect(self.tabDoubleClicked)
 
-    def createTab(self, title: Optional[str] = None, focus: bool = False):
+    def createTab(self, title: Optional[str] = None, focus: bool = False) -> None:
         """
         Creates a new tab with a edit container
         :param title: The title
@@ -74,7 +74,7 @@ class EditTabWidget(QTabWidget):
             pass
             #print(e)
 
-    def tabCloseClicked(self, tabid: int, notCloseProgram: bool = False, forceExit: bool = False):
+    def tabCloseClicked(self, tabid: int, notCloseProgram: bool = False, forceExit: bool = False) -> None:
         if self.widget(tabid).getCodeEditWidget().isModified() and self.env.settings.saveClose:
             try:
                 self.env.closeSaveWindow.openWindow(tabid,self)
@@ -88,7 +88,7 @@ class EditTabWidget(QTabWidget):
                         self.env.mainWindow.saveDataClose()
                         sys.exit(0)
                     else:
-                        self.createTab(self.env.translate("mainWindow.newTabTitle"),focus=True)
+                        self.createTab(QCoreApplication.translate("EditTabWidget", "Untitled"), focus=True)
                 else:
                     #Delete widget from Splitter
                     self.close()
@@ -97,16 +97,16 @@ class EditTabWidget(QTabWidget):
         self.tabsChanged.emit()
         self.env.tabWidgetSignals.tabClosed.emit(self)
 
-    def tabDoubleClicked(self, tabid: int):
+    def tabDoubleClicked(self, tabid: int) -> None:
         if self.env.settings.tabDoubleClickClose:
             self.tabCloseClicked(tabid)
 
-    def updateTabTitle(self, index: int):
+    def updateTabTitle(self, index: int) -> None:
         editWidget = self.widget(index).getCodeEditWidget()
         if editWidget.customTabName != "":
             self.setTabText(index, editWidget.customTabName)
         elif editWidget.filePath == "":
-            self.setTabText(index, self.env.translate("mainWindow.newTabTitle"))
+            self.setTabText(index, QCoreApplication.translate("EditTabWidget", "Untitled"))
         else:
             self.setTabText(index, os.path.basename(editWidget.filePath))
 

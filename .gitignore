@@ -1,7 +1,8 @@
 __pycache__/
 
 # translations
-.qm
+*.qm
+*.mo
 
 #setup.py
 build/

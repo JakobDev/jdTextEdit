@@ -1,0 +1,16 @@
+{
+    "pluginManagerWindow.title": "Pluginmanager",
+    "pluginManagerWindow.button.ok": "OK",
+    "pluginManagerWindow.button.cancel": "Abbrechen",
+    "pluginManagerWindow.header.installed": "Installiert",
+    "pluginManagerWindow.header.name": "Name",
+    "pluginManagerWindow.header.version": "Version",
+    "pluginManagerWindow.header.author": "Autor",
+    "pluginManagerWindow.welcomeMessage": "Mithilfe dieses Pluginmanagers kannst du Plugins von {{link}} installieren. Setzte dazu einfach ein Häkchen bei Plugins, die du installieren willst und entferne es wieder, wenn du sie deinstallieren willst. Klicke danach auf OK, um die Änderungen durchzuführen.<br><br>Diese Liste zeigt nur Plugins, die im Repo sind. Benutze den Plugins Tab im Einstellungsmenü, um alle installierten Plugins zu sehen.",
+    "pluginManagerWindow.messageBox.noInternet.title": "Keine Internetverbindung",
+    "pluginManagerWindow.messageBox.noInternet.text": "Kann nicht zu {{url}} verbinden",
+    "pluginManagerWindow.messageBox.error.title": "Fehler",
+    "pluginManagerWindow.messageBox.outdatedVersion.title": "Veraltete Version",
+    "pluginManagerWindow.messageBox.outdatedVersion.text": "Dieses Plugin benötigt eine neuere Version von jdTextEdit",
+    "dayTip.pluginmanager": "Mithilfe des Pluginmanagers kannst du ganz einfach Plugins aus dem Internet herunterladen und installieren. Du findest ihn im Bearbeiten Menü."
+}

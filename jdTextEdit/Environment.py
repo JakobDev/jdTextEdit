@@ -86,8 +86,8 @@ class Environment():
             self.settings.load(os.path.join(self.dataDir, "settings.json"))
 
         self._qtTranslator: list[QTranslator] = []
-        self.loadQtTranslations(os.path.join(self.programDir, "i18n"), "jdTextEdit_{{Lang}}.qm")
-        self.loadQtTranslations(QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath), "qt_{{Lang}}.qm")
+        self.loadQtTranslations(os.path.join(self.programDir, "translations"), "jdTextEdit_{{lang}}.qm")
+        self.loadQtTranslations(QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath), "qt_{{lang}}.qm")
         if self.args["language"]:
             self.translations = jdTranslationHelper(lang=self.args["language"], default_language="en")
         elif self.settings.language == "default":
@@ -95,7 +95,6 @@ class Environment():
             self.translations = jdTranslationHelper(lang=system_lang, default_language="en")
         else:
             self.translations = jdTranslationHelper(lang=self.settings.get("language"), default_language="en")
-        self.translations.loadDirectory(os.path.join(self.programDir, "translation"))
 
         self.recentFiles: list[str] = readJsonFile(os.path.join(self.dataDir, "recentfiles.json"), [])
 
@@ -187,14 +186,16 @@ class Environment():
 
     def loadQtTranslations(self, directory: str, filename: str) -> None:
         translator = QTranslator()
+
         if self.args["language"]:
-            translator.load(os.path.join(directory, filename.replace("{{Lang}}", self.args["language"])))
+            translator.load(os.path.join(directory, filename.replace("{{lang}}", self.args["language"])))
         elif self.settings.get("language") == "default":
             systemLang = QLocale.system().name()
-            translator.load(os.path.join(directory, filename.replace("{{Lang}}", systemLang.split("_")[0])))
-            translator.load(os.path.join(directory, filename.replace("{{Lang}}", systemLang)))
+            translator.load(os.path.join(directory, filename.replace("{{lang}}", systemLang.split("_")[0])))
+            translator.load(os.path.join(directory, filename.replace("{{lang}}", systemLang)))
         else:
-            translator.load(os.path.join(directory, filename.replace("{{Lang}}", self.settings.get("language"))))
+            translator.load(os.path.join(directory, filename.replace("{{lang}}", self.settings.get("language"))))
+
         self.app.installTranslator(translator)
         self._qtTranslator.append(translator)
 

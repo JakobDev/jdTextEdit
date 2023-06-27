@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QComboBox, QLabel, QCheckBox, QGridLayout, QVBoxLayout, QSpinBox
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from jdTextEdit.Languages import getLanguageNames
 from PyQt6.QtCore import QCoreApplication
 from jdTextEdit.Settings import Settings
 from typing import TYPE_CHECKING
@@ -27,15 +28,18 @@ class GeneralTab(QWidget, SettingsTabBase):
         self.windowStateCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Save window status"))
         self.fileChangedBannerCheckBox = QCheckBox(QCoreApplication.translate("GeneralTab", "Monitor open files for changes"))
 
-        self.languageComboBox.addItem(QCoreApplication.translate("GeneralTab", "Use system default"))
-        self.languageComboBox.setItemData(0, "default")
+        self.languageComboBox.addItem(QCoreApplication.translate("GeneralTab", "Use system default"), "default")
 
         count = 1
-        languageList = os.listdir(os.path.join(env.programDir, "translation"))
+        languageNames = getLanguageNames()
+        languageList = os.listdir(os.path.join(env.programDir, "translations"))
+        self.languageComboBox.addItem(languageNames["en"], "en")
         for i in languageList:
-            language = i[:-5]
-            self.languageComboBox.addItem(env.translate("language." + language))
-            self.languageComboBox.setItemData(count, language)
+            if not i.endswith(".qm"):
+                continue
+
+            language = i.removeprefix("jdTextEdit_").removesuffix(".qm")
+            self.languageComboBox.addItem(languageNames.get(language, language), language)
             count += 1
 
         gridLayout = QGridLayout()

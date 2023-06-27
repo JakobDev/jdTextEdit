@@ -1,6 +1,11 @@
 from jdTextEdit.api.StatusBarWidgetBase import StatusBarWidgetBase
 from PyQt6.QtCore import QCoreApplication
 from PyQt6.QtWidgets import QLabel
+from typing import TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    from jdTextEdit.gui.MainWindow import MainWindow
 
 
 class PathWidget(QLabel, StatusBarWidgetBase):
@@ -12,5 +17,5 @@ class PathWidget(QLabel, StatusBarWidgetBase):
     def getName() -> str:
         return QCoreApplication.translate("StatusBarWidgets", "Path")
 
-    def updateWidget(self, mainWindow):
+    def updateWidget(self, mainWindow: "MainWindow") -> None:
         self.setText(mainWindow.getTextEditWidget().filePath)

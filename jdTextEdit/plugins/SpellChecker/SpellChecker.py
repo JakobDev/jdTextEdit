@@ -37,7 +37,7 @@ class SpellChecker(QObject):
         words = linecon.split(" ")
         startpos = 0
         for w in words:
-            w = w.replace("\n","")
+            w = w.replace("\n", "")
             endpos = startpos + len(w)
             if w != "" and not (len(w) < self.settings.spellCheckingMinimumWordLength):
                 if not self.dict.check(w):
@@ -58,14 +58,15 @@ class SpellChecker(QObject):
     def open_file_function(self, editor: "CodeEdit"):
         if editor.isBigFile():
             return
-        for linenum in range(0,editor.lines()):
-            self.check_line(editor,linenum)
+        for linenum in range(0, editor.lines()):
+            self.check_line(editor, linenum)
 
-    def restore_session_function(self, editor: "CodeEdit", data):
+    def restore_session_function(self, editor: "CodeEdit", data: dict) -> None:
         if editor.isBigFile():
             return
-        for linenum in range(0,editor.lines()):
-            self.check_line(editor,linenum)
+
+        for linenum in range(0, editor.lines()):
+            self.check_line(editor, linenum)
 
     def text_changed_function(self, editor: "CodeEdit"):
         linenum = editor.cursorPosLine
@@ -76,7 +77,7 @@ class SpellChecker(QObject):
         if self.current_language != settings.spellCheckingLanguage or self.enable_custom_pwl != settings.spellCheckingEnableCustomPwl or self.custom_pwl_path != settings.spellCheckingCustomPwlPath:
             self.update_language()
 
-    def editor_settings_updated(self,editor, settings):
+    def editor_settings_updated(self, editor, settings):
         if editor.spell_checking_language != self.settings.spellCheckingLanguage or \
         editor.enable_spell_checking != self.settings.spellCheckingEnabled or \
         editor.spell_checking_minum_word_length != self.settings.spellCheckingMinimumWordLength or \
@@ -135,4 +136,4 @@ class SpellChecker(QObject):
         if action:
             data = action.data()
             self.dict.add_to_pwl(data[2])
-            self.check_line(data[4],data[3])
+            self.check_line(data[4], data[3])

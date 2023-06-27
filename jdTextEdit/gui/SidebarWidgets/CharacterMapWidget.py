@@ -19,13 +19,15 @@ class CharacterMapWidget(QTableWidget, SidebarWidgetBase):
         self.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
         self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.verticalHeader().hide()
+
         for i in range(256):
             decimalItem = QTableWidgetItem(str(i))
             decimalItem.setFlags(decimalItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
             charItem = QTableWidgetItem(chr(i))
             charItem.setFlags(charItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
-            self.setItem(i, 0,decimalItem)
-            self.setItem(i, 1,charItem)
+            self.setItem(i, 0, decimalItem)
+            self.setItem(i, 1, charItem)
+
         self.cellClicked.connect(lambda row, column: env.mainWindow.getTextEditWidget().insertText(chr(row)))
 
     def getName(self) -> str:

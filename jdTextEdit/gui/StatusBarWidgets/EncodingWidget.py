@@ -1,6 +1,11 @@
 from jdTextEdit.api.StatusBarWidgetBase import StatusBarWidgetBase
 from PyQt6.QtCore import QCoreApplication
 from PyQt6.QtWidgets import QLabel
+from typing import TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    from jdTextEdit.gui.MainWindow import MainWindow
 
 
 class EncodingWidget(QLabel, StatusBarWidgetBase):
@@ -12,5 +17,5 @@ class EncodingWidget(QLabel, StatusBarWidgetBase):
     def getName() -> str:
         return QCoreApplication.translate("StatusBarWidgets", "Encoding")
 
-    def updateWidget(self, mainWindow):
+    def updateWidget(self, mainWindow: "MainWindow") -> None:
         self.setText(mainWindow.getTextEditWidget().usedEncoding)

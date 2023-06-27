@@ -1,4 +1,5 @@
 from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
+from PyQt6.QtCore import QCoreApplication
 from PyQt6.QtGui import QFileSystemModel
 from PyQt6.QtWidgets import QTreeView
 from PyQt6.QtCore import QModelIndex
@@ -11,9 +12,10 @@ if TYPE_CHECKING:
 
 
 class FileTreeWidget(QTreeView, SidebarWidgetBase):
-    def __init__(self, env: "Environment"):
+    def __init__(self, env: "Environment") -> None:
         QTreeView.__init__(self)
         self.env = env
+
         model = QFileSystemModel()
         model.setRootPath('/')
         self.setModel(model)
@@ -28,7 +30,7 @@ class FileTreeWidget(QTreeView, SidebarWidgetBase):
             self.env.pluginAPI.openFile(path)
 
     def getName(self) -> str:
-        return self.env.translate("sidebar.files")
+        return QCoreApplication.translate("FileTreeWidget", "Files")
 
     def getID(self) -> str:
         return "files"

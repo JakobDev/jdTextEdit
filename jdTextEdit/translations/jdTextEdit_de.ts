@@ -272,9 +272,22 @@
         <translation>Zeichen</translation>
     </message>
     <message>
-        <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="32"/>
+        <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="34"/>
         <source>Character Map</source>
         <translation>Zeichentabelle</translation>
+    </message>
+</context>
+<context>
+    <name>ClipboardWidget</name>
+    <message>
+        <location filename="../gui/SidebarWidgets/ClipboardWidget.py" line="12"/>
+        <source>At the moment, there is nothing in the clipboard</source>
+        <translation>Momentan befindet sich nichts in der Zwischenablage</translation>
+    </message>
+    <message>
+        <location filename="../gui/SidebarWidgets/ClipboardWidget.py" line="21"/>
+        <source>Clipboard</source>
+        <translation>Zwischenablage</translation>
     </message>
 </context>
 <context>
@@ -312,6 +325,15 @@
     </message>
 </context>
 <context>
+    <name>CodeEdit</name>
+    <message>
+        <location filename="../gui/CodeEdit.py" line="126"/>
+        <location filename="../gui/CodeEdit.py" line="53"/>
+        <source>Plain Text</source>
+        <translation>Reiner Text</translation>
+    </message>
+</context>
+<context>
     <name>ContextMenuTab</name>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="30"/>
@@ -325,21 +347,21 @@
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="32"/>
-        <source>Up</source>
-        <translation>Nach oben</translation>
+        <source>Move Up</source>
+        <translation>Nach Oben</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="33"/>
-        <source>Down</source>
-        <translation>Nach unten</translation>
+        <source>Move Down</source>
+        <translation>Nach Unten</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="99"/>
+        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="96"/>
         <source>Unknown Action</source>
         <translation>Unbekannte Aktion</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="119"/>
+        <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="116"/>
         <source>Context menu</source>
         <translation>Kontextmenü</translation>
     </message>
@@ -510,7 +532,86 @@
     </message>
 </context>
 <context>
+    <name>EditCommandsWindow</name>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="19"/>
+        <source>Add</source>
+        <translation>Hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="20"/>
+        <source>Remove</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="21"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="22"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="24"/>
+        <source>Text</source>
+        <translation>Text</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="24"/>
+        <source>Command</source>
+        <translation>Befehl</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="24"/>
+        <source>Terminal</source>
+        <translation>Terminal</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="24"/>
+        <source>Shortcut</source>
+        <translation>Tastenkombination</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="49"/>
+        <source>Full URL of the currently active file</source>
+        <translation>Vollständige URL zur aktuellen Datei</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="50"/>
+        <source>Full path of the currently active file</source>
+        <translation>Vollständiger Pfad zur aktuellen Datei</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="51"/>
+        <source>Directory of the currently active file</source>
+        <translation>Verzeichnis der aktuellen Datei</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="52"/>
+        <source>Name of the currently active file</source>
+        <translation>Name der aktuellen Datei</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="53"/>
+        <source>Currently selected text</source>
+        <translation>Momentan markierter Text</translation>
+    </message>
+    <message>
+        <location filename="../gui/EditCommandsWindow.py" line="58"/>
+        <source>Edit Commands</source>
+        <translation>Befehle bearbeiten</translation>
+    </message>
+</context>
+<context>
     <name>EditTabWidget</name>
+    <message>
+        <location filename="../gui/EditTabWidget.py" line="109"/>
+        <location filename="../gui/EditTabWidget.py" line="91"/>
+        <source>Untitled</source>
+        <translation>Unbenannt</translation>
+    </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="123"/>
         <source>Set custom tab name</source>
@@ -669,14 +770,62 @@
 <context>
     <name>Environment</name>
     <message>
-        <location filename="../Environment.py" line="174"/>
+        <location filename="../Environment.py" line="173"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../Environment.py" line="175"/>
+        <location filename="../Environment.py" line="174"/>
         <source>Templates</source>
         <translation>Vorlagen</translation>
+    </message>
+</context>
+<context>
+    <name>ExecuteCommandWindow</name>
+    <message>
+        <location filename="../gui/ExecuteCommandWindow.py" line="18"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/ExecuteCommandWindow.py" line="19"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <location filename="../gui/ExecuteCommandWindow.py" line="20"/>
+        <source>Execute in Terminal</source>
+        <translation>Im Terminal ausführen</translation>
+    </message>
+    <message>
+        <location filename="../gui/ExecuteCommandWindow.py" line="31"/>
+        <source>Full URL of the currently active file</source>
+        <translation>Vollständige URL zur aktuellen Datei</translation>
+    </message>
+    <message>
+        <location filename="../gui/ExecuteCommandWindow.py" line="32"/>
+        <source>Full path of the currently active file</source>
+        <translation>Vollständiger Pfad zur aktuellen Datei</translation>
+    </message>
+    <message>
+        <location filename="../gui/ExecuteCommandWindow.py" line="33"/>
+        <source>Directory of the currently active file</source>
+        <translation>Verzeichnis der aktuellen Datei</translation>
+    </message>
+    <message>
+        <location filename="../gui/ExecuteCommandWindow.py" line="34"/>
+        <source>Name of the currently active file</source>
+        <translation>Name der aktuellen Datei</translation>
+    </message>
+    <message>
+        <location filename="../gui/ExecuteCommandWindow.py" line="35"/>
+        <source>Currently selected text</source>
+        <translation>Momentan markierter Text</translation>
+    </message>
+    <message>
+        <location filename="../gui/ExecuteCommandWindow.py" line="42"/>
+        <source>Execute Command</source>
+        <translation>Befehl ausführen</translation>
     </message>
 </context>
 <context>
@@ -723,6 +872,14 @@
     </message>
 </context>
 <context>
+    <name>FileTreeWidget</name>
+    <message>
+        <location filename="../gui/SidebarWidgets/FileTreeWidget.py" line="33"/>
+        <source>Files</source>
+        <translation>Dateien</translation>
+    </message>
+</context>
+<context>
     <name>Functions</name>
     <message>
         <location filename="../Functions.py" line="95"/>
@@ -749,67 +906,67 @@
 <context>
     <name>GeneralTab</name>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="20"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="21"/>
         <source>Ask for save, when trying to close a edited file</source>
         <translation>Vor dem schließen einer Datei nachfragen</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="21"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="22"/>
         <source>Save Session</source>
         <translation>Sitzung speichern</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="22"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="23"/>
         <source>Load Plugins</source>
         <translation>Plugins laden</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="23"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="24"/>
         <source>Use native Icons</source>
         <translation>Native Icons benutzen</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="24"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="25"/>
         <source>Show tip of the day on startup</source>
         <translation>Zeige Tipp des Tages beim starten</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="25"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="26"/>
         <source>Show filename in window title</source>
         <translation>Dateiname in Fenstertitel zeigen</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="26"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="27"/>
         <source>Check for updates at startup</source>
         <translation>Beim Starten nach Updates suchen</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="27"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="28"/>
         <source>Save window status</source>
         <translation>Status der Fenster speichern</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="28"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="29"/>
         <source>Monitor open files for changes</source>
         <translation>Geöffnete Dateien auf Änderungen überwachen</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="30"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="31"/>
         <source>Use system default</source>
         <translation>Benutze Systemsprache</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="42"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="46"/>
         <source>Language (needs restart):</source>
         <translation>SPrache (benötigt Neustart):</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="44"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="48"/>
         <source>Length of recent files list</source>
         <translation>Länge der Liste der zuletzt geöffneten Dateien</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/GeneralTab.py" line="93"/>
+        <location filename="../gui/SettingsTabs/GeneralTab.py" line="97"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
@@ -904,6 +1061,19 @@
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="102"/>
         <source>Interface</source>
         <translation>Oberfläche</translation>
+    </message>
+</context>
+<context>
+    <name>Language</name>
+    <message>
+        <location filename="../Languages.py" line="6"/>
+        <source>English</source>
+        <translation>Englisch</translation>
+    </message>
+    <message>
+        <location filename="../Languages.py" line="7"/>
+        <source>German</source>
+        <translation>Deutsch</translation>
     </message>
 </context>
 <context>
@@ -1913,6 +2083,62 @@
     </message>
 </context>
 <context>
+    <name>NotesWidget</name>
+    <message>
+        <location filename="../gui/SidebarWidgets/NotesWidget.py" line="10"/>
+        <source>You can write down notes here</source>
+        <translation>Du kannst dir hier Notizen machen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SidebarWidgets/NotesWidget.py" line="13"/>
+        <source>Notes</source>
+        <translation>Notizen</translation>
+    </message>
+</context>
+<context>
+    <name>OpenTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/OpenTab.py" line="19"/>
+        <source>Always open files in this instance</source>
+        <translation>Dateien immer in dieser Instanz öffnen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/OpenTab.py" line="20"/>
+        <source>Detect language</source>
+        <translation>Sprache automatisch erkennen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/OpenTab.py" line="21"/>
+        <source>Detect end of line</source>
+        <translation>Zeilenende automatisch erkennen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/OpenTab.py" line="22"/>
+        <source>Detect encoding</source>
+        <translation>Kodierung automatisch erkennen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/OpenTab.py" line="23"/>
+        <source>Warn when encoding is not the default setting</source>
+        <translation>Warnen, wenn Zeichenkodierung nicht den Standardeinstellungen entspricht</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/OpenTab.py" line="24"/>
+        <source>Warn when end of line is not the default setting</source>
+        <translation>Warnen, wenn Zeilenende nicht den Standardeinstellungen entspricht</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/OpenTab.py" line="31"/>
+        <source>Detect encoding with:</source>
+        <translation>Erkenne Kodierung mit:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/OpenTab.py" line="68"/>
+        <source>Open</source>
+        <translation>Öffnen</translation>
+    </message>
+</context>
+<context>
     <name>PathsTab</name>
     <message>
         <location filename="../gui/SettingsTabs/PathsTab.py" line="18"/>
@@ -2392,6 +2618,14 @@
     </message>
 </context>
 <context>
+    <name>SplitViewWidget</name>
+    <message>
+        <location filename="../gui/SplitViewWidget.py" line="71"/>
+        <source>Untitled</source>
+        <translation>Unbenannt</translation>
+    </message>
+</context>
+<context>
     <name>StatusBarTab</name>
     <message>
         <location filename="../gui/SettingsTabs/StatusBarTab.py" line="17"/>
@@ -2412,32 +2646,32 @@
 <context>
     <name>StatusBarWidgets</name>
     <message>
-        <location filename="../gui/StatusBarWidgets/CursorPosWidget.py" line="13"/>
+        <location filename="../gui/StatusBarWidgets/CursorPosWidget.py" line="18"/>
         <source>Cursor position</source>
         <translation>Cursorposition</translation>
     </message>
     <message>
-        <location filename="../gui/StatusBarWidgets/CursorPosWidget.py" line="18"/>
+        <location filename="../gui/StatusBarWidgets/CursorPosWidget.py" line="23"/>
         <source>Ln {line}, Col {column}</source>
         <translation>Z. {line}, Sp. {column}</translation>
     </message>
     <message>
-        <location filename="../gui/StatusBarWidgets/EncodingWidget.py" line="13"/>
+        <location filename="../gui/StatusBarWidgets/EncodingWidget.py" line="18"/>
         <source>Encoding</source>
         <translation>Kodierung</translation>
     </message>
     <message>
-        <location filename="../gui/StatusBarWidgets/EolWidget.py" line="19"/>
+        <location filename="../gui/StatusBarWidgets/EolWidget.py" line="24"/>
         <source>End of Line</source>
         <translation>Zeilenende</translation>
     </message>
     <message>
-        <location filename="../gui/StatusBarWidgets/LanguageWidget.py" line="13"/>
+        <location filename="../gui/StatusBarWidgets/LanguageWidget.py" line="18"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location filename="../gui/StatusBarWidgets/PathWidget.py" line="13"/>
+        <location filename="../gui/StatusBarWidgets/PathWidget.py" line="18"/>
         <source>Path</source>
         <translation>Pfad</translation>
     </message>
@@ -2566,6 +2800,14 @@
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="61"/>
         <source>Tabbar</source>
         <translation>Tableiste</translation>
+    </message>
+</context>
+<context>
+    <name>TabListWidget</name>
+    <message>
+        <location filename="../gui/SidebarWidgets/TabListWidget.py" line="37"/>
+        <source>Tabs</source>
+        <translation>Tabs</translation>
     </message>
 </context>
 <context>
@@ -2751,6 +2993,99 @@ dayTip.saveSession=jdTextEdit speichert automatisch deine Sitzung, sodass du bei
         <location filename="../gui/DayTipWindow.py" line="63"/>
         <source>Did you know that jdTextEdit runs on Linux, Windows macOS and Haiku?</source>
         <translation>Weiist du, dass jdTextEdit unter Windows, macOS, Linux und Haiku läuft?</translation>
+    </message>
+</context>
+<context>
+    <name>ToolbarTab</name>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="31"/>
+        <source>Add</source>
+        <translation>Hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="32"/>
+        <source>Remove</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="33"/>
+        <source>Move Up</source>
+        <translation>Nach Oben</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="34"/>
+        <source>Move Down</source>
+        <translation>Nach Unten</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="36"/>
+        <source>Show Toolbar</source>
+        <translation>Werkzeugleiste zeigen</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="40"/>
+        <source>Icon only</source>
+        <translation>Nur Icon</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="41"/>
+        <source>Text only</source>
+        <translation>Nur Text</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="42"/>
+        <source>Text beside Icons</source>
+        <translation>Text neben Icons</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="43"/>
+        <source>Text under Icons</source>
+        <translation>Text unter Icons</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="44"/>
+        <source>Follow OS Style</source>
+        <translation>Systemeinstellung</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="46"/>
+        <source>Up</source>
+        <translation>Oben</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="47"/>
+        <source>Bottom</source>
+        <translation>Unten</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="48"/>
+        <source>Left</source>
+        <translation>Links</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="49"/>
+        <source>Right</source>
+        <translation>Rechts</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="76"/>
+        <source>Toolbar button style:</source>
+        <translation>Werkzeugleistenstil:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="78"/>
+        <source>Position:</source>
+        <translation>Position:</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="122"/>
+        <source>Unknown Action</source>
+        <translation>Unbekannte Aktion</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/ToolbarTab.py" line="147"/>
+        <source>Toolbar</source>
+        <translation>Werkzeugleiste</translation>
     </message>
 </context>
 <context>

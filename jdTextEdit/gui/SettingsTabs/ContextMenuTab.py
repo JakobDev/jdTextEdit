@@ -29,8 +29,8 @@ class ContextMenuTab(QWidget, SettingsTabBase):
         self.actionsList = QListWidget()
         addButton = QPushButton(QCoreApplication.translate("ContextMenuTab", "Add"))
         removeButton = QPushButton(QCoreApplication.translate("ContextMenuTab", "Remove"))
-        upButton = QPushButton(QCoreApplication.translate("ContextMenuTab", "Up"))
-        downButton = QPushButton(QCoreApplication.translate("ContextMenuTab", "Down"))
+        upButton = QPushButton(QCoreApplication.translate("ContextMenuTab", "Move Up"))
+        downButton = QPushButton(QCoreApplication.translate("ContextMenuTab", "Move Down"))
         self.contextList = QListWidget()
 
         addButton.setIcon(QIcon.fromTheme("go-next"))
@@ -91,10 +91,7 @@ class ContextMenuTab(QWidget, SettingsTabBase):
         for i in settings.editContextMenu:
             if i in self.env.menuActions:
                 action = self.env.menuActions[i]
-                if action.text().startswith("&"):
-                    item = CustomWidgetItem(action.text()[1:])
-                else:
-                    item = CustomWidgetItem(action.text())
+                item = CustomWidgetItem(action.text().removeprefix("&"))
             else:
                 item = CustomWidgetItem(QCoreApplication.translate("ContextMenuTab", "Unknown Action"))
             item.setActionName(i)

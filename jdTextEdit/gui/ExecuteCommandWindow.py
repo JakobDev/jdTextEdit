@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QCheckBox, QHBoxLayout, QVBoxLayout, QLayout
 from jdTextEdit.Functions import executeCommand
+from PyQt6.QtCore import QCoreApplication
 from typing import TYPE_CHECKING
-import os
 
 
 if TYPE_CHECKING:
@@ -10,14 +10,14 @@ if TYPE_CHECKING:
 
 
 class ExecuteCommandWindow(QWidget):
-    def __init__(self, env: "Environment"):
+    def __init__(self, env: "Environment") -> None:
         super().__init__()
         self.env = env
 
         self.commandEdit = QLineEdit()
-        okButton = QPushButton(env.translate("button.ok"))
-        cancelButton = QPushButton(env.translate("button.cancel"))
-        self.terminalCheckBox = QCheckBox(env.translate("executeCommandWindow.runTerminal"))
+        okButton = QPushButton(QCoreApplication.translate("ExecuteCommandWindow", "OK"))
+        cancelButton = QPushButton(QCoreApplication.translate("ExecuteCommandWindow", "Cancel"))
+        self.terminalCheckBox = QCheckBox(QCoreApplication.translate("ExecuteCommandWindow", "Execute in Terminal"))
 
         okButton.clicked.connect(self.okButtonClicked)
         cancelButton.clicked.connect(self.close)
@@ -28,26 +28,24 @@ class ExecuteCommandWindow(QWidget):
         buttonLayout.addWidget(okButton)
 
         mainLayout = QVBoxLayout()
-        mainLayout.addWidget(QLabel("%url% - " + env.translate("executeCommand.label.url")))
-        mainLayout.addWidget(QLabel("%path% - " + env.translate("executeCommand.label.path")))
-        mainLayout.addWidget(QLabel("%directory% - " + env.translate("executeCommand.label.directory")))
-        mainLayout.addWidget(QLabel("%filename% - " + env.translate("executeCommand.label.filename")))
-        mainLayout.addWidget(QLabel("%selection% - " + env.translate("executeCommand.label.selection")))
+        mainLayout.addWidget(QLabel("%url% - " + QCoreApplication.translate("ExecuteCommandWindow", "Full URL of the currently active file")))
+        mainLayout.addWidget(QLabel("%path% - " + QCoreApplication.translate("ExecuteCommandWindow", "Full path of the currently active file")))
+        mainLayout.addWidget(QLabel("%directory% - " + QCoreApplication.translate("ExecuteCommandWindow", "Directory of the currently active file")))
+        mainLayout.addWidget(QLabel("%filename% - " + QCoreApplication.translate("ExecuteCommandWindow", "Name of the currently active file")))
+        mainLayout.addWidget(QLabel("%selection% - " + QCoreApplication.translate("ExecuteCommandWindow", "Currently selected text")))
         mainLayout.addWidget(self.commandEdit)
         mainLayout.addWidget(self.terminalCheckBox)
-        if os.getenv("SNAP"):
-            mainLayout.addWidget(QLabel(env.translate("executeCommand.label.snap")))
         mainLayout.addLayout(buttonLayout)
         mainLayout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
         self.setLayout(mainLayout)
-        self.setWindowTitle(env.translate("executeCommandWindow.title"))
+        self.setWindowTitle(QCoreApplication.translate("ExecuteCommandWindow", "Execute Command"))
 
-    def openWindow(self, editWidget: "CodeEdit"):
+    def openWindow(self, editWidget: "CodeEdit") -> None:
         self.editWidget = editWidget
         self.show()
         QApplication.setActiveWindow(self)
 
-    def okButtonClicked(self):
+    def okButtonClicked(self) -> None:
         executeCommand(self.env, self.commandEdit.text(), self.editWidget, self.terminalCheckBox.isChecked())
         self.close()

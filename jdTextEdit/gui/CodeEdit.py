@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QMenu
 from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciLexer
 from PyQt6.QtGui import QFontMetrics, QFont, QCursor, QContextMenuEvent, QDragEnterEvent, QDropEvent, QFocusEvent
-from PyQt6.QtCore import QPoint, pyqtSignal
+from PyQt6.QtCore import QPoint, QCoreApplication, pyqtSignal
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase
 from typing import Optional, Any, TYPE_CHECKING
@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 class CodeEdit(QsciScintilla):
     pathChanged = pyqtSignal("QString")
 
-    def __init__(self, env: "Environment", preview: bool = False, isNew: bool = False, container: Optional["EditContainer"] = None):
+    def __init__(self, env: "Environment", preview: bool = False, isNew: bool = False, container: Optional["EditContainer"] = None) -> None:
         super().__init__()
         self.env = env
         self.isPreview = preview
@@ -50,8 +50,7 @@ class CodeEdit(QsciScintilla):
         self.customTabName = ""
         self.currentIndicatorNumber = 0
         self._customTheme = None
-        self.cursorPosString = env.translate("mainWindow.statusBar.cursorPosLabel") % (1, 1)
-        self.languageName = env.translate("mainWindow.menu.language.plainText")
+        self.languageName = QCoreApplication.translate("CodeEdit", "Plain Text")
         self.foldStyles = [QsciScintilla.FoldStyle.NoFoldStyle, QsciScintilla.FoldStyle.PlainFoldStyle, QsciScintilla.FoldStyle.CircledFoldStyle, QsciScintilla.FoldStyle.BoxedFoldStyle, QsciScintilla.FoldStyle.CircledTreeFoldStyle, QsciScintilla.FoldStyle.BoxedTreeFoldStyle]
 
         if container is not None:
@@ -124,7 +123,7 @@ class CodeEdit(QsciScintilla):
         self.currentLexer = None
         self.language = None
         self.updateSettings(self.settings)
-        self.lexerName = self.env.translate("mainWindow.menu.language.plainText")
+        self.lexerName = QCoreApplication.translate("CodeEdit", "Plain Text")
         self.updateStatusBar()
         self.env.editorSignals.languageChanged.emit(self, None)
 

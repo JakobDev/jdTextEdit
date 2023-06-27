@@ -1,21 +1,28 @@
-from PyQt6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QTextBrowser, QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, QAbstractItemView, QHeaderView
-from jdTextEdit.Functions import showMessageBox, readJsonFile
+from PyQt6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem, QTextBrowser, QCheckBox, QPushButton, QHBoxLayout, QVBoxLayout, QAbstractItemView, QHeaderView, QMessageBox
+from jdTextEdit.Functions import readJsonFile
+from typing import TYPE_CHECKING
 from PyQt6.QtCore import Qt
 import requests
 import shutil
 import json
+import sys
 import os
 
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
 class PluginManagerWindow(QWidget):
-    def __init__(self, env):
+    def __init__(self, env: "Environment") -> None:
         super().__init__()
         self.env = env
         self.setupDone = False
         self.pluginList = []
-        self.pluginTable = QTableWidget(0,4)
+        self.pluginTable = QTableWidget(0, 4)
         self.descriptionView = QTextBrowser()
-        okButton = QPushButton(env.translate("button.ok"))
-        cancelButton = QPushButton(env.translate("button.cancel"))
+        okButton = QPushButton(env.translate("pluginManagerWindow.button.ok"))
+        cancelButton = QPushButton(env.translate("pluginManagerWindow.button.cancel"))
 
         self.pluginTable.setHorizontalHeaderLabels((
             env.translate("pluginManagerWindow.header.installed"),
@@ -52,30 +59,33 @@ class PluginManagerWindow(QWidget):
         self.resize(650, 550)
         self.setWindowTitle(env.translate("pluginManagerWindow.title"))
 
-    def openWindow(self):
+    def openWindow(self) -> None:
         if not self.setupDone:
             if not self.setupPluginList():
                 return
-            self.installedList = readJsonFile(os.path.join(self.env.dataDir,"installedPlugins.json"),{})
+
+            self.installedList = readJsonFile(os.path.join(self.env.dataDir, "installedPlugins.json"), {})
             self.setupDone = True
         for i in range(self.pluginTable.rowCount()):
             if self.pluginList[i]["id"] in self.installedList:
-                self.pluginTable.cellWidget(i,0).setChecked(True)
+                self.pluginTable.cellWidget(i, 0).setChecked(True)
             else:
-                self.pluginTable.cellWidget(i,0).setChecked(False)
+                self.pluginTable.cellWidget(i, 0).setChecked(False)
         self.show()
         self.pluginTable.setCurrentCell(-1,-1)
-        self.descriptionView.setHtml(self.env.translate("pluginManagerWindow.welcomeMessage"))
+        self.descriptionView.setHtml(self.env.translate("pluginManagerWindow.welcomeMessage").replace("{{link}}", "<a href=\"https://codeberg.org/JakobDev/jdTextEdit-Plugins\">https://codeberg.org/JakobDev/jdTextEdit-Plugins</a> "))
 
     def setupPluginList(self):
         try:
-            data = requests.get("https://gitlab.com/JakobDev/jdTextEdit-Plugins/raw/master/Plugins.json").json()
+            data = requests.get("https://codeberg.org/JakobDev/jdTextEdit-Plugins/raw/branch/master/Plugins.json").json()
         except requests.exceptions.RequestException:
-            showMessageBox(self.env.translate("pluginManagerWindow.messageBox.noInternet.title"),self.env.translate("pluginManagerWindow.messageBox.noInternet.text"))
+            QMessageBox.critical(self, self.env.translate("pluginManagerWindow.messageBox.noInternet.title"), self.env.translate("pluginManagerWindow.messageBox.noInternet.text").replace("{{url}}", "https://codeberg.org/JakobDev/jdTextEdit-Plugins/raw/branch/master/Plugins.json"))
             return False
+
         except Exception as e:
-            showMessageBox(self.env.translate("pluginManagerWindow.messageBox.error.title"),str(e))
+            QMessageBox.critical(self, self.env.translate("pluginManagerWindow.messageBox.error.title"), str(e))
             return False
+
         for count, i in enumerate(data["pluginlist"]):
             nameItem = QTableWidgetItem(i["name"])
             nameItem.setFlags(nameItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
@@ -85,17 +95,19 @@ class PluginManagerWindow(QWidget):
             authorItem.setFlags(authorItem.flags() ^ Qt.ItemFlag.ItemIsEditable)
             self.pluginTable.insertRow(count)
             self.pluginTable.setCellWidget(count,0,QCheckBox())
-            self.pluginTable.setItem(count,1,nameItem)
-            self.pluginTable.setItem(count,2,versionItem)
-            self.pluginTable.setItem(count,3,authorItem)
-            self.pluginList.append({"id":i["id"],"description":i["description"],"files":i["files"],"neededVersion":i["neededVersion"]})
+            self.pluginTable.setItem(count, 1, nameItem)
+            self.pluginTable.setItem(count, 2, versionItem)
+            self.pluginTable.setItem(count, 3, authorItem)
+            self.pluginList.append({"id": i["id"], "description": i["description"], "files": i["files"], "neededVersion": i["neededVersion"]})
+
         return True
 
-    def installPlugin(self, index):
+    def installPlugin(self, index: int) -> bool:
         if float(self.pluginList[index]["neededVersion"]) > float(self.env.version):
-            showMessageBox("pluginManagerWindow.messageBox.outdatedVersion.title", "pluginManagerWindow.messageBox.outdatedVersion.text")
+            QMessageBox.critical(self, self.env.translate("pluginManagerWindow.messageBox.outdatedVersion.title"), self.env.translate("pluginManagerWindow.messageBox.outdatedVersion.text"))
             return False
-        installPath = os.path.join(self.env.dataDir,"plugins", self.pluginList[index]["id"])
+
+        installPath = os.path.join(self.env.dataDir, "plugins", self.pluginList[index]["id"])
         for filename, url in self.pluginList[index]["files"].items():
             try:
                 r = requests.get(url)
@@ -113,18 +125,20 @@ class PluginManagerWindow(QWidget):
         self.installedList[self.pluginList[index]["id"]] = True
         return True
 
-    def doChanges(self):
+    def doChanges(self) -> None:
         for i in range(self.pluginTable.rowCount()):
-            if self.pluginTable.cellWidget(i,0).checkState():
+            if self.pluginTable.cellWidget(i, 0).checkState():
                 if not self.pluginList[i]["id"] in self.installedList:
                     self.installPlugin(i)
             else:
                 if self.pluginList[i]["id"] in self.installedList:
                     try:
-                        shutil.rmtree(os.path.join(self.env.dataDir,"plugins",self.pluginList[i]["id"]))
+                        shutil.rmtree(os.path.join(self.env.dataDir, "plugins", self.pluginList[i]["id"]))
                         del self.installedList[self.pluginList[i]["id"]]
                     except Exception as e:
-                        print(e)
-        with open(os.path.join(self.env.dataDir,"installedPlugins.json"), 'w', encoding='utf-8') as f:
+                        print(e, file=sys.stderr)
+
+        with open(os.path.join(self.env.dataDir, "installedPlugins.json"), "w", encoding="utf-8") as f:
             json.dump(self.installedList, f, ensure_ascii=False, indent=4)
+
         self.close()

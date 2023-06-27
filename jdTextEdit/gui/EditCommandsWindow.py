@@ -1,20 +1,27 @@
 from PyQt6.QtWidgets import QApplication, QWidget, QLabel, QTableWidget, QAbstractItemView, QPushButton, QCheckBox, QKeySequenceEdit, QTableWidgetItem, QHBoxLayout, QVBoxLayout, QHeaderView
 from jdTextEdit.Functions import restoreWindowState
+from PyQt6.QtCore import QCoreApplication
+from typing import TYPE_CHECKING
 import json
 import os
 
 
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
 class EditCommandsWindow(QWidget):
-    def __init__(self, env):
+    def __init__(self, env: "Environment") -> None:
         super().__init__()
         self.env = env
-        self.commandsTable = QTableWidget(0, 4)
-        addButton = QPushButton(env.translate("button.add"))
-        self.removeButton = QPushButton(env.translate("button.remove"))
-        okButton = QPushButton(env.translate("button.ok"))
-        cancelButton = QPushButton(env.translate("button.cancel"))
 
-        self.commandsTable.setHorizontalHeaderLabels((env.translate("editCommandsWindow.text"), env.translate("editCommandsWindow.command"), env.translate("editCommandsWindow.terminal"), env.translate("editCommandsWindow.shortcut")))
+        self.commandsTable = QTableWidget(0, 4)
+        addButton = QPushButton(QCoreApplication.translate("EditCommandsWindow", "Add"))
+        self.removeButton = QPushButton(QCoreApplication.translate("EditCommandsWindow", "Remove"))
+        okButton = QPushButton(QCoreApplication.translate("EditCommandsWindow", "OK"))
+        cancelButton = QPushButton(QCoreApplication.translate("EditCommandsWindow", "Cancel"))
+
+        self.commandsTable.setHorizontalHeaderLabels((QCoreApplication.translate("EditCommandsWindow", "Text"), QCoreApplication.translate("EditCommandsWindow", "Command"), QCoreApplication.translate("EditCommandsWindow", "Terminal"), QCoreApplication.translate("EditCommandsWindow", "Shortcut")))
         self.commandsTable.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
         self.commandsTable.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
         self.commandsTable.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
@@ -39,23 +46,22 @@ class EditCommandsWindow(QWidget):
             buttonLayout.addWidget(okButton)
 
         mainLayout = QVBoxLayout()
-        mainLayout.addWidget(QLabel("%url% - " + env.translate("executeCommand.label.url")))
-        mainLayout.addWidget(QLabel("%path% - " + env.translate("executeCommand.label.path")))
-        mainLayout.addWidget(QLabel("%directory% - " + env.translate("executeCommand.label.directory")))
-        mainLayout.addWidget(QLabel("%filename% - " + env.translate("executeCommand.label.filename")))
-        mainLayout.addWidget(QLabel("%selection% - " + env.translate("executeCommand.label.selection")))
+        mainLayout.addWidget(QLabel("%url% - " + QCoreApplication.translate("EditCommandsWindow", "Full URL of the currently active file")))
+        mainLayout.addWidget(QLabel("%path% - " + QCoreApplication.translate("EditCommandsWindow", "Full path of the currently active file")))
+        mainLayout.addWidget(QLabel("%directory% - " + QCoreApplication.translate("EditCommandsWindow", "Directory of the currently active file")))
+        mainLayout.addWidget(QLabel("%filename% - " + QCoreApplication.translate("EditCommandsWindow", "Name of the currently active file")))
+        mainLayout.addWidget(QLabel("%selection% - " + QCoreApplication.translate("EditCommandsWindow", "Currently selected text")))
         mainLayout.addWidget(self.commandsTable)
-        if os.getenv("SNAP"):
-            mainLayout.addWidget(QLabel(env.translate("executeCommand.label.snap")))
         mainLayout.addLayout(buttonLayout)
 
         self.setLayout(mainLayout)
-        self.setWindowTitle(env.translate("editCommandsWindow.title"))
+        self.setWindowTitle(QCoreApplication.translate("EditCommandsWindow", "Edit Commands"))
         restoreWindowState(self, env.windowState, "EditCommandsWindow")
 
-    def openWindow(self):
+    def openWindow(self) -> None:
         while self.commandsTable.rowCount() > 0:
             self.commandsTable.removeRow(0)
+
         count = 0
         for i in self.env.commands:
             self.commandsTable.insertRow(count)
@@ -66,26 +72,29 @@ class EditCommandsWindow(QWidget):
             self.commandsTable.setCellWidget(count, 2, checkbox)
             shortcutEdit = QKeySequenceEdit()
             shortcutEdit.setClearButtonEnabled(True)
+
             if len(i) == 4:
                 shortcutEdit.setKeySequence(i[3])
+
             self.commandsTable.setCellWidget(count, 3, shortcutEdit)
             count += 1
+
         self.updateRemoveButtonEnabled()
         self.show()
         QApplication.setActiveWindow(self)
 
-    def newRow(self):
+    def newRow(self) -> None:
         shortcutEdit = QKeySequenceEdit()
         shortcutEdit.setClearButtonEnabled(True)
         self.commandsTable.insertRow(self.commandsTable.rowCount())
-        self.commandsTable.setCellWidget(self.commandsTable.rowCount()-1, 2, QCheckBox())
-        self.commandsTable.setCellWidget(self.commandsTable.rowCount()-1, 3, shortcutEdit)
+        self.commandsTable.setCellWidget(self.commandsTable.rowCount() - 1, 2, QCheckBox())
+        self.commandsTable.setCellWidget(self.commandsTable.rowCount() - 1, 3, shortcutEdit)
 
-    def updateRemoveButtonEnabled(self):
+    def updateRemoveButtonEnabled(self) -> None:
         self.removeButton.setEnabled(len(self.commandsTable.selectedIndexes()) > 0)
 
-    def okButtonClicked(self):
-        self.env.commands = []
+    def okButtonClicked(self) -> None:
+        self.env.commands.clear()
         for i in range(self.commandsTable.rowCount()):
             try:
                 name = self.commandsTable.item(i, 0).text()
@@ -96,7 +105,9 @@ class EditCommandsWindow(QWidget):
                     self.env.commands.append([name, command, terminal, shortcut])
             except Exception:
                 pass
+
         with open(os.path.join(self.env.dataDir, "commands.json"), "w", encoding="utf-8") as f:
             json.dump(self.env.commands, f, ensure_ascii=False, indent=4)
+
         self.env.mainWindow.updateExecuteMenu()
         self.close()

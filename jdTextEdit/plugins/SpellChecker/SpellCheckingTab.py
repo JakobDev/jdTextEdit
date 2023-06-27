@@ -1,9 +1,16 @@
 from PyQt6.QtWidgets import QWidget, QCheckBox, QComboBox, QSpinBox, QLineEdit, QLabel, QHBoxLayout, QVBoxLayout, QGridLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from typing import TYPE_CHECKING
 import enchant
 
-class SpellCheckingTab(QWidget,SettingsTabBase):
-    def __init__(self,env):
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+    from jdTextEdit.Settings import Settings
+
+
+class SpellCheckingTab(QWidget, SettingsTabBase):
+    def __init__(self, env: "Environment") -> None:
         super().__init__()
         self.env = env
 
@@ -41,7 +48,7 @@ class SpellCheckingTab(QWidget,SettingsTabBase):
 
         self.setLayout(main_layout)
 
-    def updateSettingsEnabled(self):
+    def updateSettingsEnabled(self) -> None:
         enabled = self.enableCheckBox.isChecked()
         self.dictonaryLabel.setEnabled(enabled)
         self.languageComboBox.setEnabled(enabled)
@@ -55,7 +62,7 @@ class SpellCheckingTab(QWidget,SettingsTabBase):
         self.customPwlEdit.setEnabled(enabled)
         self.customPwlLabel.setEnabled(enabled)
 
-    def updateTab(self,settings):
+    def updateTab(self, settings: "Settings") -> None:
         self.enableCheckBox.setChecked(settings.spellCheckingEnabled)
         pos = self.languageComboBox.findData(settings.spellCheckingLanguage)
         if pos == -1:
@@ -67,12 +74,12 @@ class SpellCheckingTab(QWidget,SettingsTabBase):
         self.customPwlEdit.setText(settings.spellCheckingCustomPwlPath)
         self.updateSettingsEnabled()
 
-    def getSettings(self,settings):
-        settings.set("spellCheckingEnabled",self.enableCheckBox.isChecked())
-        settings.set("spellCheckingLanguage",self.languageComboBox.currentData())
-        settings.set("spellCheckingMinimumWordLength",self.minimumWordLengthSpinBox.value())
-        settings.set("spellCheckingEnableCustomPwl",self.customPwlCheckBox.isChecked())
-        settings.set("spellCheckingCustomPwlPath",self.customPwlEdit.text())
+    def getSettings(self, settings: "Settings") -> None:
+        settings.set("spellCheckingEnabled", self.enableCheckBox.isChecked())
+        settings.set("spellCheckingLanguage", self.languageComboBox.currentData())
+        settings.set("spellCheckingMinimumWordLength", self.minimumWordLengthSpinBox.value())
+        settings.set("spellCheckingEnableCustomPwl", self.customPwlCheckBox.isChecked())
+        settings.set("spellCheckingCustomPwlPath", self.customPwlEdit.text())
 
-    def title(self):
+    def title(self) -> str:
         return self.env.translate("plugin.spellChecker.settingsTab")

@@ -1,13 +1,15 @@
 from jdTextEdit.api.SidebarWidgetBase import SidebarWidgetBase
 from PyQt6.QtWidgets import QApplication, QPlainTextEdit
+from PyQt6.QtCore import QCoreApplication
+
 
 class ClipboardWidget(QPlainTextEdit,SidebarWidgetBase):
-    def __init__(self, env):
+    def __init__(self):
         super().__init__()
-        self.env = env
+
         self.setReadOnly(True)
         self.setLineWrapMode(QPlainTextEdit.LineWrapMode.NoWrap)
-        self.setPlaceholderText(env.translate("sidebar.clipboard.placeholderText"))
+        self.setPlaceholderText(QCoreApplication.translate("ClipboardWidget", "At the moment, there is nothing in the clipboard"))
         QApplication.clipboard().dataChanged.connect(self.clipboardChanged)
         self.clipboardChanged()
 
@@ -16,7 +18,7 @@ class ClipboardWidget(QPlainTextEdit,SidebarWidgetBase):
         self.setPlainText(text)
 
     def getName(self) -> str:
-        return self.env.translate("sidebar.clipboard")
+        return QCoreApplication.translate("ClipboardWidget", "Clipboard")
 
     def getID(self) -> str:
         return "clipboard"

@@ -1,20 +1,25 @@
-from .SpellChecker import SpellChecker
 from .SpellCheckingTab import SpellCheckingTab
+from .SpellChecker import SpellChecker
+from typing import TYPE_CHECKING
 import os
 
 
-def main(env):
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
+def main(env: "Environment") -> None:
     currentDir = os.path.dirname(os.path.realpath(__file__))
-    env.pluginAPI.addTranslationDirectory(os.path.join(currentDir,"translation"))
+    env.pluginAPI.addTranslationDirectory(os.path.join(currentDir, "translation"))
 
     env.pluginAPI.registerSetting("spellCheckingLanguage","de_DE")
-    env.pluginAPI.registerSetting("spellCheckingCustomPwlPath",os.path.join(env.dataDir,"pwl.txt"))
-    env.pluginAPI.registerSetting("spellCheckingEnableCustomPwl",False)
-    env.pluginAPI.registerSetting("spellCheckingEnabled",False)
-    env.pluginAPI.registerSetting("spellCheckingMinimumWordLength",3)
-    env.pluginAPI.registerSetting("spellCheckingDisableBigFiles",True)
+    env.pluginAPI.registerSetting("spellCheckingCustomPwlPath", os.path.join(env.dataDir,"pwl.txt"))
+    env.pluginAPI.registerSetting("spellCheckingEnableCustomPwl", False)
+    env.pluginAPI.registerSetting("spellCheckingEnabled", False)
+    env.pluginAPI.registerSetting("spellCheckingMinimumWordLength", 3)
+    env.pluginAPI.registerSetting("spellCheckingDisableBigFiles", True)
 
-    env.pluginAPI.addBigFilesCheckBox("spellCheckingDisableBigFiles",env.translate("plugin.spellChecker.bigFilesSetting"))
+    env.pluginAPI.addBigFilesCheckBox("spellCheckingDisableBigFiles", env.translate("plugin.spellChecker.bigFilesSetting"))
 
     env.pluginAPI.addSettingsTab(SpellCheckingTab(env))
 
@@ -30,15 +35,3 @@ def main(env):
     editor_signals.settingsChanged.connect(s.editor_settings_updated)
     editor_signals.languageChanged.connect(s.language_changed_function)
     editor_signals.contextMenu.connect(s.context_menu_function)
-
-def getID():
-    return "builtin.spellchecker"
-
-def getName():
-    return "SpellChecker"
-
-def getVersion():
-    return "1.1"
-
-def getAuthor():
-    return "JakobDev"

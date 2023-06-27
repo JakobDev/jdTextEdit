@@ -1,0 +1,16 @@
+{
+    "pluginManagerWindow.title": "Pluginmanager",
+    "pluginManagerWindow.button.ok": "OK",
+    "pluginManagerWindow.button.cancel": "Cancel",
+    "pluginManagerWindow.header.installed": "Installed",
+    "pluginManagerWindow.header.name": "Name",
+    "pluginManagerWindow.header.version": "Version",
+    "pluginManagerWindow.header.author": "Author",
+    "pluginManagerWindow.welcomeMessage": "Witch this pluginmanager you can install plugins from {{link}}. Check a plugin to install it and uncheck to uninstall it. Click OK to apply the changes.<br><br>This list only contains plugins from the repo. If you want to manage all plugins, take a look at the settings.",
+    "pluginManagerWindow.messageBox.noInternet.title": "No internet connection",
+    "pluginManagerWindow.messageBox.noInternet.text": "Can't connect to {{url}}",
+    "pluginManagerWindow.messageBox.error.title": "Error",
+    "pluginManagerWindow.messageBox.outdatedVersion.title": "Outdated version",
+    "pluginManagerWindow.messageBox.outdatedVersion.text": "This plugins needs a newer version of jdTextEdit to work.",
+    "dayTip.pluginmanager": "With the Plugin Manager you can easily download and install plugins from the Internet. You can find it in the Edit menu."
+}

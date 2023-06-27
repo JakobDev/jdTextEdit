@@ -1,44 +1,52 @@
 from PyQt6.QtWidgets import QWidget, QPushButton, QListWidget, QHBoxLayout, QVBoxLayout, QListWidgetItem, QCheckBox, QComboBox, QLabel, QGridLayout
 from jdTextEdit.api.SettingsTabBase import SettingsTabBase
+from PyQt6.QtCore import QCoreApplication
 from jdTextEdit.Settings import Settings
+from typing import TYPE_CHECKING
 from PyQt6.QtGui import QIcon
 
+
+if TYPE_CHECKING:
+    from jdTextEdit.Environment import Environment
+
+
 class CustomWidgetItem(QListWidgetItem):
-    def __init__(self,name: str):
+    def __init__(self, name: str) -> None:
         super().__init__(name)
         self.actionNameString = ""
 
-    def setActionName(self, name: str):
+    def setActionName(self, name: str) -> None:
         self.actionNameString = name
 
-    def actionName(self):
+    def actionName(self) -> str:
         return self.actionNameString
 
-class ToolbarTab(QWidget,SettingsTabBase):
-    def __init__(self,env):
+
+class ToolbarTab(QWidget, SettingsTabBase):
+    def __init__(self, env: "Environment") -> None:
         super().__init__()
         self.env = env
 
         self.actionsList = QListWidget()
-        addButton = QPushButton(env.translate("settingsWindow.contextMenu.button.add"))
-        removeButton = QPushButton(env.translate("settingsWindow.contextMenu.button.remove"))
-        upButton = QPushButton(env.translate("settingsWindow.contextMenu.button.up"))
-        downButton = QPushButton(env.translate("settingsWindow.contextMenu.button.down"))
+        addButton = QPushButton(QCoreApplication.translate("ToolbarTab", "Add"))
+        removeButton = QPushButton(QCoreApplication.translate("ToolbarTab", "Remove"))
+        upButton = QPushButton(QCoreApplication.translate("ToolbarTab", "Move Up"))
+        downButton = QPushButton(QCoreApplication.translate("ToolbarTab", "Move Down"))
         self.contextList = QListWidget()
-        self.showToolbarCheckbox = QCheckBox(env.translate("settingsWindow.toolbar.checkBox.showToolbar"))
+        self.showToolbarCheckbox = QCheckBox(QCoreApplication.translate("ToolbarTab", "Show Toolbar"))
         self.iconStyleSelect = QComboBox()
         self.positionComboBox = QComboBox()
 
-        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.iconOnly"))
-        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.textOnly"))
-        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.textBesideIcons"))
-        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.textUnderIcons"))
-        self.iconStyleSelect.addItem(env.translate("settingsWindow.toolbar.buttonStyle.osStyle"))
+        self.iconStyleSelect.addItem(QCoreApplication.translate("ToolbarTab", "Icon only"))
+        self.iconStyleSelect.addItem(QCoreApplication.translate("ToolbarTab", "Text only"))
+        self.iconStyleSelect.addItem(QCoreApplication.translate("ToolbarTab", "Text beside Icons"))
+        self.iconStyleSelect.addItem(QCoreApplication.translate("ToolbarTab", "Text under Icons"))
+        self.iconStyleSelect.addItem(QCoreApplication.translate("ToolbarTab", "Follow OS Style"))
 
-        self.positionComboBox.addItem(env.translate("position.up"))
-        self.positionComboBox.addItem(env.translate("position.bottom"))
-        self.positionComboBox.addItem(env.translate("position.left"))
-        self.positionComboBox.addItem(env.translate("position.right"))
+        self.positionComboBox.addItem(QCoreApplication.translate("ToolbarTab", "Up"))
+        self.positionComboBox.addItem(QCoreApplication.translate("ToolbarTab", "Bottom"))
+        self.positionComboBox.addItem(QCoreApplication.translate("ToolbarTab", "Left"))
+        self.positionComboBox.addItem(QCoreApplication.translate("ToolbarTab", "Right"))
 
         addButton.setIcon(QIcon.fromTheme("go-next"))
         removeButton.setIcon(QIcon.fromTheme("go-previous"))
@@ -65,10 +73,10 @@ class ToolbarTab(QWidget,SettingsTabBase):
         menuLayout.addWidget(self.contextList)
 
         optionsLayout = QGridLayout()
-        optionsLayout.addWidget(QLabel(env.translate("settingsWindow.toolbar.label.buttonStyle")),0,0)
-        optionsLayout.addWidget(self.iconStyleSelect,0,1)
-        optionsLayout.addWidget(QLabel(env.translate("settingsWindow.toolbar.label.position")),1,0)
-        optionsLayout.addWidget(self.positionComboBox,1,1)
+        optionsLayout.addWidget(QLabel(QCoreApplication.translate("ToolbarTab", "Toolbar button style:")), 0, 0)
+        optionsLayout.addWidget(self.iconStyleSelect, 0, 1)
+        optionsLayout.addWidget(QLabel(QCoreApplication.translate("ToolbarTab", "Position:")), 1, 0)
+        optionsLayout.addWidget(self.positionComboBox, 1, 1)
 
         mainLayout = QVBoxLayout()
         mainLayout.addLayout(menuLayout)
@@ -77,7 +85,7 @@ class ToolbarTab(QWidget,SettingsTabBase):
 
         self.setLayout(mainLayout)
 
-    def addButtonClicked(self):
+    def addButtonClicked(self) -> None:
         item = self.actionsList.currentItem()
         if item:
             if item.actionName() != "separator":
@@ -88,56 +96,52 @@ class ToolbarTab(QWidget,SettingsTabBase):
             newItem.setActionName(item.actionName())
             self.contextList.addItem(newItem)
 
-    def removeButtonClicked(self):
+    def removeButtonClicked(self) -> None:
         row = self.contextList.currentRow()
         self.contextList.takeItem(row)
 
-    def upButtonClicked(self):
+    def upButtonClicked(self) -> None:
         currentRow = self.contextList.currentRow()
         currentItem = self.contextList.takeItem(currentRow)
         self.contextList.insertItem(currentRow - 1, currentItem)
         self.contextList.setCurrentRow(currentRow - 1)
 
-    def downButtonClicked(self):
+    def downButtonClicked(self) -> None:
         currentRow = self.contextList.currentRow()
         currentItem = self.contextList.takeItem(currentRow)
         self.contextList.insertItem(currentRow + 1, currentItem)
         self.contextList.setCurrentRow(currentRow + 1)
 
-    def updateTab(self, settings: Settings):
+    def updateTab(self, settings: Settings) -> None:
         self.contextList.clear()
         for i in settings.toolBar:
             if i in self.env.menuActions:
                 action = self.env.menuActions[i]
-                if action.text().startswith("&"):
-                    item = CustomWidgetItem(action.text()[1:])
-                else:
-                    item = CustomWidgetItem(action.text())
+                item = CustomWidgetItem(action.text().removeprefix("&"))
             else:
-                item = CustomWidgetItem(self.env.translate("settingsWindow.contextMenu.unknownAction"))
+                item = CustomWidgetItem(QCoreApplication.translate("ToolbarTab", "Unknown Action"))
             item.setActionName(i)
             self.contextList.addItem(item)
         self.showToolbarCheckbox.setChecked(settings.showToolbar)
         self.iconStyleSelect.setCurrentIndex(settings.toolbarIconStyle)
         self.positionComboBox.setCurrentIndex(settings.toolbarPosition)
 
-    def getSettings(self, settings: Settings):
-        settings.toolBar = []
+    def getSettings(self, settings: Settings) -> None:
+        settings.toolBar.clear()
+
         for i in range(self.contextList.count()):
             settings.toolBar.append(self.contextList.item(i).actionName())
-        settings.set("showToolbar",self.showToolbarCheckbox.isChecked())
-        settings.set("toolbarIconStyle",self.iconStyleSelect.currentIndex())
-        settings.set("toolbarPosition",self.positionComboBox.currentIndex())
 
-    def setup(self):
+        settings.set("showToolbar", self.showToolbarCheckbox.isChecked())
+        settings.set("toolbarIconStyle", self.iconStyleSelect.currentIndex())
+        settings.set("toolbarPosition", self.positionComboBox.currentIndex())
+
+    def setup(self) -> None:
         for key, data in self.env.menuActions.items():
-            if data.text().startswith("&"):
-                item = CustomWidgetItem(data.text()[1:])
-            else:
-                item = CustomWidgetItem(data.text())
+            item = CustomWidgetItem(data.text().removeprefix("&"))
             item.setActionName(data.data()[0])
             self.actionsList.addItem(item)
         self.actionsList.sortItems()
 
     def title(self) -> str:
-        return self.env.translate("settingsWindow.toolbar")
+        return QCoreApplication.translate("ToolbarTab", "Toolbar")

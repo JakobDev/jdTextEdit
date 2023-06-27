@@ -117,10 +117,10 @@ def main():
         if env.args["debugPlugin"]:
             loadSinglePlugin(env.args["debugPlugin"], env)
 
-    env.pluginAPI.addSidebarWidget(NotesWidget(env))
+    env.pluginAPI.addSidebarWidget(NotesWidget())
     env.pluginAPI.addSidebarWidget(TabListWidget(env))
     env.pluginAPI.addSidebarWidget(FileTreeWidget(env))
-    env.pluginAPI.addSidebarWidget(ClipboardWidget(env))
+    env.pluginAPI.addSidebarWidget(ClipboardWidget())
     env.pluginAPI.addSidebarWidget(CharacterMapWidget(env))
     env.pluginAPI.addSidebarWidget(ProjectWidget(env))
 
