@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 def main(env: "Environment") -> None:
     currentDir = os.path.dirname(os.path.realpath(__file__))
-    env.translations.loadDirectory(os.path.join(currentDir, "translation"))
+    env.translations.loadDirectory(os.path.join(currentDir, "translations"))
     env.pluginManagerWindow = PluginManagerWindow(env)
 
     openPluginManager = QAction(env.translate("pluginManagerWindow.title"), env.mainWindow)

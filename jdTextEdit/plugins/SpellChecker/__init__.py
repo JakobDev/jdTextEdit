@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 def main(env: "Environment") -> None:
     currentDir = os.path.dirname(os.path.realpath(__file__))
-    env.pluginAPI.addTranslationDirectory(os.path.join(currentDir, "translation"))
+    env.pluginAPI.addTranslationDirectory(os.path.join(currentDir, "translations"))
 
     env.pluginAPI.registerSetting("spellCheckingLanguage","de_DE")
     env.pluginAPI.registerSetting("spellCheckingCustomPwlPath", os.path.join(env.dataDir,"pwl.txt"))
