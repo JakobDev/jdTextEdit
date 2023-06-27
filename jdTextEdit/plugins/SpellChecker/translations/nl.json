@@ -1,11 +1,11 @@
 {
-    "plugin.spellChecker.contextMenu.addToDict": "",
-    "plugin.spellChecker.settingsTab": "",
-    "plugin.spellChecker.settingsTab.enableSpellChecking": "",
-    "plugin.spellChecker.settingsTab.dictonary": "",
-    "plugin.spellChecker.settingsTab.minimumWordLength": "",
-    "plugin.spellChecker.settingsTab.enableCustomPwl": "",
-    "plugin.spellChecker.settingsTab.customPwlPath": "",
-    "plugin.spellChecker.bigFilesSetting": "",
-    "dayTip.spellChecker": ""
+    "plugin.spellChecker.contextMenu.addToDict": "Toevoegen aan woordenboek",
+    "plugin.spellChecker.settingsTab": "Spellingcontrole",
+    "plugin.spellChecker.settingsTab.enableSpellChecking": "Spellingcontrole inschakelen",
+    "plugin.spellChecker.settingsTab.dictonary": "Woordenboek:",
+    "plugin.spellChecker.settingsTab.minimumWordLength": "Minimale woordlengte:",
+    "plugin.spellChecker.settingsTab.enableCustomPwl": "Eigen woordenlijst gebruiken",
+    "plugin.spellChecker.settingsTab.customPwlPath": "Eigen woordenlijst:",
+    "plugin.spellChecker.bigFilesSetting": "Spellingcontrole uitschakelen",
+    "dayTip.spellChecker": "jdTextEdit beschikt over een ingebouwde spellingcontrole. U kunt deze optie inschakelen via de instellingen."
 }
