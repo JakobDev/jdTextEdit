@@ -6,37 +6,37 @@
     <message>
         <location filename="../gui/AboutWindow.py" line="21"/>
         <source>jdTextEdit version {{version}}</source>
-        <translation type="unfinished"></translation>
+        <translation>jdTextEdit-versie: {{version}}</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="22"/>
         <source>jdTextEdit is a feature rich text editor with plugin support</source>
-        <translation type="unfinished"></translation>
+        <translation>jdTekstEdit is een tekstbewerker met vele functies en plug-inondersteuning</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="23"/>
         <source>This Program is licensed under GPL 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Het programma is uitgebracht onder de GPL3-licentie</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="24"/>
         <source>The logo was made by Axel-Erfurt</source>
-        <translation type="unfinished"></translation>
+        <translation>Het logo is gemaakt door Axel-Erfurt</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="29"/>
         <source>View Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Broncode bekijken</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="30"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="49"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Over</translation>
     </message>
 </context>
 <context>
@@ -44,27 +44,27 @@
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="22"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="23"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="45"/>
         <source>Search Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoeken naar actie</translation>
     </message>
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="71"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekende foutmelding</translation>
     </message>
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="71"/>
         <source>An unknown error occured</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is een onbekende fout opgetreden</translation>
     </message>
 </context>
 <context>
@@ -72,47 +72,47 @@
     <message>
         <location filename="../gui/AddProjectWindow.py" line="19"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>Bladeren</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="20"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="21"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="28"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam:</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="30"/>
         <source>Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Locatie:</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="65"/>
         <source>No name</source>
-        <translation type="unfinished"></translation>
+        <translation>Naamloos</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="65"/>
         <source>You have to give a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer een naam in</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="69"/>
         <source>Invalid Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldige locatie</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="69"/>
         <source>The given Path does not exists</source>
-        <translation type="unfinished"></translation>
+        <translation>De opgegeven locatie bestaat niet</translation>
     </message>
 </context>
 <context>
@@ -120,37 +120,37 @@
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="17"/>
         <source>Enable Autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch aanvullen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="18"/>
         <source>Use Words from Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Woorden uit document gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="19"/>
         <source>Use API</source>
-        <translation type="unfinished"></translation>
+        <translation>Api gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="20"/>
         <source>Case Sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoofdlettergevoelig</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="21"/>
         <source>Replace Word</source>
-        <translation type="unfinished"></translation>
+        <translation>Woord vervangen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="22"/>
         <source>Autocomplete at this char:</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch aanvullen vanaf teken:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="69"/>
         <source>Autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch aanvullen</translation>
     </message>
 </context>
 <context>
@@ -160,22 +160,22 @@
         <location filename="../gui/BannerWidgets/EditorconfigBanner.py" line="14"/>
         <location filename="../gui/BannerWidgets/BigFileBanner.py" line="16"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/BigFileBanner.py" line="21"/>
         <source>Due to the size of the file some features have been disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Wegens de bestandsomvang zijn enkele functies uitgeschakeld</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/EditorconfigBanner.py" line="19"/>
         <source>Some settings from an .editorconfig file are used</source>
-        <translation type="unfinished"></translation>
+        <translation>Er worden enkele instellingen uit een .editorconfig-bestand gebruikt</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="17"/>
         <source>Reload</source>
-        <translation type="unfinished"></translation>
+        <translation>Herladen</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="21"/>
@@ -183,42 +183,42 @@
         <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="18"/>
         <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="20"/>
         <source>Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>Negeren</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="24"/>
         <source>This file was changed by another program</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit bestand is bewerkt door een ander programma</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="15"/>
         <source>Close File</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand sluiten</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="22"/>
         <source>This file was deleted by another program</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit bestand is verwijderd door een ander programma</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="17"/>
         <source>Change to {{encoding}}</source>
-        <translation type="unfinished"></translation>
+        <translation>Omzetten naar {{encoding}}</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="24"/>
         <source>The encoding does not correspond to the default settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze tekenset komt niet overeen met de standaardinstellingen</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="18"/>
         <source>Change to {{eol}}</source>
-        <translation type="unfinished"></translation>
+        <translation>Omzetten naar {{eol}}</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="25"/>
         <source>The end of line does not correspond to the default settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit regeleinde komt niet overeen met de standaardinstellingen</translation>
     </message>
 </context>
 <context>
@@ -226,37 +226,37 @@
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="18"/>
         <source>Limit big files</source>
-        <translation type="unfinished"></translation>
+        <translation>Grote bestanden beperken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="19"/>
         <source>Files from</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestanden van</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="21"/>
         <source>bytes</source>
-        <translation type="unfinished"></translation>
+        <translation>bytes</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="22"/>
         <source>Disable syntax highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Syntaxismarkering uitschakelen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="23"/>
         <source>Disable encoding detect</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekensetdetectie uitschakelen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="24"/>
         <source>Show banner</source>
-        <translation type="unfinished"></translation>
+        <translation>Melding boven inhoud tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="79"/>
         <source>Big Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Grote bestanden</translation>
     </message>
 </context>
 <context>
@@ -264,17 +264,17 @@
     <message>
         <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="17"/>
         <source>Decimal</source>
-        <translation type="unfinished"></translation>
+        <translation>Decimaal</translation>
     </message>
     <message>
         <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="17"/>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Teken</translation>
     </message>
     <message>
         <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="34"/>
         <source>Character Map</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekens en symbolen</translation>
     </message>
 </context>
 <context>
@@ -282,12 +282,12 @@
     <message>
         <location filename="../gui/SidebarWidgets/ClipboardWidget.py" line="12"/>
         <source>At the moment, there is nothing in the clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Het klembord is momenteel blanco</translation>
     </message>
     <message>
         <location filename="../gui/SidebarWidgets/ClipboardWidget.py" line="21"/>
         <source>Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Klembord</translation>
     </message>
 </context>
 <context>
@@ -295,33 +295,33 @@
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="17"/>
         <source>Close without Saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluiten zonder opslaan</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="18"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="64"/>
         <location filename="../gui/CloseSaveWindow.py" line="46"/>
         <source>Save as ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Opslaan als…</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="61"/>
         <source>{{path}} has been edited. Do you want to save it?</source>
-        <translation type="unfinished"></translation>
+        <translation>{{path}} is bewerkt. Wilt u het bestand opslaan?</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="62"/>
         <source>Save {{path}}</source>
-        <translation type="unfinished"></translation>
+        <translation>{{path}} opslaan</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="66"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Opslaan</translation>
     </message>
 </context>
 <context>
@@ -330,7 +330,7 @@
         <location filename="../gui/CodeEdit.py" line="126"/>
         <location filename="../gui/CodeEdit.py" line="53"/>
         <source>Plain Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Platte tekst</translation>
     </message>
 </context>
 <context>
@@ -338,32 +338,32 @@
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="30"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="31"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="32"/>
         <source>Move Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Omhoog verplaatsen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="33"/>
         <source>Move Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Omlaag verplaatsen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="96"/>
         <source>Unknown Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekende actie</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="116"/>
         <source>Context menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechtermuisknopmenu</translation>
     </message>
 </context>
 <context>
@@ -371,72 +371,72 @@
     <message>
         <location filename="../gui/DateTimeWindow.py" line="42"/>
         <source>Use the selected format</source>
-        <translation type="unfinished"></translation>
+        <translation>Gekozen opmaak gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="44"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="45"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerken</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="46"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="47"/>
         <source>Use custom format</source>
-        <translation type="unfinished"></translation>
+        <translation>Aangepaste opmaak gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="50"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="51"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="100"/>
         <source>Insert Date and Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Datum en tijd invoegen</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="112"/>
         <source>Preview: {{preview}}</source>
-        <translation type="unfinished"></translation>
+        <translation>Voorvertoning: {{preview}}</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="114"/>
         <source>Invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldig</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="141"/>
         <source>Enter format</source>
-        <translation type="unfinished"></translation>
+        <translation>Opmaak invoeren</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="141"/>
         <source>Please enter a format</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer een opmaak in</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="149"/>
         <source>Invalid format</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldige opmaak</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="149"/>
         <source>This format is invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>Deze opmaak is ongeldig</translation>
     </message>
 </context>
 <context>
@@ -444,22 +444,22 @@
     <message>
         <location filename="../gui/DayTipWindow.py" line="19"/>
         <source>Show tips on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Tips tonen na opstarten</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="20"/>
         <source>Next tip</source>
-        <translation type="unfinished"></translation>
+        <translation>Volgende tip</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="21"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="36"/>
         <source>Tip of the day</source>
-        <translation type="unfinished"></translation>
+        <translation>Tip van de dag</translation>
     </message>
 </context>
 <context>
@@ -467,17 +467,17 @@
     <message>
         <location filename="../gui/DebugInfoWindow.py" line="23"/>
         <source>Copy to Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiëren naar klembord</translation>
     </message>
     <message>
         <location filename="../gui/DebugInfoWindow.py" line="24"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/DebugInfoWindow.py" line="42"/>
         <source>Debug Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Foutopsporingsinformatie</translation>
     </message>
 </context>
 <context>
@@ -485,7 +485,7 @@
     <message>
         <location filename="../core/DefaultTheme.py" line="38"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard</translation>
     </message>
 </context>
 <context>
@@ -493,42 +493,42 @@
     <message>
         <location filename="../gui/DocumentStatistics.py" line="16"/>
         <source>Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selectie</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="25"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="31"/>
         <source>Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Document</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="33"/>
         <source>Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Aantal regels</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="36"/>
         <source>Words</source>
-        <translation type="unfinished"></translation>
+        <translation>Aantal woorden</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="39"/>
         <source>Characters (with spaces)</source>
-        <translation type="unfinished"></translation>
+        <translation>Aantal tekens (met spaties)</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="42"/>
         <source>Characters (no spaces)</source>
-        <translation type="unfinished"></translation>
+        <translation>Aantal tekens (zonder spaties)</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="56"/>
         <source>Document Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>Documentstatistieken</translation>
     </message>
 </context>
 <context>
@@ -536,72 +536,72 @@
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="19"/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="20"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="21"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="22"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="24"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="24"/>
         <source>Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Opdracht</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="24"/>
         <source>Terminal</source>
-        <translation type="unfinished"></translation>
+        <translation>Terminal</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="24"/>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Sneltoets</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="49"/>
         <source>Full URL of the currently active file</source>
-        <translation type="unfinished"></translation>
+        <translation>Volledige url van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="50"/>
         <source>Full path of the currently active file</source>
-        <translation type="unfinished"></translation>
+        <translation>Volledige locatie van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="51"/>
         <source>Directory of the currently active file</source>
-        <translation type="unfinished"></translation>
+        <translation>Map van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="52"/>
         <source>Name of the currently active file</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="53"/>
         <source>Currently selected text</source>
-        <translation type="unfinished"></translation>
+        <translation>Huidige selectie</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="58"/>
         <source>Edit Commands</source>
-        <translation type="unfinished"></translation>
+        <translation>Opdrachten bewerken</translation>
     </message>
 </context>
 <context>
@@ -610,27 +610,27 @@
         <location filename="../gui/EditTabWidget.py" line="109"/>
         <location filename="../gui/EditTabWidget.py" line="91"/>
         <source>Untitled</source>
-        <translation type="unfinished"></translation>
+        <translation>Naamloos</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="123"/>
         <source>Set custom tab name</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigen tabbladnaam instellen</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="128"/>
         <source>Remove custom tab name</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigen tabbladnaam wissen</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="135"/>
         <source>Enter name</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam invoeren</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="135"/>
         <source>Please enter a custom name for this tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Geef het tabblad een naam</translation>
     </message>
 </context>
 <context>
@@ -638,22 +638,22 @@
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="128"/>
         <source>Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Taal:</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="159"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="160"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="175"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam:</translation>
     </message>
 </context>
 <context>
@@ -661,62 +661,62 @@
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="22"/>
         <source>Insert Spaces instead of Tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Spaties in plaats van tabs gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="23"/>
         <source>Enable Text wrapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Regels afbreken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="24"/>
         <source>Show Whitespaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Witruimtes tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="25"/>
         <source>Automatic indentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch inspringen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="26"/>
         <source>Show indentation guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Inspringtekens tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="27"/>
         <source>Show end of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Regeleindes tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="36"/>
         <source>Plain Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Platte tekst</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="39"/>
         <source>Default encoding:</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard tekenset:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="41"/>
         <source>Default end of line:</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard regeleinde:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="43"/>
         <source>Default language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaardtaal:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="45"/>
         <source>Default width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaardbreedte:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="98"/>
         <source>Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Bewerker</translation>
     </message>
 </context>
 <context>
