@@ -1741,12 +1741,12 @@
     <message>
         <location filename="../gui/MainWindow.py" line="1112"/>
         <source>Can&apos;t open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan bestand niet openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1112"/>
         <source>You don&apos;t have the permission to open {{path}}</source>
-        <translation type="unfinished"></translation>
+        <translation>U bent niet bevoegd om {{path}} te openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1733"/>
@@ -1754,119 +1754,119 @@
         <location filename="../gui/MainWindow.py" line="1284"/>
         <location filename="../gui/MainWindow.py" line="1116"/>
         <source>Unknown error</source>
-        <translation type="unfinished"></translation>
+        <translation>Onbekende foutmelding</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1733"/>
         <location filename="../gui/MainWindow.py" line="1284"/>
         <location filename="../gui/MainWindow.py" line="1116"/>
         <source>An unknown error has occurred</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is een onbekende fout opgetreden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1246"/>
         <source>This file has some decoding errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit bestand bevat fouten in de tekenset</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1280"/>
         <source>Can&apos;t save file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan bestand niet opslaan</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1280"/>
         <source>You don&apos;t have the permission to write {{path}}</source>
-        <translation type="unfinished"></translation>
+        <translation>U bent niet bevoegd om bestanden op te slaan in {{path}}</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1333"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1411"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Afdrukken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1516"/>
         <source>Custom zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Ander zoomniveau</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1516"/>
         <source>Please enter a value for the zoom in percent</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer een zoomniveau in (in procent)</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1651"/>
         <source>Please enter a name for the macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Geef de macro een naam</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1660"/>
         <source>Zip Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Zipbestanden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1661"/>
         <source>All Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle bestanden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1676"/>
         <source>Invalid file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ongeldig bestand</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1676"/>
         <source>This file does not contains valid exported data from jdTextEdit</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit bestand bevat geen geldige jdTextEdit-gegevens</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1683"/>
         <source>An unknown error happened</source>
-        <translation type="unfinished"></translation>
+        <translation>Er is een onbekende fout opgetreden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1686"/>
         <source>Are you sure you want to import the following data?</source>
-        <translation type="unfinished"></translation>
+        <translation>Weet u zeker dat u de volgende gegevens wilt importeren?</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1688"/>
         <source>Date and Time: {{DateTime}}</source>
-        <translation type="unfinished"></translation>
+        <translation>Datum en tijd: {{DateTime}}</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1689"/>
         <source>Platform: {{Platform}}</source>
-        <translation type="unfinished"></translation>
+        <translation>Besturingssysteem: {{Platform}}</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1690"/>
         <source>Version: {{Version}}</source>
-        <translation type="unfinished"></translation>
+        <translation>Versie: {{Version}}</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1692"/>
         <source>It includes the following:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit bevat het volgende:</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1700"/>
         <source>If you continue, your data will be overwritten and jdTextEdit will be closed</source>
-        <translation type="unfinished"></translation>
+        <translation>Als u doorgaat, dan worden alle gegevens overschreven en wordt jdTextEdit afgesloten</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1718"/>
         <source>Import complete</source>
-        <translation type="unfinished"></translation>
+        <translation>Importeren voltooid</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1718"/>
         <source>The Import is now completed. jdTextEdit will now close.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het importeren is voltooid - jdTextEdit wordt afgesloten.</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1726"/>
