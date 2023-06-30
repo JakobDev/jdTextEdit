@@ -773,7 +773,7 @@ class MainWindow(QMainWindow):
         self.env.pluginAPI.addAction(showDayTip)
 
         reportBugAction = QAction(QCoreApplication.translate("MainWindow", "Report Bug"), self)
-        reportBugAction.triggered.connect(lambda: webbrowser.open("https://gitlab.com/JakobDev/jdTextEdit/issues/new"))
+        reportBugAction.triggered.connect(lambda: webbrowser.open("https://codeberg.org/JakobDev/jdTextEdit/issues"))
         reportBugAction.setData(["reportBug"])
         self.aboutMenu.addAction(reportBugAction)
         self.env.pluginAPI.addAction(reportBugAction)

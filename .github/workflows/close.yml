@@ -11,6 +11,6 @@ jobs:
   action:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/repo-lockdown@v2
+      - uses: dessant/repo-lockdown@v3
         with:
-          pr-comment: "This Repo is just a mirror of the [GitLab Repo](https://gitlab.com/JakobDev/jdTextEdit). PRs arren't acceptet here. Please make a MR against the GitLab Repo. It works the same Way as in GitHub. You can use your GitHub Account to login into GitLab."
+          pr-comment: "This Repo is just a mirror of the [Codeberg Repo](https://codeberg.org/JakobDev/jdTextEdit). PRs aren't accepted here. Please make a MR against the Codeberg Repo. It works the same Way as in GitHub. You can use your GitHub Account to login into Codeberg."

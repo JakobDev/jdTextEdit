@@ -86,7 +86,7 @@ def main():
     app = QApplication(sys.argv)
 
     app.setApplicationName("jdTextEdit")
-    app.setDesktopFileName("com.gitlab.JakobDev.jdTextEdit")
+    app.setDesktopFileName("page.codeberg.JakobDev.jdTextEdit")
 
     env = Environment(app)
 

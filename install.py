@@ -9,6 +9,13 @@ import sys
 import os
 
 
+def make_directory(dir_path: Path) -> None:
+    try:
+        os.makedirs(dir_path)
+    except FileExistsError:
+        pass
+
+
 def install_file(source: Path, dest: Path) -> None:
     if not os.path.isdir(dest.parent):
         os.makedirs(dest.parent)
@@ -37,10 +44,14 @@ def install_locales(current_dir: Path, prefix: Path) -> None:
 
 
 def install_unix_data_files(current_dir: Path, args: argparse.Namespace) -> None:
-    install_file(current_dir / "jdTextEdit" / "Logo.svg", Path(args.prefix) / "share" / "icons" / "hicolor" / "scalable" / "apps" / "com.gitlab.JakobDev.jdTextEdit.svg")
-    install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.desktop", Path(args.prefix) / "share" / "applications" / "com.gitlab.JakobDev.jdTextEdit.desktop")
-    install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.metainfo.xml", Path(args.prefix) / "share" / "metainfo" / "com.gitlab.JakobDev.jdTextEdit.metainfo.xml")
-    install_file(current_dir / "deploy" / "com.gitlab.JakobDev.jdTextEdit.service", Path(args.prefix) / "share" / "dbus-1" / "services" / "com.gitlab.JakobDev.jdTextEdit.service")
+    install_file(current_dir / "jdTextEdit" / "Logo.svg", Path(args.prefix) / "share" / "icons" / "hicolor" / "scalable" / "apps" / "page.codeberg.JakobDev.jdTextEdit.svg")
+    install_file(current_dir / "deploy" / "page.codeberg.JakobDev.jdTextEdit.service", Path(args.prefix) / "share" / "dbus-1" / "services" / "page.codeberg.JakobDev.jdTextEdit.service")
+
+    make_directory(Path(args.prefix) / "share" / "applications")
+    make_directory(Path(args.prefix) / "share" / "metainfo")
+
+    subprocess.run(["msgfmt", "--desktop", "--template", os.path.join(current_dir, "deploy", "page.codeberg.JakobDev.jdTextEdit.desktop"), "-d", os.path.join(current_dir, "deploy", "translations"), "-o", os.path.join(args.prefix, "share", "applications", "page.codeberg.JakobDev.jdTextEdit.desktop")], check=True)
+    subprocess.run(["msgfmt", "--xml", "--template", os.path.join(current_dir, "deploy", "page.codeberg.JakobDev.jdTextEdit.metainfo.xml"), "-d", os.path.join(current_dir, "deploy", "translations"), "-o", os.path.join(args.prefix, "share", "metainfo", "page.codeberg.JakobDev.jdTextEdit.metainfo.xml")], check=True)
 
     if args.install_manpage:
         subprocess.check_call(["make", "man"], cwd=str(current_dir / "doc"))
@@ -85,9 +96,9 @@ def main() -> None:
     current_dir = Path(__file__).parent
 
     if not args.no_deps:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-U", "--ignore-installed", "--prefix", args.prefix, str(current_dir), "-r", str(current_dir / "requirements.txt")])
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-U", "--ignore-installed", "--no-build-isolation", "--prefix", args.prefix, str(current_dir), "-r", str(current_dir / "requirements.txt")])
 
-    subprocess.call([sys.executable, "-m", "pip", "install", "-U", "--no-deps", "--ignore-installed", "--prefix", args.prefix, str(current_dir)])
+    subprocess.call([sys.executable, "-m", "pip", "install", "-U", "--no-deps", "--ignore-installed", "--no-build-isolation", "--prefix", args.prefix, str(current_dir)])
 
     if platform.system() == "Linux":
         install_unix_data_files(current_dir, args)

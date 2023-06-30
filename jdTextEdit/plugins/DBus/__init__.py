@@ -7,7 +7,7 @@ import os
 with open(os.path.join(os.path.dirname(__file__), "interface.xml"), "r", encoding="utf-8") as f:
     interface = f.read()
 
-@pyqtClassInfo('D-Bus Interface', 'com.gitlab.JakobDev.jdTextEdit')
+@pyqtClassInfo('D-Bus Interface', 'page.codeberg.JakobDev.jdTextEdit')
 @pyqtClassInfo('D-Bus Introspection', interface)
 class Service(QDBusAbstractAdaptor):
 
@@ -15,7 +15,7 @@ class Service(QDBusAbstractAdaptor):
         super().__init__(parent)
         QDBusConnection.sessionBus().registerObject("/", parent)
 
-        if not QDBusConnection.sessionBus().registerService("com.gitlab.JakobDev.jdTextEdit"):
+        if not QDBusConnection.sessionBus().registerService("page.codeberg.JakobDev.jdTextEdit"):
             print(QDBusConnection.sessionBus().lastError().message(), file=sys.stderr)
 
         self._env = env

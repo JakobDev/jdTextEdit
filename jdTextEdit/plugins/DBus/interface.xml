@@ -1,4 +1,4 @@
-<interface name="com.gitlab.JakobDev.jdTextEdit">
+<interface name="page.codeberg.JakobDev.jdTextEdit">
     <method name="OpenFile">
         <arg direction="in" type="s" name="path"/>
     </method>
