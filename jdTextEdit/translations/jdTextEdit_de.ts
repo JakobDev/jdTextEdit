@@ -16,7 +16,7 @@
     <message>
         <location filename="../gui/AboutWindow.py" line="23"/>
         <source>This Program is licensed under GPL 3</source>
-        <translation>Dieses Programm ist unter der GPL 3  lizenziert</translation>
+        <translation>Dieses Programm ist unter der GPL 3 lizenziert</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="24"/>
@@ -2941,8 +2941,7 @@
     <message>
         <location filename="../gui/DayTipWindow.py" line="53"/>
         <source>If you would like to redesign jdTextEdit with your own CSS code, you can create the file userChrome.css in the data directory. You can disable this in the settings.</source>
-        <translation>Wenn du gerne jdTextEdit mit eigenem CSS Code umstylen möchtest, kannst du die Datei userChrome.css im Speicherordner anlegen.
-dayTip.saveSession=jdTextEdit speichert automatisch deine Sitzung, sodass du beim nächsten Mal da weitermachen kannst, wo du aufgehört hast. Du kannst dieses Verhalten in den Einstellungen deaktivieren.</translation>
+        <translation>Wenn du gerne jdTextEdit mit eigenem CSS Code umstylen möchtest, kannst du die Datei userChrome.css im Speicherordner anlegen. Du kannst dieses Verhalten in den Einstellungen deaktivieren.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="54"/>
@@ -3128,7 +3127,7 @@ dayTip.saveSession=jdTextEdit speichert automatisch deine Sitzung, sodass du bei
         <location filename="../Updater.py" line="59"/>
         <location filename="../Updater.py" line="57"/>
         <source>requests not found</source>
-        <translation>requests not found</translation>
+        <translation>requests nicht gefunden</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="57"/>
