@@ -11,6 +11,6 @@
     "pluginManagerWindow.messageBox.noInternet.text": "Kann nicht zu {{url}} verbinden",
     "pluginManagerWindow.messageBox.error.title": "Fehler",
     "pluginManagerWindow.messageBox.outdatedVersion.title": "Veraltete Version",
-    "pluginManagerWindow.messageBox.outdatedVersion.text": "Dieses Plugin benötigt eine neuere Version von jdTextEdit",
+    "pluginManagerWindow.messageBox.outdatedVersion.text": "Dieses Plugin benötigt eine neuere Version von jdTextEdit.",
     "dayTip.pluginmanager": "Mithilfe des Pluginmanagers kannst du ganz einfach Plugins aus dem Internet herunterladen und installieren. Du findest ihn im Bearbeiten Menü."
 }
