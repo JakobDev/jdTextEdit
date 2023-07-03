@@ -24,10 +24,21 @@
   <screenshots>
     <screenshot type="default">
       <caption>The MainWindow</caption>
-      <image type="source">https://gitlab.com/JakobDev/jdTextEdit/-/raw/9.1/screenshots/jdTextEdit_Manjaro.png</image>
+      <image type="source">https://codeberg.org/JakobDev/jdTextEdit/raw/commit/e05be1c5d1ef2364a8d6fec64b069322934fe6a7/screenshots/jdTextEdit_Windows.png</image>
     </screenshot>
   </screenshots>
   <releases>
+    <release version="11.0" date="2023-07-03" type="stable">
+      <description>
+        <ul>
+          <li>Add Window to configure Languages</li>
+          <li>Add Window to create Themes</li>
+          <li>Allow importing and exporting data</li>
+          <li>Allow Managing Templates in the GUI</li>
+          <li>Moved to Codeberg</li>
+        </ul>
+      </description>
+    </release>
     <release version="10.3" date="2022-06-23" type="stable">
       <description>
         <ul>
