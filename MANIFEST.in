@@ -1,5 +1,6 @@
 include jdTextEdit/Logo.svg
 include jdTextEdit/version.txt
+include jdTextEdit/data/*
 include jdTextEdit/icons/*
 include jdTextEdit/translations/*.ts
 include jdTextEdit/autocompletion/*

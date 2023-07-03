@@ -772,18 +772,6 @@ class MainWindow(QMainWindow):
         self.aboutMenu.addAction(showDayTip)
         self.env.pluginAPI.addAction(showDayTip)
 
-        reportBugAction = QAction(QCoreApplication.translate("MainWindow", "Report Bug"), self)
-        reportBugAction.triggered.connect(lambda: webbrowser.open("https://codeberg.org/JakobDev/jdTextEdit/issues"))
-        reportBugAction.setData(["reportBug"])
-        self.aboutMenu.addAction(reportBugAction)
-        self.env.pluginAPI.addAction(reportBugAction)
-
-        viewDocumentationAction = QAction(QCoreApplication.translate("MainWindow", "View Documentation"), self)
-        viewDocumentationAction.triggered.connect(lambda: webbrowser.open("https://jdtextedit.readthedocs.io"))
-        viewDocumentationAction.setData(["viewDocumentation"])
-        self.aboutMenu.addAction(viewDocumentationAction)
-        self.env.pluginAPI.addAction(viewDocumentationAction)
-
         self.aboutMenu.addSeparator()
 
         debugInfoAction = QAction(QCoreApplication.translate("MainWindow", "Debug information"), self)
@@ -800,6 +788,32 @@ class MainWindow(QMainWindow):
 
         self.aboutMenu.addSeparator()
 
+        viewSourceAction = QAction(QCoreApplication.translate("MainWindow", "View Source"), self)
+        viewSourceAction.triggered.connect(lambda: webbrowser.open("https://codeberg.org/JakobDev/jdTextEdit"))
+        viewSourceAction.setData(["viewSource"])
+        self.aboutMenu.addAction(viewSourceAction)
+        self.env.pluginAPI.addAction(viewSourceAction)
+
+        reportBugAction = QAction(QCoreApplication.translate("MainWindow", "Report Bug"), self)
+        reportBugAction.triggered.connect(lambda: webbrowser.open("https://codeberg.org/JakobDev/jdTextEdit/issues"))
+        reportBugAction.setData(["reportBug"])
+        self.aboutMenu.addAction(reportBugAction)
+        self.env.pluginAPI.addAction(reportBugAction)
+
+        viewDocumentationAction = QAction(QCoreApplication.translate("MainWindow", "View Documentation"), self)
+        viewDocumentationAction.triggered.connect(lambda: webbrowser.open("https://jdtextedit.readthedocs.io"))
+        viewDocumentationAction.setData(["viewDocumentation"])
+        self.aboutMenu.addAction(viewDocumentationAction)
+        self.env.pluginAPI.addAction(viewDocumentationAction)
+
+        donateAction = QAction(QCoreApplication.translate("MainWindow", "Donate"), self)
+        donateAction.triggered.connect(lambda: webbrowser.open("https://ko-fi.com/jakobdev"))
+        donateAction.setData(["donate"])
+        self.aboutMenu.addAction(donateAction)
+        self.env.pluginAPI.addAction(donateAction)
+
+        self.aboutMenu.addSeparator()
+
         about = QAction(QCoreApplication.translate("MainWindow", "About"), self)
         about.triggered.connect(lambda: self.env.aboutWindow.show())
         about.setData(["about"])
@@ -813,7 +827,6 @@ class MainWindow(QMainWindow):
         self.env.pluginAPI.addAction(aboutQt)
 
         self.updateRecentFilesMenu()
-        #self.getMenuActions(self.menubar)
         separator = QAction(QCoreApplication.translate("MainWindow", "Seperator"))
         separator.setData(["separator"])
         self.env.menuActions["separator"] = separator

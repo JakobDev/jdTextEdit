@@ -1,2 +1,3 @@
-#Exclude templates from code counting
+# Exclude templates from code counting
 jdTextEdit/templates/* linguist-vendored
+jdTextEdit/data/* linguist-generated
