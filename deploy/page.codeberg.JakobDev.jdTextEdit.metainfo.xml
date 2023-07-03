@@ -36,6 +36,7 @@
           <li>Allow importing and exporting data</li>
           <li>Allow Managing Templates in the GUI</li>
           <li>Moved to Codeberg</li>
+          <li>Add Dutch translation</li>
         </ul>
       </description>
     </release>
