@@ -4,7 +4,6 @@ chardet
 requests
 jdTranslationHelper
 charset_normalizer
-cchardet
 EditorConfig
 pyenchant
 lxml

@@ -28,3 +28,9 @@ doc/build
 .idea/
 .run/
 venv/
+
+# Binary build
+*.spec
+*.exe
+Output/
+WindowsBuild/
