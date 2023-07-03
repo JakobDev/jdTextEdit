@@ -7,5 +7,6 @@
     "plugin.spellChecker.settingsTab.enableCustomPwl": "Eigen woordenlijst gebruiken",
     "plugin.spellChecker.settingsTab.customPwlPath": "Eigen woordenlijst:",
     "plugin.spellChecker.bigFilesSetting": "Spellingcontrole uitschakelen",
-    "dayTip.spellChecker": "jdTextEdit beschikt over een ingebouwde spellingcontrole. U kunt deze optie inschakelen via de instellingen."
+    "dayTip.spellChecker": "jdTextEdit beschikt over een ingebouwde spellingcontrole. U kunt deze optie inschakelen via de instellingen.",
+    "plugin.spellChecker.dictNotFound": "Het woordenboek ‘{{taal}}’ is niet aangetroffen"
 }
