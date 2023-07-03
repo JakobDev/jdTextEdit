@@ -1,23 +1,29 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["setuptools", "PyQt6", "wheel"]
+build-backend = "BuildBackend"
+backend-path = ["."]
+
 
 [project]
 name = "jdTextEdit"
-description = "A library for creating a custom Minecraft launcher"
+description = "An powerful texteditor with a lot of featuresr"
 readme = "README.md"
-requires-python = ">=3.8"
-keywords = ["JakobDev", "Minecraft", "Mojang", "launcher", "minecraft-launcher", "java"]
-license = { text = "BSD-2-Clause" }
+requires-python = ">=3.9"
+keywords = ["JakobDev", "QScintilla", "PyQt", "PyQt6", "Editor", "Texteditor", "Macro"]
+license = { text = "GPL v3" }
 authors = [
   { name = "JakobDev", email = "jakobdev@gmx.de" }
 ]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
+  "Intended Audience :: End Users/Desktop",
   "Environment :: Other Environment",
-  "License :: OSI Approved :: BSD License",
-  "Topic :: Games/Entertainment",
+  "Environment :: X11 Applications :: Qt",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Natural Language :: English",
+  "Natural Language :: German",
+  "Topic :: Text Editors",
   "Operating System :: OS Independent",
   "Operating System :: POSIX",
   "Operating System :: POSIX :: BSD",
@@ -25,29 +31,49 @@ classifiers = [
   "Operating System :: MacOS :: MacOS X",
   "Operating System :: Microsoft :: Windows",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
-  "Typing :: Typed"
+  "Programming Language :: Python :: Implementation :: CPython"
 ]
 dependencies = [
-  "requests"
+  "PyQt6",
+  "PyQt6-QScintilla",
+  "chardet",
+  "requests",
+  "jdTranslationHelper",
+  "EditorConfig",
+  "pyenchant"
 ]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+use-cchardet = ["cchardet"]
+use-charset-normalizer= ["charset_normalizer"]
+
 [project.urls]
-Documentation = "https://minecraft-launcher-lib.readthedocs.io/en/stable/index.html"
-Issues = "https://codeberg.org/JakobDev/minecraft-launcher-lib/issues"
-Source = "https://codeberg.org/JakobDev/minecraft-launcher-lib"
-Changelog = "https://minecraft-launcher-lib.readthedocs.io/en/stable/changelog.html"
+Issues = "https://codeberg.org/JakobDev/jdTextEdit/issues"
+Source = "https://codeberg.org/JakobDev/jdTextEdit"
+Documentation = "https://jdtextedit.readthedocs.io"
 Donation = "https://ko-fi.com/jakobdev"
+
+[project.gui-scripts]
+jdTextEdit = "jdTextEdit.jdTextEdit:main"
 
 [tool.setuptools.dynamic]
 version = { file = "jdTextEdit/version.txt" }
 
 [tool.setuptools.package-dir]
 jdTextEdit = "jdTextEdit"
+
+[tool.pyproject-appimage]
+script = "jdTextEdit"
+output = "jdTextEdit.AppImage"
+icon = "jdTextEdit/Logo.svg"
+rename-icon = "page.codeberg.JakobDev.jdTextEdit.svg"
+desktop-entry = "deploy/page.codeberg.JakobDev.jdTextEdit.desktop"
+gettext-desktop-entry = true
+appstream = "deploy/page.codeberg.JakobDev.jdTextEdit.metainfo.xml"
+gettext-appstream = true
+gettext-directory = "deploy/translations"
+python-version = "3.11"
