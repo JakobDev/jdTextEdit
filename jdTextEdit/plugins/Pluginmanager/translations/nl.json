@@ -1,0 +1,16 @@
+{
+    "pluginManagerWindow.title": "Plug-inbeheer",
+    "pluginManagerWindow.button.ok": "Oké",
+    "pluginManagerWindow.button.cancel": "Annuleren",
+    "pluginManagerWindow.header.installed": "Geïnstalleerd",
+    "pluginManagerWindow.header.name": "Naam",
+    "pluginManagerWindow.header.version": "Versie",
+    "pluginManagerWindow.header.author": "Maker",
+    "pluginManagerWindow.welcomeMessage": "Met behulp van de plug-inbeheerder kunt u eenvoudig plug-ins van {{link}} installeren. Kruis een plug-in aan om deze te installeren of kruis af om te verwijderen. Klik op oké om de wijzigingen toe te passen.<br><br>Deze lijst bevat alleen plug-ins uit de repo. Als u alle plug-ins wilt beheren, open dan de instellingen.",
+    "pluginManagerWindow.messageBox.noInternet.title": "Geen internetverbinding",
+    "pluginManagerWindow.messageBox.noInternet.text": "Er kan geen verbinding met {{url}} worden gemaakt",
+    "pluginManagerWindow.messageBox.error.title": "Foutmelding",
+    "pluginManagerWindow.messageBox.outdatedVersion.title": "Verouderde versie",
+    "pluginManagerWindow.messageBox.outdatedVersion.text": "Voor deze plug-ins is een nieuwere versie van jdTextEdit vereist.",
+    "dayTip.pluginmanager": "Met de plug-inbeheerder kunt u eenvoudig online-plug-ins installeren. U vindt de beheerder in het menu ‘Bewerken’."
+}

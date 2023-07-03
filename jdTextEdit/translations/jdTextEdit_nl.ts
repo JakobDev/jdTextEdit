@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.1" language="nl">
 <context>
     <name>AboutWindow</name>
     <message>
         <location filename="../gui/AboutWindow.py" line="21"/>
         <source>jdTextEdit version {{version}}</source>
-        <translation>jdTextEdit Version {{version}}</translation>
+        <translation>jdTextEdit-versie: {{version}}</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="22"/>
         <source>jdTextEdit is a feature rich text editor with plugin support</source>
-        <translation>jdTextEdit ist ein umfangreicher Texteditor mit Plugin Support</translation>
+        <translation>jdTekstEdit is een tekstbewerker met vele functies en plug-inondersteuning</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="23"/>
         <source>This Program is licensed under GPL 3</source>
-        <translation>Dieses Programm ist unter der GPL 3 lizenziert</translation>
+        <translation>Het programma is uitgebracht onder de GPL3-licentie</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="24"/>
         <source>The logo was made by Axel-Erfurt</source>
-        <translation>Das Logo wurde von Axel-Erfurt erstellt</translation>
+        <translation>Het logo is gemaakt door Axel-Erfurt</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="29"/>
         <source>View Source</source>
-        <translation>Quelltext ansehen</translation>
+        <translation>Broncode bekijken</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="30"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/AboutWindow.py" line="49"/>
         <source>About</source>
-        <translation>Über</translation>
+        <translation>Over</translation>
     </message>
 </context>
 <context>
@@ -44,27 +44,27 @@
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="22"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="23"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="45"/>
         <source>Search Action</source>
-        <translation>Aktion suchen</translation>
+        <translation>Zoeken naar actie</translation>
     </message>
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="71"/>
         <source>Unknown error</source>
-        <translation>Unbekannter Fehler</translation>
+        <translation>Onbekende foutmelding</translation>
     </message>
     <message>
         <location filename="../gui/ActionSearchWindow.py" line="71"/>
         <source>An unknown error occured</source>
-        <translation>An unbekannter fehler ist aufgetreten</translation>
+        <translation>Er is een onbekende fout opgetreden</translation>
     </message>
 </context>
 <context>
@@ -72,47 +72,47 @@
     <message>
         <location filename="../gui/AddProjectWindow.py" line="19"/>
         <source>Browse</source>
-        <translation>Durchsuchen</translation>
+        <translation>Bladeren</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="20"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="21"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="28"/>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation>Naam:</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="30"/>
         <source>Path:</source>
-        <translation>Pfad:</translation>
+        <translation>Locatie:</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="65"/>
         <source>No name</source>
-        <translation>Kein Name</translation>
+        <translation>Naamloos</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="65"/>
         <source>You have to give a name</source>
-        <translation>DU must einen Namen angeben</translation>
+        <translation>Voer een naam in</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="69"/>
         <source>Invalid Path</source>
-        <translation>Ungültiger Pfad</translation>
+        <translation>Ongeldige locatie</translation>
     </message>
     <message>
         <location filename="../gui/AddProjectWindow.py" line="69"/>
         <source>The given Path does not exists</source>
-        <translation>Der angegebene Pfad existiert nicht</translation>
+        <translation>De opgegeven locatie bestaat niet</translation>
     </message>
 </context>
 <context>
@@ -120,37 +120,37 @@
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="17"/>
         <source>Enable Autocompletion</source>
-        <translation>Autovervollständigung aktivieren</translation>
+        <translation>Automatisch aanvullen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="18"/>
         <source>Use Words from Document</source>
-        <translation>Benutze Wörter aus dem Dokument</translation>
+        <translation>Woorden uit document gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="19"/>
         <source>Use API</source>
-        <translation>Benutze API</translation>
+        <translation>Api gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="20"/>
         <source>Case Sensitive</source>
-        <translation>Groß- und Kleinschreibung beachten</translation>
+        <translation>Hoofdlettergevoelig</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="21"/>
         <source>Replace Word</source>
-        <translation>Wort ersetzen</translation>
+        <translation>Woord vervangen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="22"/>
         <source>Autocomplete at this char:</source>
-        <translation>Autovervollständigung ab diesem Zeichen:</translation>
+        <translation>Automatisch aanvullen vanaf teken:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/AutocompletionTab.py" line="69"/>
         <source>Autocompletion</source>
-        <translation>Autovervollständigung</translation>
+        <translation>Automatisch aanvullen</translation>
     </message>
 </context>
 <context>
@@ -160,22 +160,22 @@
         <location filename="../gui/BannerWidgets/EditorconfigBanner.py" line="14"/>
         <location filename="../gui/BannerWidgets/BigFileBanner.py" line="16"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/BigFileBanner.py" line="21"/>
         <source>Due to the size of the file some features have been disabled</source>
-        <translation>Aufgrund der Größe der Datei wurden einige Features deaktiviert</translation>
+        <translation>Wegens de bestandsomvang zijn enkele functies uitgeschakeld</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/EditorconfigBanner.py" line="19"/>
         <source>Some settings from an .editorconfig file are used</source>
-        <translation>Es werden einige Einstellungen aus einer .editorconfig benutzt</translation>
+        <translation>Er worden enkele instellingen uit een .editorconfig-bestand gebruikt</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="17"/>
         <source>Reload</source>
-        <translation>Neuladen</translation>
+        <translation>Herladen</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="21"/>
@@ -183,42 +183,42 @@
         <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="18"/>
         <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="20"/>
         <source>Ignore</source>
-        <translation>Ignorieren</translation>
+        <translation>Negeren</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="24"/>
         <source>This file was changed by another program</source>
-        <translation>Die Datei wurde auf dem Laufwerk geändert</translation>
+        <translation>Dit bestand is bewerkt door een ander programma</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="15"/>
         <source>Close File</source>
-        <translation>Datei schließen</translation>
+        <translation>Bestand sluiten</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="22"/>
         <source>This file was deleted by another program</source>
-        <translation>Die Datei wurde von einem anderen Programm gelöscht</translation>
+        <translation>Dit bestand is verwijderd door een ander programma</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="17"/>
         <source>Change to {{encoding}}</source>
-        <translation>Wechsle zu {{encoding}}</translation>
+        <translation>Omzetten naar {{encoding}}</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="24"/>
         <source>The encoding does not correspond to the default settings</source>
-        <translation>Die Zeichenkodierung entspricht nicht drn Standardeinstellung</translation>
+        <translation>Deze tekenset komt niet overeen met de standaardinstellingen</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="18"/>
         <source>Change to {{eol}}</source>
-        <translation>Wechsle zu {{eol}}</translation>
+        <translation>Omzetten naar {{eol}}</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="25"/>
         <source>The end of line does not correspond to the default settings</source>
-        <translation>Das Zeilenende entspricht nicht der Standardeinstellung</translation>
+        <translation>Dit regeleinde komt niet overeen met de standaardinstellingen</translation>
     </message>
 </context>
 <context>
@@ -226,37 +226,37 @@
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="18"/>
         <source>Limit big files</source>
-        <translation>Große Dateien limitieren</translation>
+        <translation>Grote bestanden beperken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="19"/>
         <source>Files from</source>
-        <translation>Dateien ab</translation>
+        <translation>Bestanden van</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="21"/>
         <source>bytes</source>
-        <translation>Bytes</translation>
+        <translation>bytes</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="22"/>
         <source>Disable syntax highlighting</source>
-        <translation>Syntaxhervorhebung deaktivieren</translation>
+        <translation>Syntaxismarkering uitschakelen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="23"/>
         <source>Disable encoding detect</source>
-        <translation>Erkenennen der Kodierung deaktiviere</translation>
+        <translation>Tekensetdetectie uitschakelen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="24"/>
         <source>Show banner</source>
-        <translation>Hinweis zeigen</translation>
+        <translation>Melding boven inhoud tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/BigFilesTab.py" line="79"/>
         <source>Big Files</source>
-        <translation>Große Dateien</translation>
+        <translation>Grote bestanden</translation>
     </message>
 </context>
 <context>
@@ -264,17 +264,17 @@
     <message>
         <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="17"/>
         <source>Decimal</source>
-        <translation>Dezimal</translation>
+        <translation>Decimaal</translation>
     </message>
     <message>
         <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="17"/>
         <source>Character</source>
-        <translation>Zeichen</translation>
+        <translation>Teken</translation>
     </message>
     <message>
         <location filename="../gui/SidebarWidgets/CharacterMapWidget.py" line="34"/>
         <source>Character Map</source>
-        <translation>Zeichentabelle</translation>
+        <translation>Tekens en symbolen</translation>
     </message>
 </context>
 <context>
@@ -282,12 +282,12 @@
     <message>
         <location filename="../gui/SidebarWidgets/ClipboardWidget.py" line="12"/>
         <source>At the moment, there is nothing in the clipboard</source>
-        <translation>Momentan befindet sich nichts in der Zwischenablage</translation>
+        <translation>Het klembord is momenteel blanco</translation>
     </message>
     <message>
         <location filename="../gui/SidebarWidgets/ClipboardWidget.py" line="21"/>
         <source>Clipboard</source>
-        <translation>Zwischenablage</translation>
+        <translation>Klembord</translation>
     </message>
 </context>
 <context>
@@ -295,33 +295,33 @@
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="17"/>
         <source>Close without Saving</source>
-        <translation>Schließen ohne zu speichern</translation>
+        <translation>Sluiten zonder opslaan</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="18"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="64"/>
         <location filename="../gui/CloseSaveWindow.py" line="46"/>
         <source>Save as ...</source>
-        <translation>Speichern unter ...</translation>
+        <translation>Opslaan als…</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="61"/>
         <source>{{path}} has been edited. Do you want to save it?</source>
-        <translation>66path}} wurde verändert. Möchtest du speichern?</translation>
+        <translation>{{path}} is bewerkt. Wilt u het bestand opslaan?</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="62"/>
         <source>Save {{path}}</source>
-        <translation>Speichere {{path}}</translation>
+        <translation>{{path}} opslaan</translation>
     </message>
     <message>
         <location filename="../gui/CloseSaveWindow.py" line="66"/>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation>Opslaan</translation>
     </message>
 </context>
 <context>
@@ -330,7 +330,7 @@
         <location filename="../gui/CodeEdit.py" line="126"/>
         <location filename="../gui/CodeEdit.py" line="53"/>
         <source>Plain Text</source>
-        <translation>Reiner Text</translation>
+        <translation>Platte tekst</translation>
     </message>
 </context>
 <context>
@@ -338,32 +338,32 @@
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="30"/>
         <source>Add</source>
-        <translation>Hinzufügen</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="31"/>
         <source>Remove</source>
-        <translation>Löschen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="32"/>
         <source>Move Up</source>
-        <translation>Nach Oben</translation>
+        <translation>Omhoog verplaatsen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="33"/>
         <source>Move Down</source>
-        <translation>Nach Unten</translation>
+        <translation>Omlaag verplaatsen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="96"/>
         <source>Unknown Action</source>
-        <translation>Unbekannte Aktion</translation>
+        <translation>Onbekende actie</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ContextMenuTab.py" line="116"/>
         <source>Context menu</source>
-        <translation>Kontextmenü</translation>
+        <translation>Rechtermuisknopmenu</translation>
     </message>
 </context>
 <context>
@@ -371,72 +371,72 @@
     <message>
         <location filename="../gui/DateTimeWindow.py" line="42"/>
         <source>Use the selected format</source>
-        <translation>Folgendes Format verwenden</translation>
+        <translation>Gekozen opmaak gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="44"/>
         <source>Add</source>
-        <translation>Hinzufügen</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="45"/>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation>Bewerken</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="46"/>
         <source>Remove</source>
-        <translation>Löschen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="47"/>
         <source>Use custom format</source>
-        <translation>Eigenes Format benutzen</translation>
+        <translation>Aangepaste opmaak gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="50"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="51"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="100"/>
         <source>Insert Date and Time</source>
-        <translation>Datum und Uhrzeit einfügen</translation>
+        <translation>Datum en tijd invoegen</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="112"/>
         <source>Preview: {{preview}}</source>
-        <translation>Vorschau: {{preview}}</translation>
+        <translation>Voorvertoning: {{preview}}</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="114"/>
         <source>Invalid</source>
-        <translation>Ungültig</translation>
+        <translation>Ongeldig</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="141"/>
         <source>Enter format</source>
-        <translation>Format eingeben</translation>
+        <translation>Opmaak invoeren</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="141"/>
         <source>Please enter a format</source>
-        <translation>Bitte gib ein Format ein</translation>
+        <translation>Voer een opmaak in</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="149"/>
         <source>Invalid format</source>
-        <translation>Ungültiges Format</translation>
+        <translation>Ongeldige opmaak</translation>
     </message>
     <message>
         <location filename="../gui/DateTimeWindow.py" line="149"/>
         <source>This format is invalid</source>
-        <translation>Das Format ist ungültig</translation>
+        <translation>Deze opmaak is ongeldig</translation>
     </message>
 </context>
 <context>
@@ -444,22 +444,22 @@
     <message>
         <location filename="../gui/DayTipWindow.py" line="19"/>
         <source>Show tips on startup</source>
-        <translation>Tipps beim Programmstart anzeigen</translation>
+        <translation>Tips tonen na opstarten</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="20"/>
         <source>Next tip</source>
-        <translation>Nächster Tipp</translation>
+        <translation>Volgende tip</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="21"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="36"/>
         <source>Tip of the day</source>
-        <translation>Tipp des Tages</translation>
+        <translation>Tip van de dag</translation>
     </message>
 </context>
 <context>
@@ -467,17 +467,17 @@
     <message>
         <location filename="../gui/DebugInfoWindow.py" line="23"/>
         <source>Copy to Clipboard</source>
-        <translation>In die Zwischenablage kopieren</translation>
+        <translation>Kopiëren naar klembord</translation>
     </message>
     <message>
         <location filename="../gui/DebugInfoWindow.py" line="24"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/DebugInfoWindow.py" line="42"/>
         <source>Debug Information</source>
-        <translation>Debuginformationen</translation>
+        <translation>Foutopsporingsinformatie</translation>
     </message>
 </context>
 <context>
@@ -485,7 +485,7 @@
     <message>
         <location filename="../core/DefaultTheme.py" line="38"/>
         <source>Default</source>
-        <translation>Standard</translation>
+        <translation>Standaard</translation>
     </message>
 </context>
 <context>
@@ -493,42 +493,42 @@
     <message>
         <location filename="../gui/DocumentStatistics.py" line="16"/>
         <source>Selection</source>
-        <translation>Auswahl</translation>
+        <translation>Selectie</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="25"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="31"/>
         <source>Document</source>
-        <translation>Dokument</translation>
+        <translation>Document</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="33"/>
         <source>Lines</source>
-        <translation>zeilen</translation>
+        <translation>Aantal regels</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="36"/>
         <source>Words</source>
-        <translation>Wörter</translation>
+        <translation>Aantal woorden</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="39"/>
         <source>Characters (with spaces)</source>
-        <translation>Zeichen (mit Leerzeichen)</translation>
+        <translation>Aantal tekens (met spaties)</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="42"/>
         <source>Characters (no spaces)</source>
-        <translation>Zeichen (ohne Leerzeichen)</translation>
+        <translation>Aantal tekens (zonder spaties)</translation>
     </message>
     <message>
         <location filename="../gui/DocumentStatistics.py" line="56"/>
         <source>Document Statistics</source>
-        <translation>Statistiken zum Dokument</translation>
+        <translation>Documentstatistieken</translation>
     </message>
 </context>
 <context>
@@ -536,32 +536,32 @@
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="19"/>
         <source>Add</source>
-        <translation>Hinzufügen</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="20"/>
         <source>Remove</source>
-        <translation>Löschen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="21"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="22"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="24"/>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation>Tekst</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="24"/>
         <source>Command</source>
-        <translation>Befehl</translation>
+        <translation>Opdracht</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="24"/>
@@ -571,37 +571,37 @@
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="24"/>
         <source>Shortcut</source>
-        <translation>Tastenkombination</translation>
+        <translation>Sneltoets</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="49"/>
         <source>Full URL of the currently active file</source>
-        <translation>Vollständige URL zur aktuellen Datei</translation>
+        <translation>Volledige url van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="50"/>
         <source>Full path of the currently active file</source>
-        <translation>Vollständiger Pfad zur aktuellen Datei</translation>
+        <translation>Volledige locatie van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="51"/>
         <source>Directory of the currently active file</source>
-        <translation>Verzeichnis der aktuellen Datei</translation>
+        <translation>Map van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="52"/>
         <source>Name of the currently active file</source>
-        <translation>Name der aktuellen Datei</translation>
+        <translation>Naam van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="53"/>
         <source>Currently selected text</source>
-        <translation>Momentan markierter Text</translation>
+        <translation>Huidige selectie</translation>
     </message>
     <message>
         <location filename="../gui/EditCommandsWindow.py" line="58"/>
         <source>Edit Commands</source>
-        <translation>Befehle bearbeiten</translation>
+        <translation>Opdrachten bewerken</translation>
     </message>
 </context>
 <context>
@@ -610,27 +610,27 @@
         <location filename="../gui/EditTabWidget.py" line="109"/>
         <location filename="../gui/EditTabWidget.py" line="91"/>
         <source>Untitled</source>
-        <translation>Unbenannt</translation>
+        <translation>Naamloos</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="123"/>
         <source>Set custom tab name</source>
-        <translation>Eigenen Namen festlegen</translation>
+        <translation>Eigen tabbladnaam instellen</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="128"/>
         <source>Remove custom tab name</source>
-        <translation>Eigenen Namen entfernen</translation>
+        <translation>Eigen tabbladnaam wissen</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="135"/>
         <source>Enter name</source>
-        <translation>Namen eingeben</translation>
+        <translation>Naam invoeren</translation>
     </message>
     <message>
         <location filename="../gui/EditTabWidget.py" line="135"/>
         <source>Please enter a custom name for this tab</source>
-        <translation>Bitte gib einen eigenen Namen ein</translation>
+        <translation>Geef het tabblad een naam</translation>
     </message>
 </context>
 <context>
@@ -638,22 +638,22 @@
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="128"/>
         <source>Language:</source>
-        <translation>Sprache:</translation>
+        <translation>Taal:</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="159"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="160"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/EditThemeWindow.py" line="175"/>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation>Naam:</translation>
     </message>
 </context>
 <context>
@@ -661,62 +661,62 @@
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="22"/>
         <source>Insert Spaces instead of Tabs</source>
-        <translation>Benutze Leerzeichen anstelle von Tabs</translation>
+        <translation>Spaties in plaats van tabs gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="23"/>
         <source>Enable Text wrapping</source>
-        <translation>Automatischen Zeilenumbruch aktivieren</translation>
+        <translation>Regels afbreken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="24"/>
         <source>Show Whitespaces</source>
-        <translation>Alle Zeichen anzeigen</translation>
+        <translation>Witruimtes tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="25"/>
         <source>Automatic indentation</source>
-        <translation>Automatischer Einzug</translation>
+        <translation>Automatisch inspringen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="26"/>
         <source>Show indentation guides</source>
-        <translation>Zeige Einrückhilfen</translation>
+        <translation>Inspringtekens tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="27"/>
         <source>Show end of line</source>
-        <translation>Zeige Zeilenende</translation>
+        <translation>Regeleindes tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="36"/>
         <source>Plain Text</source>
-        <translation>Reiner Text</translation>
+        <translation>Platte tekst</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="39"/>
         <source>Default encoding:</source>
-        <translation>Standardkodierung:</translation>
+        <translation>Standaard tekenset:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="41"/>
         <source>Default end of line:</source>
-        <translation>Standardzeilenende:</translation>
+        <translation>Standaard regeleinde:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="43"/>
         <source>Default language:</source>
-        <translation>Standardsprache:</translation>
+        <translation>Standaardtaal:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="45"/>
         <source>Default width:</source>
-        <translation>Tabulatorbreite:</translation>
+        <translation>Standaardbreedte:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorTab.py" line="98"/>
         <source>Editor</source>
-        <translation>Editor</translation>
+        <translation>Bewerker</translation>
     </message>
 </context>
 <context>
@@ -724,42 +724,42 @@
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="22"/>
         <source>The editorconfig module was not found</source>
-        <translation>Das editorconfig Modul wurde nicht gefunden</translation>
+        <translation>De editorconfig-module is niet aangetroffen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="33"/>
         <source>Use .editorconfig if available</source>
-        <translation>Benutze .editorconfig wenn vorhanden</translation>
+        <translation>.editorconfig gebruiken (indien beschikbaar)</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="34"/>
         <source>Use indentation style from .editorconfig</source>
-        <translation>Benutze Einrückstil aus .editorconfig</translation>
+        <translation>Inspringingen uit .editorconfig gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="35"/>
         <source>Use tab width from .editorconfig</source>
-        <translation>Benutze Tabulatorbreite aus .editorconfig</translation>
+        <translation>Tabbreedtes uit .editorconfig gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="36"/>
         <source>Use end of line from .editorconfig</source>
-        <translation>Benutze Zeilenende aus .editorconfig</translation>
+        <translation>Regeleindes uit .editorconfig gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="37"/>
         <source>Use setting to trim whitespaces from .editorconfig</source>
-        <translation>Benutze Einstellung zum Enfernen von Leerzeichen aus .editorconfig</translation>
+        <translation>Aantal witruimten beperken op basis van .editorconfig</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="38"/>
         <source>Use setting to insert end of line from .editorconfig</source>
-        <translation>Benutze Einstellung zum Einfügen vom Zeilenende aus .editorconfig</translation>
+        <translation>Regeleindes invoegen op basis van .editorconfig</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="39"/>
         <source>Show notice when .editorconfig is used</source>
-        <translation>Zeige Hinweis wenn .editorconfig benutzt wird</translation>
+        <translation>Melding tonen bij gebruik van .editorconfig</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/EditorconfigTab.py" line="95"/>
@@ -772,12 +772,12 @@
     <message>
         <location filename="../Environment.py" line="173"/>
         <source>Settings</source>
-        <translation>Einstellungen</translation>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <location filename="../Environment.py" line="174"/>
         <source>Templates</source>
-        <translation>Vorlagen</translation>
+        <translation>Sjablonen</translation>
     </message>
 </context>
 <context>
@@ -785,47 +785,47 @@
     <message>
         <location filename="../gui/ExecuteCommandWindow.py" line="18"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/ExecuteCommandWindow.py" line="19"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/ExecuteCommandWindow.py" line="20"/>
         <source>Execute in Terminal</source>
-        <translation>Im Terminal ausführen</translation>
+        <translation>Uitvoeren in terminalvenster</translation>
     </message>
     <message>
         <location filename="../gui/ExecuteCommandWindow.py" line="31"/>
         <source>Full URL of the currently active file</source>
-        <translation>Vollständige URL zur aktuellen Datei</translation>
+        <translation>Volledige url van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/ExecuteCommandWindow.py" line="32"/>
         <source>Full path of the currently active file</source>
-        <translation>Vollständiger Pfad zur aktuellen Datei</translation>
+        <translation>Volledige locatie van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/ExecuteCommandWindow.py" line="33"/>
         <source>Directory of the currently active file</source>
-        <translation>Verzeichnis der aktuellen Datei</translation>
+        <translation>Map van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/ExecuteCommandWindow.py" line="34"/>
         <source>Name of the currently active file</source>
-        <translation>Name der aktuellen Datei</translation>
+        <translation>Naam van huidig bestand</translation>
     </message>
     <message>
         <location filename="../gui/ExecuteCommandWindow.py" line="35"/>
         <source>Currently selected text</source>
-        <translation>Momentan markierter Text</translation>
+        <translation>Huidige selectie</translation>
     </message>
     <message>
         <location filename="../gui/ExecuteCommandWindow.py" line="42"/>
         <source>Execute Command</source>
-        <translation>Befehl ausführen</translation>
+        <translation>Opdracht uitvoeren</translation>
     </message>
 </context>
 <context>
@@ -833,42 +833,42 @@
     <message>
         <location filename="../gui/Windows/ExportDataWindow.py" line="19"/>
         <source>Choose which data you want to export</source>
-        <translation>Wähle aus, welche Daten du exportieren willst</translation>
+        <translation>Geef aan welke gegevens geëxporteerd dienen te worden</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ExportDataWindow.py" line="28"/>
         <source>OK</source>
-        <translation>OKOK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ExportDataWindow.py" line="29"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ExportDataWindow.py" line="46"/>
         <source>Export data</source>
-        <translation>Daten exportieren</translation>
+        <translation>Gegevens exporteren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ExportDataWindow.py" line="79"/>
         <source>Zip Files</source>
-        <translation>Zip Dateien</translation>
+        <translation>Zipbestanden</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ExportDataWindow.py" line="80"/>
         <source>All Files</source>
-        <translation>Alle Dateien</translation>
+        <translation>Alle bestanden</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ExportDataWindow.py" line="94"/>
         <source>Export complete</source>
-        <translation>Export abgeschlossen</translation>
+        <translation>Exporteren voltooid</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ExportDataWindow.py" line="94"/>
         <source>You data were successfully exported</source>
-        <translation>Deine Daten wurden erfolgreich exportiert</translation>
+        <translation>Alle gegevens zijn geëxporteerd</translation>
     </message>
 </context>
 <context>
@@ -876,7 +876,7 @@
     <message>
         <location filename="../gui/SidebarWidgets/FileTreeWidget.py" line="33"/>
         <source>Files</source>
-        <translation>Dateien</translation>
+        <translation>Bestanden</translation>
     </message>
 </context>
 <context>
@@ -885,22 +885,22 @@
         <location filename="../Functions.py" line="95"/>
         <location filename="../Functions.py" line="90"/>
         <source>Terminal emulator not found</source>
-        <translation>Terminalemulator nicht gefunden</translation>
+        <translation>Terminalemulator niet aangetroffen</translation>
     </message>
     <message>
         <location filename="../Functions.py" line="91"/>
         <source>Your custom terminal emulator was not found</source>
-        <translation>Der benutzerdefinierte Terminalemulator wurde nicht gefunden</translation>
+        <translation>De ingestelde terminalemulator is niet aangetroffen</translation>
     </message>
     <message>
         <location filename="../Functions.py" line="96"/>
         <source>The terminal emulator of the system was not found. Try setting a custom one in the Settings.</source>
-        <translation>Der Terminalemulator des Systems wurde nicht gefunden. Versuche einen Benutzerdefinierten in den Einstellungen zu setzen.</translation>
+        <translation>De systeemterminalemulator is niet aangetroffen. Stel een andere in in de instellingen.</translation>
     </message>
     <message>
         <location filename="../Functions.py" line="333"/>
         <source>Line {{line}} Column {{column}}: {{message}}</source>
-        <translation>Zeile {{line}} Spalte {{column}}: {{message}}</translation>
+        <translation>Regel {{line}}, kolom {{column}}: {{message}}</translation>
     </message>
 </context>
 <context>
@@ -908,67 +908,67 @@
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="21"/>
         <source>Ask for save, when trying to close a edited file</source>
-        <translation>Vor dem schließen einer Datei nachfragen</translation>
+        <translation>Om bevestiging vragen bij het sluiten van een bewerkt bestand</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="22"/>
         <source>Save Session</source>
-        <translation>Sitzung speichern</translation>
+        <translation>Sessie bewaren</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="23"/>
         <source>Load Plugins</source>
-        <translation>Plugins laden</translation>
+        <translation>Plug-ins laden</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="24"/>
         <source>Use native Icons</source>
-        <translation>Native Icons benutzen</translation>
+        <translation>Systeempictogrammen gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="25"/>
         <source>Show tip of the day on startup</source>
-        <translation>Zeige Tipp des Tages beim starten</translation>
+        <translation>Tip van de dag tonen na opstarten</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="26"/>
         <source>Show filename in window title</source>
-        <translation>Dateiname in Fenstertitel zeigen</translation>
+        <translation>Bestandsnaam op titelbalk tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="27"/>
         <source>Check for updates at startup</source>
-        <translation>Beim Starten nach Updates suchen</translation>
+        <translation>Controleren op updates na opstarten</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="28"/>
         <source>Save window status</source>
-        <translation>Status der Fenster speichern</translation>
+        <translation>Vensterstatus bewaren</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="29"/>
         <source>Monitor open files for changes</source>
-        <translation>Geöffnete Dateien auf Änderungen überwachen</translation>
+        <translation>Geopende bestanden controleren op wijzigingen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="31"/>
         <source>Use system default</source>
-        <translation>Benutze Systemsprache</translation>
+        <translation>Systeemtaal gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="46"/>
         <source>Language (needs restart):</source>
-        <translation>SPrache (benötigt Neustart):</translation>
+        <translation>Taal (herstart vereist):</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="48"/>
         <source>Length of recent files list</source>
-        <translation>Länge der Liste der zuletzt geöffneten Dateien</translation>
+        <translation>Lengte van lijst met onlangs geopende bestanden</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/GeneralTab.py" line="97"/>
         <source>General</source>
-        <translation>Allgemein</translation>
+        <translation>Algemeen</translation>
     </message>
 </context>
 <context>
@@ -976,22 +976,22 @@
     <message>
         <location filename="../gui/GotoLineWindow.py" line="17"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/GotoLineWindow.py" line="18"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/GotoLineWindow.py" line="33"/>
         <source>Please enter the line number:</source>
-        <translation>Bitte gib die Zeilennummer ein:</translation>
+        <translation>Voer het regelnummer in:</translation>
     </message>
     <message>
         <location filename="../gui/GotoLineWindow.py" line="39"/>
         <source>Goto Line</source>
-        <translation>Gehe zu Zeile</translation>
+        <translation>Ga naar regel</translation>
     </message>
 </context>
 <context>
@@ -999,28 +999,28 @@
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="21"/>
         <source>Swap position of OK and Cancel (needs restart)</source>
-        <translation>Position von OK und Abbrechen tauschen (benötigt Neustart)</translation>
+        <translation>Locatie van oké- en annuleerknoppen omwisselen (herstart vereist)</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="22"/>
         <source>Enable loading of userChrome.css</source>
-        <translation>Benutze userChrome.css wenn vorhanden</translation>
+        <translation>userChrome.css laden</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="23"/>
         <source>Use custom Datetime format</source>
-        <translation>benutze eigenes Datumszeit Format</translation>
+        <translation>Aangepaste datum- en tijdopmaak gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="63"/>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="25"/>
         <source>Preview</source>
-        <translation>Vorschau</translation>
+        <translation>Voorvertoning</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="27"/>
         <source>System style</source>
-        <translation>Systemdesign</translation>
+        <translation>Systeemstijl</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="30"/>
@@ -1030,37 +1030,37 @@
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="31"/>
         <source>Classic</source>
-        <translation>Klassisch</translation>
+        <translation>Klassiek</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="37"/>
         <source>Application style:</source>
-        <translation>Anwendungsdesign:</translation>
+        <translation>Programmastijl:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="39"/>
         <source>Settings Design (needs restart):</source>
-        <translation>Einstellungsdesign (benötigt Neustart):</translation>
+        <translation>Instellingenstijl (herstart vereist):</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="43"/>
         <source>Format:</source>
-        <translation>Format:</translation>
+        <translation>Opmaak:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="65"/>
         <source>Format invalid</source>
-        <translation>Ungültiges Format</translation>
+        <translation>Ongeldige opmaak</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="65"/>
         <source>This format is not valid</source>
-        <translation>Dieses Format ist nicht gültig</translation>
+        <translation>Deze opmaak is ongeldig</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/InterfaceTab.py" line="102"/>
         <source>Interface</source>
-        <translation>Oberfläche</translation>
+        <translation>Vormgeving</translation>
     </message>
 </context>
 <context>
@@ -1068,12 +1068,12 @@
     <message>
         <location filename="../Languages.py" line="6"/>
         <source>English</source>
-        <translation>Englisch</translation>
+        <translation>Engels</translation>
     </message>
     <message>
         <location filename="../Languages.py" line="7"/>
         <source>German</source>
-        <translation>Deutsch</translation>
+        <translation>Duits</translation>
     </message>
 </context>
 <context>
@@ -1081,57 +1081,57 @@
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="20"/>
         <source>Enable overwrite</source>
-        <translation>Überschreiben aktivieren</translation>
+        <translation>Andere taal instellen</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="21"/>
         <source>Reset</source>
-        <translation>Zurücksetzen</translation>
+        <translation>Standaardwaarden</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="61"/>
         <source>Filenames with this Extension are detected as the current Language</source>
-        <translation>Dateinamen mit dieser Endung werden als die aktuelle Sprache erkannst</translation>
+        <translation>Bestandsnamen met deze extensie worden herkend als bestanden in de huidige taal</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="62"/>
         <source>Files that start with this Text are detected as the current Language</source>
-        <translation>dateien die mit diesem text starten werden als die aktuelle Sprache erkannst</translation>
+        <translation>Bestanden beginnend met deze tekst worden herkend als bestanden in de huidige taal</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="63"/>
         <source>Files that have this MimeType are detected as the current Language</source>
-        <translation>Dateien mit diesem MimeType werden als diese Sprache erkannt</translation>
+        <translation>Bestanden met dit mimetype worden herkend als bestanden in de huidige taal</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="65"/>
         <source>Extensions</source>
-        <translation>Dateierweiterungen</translation>
+        <translation>Extensies</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="66"/>
         <source>Starts with</source>
-        <translation>Beginnt mit</translation>
+        <translation>Begint met</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="67"/>
         <source>MimeType</source>
-        <translation>MimeType</translation>
+        <translation>Mimetype</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="97"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="98"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/LanguageOverwritesWindow.py" line="123"/>
         <source>Manage languages</source>
-        <translation>Sprachen verwalten</translation>
+        <translation>Talen beheren</translation>
     </message>
 </context>
 <context>
@@ -1139,22 +1139,22 @@
     <message>
         <location filename="../gui/Widgets/ListSelectWidget.py" line="25"/>
         <source>Add</source>
-        <translation>Hinzufügen</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/ListSelectWidget.py" line="26"/>
         <source>Remove</source>
-        <translation>Entfernen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/ListSelectWidget.py" line="27"/>
         <source>Up</source>
-        <translation>Nach oben</translation>
+        <translation>Omhoog</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/ListSelectWidget.py" line="28"/>
         <source>Down</source>
-        <translation>Nach unten</translation>
+        <translation>Omlaag</translation>
     </message>
 </context>
 <context>
@@ -1166,154 +1166,154 @@
         <location filename="../gui/MainWindow.py" line="70"/>
         <location filename="../gui/MainWindow.py" line="67"/>
         <source>Untitled</source>
-        <translation>Unbenannt</translation>
+        <translation>Naamloos</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="156"/>
         <source>Open Recent Files</source>
-        <translation>Zuletzt geöffnete Dateien öffnen</translation>
+        <translation>Onlangs geopend</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="159"/>
         <source>&amp;File</source>
-        <translation>&amp;Datei</translation>
+        <translation>&amp;Bestand</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="161"/>
         <source>&amp;New</source>
-        <translation>&amp;Neu</translation>
+        <translation>&amp;Nieuw</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="168"/>
         <source>New (from Template)</source>
-        <translation>Neu (aus Vorlage)</translation>
+        <translation>Nieuw (uit sjabloon)</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="175"/>
         <source>&amp;Open</source>
-        <translation>&amp;Öffnen</translation>
+        <translation>&amp;Openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1350"/>
         <location filename="../gui/MainWindow.py" line="182"/>
         <source>Open Directory</source>
-        <translation>Verzeichnis öffnen</translation>
+        <translation>Map openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="193"/>
         <source>&amp;Save</source>
-        <translation>&amp;Speichern</translation>
+        <translation>Op&amp;slaan</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1381"/>
         <location filename="../gui/MainWindow.py" line="200"/>
         <source>Save as ...</source>
-        <translation>Speichern unter ...</translation>
+        <translation>Opslaan als…</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="207"/>
         <source>Save all</source>
-        <translation>Alle speichern</translation>
+        <translation>Alles opslaan</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="216"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="223"/>
         <source>Close all tabs</source>
-        <translation>Schließe alle Tabs</translation>
+        <translation>Alle tabbladen sluiten</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="232"/>
         <source>&amp;Print</source>
-        <translation>&amp;Drucken</translation>
+        <translation>A&amp;fdrukken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="239"/>
         <source>&amp;Exit</source>
-        <translation>&amp;Beenden</translation>
+        <translation>Afsluit&amp;en</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="247"/>
         <source>&amp;Edit</source>
-        <translation>&amp;Bearbeiten</translation>
+        <translation>B&amp;ewerken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="249"/>
         <source>&amp;Undo</source>
-        <translation>&amp;Rückgängig</translation>
+        <translation>&amp;Ongedaan maken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="257"/>
         <source>&amp;Redo</source>
-        <translation>&amp;Wiederherstellen</translation>
+        <translation>Opnieuw uitvoe&amp;ren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="267"/>
         <source>&amp;Cut</source>
-        <translation>&amp;Ausschneiden</translation>
+        <translation>&amp;Knippen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="275"/>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopieren</translation>
+        <translation>Ko&amp;piëren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="283"/>
         <source>&amp;Paste</source>
-        <translation>&amp;Einfügen</translation>
+        <translation>&amp;Plakken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="290"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Löschen</translation>
+        <translation>Verwij&amp;deren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="300"/>
         <source>&amp;Select All</source>
-        <translation>&amp;Alles auswählen</translation>
+        <translation>Alles &amp;selecteren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="309"/>
         <source>Copy to Clipboard</source>
-        <translation>In die Zwischenablage kopieren</translation>
+        <translation>Kopiëren naar klembord</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="311"/>
         <source>Copy Full Path to Clipboard</source>
-        <translation>Kopiere absoluten Pfad in Zwischenablage</translation>
+        <translation>Volledige locatie kopiëren naar klembord</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="317"/>
         <source>Copy Directory to Clipboard</source>
-        <translation>Kopiere Verzeichnisnamen in Zwischenablage</translation>
+        <translation>Map kopiëren naar klembord</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="323"/>
         <source>Copy Filename to Clipboard</source>
-        <translation>Kopiere Dateinamen in Zwischenablage</translation>
+        <translation>Bestandsnaam kopiëren naar klembord</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="329"/>
         <source>Copy URL to Clipboard</source>
-        <translation>opiere URL in Zwischenablage</translation>
+        <translation>Url kopiëren naar klembord</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="337"/>
         <source>Convert Case to</source>
-        <translation>Ändere Schreibweise in</translation>
+        <translation>Letters omzetten naar</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="339"/>
         <source>Uppercase</source>
-        <translation>Großbuchstaben</translation>
+        <translation>Hoofdletters</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="345"/>
         <source>Lowercase</source>
-        <translation>Kleinbuchstaben</translation>
+        <translation>Kleine letters</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="351"/>
@@ -1323,430 +1323,430 @@
     <message>
         <location filename="../gui/MainWindow.py" line="357"/>
         <source>Swap</source>
-        <translation>Schreibweise tauschen</translation>
+        <translation>Omwisselen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="363"/>
         <source>Random</source>
-        <translation>Zufällig</translation>
+        <translation>Willekeurig</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="371"/>
         <source>Line operations</source>
-        <translation>Zeilen bearbeiten</translation>
+        <translation>Regelacties</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="373"/>
         <source>Duplicate Current Line</source>
-        <translation>Aktuelle Zeile verdoppeln</translation>
+        <translation>Huidige regel klonen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="379"/>
         <source>Delete Current Line</source>
-        <translation>Aktuelle Zeile löschen</translation>
+        <translation>Huidige regel wissen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="385"/>
         <source>Sort lines alphabetically</source>
-        <translation>Zeilen alphabetisch sortieren</translation>
+        <translation>Regels alfabetisch sorteren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="391"/>
         <source>Shuffle Lines</source>
-        <translation>Zeilen zufällig sortieren</translation>
+        <translation>Regels door elkaar husselen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="399"/>
         <source>End of line</source>
-        <translation>Zeilenende</translation>
+        <translation>Regeleinde</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="424"/>
         <source>&amp;View</source>
-        <translation>&amp;Ansicht</translation>
+        <translation>Beel&amp;d</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="426"/>
         <source>Zoom</source>
-        <translation>Zoom</translation>
+        <translation>Zoomen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="428"/>
         <source>Zoom in</source>
-        <translation>Vergrößern</translation>
+        <translation>Inzoomen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="435"/>
         <source>Zoom out</source>
-        <translation>Verkleinern</translation>
+        <translation>Uitzoomen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="488"/>
         <source>Default Zoom</source>
-        <translation>Standardzoom</translation>
+        <translation>Standaard zoomniveau</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="495"/>
         <source>Custom</source>
-        <translation>Eigen</translation>
+        <translation>Aangepast</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="503"/>
         <source>Fullscreen</source>
-        <translation>Vollbild</translation>
+        <translation>Schermvullende weergave</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="510"/>
         <source>Sidebar</source>
-        <translation>Seitenleiste</translation>
+        <translation>Zijbalk</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="519"/>
         <source>Fold All</source>
-        <translation>Alle einklappen</translation>
+        <translation>Alles inklappen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="525"/>
         <source>Unfold All</source>
-        <translation>Alle ausklappen</translation>
+        <translation>Alles uitklappen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="533"/>
         <source>Split View</source>
-        <translation>Geteilte Ansicht</translation>
+        <translation>Weergave splitsen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="535"/>
         <source>Split Vertical</source>
-        <translation>Senkrecht teilen</translation>
+        <translation>Verticaal splitsen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="541"/>
         <source>Close Current View</source>
-        <translation>Aktuelle Ansicht schließen</translation>
+        <translation>Huidige weergave sluiten</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="550"/>
         <source>&amp;Search</source>
-        <translation>&amp;Suchen</translation>
+        <translation>&amp;Zoeken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="552"/>
         <source>&amp;Find</source>
-        <translation>&amp;Suchen</translation>
+        <translation>Zoe&amp;ken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="559"/>
         <source>Advanced Search</source>
-        <translation>Erweiterte Suche</translation>
+        <translation>Geavanceerd zoeken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="565"/>
         <source>&amp;Find and Replace</source>
-        <translation>Suchen und &amp;Ersetzen</translation>
+        <translation>&amp;Zoeken en vervangen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="572"/>
         <source>Goto Line</source>
-        <translation>Gehe zu Zeile</translation>
+        <translation>Ga naar regel</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="578"/>
         <source>&amp;Tools</source>
-        <translation>&amp;Werkzeuge</translation>
+        <translation>&amp;Hulpmiddelen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="580"/>
         <source>Pick Color</source>
-        <translation>Farbe auswählen</translation>
+        <translation>Kleur kiezen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="586"/>
         <source>&amp;Document Statistics</source>
-        <translation>&amp;Statistiken zum Dokument</translation>
+        <translation>&amp;Documentstatistieken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="592"/>
         <source>&amp;Insert Date and Time</source>
-        <translation>&amp;datum und Uhrzeit einfügen</translation>
+        <translation>Datum en tijd &amp;invoegen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="600"/>
         <source>Strip Trailing Spaces</source>
-        <translation>Leerzeichen am Zeilenende entfernen</translation>
+        <translation>Spaties aan einde wissen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="606"/>
         <source>Replace Tabs with Spaces</source>
-        <translation>Tabulatoren durch Leerzeichen ersetze</translation>
+        <translation>Tabs vervangen door spaties</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="612"/>
         <source>Replace Spaces with Tabs</source>
-        <translation>Leerzeichen durch Tabulatoren ersetzen</translation>
+        <translation>Spaties vervangen door tabs</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="620"/>
         <source>RegExGrep</source>
-        <translation>RegExGrep</translation>
+        <translation>Reguliere uitdrukkingen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="626"/>
         <source>Settings</source>
-        <translation>Einstellungen</translation>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="628"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Einstellungen</translation>
+        <translation>In&amp;stellingen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="635"/>
         <source>Manage languages</source>
-        <translation>Sprachen verwalten</translation>
+        <translation>Talen beheren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="641"/>
         <source>Manage custom themes</source>
-        <translation>Eigene Themen verwalten</translation>
+        <translation>Eigen thema&apos;s beheren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="649"/>
         <source>Export data</source>
-        <translation>Daten exportieren</translation>
+        <translation>Gegevens exporteren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1702"/>
         <location filename="../gui/MainWindow.py" line="655"/>
         <source>Import data</source>
-        <translation>Daten importieren</translation>
+        <translation>Gegevens importeren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="661"/>
         <source>&amp;Language</source>
-        <translation>&amp;Sprache</translation>
+        <translation>Taa&amp;l</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="665"/>
         <source>Encoding</source>
-        <translation>Kodierung</translation>
+        <translation>Tekenset</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="668"/>
         <source>Bookmarks</source>
-        <translation>Lesezeichen</translation>
+        <translation>Bladwijzers</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="670"/>
         <source>Set/delete bookmark</source>
-        <translation>Lesezeichen setzen/löschen</translation>
+        <translation>Bladwijzer toevoegen/verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="676"/>
         <source>Next bookmark</source>
-        <translation>Nächstes Lesezeichen</translation>
+        <translation>Volgende bladwijzer</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="682"/>
         <source>Previous bookmark</source>
-        <translation>Vorheriges Lesezeichen</translation>
+        <translation>Vorige bladwijzer</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="688"/>
         <source>Clear all bookmarks</source>
-        <translation>Alle Lesezeichen löschen</translation>
+        <translation>Alle bladwijzers wissen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="694"/>
         <source>Macros</source>
-        <translation>Makros</translation>
+        <translation>Macro&apos;s</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="696"/>
         <source>Start recording</source>
-        <translation>Aufzeichnung starten</translation>
+        <translation>Opname starten</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="701"/>
         <source>Stop recording</source>
-        <translation>Aufzeichnung stoppen</translation>
+        <translation>Opname stoppen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="707"/>
         <source>Execute macro</source>
-        <translation>Makro ausführen</translation>
+        <translation>Macro uitvoeren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1651"/>
         <location filename="../gui/MainWindow.py" line="713"/>
         <source>Save macro</source>
-        <translation>Aufgenommenes Makro speichern</translation>
+        <translation>Macro opslaan</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="719"/>
         <source>Manage Macros</source>
-        <translation>Makros verwalten</translation>
+        <translation>Macro&apos;s beheren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="726"/>
         <source>Execute</source>
-        <translation>Ausführen</translation>
+        <translation>Uitvoeren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="728"/>
         <source>Execute Command</source>
-        <translation>Befehl ausführen</translation>
+        <translation>Opdracht uitvoeren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="733"/>
         <source>Edit Commands</source>
-        <translation>Befehle bearbeiten</translation>
+        <translation>Opdrachten bewerken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="742"/>
         <source>Search Action</source>
-        <translation>Aktion suchen</translation>
+        <translation>Zoeken naar actie</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="750"/>
         <source>Open data directory</source>
-        <translation>Speicherordner öffnen</translation>
+        <translation>Gegevensmap openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="756"/>
         <source>Open program directory</source>
-        <translation>Installationsordner öffnen</translation>
+        <translation>Programmamap openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="763"/>
         <source>Search for Updates</source>
-        <translation>Nach Updates suchen</translation>
+        <translation>Controleren op updates</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="769"/>
         <source>Tip of the Day</source>
-        <translation>Tipp des Tages</translation>
+        <translation>Tip van de dag</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="775"/>
         <source>Report Bug</source>
-        <translation>Fehler melden</translation>
+        <translation>Bug melden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="781"/>
         <source>View Documentation</source>
-        <translation>Dokumentation</translation>
+        <translation>Documentatie bekijken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="789"/>
         <source>Debug information</source>
-        <translation>Debuginformationen</translation>
+        <translation>Foutopsporingsinformatie</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1726"/>
         <location filename="../gui/MainWindow.py" line="795"/>
         <source>Delete all data</source>
-        <translation>Alle Daten löschen</translation>
+        <translation>Alle gegevens wissen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="803"/>
         <source>About</source>
-        <translation>Über</translation>
+        <translation>Over</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="809"/>
         <source>About Qt</source>
-        <translation>Über Qt</translation>
+        <translation>Over Qt</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="817"/>
         <source>Seperator</source>
-        <translation>Trenner</translation>
+        <translation>Scheidingsteken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="843"/>
         <source>No Templates found</source>
-        <translation>Keine Vorlagen verfügbar</translation>
+        <translation>Er zijn geen sjablonen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="854"/>
         <source>Add</source>
-        <translation>Hinzufügen</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="856"/>
         <source>Save current document as template</source>
-        <translation>Aktuelles Dokument als Vorlage speichern</translation>
+        <translation>Huidig document opslaan als sjabloon</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="860"/>
         <source>Add file as template</source>
-        <translation>Datei als Vorlage hinzufügen</translation>
+        <translation>Bestand toevoegen als sjabloon</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="864"/>
         <source>Manage</source>
-        <translation>Verwalten</translation>
+        <translation>Beheren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="896"/>
         <location filename="../gui/MainWindow.py" line="877"/>
         <source>Enter name</source>
-        <translation>Namen eingeben</translation>
+        <translation>Naam invoeren</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="896"/>
         <location filename="../gui/MainWindow.py" line="877"/>
         <source>Please enter a name for the template</source>
-        <translation>Bitte gib einen Namen für die Vorlage ein</translation>
+        <translation>Geef het sjabloon een naam</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="901"/>
         <location filename="../gui/MainWindow.py" line="881"/>
         <source>Invalid filename</source>
-        <translation>Ungültiger Dateiname</translation>
+        <translation>Ongeldige bestandsnaam</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="901"/>
         <location filename="../gui/MainWindow.py" line="881"/>
         <source>The Filename is invalid</source>
-        <translation>Der Dateiname ist ungültig</translation>
+        <translation>De bestandsnaam is ongeldig</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="916"/>
         <source>No recent files</source>
-        <translation>Keine zuletzt geöffneten Dateien</translation>
+        <translation>Geen onlangs geopende bestanden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="928"/>
         <source>Clear</source>
-        <translation>Löschen</translation>
+        <translation>Wissen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="931"/>
         <source>Open all</source>
-        <translation>Alle öffnen</translation>
+        <translation>Alles openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="954"/>
         <source>All files</source>
-        <translation>Alle Dateien</translation>
+        <translation>Alle bestanden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="990"/>
         <location filename="../gui/MainWindow.py" line="985"/>
         <source>Plain Text</source>
-        <translation>Reiner Text</translation>
+        <translation>Platte tekst</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1112"/>
         <source>Can&apos;t open file</source>
-        <translation>Kann Datei nicht öffnen</translation>
+        <translation>Kan bestand niet openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1112"/>
         <source>You don&apos;t have the permission to open {{path}}</source>
-        <translation>Du hast nicht die Berechtigung, um {{path}} zu öffnen</translation>
+        <translation>U bent niet bevoegd om {{path}} te openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1733"/>
@@ -1754,124 +1754,124 @@
         <location filename="../gui/MainWindow.py" line="1284"/>
         <location filename="../gui/MainWindow.py" line="1116"/>
         <source>Unknown error</source>
-        <translation>Unbekannter Fehler</translation>
+        <translation>Onbekende foutmelding</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1733"/>
         <location filename="../gui/MainWindow.py" line="1284"/>
         <location filename="../gui/MainWindow.py" line="1116"/>
         <source>An unknown error has occurred</source>
-        <translation>Ein Unbekannter Fehler ist aufgetreten</translation>
+        <translation>Er is een onbekende fout opgetreden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1246"/>
         <source>This file has some decoding errors</source>
-        <translation>Diese Datei hat einige Fehler in ihrer Kodierung</translation>
+        <translation>Dit bestand bevat fouten in de tekenset</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1280"/>
         <source>Can&apos;t save file</source>
-        <translation>Kann Datei nicht speichern</translation>
+        <translation>Kan bestand niet opslaan</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1280"/>
         <source>You don&apos;t have the permission to write {{path}}</source>
-        <translation>Du hast nicht die Berechtigung, um {{path}} zu schreiben</translation>
+        <translation>U bent niet bevoegd om bestanden op te slaan in {{path}}</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1333"/>
         <source>Open</source>
-        <translation>Öffnen</translation>
+        <translation>Openen</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1411"/>
         <source>Print</source>
-        <translation>Drucken</translation>
+        <translation>Afdrukken</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1516"/>
         <source>Custom zoom</source>
-        <translation>Eigener Zoom</translation>
+        <translation>Ander zoomniveau</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1516"/>
         <source>Please enter a value for the zoom in percent</source>
-        <translation>Gib einen Wert für den Zoom in Prozent an</translation>
+        <translation>Voer een zoomniveau in (in procent)</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1651"/>
         <source>Please enter a name for the macro</source>
-        <translation>Bitte gib einen Namen für das Makro ein</translation>
+        <translation>Geef de macro een naam</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1660"/>
         <source>Zip Files</source>
-        <translation>Zip Dateien</translation>
+        <translation>Zipbestanden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1661"/>
         <source>All Files</source>
-        <translation>Alle Dateien</translation>
+        <translation>Alle bestanden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1676"/>
         <source>Invalid file</source>
-        <translation>Ungültige Datei</translation>
+        <translation>Ongeldig bestand</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1676"/>
         <source>This file does not contains valid exported data from jdTextEdit</source>
-        <translation>Diese Datei enthält nicht valide Exportdaten von jdTextEdit</translation>
+        <translation>Dit bestand bevat geen geldige jdTextEdit-gegevens</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1683"/>
         <source>An unknown error happened</source>
-        <translation>Ein unbekannter Fehler ist aufgetreten</translation>
+        <translation>Er is een onbekende fout opgetreden</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1686"/>
         <source>Are you sure you want to import the following data?</source>
-        <translation>Bist du sicher, dass du die folgenden Daten importieren willst?</translation>
+        <translation>Weet u zeker dat u de volgende gegevens wilt importeren?</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1688"/>
         <source>Date and Time: {{DateTime}}</source>
-        <translation>datum und Uhrzeit: {{DateTime}}</translation>
+        <translation>Datum en tijd: {{DateTime}}</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1689"/>
         <source>Platform: {{Platform}}</source>
-        <translation>Platform: {{Platform}}</translation>
+        <translation>Besturingssysteem: {{Platform}}</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1690"/>
         <source>Version: {{Version}}</source>
-        <translation>Version: {{Version}}</translation>
+        <translation>Versie: {{Version}}</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1692"/>
         <source>It includes the following:</source>
-        <translation>Sie enthalten das folgende:</translation>
+        <translation>Dit bevat het volgende:</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1700"/>
         <source>If you continue, your data will be overwritten and jdTextEdit will be closed</source>
-        <translation>Wenn du fortfährst, werden deine Daten überschreiben und jdTextEdit wird sich schließen</translation>
+        <translation>Als u doorgaat, dan worden alle gegevens overschreven en wordt jdTextEdit afgesloten</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1718"/>
         <source>Import complete</source>
-        <translation>Import abgeschlossen</translation>
+        <translation>Importeren voltooid</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1718"/>
         <source>The Import is now completed. jdTextEdit will now close.</source>
-        <translation>Der import ist jetzt abgeschlossen. jdTextEdit wird sich jetzt schließen.</translation>
+        <translation>Het importeren is voltooid - jdTextEdit wordt afgesloten.</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="1726"/>
         <source>This will delete all data of jdTextEdit. After that, jdTextEdit will behave like the first run. jdTexEdit will exit after doing that. Are you sure?</source>
-        <translation>Alle Daten von jdTextEdit werden gelöscht. Danch wird sich jdTextEdit wie beim ersten Start verhalten. jdTextEdit beendet sich nach dem löschen. Willst du Fortfahren?</translation>
+        <translation>Hierdoor worden alle gegevens van jdTextEdit gewist. Dit houdt in dat alle instellingen van jdTextEdit worden teruggezet op de standaardwaarden en het programma daarna wordt afgesloten. Weet u het zeker?</translation>
     </message>
 </context>
 <context>
@@ -1879,32 +1879,32 @@
     <message>
         <location filename="../gui/ManageMacrosWindow.py" line="29"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/ManageMacrosWindow.py" line="30"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/ManageMacrosWindow.py" line="56"/>
         <source>Manage macros</source>
-        <translation>Makros verwalten</translation>
+        <translation>Macro&apos;s beheren</translation>
     </message>
     <message>
         <location filename="../gui/ManageMacrosWindow.py" line="75"/>
         <source>No macros available</source>
-        <translation>Keine Makros verfügbar</translation>
+        <translation>Geen macro&apos;s beschikbaar</translation>
     </message>
     <message>
         <location filename="../gui/ManageMacrosWindow.py" line="75"/>
         <source>There are currently no macros available. You have to record some before you can manage them.</source>
-        <translation>Es sind momentan keine Makros vorhanden. Du musst erst welche aufnehmen, bevor du sie verwalten kannst.</translation>
+        <translation>Er zijn geen macro&apos;s beschikbaar. Neem macro&apos;s op om ze te kunnen beheren.</translation>
     </message>
     <message>
         <location filename="../gui/ManageMacrosWindow.py" line="87"/>
         <source>Remove macro</source>
-        <translation>Makro löschen</translation>
+        <translation>Macro verwijderen</translation>
     </message>
 </context>
 <context>
@@ -1912,79 +1912,79 @@
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="14"/>
         <source>Delete</source>
-        <translation>Löschen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="15"/>
         <source>Rename</source>
-        <translation>Umbenennen</translation>
+        <translation>Naam wijzigen</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="16"/>
         <source>Export</source>
-        <translation>Exportieren</translation>
+        <translation>Exporteren</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="17"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="36"/>
         <source>Manage templates</source>
-        <translation>Vorlagen verwalten</translation>
+        <translation>Sjablonen beheren</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="55"/>
         <source>Delete {{name}}</source>
-        <translation>{{name}} löschen</translation>
+        <translation>‘{{name}}’ verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="55"/>
         <source>Are you sure you want to delete {{name}}?</source>
-        <translation>Bist du sicher, dass du {{name}} löschen willst?</translation>
+        <translation>Weet u zeker dat u ‘{{name}}’ wilt verwijderen?</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="103"/>
         <location filename="../gui/ManageTemplatesWindow.py" line="85"/>
         <location filename="../gui/ManageTemplatesWindow.py" line="62"/>
         <source>Error</source>
-        <translation>Fehler</translation>
+        <translation>Foutmelding</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="62"/>
         <source>A error occurred while deleting</source>
-        <translation>Während des Löschens ist ein Fehler aufgetreten</translation>
+        <translation>Er is een fout opgetreden tijdens het verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="72"/>
         <source>Enter name</source>
-        <translation>Namen eingeben</translation>
+        <translation>Naam invoeren</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="72"/>
         <source>Please enter the new name</source>
-        <translation>Bitte gib einen Namen ein</translation>
+        <translation>Voer de nieuwe naam in</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="78"/>
         <source>Name exists</source>
-        <translation>name existiert</translation>
+        <translation>Naam is al in gebruik</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="78"/>
         <source>There is already a template with this name</source>
-        <translation>Es gibt bereits eine Vorlage mit diesem Namen</translation>
+        <translation>Er is al een sjabloon met deze naam</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="85"/>
         <source>A error occurred while renaming</source>
-        <translation>Während des Umbenennens ist ein Fehler aufgetreten</translation>
+        <translation>Er is een fout opgetreden tijdens het wijzigen van de naam</translation>
     </message>
     <message>
         <location filename="../gui/ManageTemplatesWindow.py" line="103"/>
         <source>A error occurred while exporting</source>
-        <translation>Während des exportierens ist ein Fehler aufgetreten</translation>
+        <translation>Er is een fout opgetreden tijdens het exporteren</translation>
     </message>
 </context>
 <context>
@@ -1992,94 +1992,94 @@
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="60"/>
         <source>Enter name</source>
-        <translation>Namen eingeben</translation>
+        <translation>Naam invoeren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="60"/>
         <source>Please enter a name</source>
-        <translation>Bitte gib einen Namen ein</translation>
+        <translation>Voer een naam in</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="66"/>
         <source>Name exists</source>
-        <translation>Name existiert</translation>
+        <translation>Naam is al in gebruik</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="66"/>
         <source>This name already exists</source>
-        <translation>Dieser Name existiert bereits</translation>
+        <translation>Deze naam is al in gebruik</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="84"/>
         <source>Delete {{name}}</source>
-        <translation>Lösche {{name}}</translation>
+        <translation>‘{{name}}’ verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="84"/>
         <source>Are you sure you want to delete {{name}}?</source>
-        <translation>Bist du sicher, dass du {{name}} löschen möchtest?</translation>
+        <translation>Weet u zeker dat u ‘{{name}}’ wilt verwijderen?</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="116"/>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="93"/>
         <source>JSON Files</source>
-        <translation>JSON Dateien</translation>
+        <translation>Json-bestanden</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="117"/>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="94"/>
         <source>All Files</source>
-        <translation>Alle Dateien</translation>
+        <translation>Alle bestanden</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="110"/>
         <source>Invalid file</source>
-        <translation>Ungültige Datei</translation>
+        <translation>Ongeldig bestand</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.py" line="110"/>
         <source>This file is not a valid theme</source>
-        <translation>Diese Datei ist kein gültiges Thema</translation>
+        <translation>Dit is geen geldig themabestand</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Manage custom themes</source>
-        <translation>Eigene Themen verwalten</translation>
+        <translation>Eigen thema&apos;s beheren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>New</source>
-        <translation>Neu</translation>
+        <translation>Nieuw</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation>Bewerken</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Copy</source>
-        <translation>Kopieren</translation>
+        <translation>Kopiëren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Delete</source>
-        <translation>Löschen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Import</source>
-        <translation>Importieren</translation>
+        <translation>Importeren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Export</source>
-        <translation>Exportieren</translation>
+        <translation>Exporteren</translation>
     </message>
     <message>
         <location filename="../gui/Windows/ManageThemesWindow/ManageThemeListWindow.ui" line="0"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Sluiten</translation>
     </message>
 </context>
 <context>
@@ -2087,12 +2087,12 @@
     <message>
         <location filename="../gui/SidebarWidgets/NotesWidget.py" line="10"/>
         <source>You can write down notes here</source>
-        <translation>Du kannst dir hier Notizen machen</translation>
+        <translation>Schrijf hier opmerkingen (optioneel)</translation>
     </message>
     <message>
         <location filename="../gui/SidebarWidgets/NotesWidget.py" line="13"/>
         <source>Notes</source>
-        <translation>Notizen</translation>
+        <translation>Opmerkingen</translation>
     </message>
 </context>
 <context>
@@ -2100,42 +2100,42 @@
     <message>
         <location filename="../gui/SettingsTabs/OpenTab.py" line="19"/>
         <source>Always open files in this instance</source>
-        <translation>Dateien immer in dieser Instanz öffnen</translation>
+        <translation>Bestanden altijd in dit venster openen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/OpenTab.py" line="20"/>
         <source>Detect language</source>
-        <translation>Sprache automatisch erkennen</translation>
+        <translation>Taal herkennen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/OpenTab.py" line="21"/>
         <source>Detect end of line</source>
-        <translation>Zeilenende automatisch erkennen</translation>
+        <translation>Regeleinde herkennen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/OpenTab.py" line="22"/>
         <source>Detect encoding</source>
-        <translation>Kodierung automatisch erkennen</translation>
+        <translation>Tekenset herkennen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/OpenTab.py" line="23"/>
         <source>Warn when encoding is not the default setting</source>
-        <translation>Warnen, wenn Zeichenkodierung nicht den Standardeinstellungen entspricht</translation>
+        <translation>Waarschuwing tonen als tekenset afwijkt van standaardinstelling</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/OpenTab.py" line="24"/>
         <source>Warn when end of line is not the default setting</source>
-        <translation>Warnen, wenn Zeilenende nicht den Standardeinstellungen entspricht</translation>
+        <translation>Waarschuwing tonen als regeleinde afwijkt van standaardinstelling</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/OpenTab.py" line="31"/>
         <source>Detect encoding with:</source>
-        <translation>Erkenne Kodierung mit:</translation>
+        <translation>Tekenset herkennen met behulp van:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/OpenTab.py" line="68"/>
         <source>Open</source>
-        <translation>Öffnen</translation>
+        <translation>Openen</translation>
     </message>
 </context>
 <context>
@@ -2143,37 +2143,37 @@
     <message>
         <location filename="../gui/SettingsTabs/PathsTab.py" line="18"/>
         <source>Follow current document</source>
-        <translation>Wie aktuelle Datei</translation>
+        <translation>Huidig document</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PathsTab.py" line="19"/>
         <source>Remember last used directory</source>
-        <translation>Letztes Verzeichnis merken</translation>
+        <translation>Laatstgebruikte map onthouden</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PathsTab.py" line="20"/>
         <source>Use custom directory</source>
-        <translation>Eigenes Verzeichnis benutzen</translation>
+        <translation>Eigen map gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PathsTab.py" line="22"/>
         <source>Browse</source>
-        <translation>Durchsuchen</translation>
+        <translation>Bladeren</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PathsTab.py" line="84"/>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation>Opslaan</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PathsTab.py" line="85"/>
         <source>Open</source>
-        <translation>Öffnen</translation>
+        <translation>Openen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PathsTab.py" line="103"/>
         <source>Paths</source>
-        <translation>Pfade</translation>
+        <translation>Locaties</translation>
     </message>
 </context>
 <context>
@@ -2181,63 +2181,63 @@
     <message>
         <location filename="../core/PluginLoader.py" line="35"/>
         <source>Additional Packages required</source>
-        <translation>Zusätzliche Pakete benötigt</translation>
+        <translation>Aanvullende pakketten vereist</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="35"/>
         <source>{{plugin}} requires some additional packages. Do you want to install them?</source>
-        <translation>{{plugin}} benötigt zusätzliche Pakete. Möchtest du sie instalieren?</translation>
+        <translation>Voor het gebruik van ‘{{plugin}}’ zijn aanvullende pakketten vereist. Wilt u ze installeren?</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="41"/>
         <source>Installing packages...&lt;br&gt;This may take some time</source>
         <comment>The &lt;br&gt; marks a line break</comment>
-        <translation>Installiere Pakete...&lt;br&gt;Das dauert möglicherweise etwas</translation>
+        <translation>Bezig met installeren van pakketten…&lt;br&gt;Dit kan even duren.</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="47"/>
         <source>Pip not found</source>
-        <translation>Pip nicht gefudnen</translation>
+        <translation>Pip niet aangetroffen</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="47"/>
         <source>Pip was not found</source>
-        <translation>Pip wurde nicht gefunden</translation>
+        <translation>Pip is niet aangetroffen</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="52"/>
         <source>Instalation failed</source>
-        <translation>Installation fehlgeschlagen</translation>
+        <translation>Installatie mislukt</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="52"/>
         <source>The instalation of the packages failed</source>
-        <translation>Die Instalation der Pakete ist fehlgeschlage</translation>
+        <translation>De pakketten kunnen niet worden geïnstalleerd</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="57"/>
         <source>Directory {{path}} does not exists</source>
-        <translation>Verzeichnis {{path}} existiert nicht</translation>
+        <translation>‘{{path}}’ bestaat niet</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="62"/>
         <source>{{path}} has no manifest.json</source>
-        <translation>{{path}} hat keine manifest.json</translation>
+        <translation>‘{{path}}’ bevat geen manifest.json</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="71"/>
         <source>{{path}} has no key {{key}}</source>
-        <translation>{{path}} hat keinen Schlüssel {{key}}</translation>
+        <translation>‘{{path}}’ bevat geen sleutel: {{key}}</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="76"/>
         <source>Skipping loading of Plugin {{id}}</source>
-        <translation>Überspringe laden von Plugin {{id}}</translation>
+        <translation>De plug-in met id ‘{{id}}’ wordt niet geladen</translation>
     </message>
     <message>
         <location filename="../core/PluginLoader.py" line="84"/>
         <source>A Plugin with ID {{id}} is already loaded</source>
-        <translation>EIn Plugin mit der ID {{id}} ist bereits geladen</translation>
+        <translation>Er is al een plug-in met id ‘{{id}}’ geladen</translation>
     </message>
 </context>
 <context>
@@ -2245,27 +2245,27 @@
     <message>
         <location filename="../gui/SettingsTabs/PluginTab.py" line="19"/>
         <source>Enabled</source>
-        <translation>Aktiviert</translation>
+        <translation>Ingeschakeld</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PluginTab.py" line="20"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PluginTab.py" line="21"/>
         <source>Version</source>
-        <translation>Version</translation>
+        <translation>Versie</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PluginTab.py" line="22"/>
         <source>Author</source>
-        <translation>Autor</translation>
+        <translation>Maker</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/PluginTab.py" line="65"/>
         <source>Plugins</source>
-        <translation>Plugins</translation>
+        <translation>Plug-ins</translation>
     </message>
 </context>
 <context>
@@ -2274,17 +2274,17 @@
         <location filename="../gui/SidebarWidgets/ProjectWidget.py" line="132"/>
         <location filename="../gui/SidebarWidgets/ProjectWidget.py" line="41"/>
         <source>Projects</source>
-        <translation>Projekte</translation>
+        <translation>Projecten</translation>
     </message>
     <message>
         <location filename="../gui/SidebarWidgets/ProjectWidget.py" line="118"/>
         <source>New Project</source>
-        <translation>Neues Projekt</translation>
+        <translation>Nieuw project</translation>
     </message>
     <message>
         <location filename="../gui/SidebarWidgets/ProjectWidget.py" line="124"/>
         <source>Remove Project</source>
-        <translation>Projekt löschen</translation>
+        <translation>Project verwijderen</translation>
     </message>
 </context>
 <context>
@@ -2292,42 +2292,42 @@
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.py" line="56"/>
         <source>Enter name</source>
-        <translation>Namen eingeben</translation>
+        <translation>Naam invoeren</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.py" line="56"/>
         <source>Please enter a Name under which you want to save your RegEx</source>
-        <translation>Bitte gib den Namen ein, unter dem du den RegEx speichern möchtest</translation>
+        <translation>Geef de reguliere uitdrukking een naam</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.py" line="62"/>
         <source>Already taken</source>
-        <translation>Bereits vergeben</translation>
+        <translation>In gebruik</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.py" line="62"/>
         <source>This name has already been taken</source>
-        <translation>Der Name ist bereits vorhanden</translation>
+        <translation>Deze naam is al in gebruik</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.py" line="73"/>
         <source>Remove RegEx</source>
-        <translation>RegEx löschen</translation>
+        <translation>Uitdrukking verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.py" line="73"/>
         <source>Are you sure you want to remove the selected RegEx?</source>
-        <translation>Bist du sicher, dass du den ausgewählten RegEx löschen möchtest?</translation>
+        <translation>Weet u zeker dat u de gekozen uitdrukking wilt verwijderen?</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
         <source>Saved RegEx</source>
-        <translation>Gespeicherte RegEx</translation>
+        <translation>Opgeslagen uitdrukking</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
         <source>Search</source>
-        <translation>Suche</translation>
+        <translation>Zoeken</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
@@ -2337,17 +2337,17 @@
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation>Opslaan</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
         <source>Remove</source>
-        <translation>Löschen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
 </context>
 <context>
@@ -2355,82 +2355,82 @@
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="25"/>
         <source>No results</source>
-        <translation>Keine Ergebnisse</translation>
+        <translation>Geen resultaten</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="25"/>
         <source>There are no results to copy</source>
-        <translation>Es gibt keine Ergebnisse zum kopieren</translation>
+        <translation>Er zijn geen resultaten om te kopiëren</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="33"/>
         <source>Data copied</source>
-        <translation>Daten kopiert</translation>
+        <translation>Gegevens gekopieerd</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="33"/>
         <source>The content of the results List has been copied into your clipboard</source>
-        <translation>Die Liste mit den Ergebnissen wurde erfolgreich kopiert</translation>
+        <translation>De inhoud van de resultatenlijst is gekopieerd naar het klembord</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="37"/>
         <source>No RegEx</source>
-        <translation>Kein RegEx</translation>
+        <translation>Geen uitdrukking</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="37"/>
         <source>You have not entered a RegEx</source>
-        <translation>Es wurde kein RegEx angegeben</translation>
+        <translation>U heeft geen reguliere uitdrukking ingevoerd</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="41"/>
         <source>Invalid RegEx</source>
-        <translation>Ungültiger RegEx</translation>
+        <translation>Ongeldige uitdrukking</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="49"/>
         <source>Nothing found</source>
-        <translation>Nichts gefunden</translation>
+        <translation>Geen zoekresultaten</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="49"/>
         <source>The given RegEx haven&apos;t found anything</source>
-        <translation>Der angegebene RegEx erzielte keine Treffer</translation>
+        <translation>De opgegeven uitdrukking heeft niks gevonden</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
         <source>RegExGrep</source>
-        <translation>RegEx Grep</translation>
+        <translation>RegExGrep</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
         <source>RegEx Grep searches the Document with the given RegEx and puts the output into a List</source>
-        <translation>RegEx Grep durchsucht das Dokument anhand des angegebenen RegEx und schreibt die Ergebnisse in eine Liste</translation>
+        <translation>Met behulp van RegEx Grep kunt u het document doorzoeken met behulp van de gekozen uitdrukking en de uitvoer op een lijst tonen</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
         <source>RegEx:</source>
-        <translation>RegEx:</translation>
+        <translation>Uitdrukking:</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
         <source>Saved RegEx</source>
-        <translation>Gespeicherte RegEx</translation>
+        <translation>Opgeslagen uitdrukking</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
         <source>Copy to Clipboard</source>
-        <translation>In die Zwischenablage kopieren</translation>
+        <translation>Kopiëren naar klembord</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
 </context>
 <context>
@@ -2438,37 +2438,37 @@
     <message>
         <location filename="../gui/SettingsTabs/SaveTab.py" line="17"/>
         <source>Insert end of line at end of file when saving</source>
-        <translation>Beim Speichern Zeilenende am Dateiende einfügen</translation>
+        <translation>Regeleinde toevoegen aan einde van bestand na opslaan</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/SaveTab.py" line="18"/>
         <source>Remove all spaces at the end of the line when saving</source>
-        <translation>Beim Speichern alle Leerzeichen am Zeilenende entfernen</translation>
+        <translation>Alle spaties aan einde van bestand wissen na opslaan</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/SaveTab.py" line="19"/>
         <source>Create a backup copy of files before saving</source>
-        <translation>Vor dem Speichern ein Backup erstellen</translation>
+        <translation>Reservekopiëen maken alvorens op te slaan</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/SaveTab.py" line="20"/>
         <source>Enable automatic saving</source>
-        <translation>Automatisches speichern aktivieren</translation>
+        <translation>Automatisch opslaan</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/SaveTab.py" line="21"/>
         <source>Saving interval in seconds:</source>
-        <translation>Speicherintervall in Sekunden:</translation>
+        <translation>Opslaan, elke (in seconden):</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/SaveTab.py" line="22"/>
         <source>Backup extension:</source>
-        <translation>Backupdateiendung:</translation>
+        <translation>Reservekopie-extensie:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/SaveTab.py" line="78"/>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation>Opslaan</translation>
     </message>
 </context>
 <context>
@@ -2476,27 +2476,27 @@
     <message>
         <location filename="../gui/SearchAndReplaceWindow.py" line="10"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/SearchAndReplaceWindow.py" line="11"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/SearchAndReplaceWindow.py" line="26"/>
         <source>Search for:</source>
-        <translation>Suche nach:</translation>
+        <translation>Zoeken naar:</translation>
     </message>
     <message>
         <location filename="../gui/SearchAndReplaceWindow.py" line="28"/>
         <source>Replace with:</source>
-        <translation>Ersetze durch:</translation>
+        <translation>Vervangen door:</translation>
     </message>
     <message>
         <location filename="../gui/SearchAndReplaceWindow.py" line="33"/>
         <source>Find and Replace</source>
-        <translation>Suchen und Ersetzen</translation>
+        <translation>Zoeken en vervangen</translation>
     </message>
 </context>
 <context>
@@ -2504,17 +2504,17 @@
     <message>
         <location filename="../gui/SearchBar.py" line="25"/>
         <source>Jump to next match</source>
-        <translation>Zur nächsten Übereinstimmung springen</translation>
+        <translation>Ga naar volgende overeenkomst</translation>
     </message>
     <message>
         <location filename="../gui/SearchBar.py" line="26"/>
         <source>Jump to first match</source>
-        <translation>Zur ersten Übereinstimmung springen</translation>
+        <translation>Ga naar eerste overeenkomst</translation>
     </message>
     <message>
         <location filename="../gui/SearchBar.py" line="30"/>
         <source>Search:</source>
-        <translation>Suche:</translation>
+        <translation>Zoeken:</translation>
     </message>
 </context>
 <context>
@@ -2522,63 +2522,63 @@
     <message>
         <location filename="../gui/SearchWindow.py" line="16"/>
         <source>Regular Expression</source>
-        <translation>Regulärer Ausdruck</translation>
+        <translation>Reguliere uitdrukking</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="17"/>
         <source>Match case</source>
-        <translation>Groß- und Kleinschreibung beachten</translation>
+        <translation>Hoofdlettergevoelig</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="18"/>
         <source>Match entire word only</source>
-        <translation>Nur vollständige Wörter berücksichtigen</translation>
+        <translation>Alleen gehele woorden</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="19"/>
         <source>Wrap around</source>
-        <translation>Suche beim Erreichen des Endes am Anfang fortsetzen</translation>
+        <translation>Rondom tekst</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="20"/>
         <source>Search backwards</source>
-        <translation>Rückwärts suchen</translation>
+        <translation>Achterwaarts zoeken</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="21"/>
         <source>Show text if hidden</source>
-        <translation>Zeige Text wenn versteckt</translation>
+        <translation>Verborgen tekst tonen</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="22"/>
         <source>Search from a certain range</source>
-        <translation>Ab bestimmtem Bereich suchen</translation>
+        <translation>Zoeken vanaf bereik</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="23"/>
         <source>Search at Line:</source>
-        <translation>Suche ab Zeile:</translation>
+        <translation>Zoeken vanaf regel:</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="24"/>
         <source>Search at Column:</source>
-        <translation>Suche ab Spalte:</translation>
+        <translation>Zoeken vanaf kolom:</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="27"/>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation>Sluiten</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="75"/>
         <location filename="../gui/SearchWindow.py" line="28"/>
         <source>Find</source>
-        <translation>Suchen</translation>
+        <translation>Zoeken</translation>
     </message>
     <message>
         <location filename="../gui/SearchWindow.py" line="47"/>
         <source>Search for:</source>
-        <translation>Suche nach:</translation>
+        <translation>Zoeken naar:</translation>
     </message>
 </context>
 <context>
@@ -2586,22 +2586,22 @@
     <message>
         <location filename="../gui/SettingsWindow.py" line="39"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Oké</translation>
     </message>
     <message>
         <location filename="../gui/SettingsWindow.py" line="40"/>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../gui/SettingsWindow.py" line="41"/>
         <source>Default</source>
-        <translation>Standard</translation>
+        <translation>Standaard</translation>
     </message>
     <message>
         <location filename="../gui/SettingsWindow.py" line="71"/>
         <source>Settings</source>
-        <translation>Einstellungen</translation>
+        <translation>Instellingen</translation>
     </message>
 </context>
 <context>
@@ -2609,12 +2609,12 @@
     <message>
         <location filename="../gui/SettingsTabs/ShortcutTab.py" line="45"/>
         <source>Reset</source>
-        <translation>Zurücksetzen</translation>
+        <translation>Standaardwaarden</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ShortcutTab.py" line="70"/>
         <source>Shortcuts</source>
-        <translation>Tastenkombinationen</translation>
+        <translation>Sneltoetsen</translation>
     </message>
 </context>
 <context>
@@ -2622,7 +2622,7 @@
     <message>
         <location filename="../gui/SplitViewWidget.py" line="71"/>
         <source>Untitled</source>
-        <translation>Unbenannt</translation>
+        <translation>Naamloos</translation>
     </message>
 </context>
 <context>
@@ -2640,7 +2640,7 @@
     <message>
         <location filename="../gui/SettingsTabs/StatusBarTab.py" line="46"/>
         <source>Statusbar</source>
-        <translation>Statusbar</translation>
+        <translation>Statusbalk</translation>
     </message>
 </context>
 <context>
@@ -2648,32 +2648,32 @@
     <message>
         <location filename="../gui/StatusBarWidgets/CursorPosWidget.py" line="18"/>
         <source>Cursor position</source>
-        <translation>Cursorposition</translation>
+        <translation>Cursorpositie</translation>
     </message>
     <message>
         <location filename="../gui/StatusBarWidgets/CursorPosWidget.py" line="23"/>
         <source>Ln {line}, Col {column}</source>
-        <translation>Z. {line}, Sp. {column}</translation>
+        <translation>Regel {line}, kolom {column}</translation>
     </message>
     <message>
         <location filename="../gui/StatusBarWidgets/EncodingWidget.py" line="18"/>
         <source>Encoding</source>
-        <translation>Kodierung</translation>
+        <translation>Tekenset</translation>
     </message>
     <message>
         <location filename="../gui/StatusBarWidgets/EolWidget.py" line="24"/>
         <source>End of Line</source>
-        <translation>Zeilenende</translation>
+        <translation>Regeleinde</translation>
     </message>
     <message>
         <location filename="../gui/StatusBarWidgets/LanguageWidget.py" line="18"/>
         <source>Language</source>
-        <translation>Sprache</translation>
+        <translation>Taal</translation>
     </message>
     <message>
         <location filename="../gui/StatusBarWidgets/PathWidget.py" line="18"/>
         <source>Path</source>
-        <translation>Pfad</translation>
+        <translation>Locatie</translation>
     </message>
 </context>
 <context>
@@ -2681,67 +2681,67 @@
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="22"/>
         <source>Font:</source>
-        <translation>Schriftart:</translation>
+        <translation>Lettertype:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="24"/>
         <source>Show line numbers</source>
-        <translation>Zeige Zeilennummern</translation>
+        <translation>Regelnummers tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="25"/>
         <source>Highlight current line</source>
-        <translation>Aktuelle Zeile hervorheben</translation>
+        <translation>Huidige regel markeren</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="32"/>
         <source>None</source>
-        <translation>Keiner</translation>
+        <translation>Geen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="33"/>
         <source>Plain</source>
-        <translation>Schlicht</translation>
+        <translation>Plat</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="34"/>
         <source>Circled</source>
-        <translation>Kreisförmig</translation>
+        <translation>Cirkels</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="35"/>
         <source>Boxed</source>
-        <translation>Kasten</translation>
+        <translation>Vierkanten</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="36"/>
         <source>CircledTree</source>
-        <translation>Kreisförmiger Baum</translation>
+        <translation>Cirkelboom</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="37"/>
         <source>BoxedTree</source>
-        <translation>Kastenbaum</translation>
+        <translation>Vierkantboom</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="64"/>
         <source>Editor theme:</source>
-        <translation>Editordesign:</translation>
+        <translation>Bewerkerthema:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="66"/>
         <source>Fold style:</source>
-        <translation>Einklapp Stil:</translation>
+        <translation>Inklapstijl:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="72"/>
         <source>Default zoom:</source>
-        <translation>Standardzoom:</translation>
+        <translation>Standaard zoomniveau:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/StyleTab.py" line="128"/>
         <source>Style</source>
-        <translation>Style</translation>
+        <translation>Stijl</translation>
     </message>
 </context>
 <context>
@@ -2749,37 +2749,37 @@
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="18"/>
         <source>Hide Tabbar when only 1 tab is open</source>
-        <translation>Verstecke Tableiste, wenn nur 1 Tab geöffnet ist</translation>
+        <translation>Tabbladenbalk verbergen als er één tabblad geopend is</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="19"/>
         <source>Exit jdTextEdit when the last tab is closed</source>
-        <translation>jdTextEdit beenden wenn der letzte Tab geschlossen wird</translation>
+        <translation>jdTextEdit afsluiten na sluiten van laatste tabblad</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="20"/>
         <source>Show close button on each tab</source>
-        <translation>Schließen-Kreuz auf jedem Tab</translation>
+        <translation>Sluitknoppen tonen op tabbladen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="21"/>
         <source>Allow moving tabs with the mouse</source>
-        <translation>Tabs können mit der Maus verschoben werden</translation>
+        <translation>Tabbladen verslepen met de muis</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="22"/>
         <source>Close tabs with double click</source>
-        <translation>Tabs mit einem Doppelklick schließen</translation>
+        <translation>Tabbladen sluiten door middel van dubbelklikken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="24"/>
         <source>Up</source>
-        <translation>Oben</translation>
+        <translation>Omhoog</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="25"/>
         <source>Bottom</source>
-        <translation>Unten</translation>
+        <translation>Omlaag</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="26"/>
@@ -2794,12 +2794,12 @@
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="30"/>
         <source>Position:</source>
-        <translation>Position:</translation>
+        <translation>Locatie:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TabBarTab.py" line="61"/>
         <source>Tabbar</source>
-        <translation>Tableiste</translation>
+        <translation>Tabbladenbalk</translation>
     </message>
 </context>
 <context>
@@ -2807,7 +2807,7 @@
     <message>
         <location filename="../gui/SidebarWidgets/TabListWidget.py" line="37"/>
         <source>Tabs</source>
-        <translation>Tabs</translation>
+        <translation>Tabbladen</translation>
     </message>
 </context>
 <context>
@@ -2815,22 +2815,22 @@
     <message>
         <location filename="../gui/SettingsTabs/TerminalEmulatorTab.py" line="11"/>
         <source>Use system terminal emulator</source>
-        <translation>Terminalemulator des Systems benutzen</translation>
+        <translation>Terminalemulator van systeem gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TerminalEmulatorTab.py" line="12"/>
         <source>Use custom terminal emulator</source>
-        <translation>Eigenen Terminalemulator benutzen</translation>
+        <translation>Aangepaste terminalemulator gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TerminalEmulatorTab.py" line="15"/>
         <source>The executable name e.g. xterm</source>
-        <translation>Der Name der ausführbaren Datei z.B. xterm</translation>
+        <translation>De naam van het uitvoerbare bestand, bijv. xterm</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TerminalEmulatorTab.py" line="20"/>
         <source>You can set the terminal emulator that is used when executing commands here</source>
-        <translation>Du kannst hier den Terminalemulator, der bei Befehlen benutzt wird, festlegen</translation>
+        <translation>Stel de terminalemulator voor het uitvoeren van opdrachten in</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/TerminalEmulatorTab.py" line="44"/>
@@ -2843,37 +2843,37 @@
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="11"/>
         <source>Add</source>
-        <translation>Hinzufügen</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="12"/>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation>Bewerken</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="13"/>
         <source>Remove</source>
-        <translation>Löschen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="32"/>
         <source>New Item</source>
-        <translation>Neues Item</translation>
+        <translation>Nieuw item</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="32"/>
         <source>Please enter a text</source>
-        <translation>Bitte gib einen Text ein</translation>
+        <translation>Voer tekst in</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="42"/>
         <source>Edit Item</source>
-        <translation>Item bearbeiten</translation>
+        <translation>Item bewerken</translation>
     </message>
     <message>
         <location filename="../gui/Widgets/TextListWidget.py" line="42"/>
         <source>Please edit a text</source>
-        <translation>Bitte bearbeite den Text</translation>
+        <translation>Bewerk de tekst</translation>
     </message>
 </context>
 <context>
@@ -2881,117 +2881,117 @@
     <message>
         <location filename="../gui/DayTipWindow.py" line="41"/>
         <source>You can install plugins by putting them into the plugins directory in the data directory.</source>
-        <translation>Du kannst Plugins installieren indem du sie in den plugins Ordner im Speicherordner kopierst.</translation>
+        <translation>U kunt plug-ins installeren door ze in de plug-insmap van de gegevensmap te plaatsen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="42"/>
         <source>jdTextEdit is available in multiple languages. You can change the language in the preferences.</source>
-        <translation>jdTextEdit ist in mehreren Sprachen verfügbar. Du kannst die Sprache im Einstellungsmenü ändern.</translation>
+        <translation>jdTextEdit is beschikbaar in meerdere talen. U de taal wijzigen in de instellingen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="43"/>
         <source>You can open the data directory in the about menu.</source>
-        <translation>Du kannst den Speicherordner über das Hilfemenü öffnen.</translation>
+        <translation>U kunt de gegevensmap openen via het menu ‘Over’.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="44"/>
         <source>You can change the syntax highlighter in the language menu.</source>
-        <translation>Du kannst die Syntaxhervorhebung im Sprachmenü ändern.</translation>
+        <translation>U kunt de syntaxismarkering aanpassen in het taalmenu.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="45"/>
         <source>You can edit the Context menu and the toolbar in the preferences.</source>
-        <translation>Du kannst das Kontextmenü und die Werkzeugleiste in den Einstellungen bearbeiten.</translation>
+        <translation>U kunt het rechtermuisknopmenu en de werkbalk aanpassen in de instellingen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="46"/>
         <source>You can add your own templates to the templates menu by putting them into the templates folder in the data directory.</source>
-        <translation>Du kannst Vorlagen zum Menü hinzufügen indem du sie in den templates Ordner im Speicherordner kopierst.</translation>
+        <translation>U kunt uw eigen sjablonen toevoegen aan het sjabloonmenu door ze in de sjabloonmap van de gegevensmap te plaatsen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="47"/>
         <source>Don&apos;t like the default shortcuts? You can edit all shortcuts in the &quot;Shortcuts&quot; tab of the &quot;Preferences&quot; window.</source>
-        <translation>Bist du mit den normalen Tastenkombinationen unzufrieden? Du kannst alle im Einstellungsmenü unter dem Punkt &quot;Tastenkombinationen&quot; ändern.</translation>
+        <translation>Vindt u de standaard sneltoetsen niet prettig? Dan kunt u ze eenvoudig wijzigen op het tabblad ‘Sneltoetsen’ in de instellingen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="48"/>
         <source>jdTextEdit has a sidebar with a lot of features! You can enabled it in the &quot;View&quot; menu.</source>
-        <translation>jdTextEdit besitzt eine Seitenleiste mit jeder menge Funktionen! Du kannst sie im &quot;Ansicht&quot; Menü aktivieren.</translation>
+        <translation>jdTextEdit beschikt over een zijbalk met vele functies! U kunt de zijbalk inschakelen via het menu ‘Beeld’.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="49"/>
         <source>Start jdTextEdit with -p to use it in portable mode.</source>
-        <translation>Starte jdTextEdit mit -p um es im portablen Modus zu nutzen.</translation>
+        <translation>Start jdTextEdit met behulp van -p om de draagbare (portable) modus in te schakelen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="50"/>
         <source>You can use bookmarks to quickly jump to important points in the code.</source>
-        <translation>Du kannst Lesezeichen benutzen, um schnell zu wichtigen Punkten im Code zu springen.</translation>
+        <translation>Met behulp van bladwijzers kunt u snel belangrijke locaties in de code bereiken.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="51"/>
         <source>By clicking on the border you can set or remove bookmarks.</source>
-        <translation>Durch einen Klick auf den Rand kannst du Lesezeichen setzen oder entfernen.</translation>
+        <translation>Klik op het kader om bladwijzers toe te voegen op te verwijderen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="52"/>
         <source>jdTextEdit automatically checks for updates at startup. You can disable this in the settings. Alternatively you can use the about menu to check for updates.</source>
-        <translation>jdTextEdit sucht beim Start automatisch nach Updates. Du kannst das in den Einstellungen deaktivieren. Alternativ kannst du über das Hilfemenü direkt nach Updates suchen.</translation>
+        <translation>jdTextEdit controleert na het opstarten automatisch op updates. U kunt dit uitschakelen in de instellingen. Ook kunt u handmatig controleren op updates in het menu ‘Over’.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="53"/>
         <source>If you would like to redesign jdTextEdit with your own CSS code, you can create the file userChrome.css in the data directory. You can disable this in the settings.</source>
-        <translation>Wenn du gerne jdTextEdit mit eigenem CSS Code umstylen möchtest, kannst du die Datei userChrome.css im Speicherordner anlegen. Du kannst dieses Verhalten in den Einstellungen deaktivieren.</translation>
+        <translation>Als u de vormgeving van jdTextEdit naar eigen hand wilt zetten met behulp van css-code, dan kunt u een userChrome.css-bestand aanmaken in de gegevensmap. U kunt dit uitschakelen in de instellingen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="54"/>
         <source>jdTextEdit automatically saves your session, so next time you can continue where you left off. You can disable this behavior in the preferences.</source>
-        <translation>jdTextEdit speichert automatisch deine Sitzung, so dass du nächstes Mal da weitermachen kannst, wo du aufgehört hast. Du kannst dieses Verhalten in den Einstellungen deaktivieren.</translation>
+        <translation>jdTextEdit bewaart automatisch uw sessie, zodat u altijd verder kunt waar u gebleven was. U kunt dit gedrag aanpassen in de instellingen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="55"/>
         <source>jdTextEdit automatically detects language, line end and encoding of text files. You can disable this in the settings.</source>
-        <translation>jdTextEdit erkennt automatisch Sprache, Zeilenende und Kodierung von Textdateien. Du kannst dies in den Einstellungen deaktivieren.</translation>
+        <translation>jdTextEdit herkent automatisch talen, regeleindes en tekensets. U kunt dit uitschakelen in de instellingen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="56"/>
         <source>jdTextEdit supports different line ends. The line end of the file is automatically recognized unless you have disabled it in the settings. You can change the line end of the current file in the edit menu. You can also change the settings to show the end of line.</source>
-        <translation>jdTextEdit unterstützt verschiedene Zeilenenden. Das Zeilenende der Datei wird automatisch erkannt, sofern du es in den Einstellungen nicht deaktiviert hast. Du kannst das Zeilenende der aktuellen Datei im Bearbeitenmenü ändern. Über die Einstellungen kannst du dir auch das Zeilenende anzeigen lassen.</translation>
+        <translation>jdTextEdit heeft ondersteuning voor verschillende soorten regeleindes. De regel aan het einde van een bestand wordt automatisch herkend, tenzij u dit aanpast in de instellingen of in het menu ‘Bewerken’. Ook kunt u aangeven of u dit regeleinde wel of niet wilt tonen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="57"/>
         <source>You can display the current clipboard content in the sidebar.</source>
-        <translation>Du kannst dir den aktuellen Inhalt der Zwischenablage in der Seitenleiste anzeigen lassen.</translation>
+        <translation>U kunt de huidige klembordinhoud in de zijbalk tonen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="58"/>
         <source>You can set the data folder using the JDTEXTEDIT_DATA_PATH environment variable.</source>
-        <translation>Du kannst den Speicherordner mithilfe der Umgebungsvariable JDTEXTEDIT_DATA_PATH festlegen.</translation>
+        <translation>U kunt een andere gegevensmap instellen met behulp van de JDTEXTEDIT_DATA_PATH-omgevingsvariabele.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="59"/>
         <source>If the directory &quot;default_data&quot; is located in the installation folder, it will be used when creating a new storage directory. You can use this to set preferences for multiple computers.</source>
-        <translation>Wenn sich im Installationsorder der Ordner &quot;default_data&quot; befindet, wird dieser beim anlegen eines neuen Speicherordners benutzt. Du kannst dies nutzen, um Voreinstellungn für mehrere Computer zu treffen.</translation>
+        <translation>Als de map ‘default_data’ in de installatiemap aanwezig is, dan wordt deze gebruikt bij het aanmaken van een nieuwe opslagmap. U kunt dit per computer aanpassen.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="60"/>
         <source>You can open files by dragging and dropping them into the window.</source>
-        <translation>Du kannst Dateien öffnen, indem du sie per Drag and Drop in das Fenster ziehst.</translation>
+        <translation>U kunt bestanden openen door ze te verslepen naar het venster.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="61"/>
         <source>jdTextEdit supports the .editorconfig standard.</source>
-        <translation>jdTextEdit unterstützt den .editorconfig Standard.</translation>
+        <translation>jdTextEdit heeft ondersteuning voor de .editorconfig-standaard.</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="62"/>
         <source>Read the documentation of jdTextEdit at https://jdtextedit.readthedocs.io</source>
-        <translation>Wirf einen Blick auf die Dokumentation von jdTextEdit unter https://jdtextedit.readthedocs.io</translation>
+        <translation>Bekijk de jdTextEdit-documentatie op https://jdtextedit.readthedocs.io</translation>
     </message>
     <message>
         <location filename="../gui/DayTipWindow.py" line="63"/>
         <source>Did you know that jdTextEdit runs on Linux, Windows macOS and Haiku?</source>
-        <translation>Weiist du, dass jdTextEdit unter Windows, macOS, Linux und Haiku läuft?</translation>
+        <translation>Wist u dat jdTextEdit beschikbaar is voor Linux, Windows, macOS en Haiku?</translation>
     </message>
 </context>
 <context>
@@ -2999,62 +2999,62 @@
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="31"/>
         <source>Add</source>
-        <translation>Hinzufügen</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="32"/>
         <source>Remove</source>
-        <translation>Löschen</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="33"/>
         <source>Move Up</source>
-        <translation>Nach Oben</translation>
+        <translation>Omhoog verplaatsen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="34"/>
         <source>Move Down</source>
-        <translation>Nach Unten</translation>
+        <translation>Omlaag verplaatsen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="36"/>
         <source>Show Toolbar</source>
-        <translation>Werkzeugleiste zeigen</translation>
+        <translation>Werkbalk tonen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="40"/>
         <source>Icon only</source>
-        <translation>Nur Icon</translation>
+        <translation>Alleen pictogrammen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="41"/>
         <source>Text only</source>
-        <translation>Nur Text</translation>
+        <translation>Alleen tekst</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="42"/>
         <source>Text beside Icons</source>
-        <translation>Text neben Icons</translation>
+        <translation>Tekst naast pictogrammen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="43"/>
         <source>Text under Icons</source>
-        <translation>Text unter Icons</translation>
+        <translation>Tekst onder pictogrammen</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="44"/>
         <source>Follow OS Style</source>
-        <translation>Systemeinstellung</translation>
+        <translation>Systeeminstellingen gebruiken</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="46"/>
         <source>Up</source>
-        <translation>Oben</translation>
+        <translation>Bovenaan</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="47"/>
         <source>Bottom</source>
-        <translation>Unten</translation>
+        <translation>Onderaan</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="48"/>
@@ -3069,22 +3069,22 @@
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="76"/>
         <source>Toolbar button style:</source>
-        <translation>Werkzeugleistenstil:</translation>
+        <translation>Werkbalkknopstijl:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="78"/>
         <source>Position:</source>
-        <translation>Position:</translation>
+        <translation>Locatie:</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="122"/>
         <source>Unknown Action</source>
-        <translation>Unbekannte Aktion</translation>
+        <translation>Onbekende actie</translation>
     </message>
     <message>
         <location filename="../gui/SettingsTabs/ToolbarTab.py" line="147"/>
         <source>Toolbar</source>
-        <translation>Werkzeugleiste</translation>
+        <translation>Werkbalk</translation>
     </message>
 </context>
 <context>
@@ -3092,62 +3092,62 @@
     <message>
         <location filename="../Updater.py" line="26"/>
         <source>No write permission</source>
-        <translation>Keine Schreibrechte</translation>
+        <translation>Geen schrijftoegang</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="26"/>
         <source>You do not have write access to the installation folder. Please download the latest version by yourself.</source>
-        <translation>Du hast keine Schreibrechte für den Installationsordner. Bitte lade die neuste Version selbst herunter.</translation>
+        <translation>U heeft geen schrijftoegang in de installatiemap. Download handmatig de nieuwste versie.</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="68"/>
         <location filename="../Updater.py" line="34"/>
         <source>No internet connection</source>
-        <translation>Keine Internetverbindung</translation>
+        <translation>Geen internetverbinding</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="68"/>
         <location filename="../Updater.py" line="34"/>
         <source>An Internet connection is required for this feature</source>
-        <translation>Zum nutzen dieses features ist eine Internetverbindung erforderlich</translation>
+        <translation>Voor deze functie is een internetverbinding vereist</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="73"/>
         <location filename="../Updater.py" line="36"/>
         <source>Unknown error</source>
-        <translation>Unbekannter Fehler</translation>
+        <translation>Onbekende fout</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="73"/>
         <location filename="../Updater.py" line="36"/>
         <source>An unknown error has occurred</source>
-        <translation>Ein Unbekannter Fehler ist aufgetreten</translation>
+        <translation>Er is een onbekende fout opgetreden</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="59"/>
         <location filename="../Updater.py" line="57"/>
         <source>requests not found</source>
-        <translation>requests nicht gefunden</translation>
+        <translation>‘requests’ niet aangetroffen</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="57"/>
         <source>This feature needs the Python requests module installed to work</source>
-        <translation>DIe requests Python Bibliothek muss installiert sein, damit dieses feature funktioniert</translation>
+        <translation>Voor deze functie is de Python-module ‘requests’ vereist</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="66"/>
         <source>You need a internet connection to search for updates</source>
-        <translation>Zum Suchen nach Updates wird eine Internetverbindung benötigt</translation>
+        <translation>U kunt alleen controleren op updates als u verbonden bent met het internet</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="77"/>
         <source>New Version</source>
-        <translation>Neue Version</translation>
+        <translation>Nieuwe versie</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="78"/>
         <source>Version {{version}} of jdTextEdit is now aviable. Do you want do download it?</source>
-        <translation>Version {{version}} von jdTextEdit ist jetzt verfügbar. Möchtest du sie herunterladen?</translation>
+        <translation>Versie {{version}} is beschikbaar. Wilt u deze update downloaden?</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="79"/>
@@ -3157,17 +3157,17 @@
     <message>
         <location filename="../Updater.py" line="80"/>
         <source>No</source>
-        <translation>Nein</translation>
+        <translation>Nee</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="86"/>
         <source>No updates available</source>
-        <translation>Keine Updates verfügbar</translation>
+        <translation>Geen updates beschikbaar</translation>
     </message>
     <message>
         <location filename="../Updater.py" line="86"/>
         <source>There are currently no updates available. You are using the latest version.</source>
-        <translation>Es sind keine Updates verfügbar. Du nutzt bereits die neuste Version.</translation>
+        <translation>Er zijn geen updates beschikbaar. U beschikt al over de nieuwste versie.</translation>
     </message>
 </context>
 <context>
@@ -3175,32 +3175,32 @@
     <message>
         <location filename="../jdTextEdit.py" line="52"/>
         <source>The following optional Python modules are missing:</source>
-        <translation>Die folgenden python Module fehlen:</translation>
+        <translation>De volgende optionele Python-modules ontbreken:</translation>
     </message>
     <message>
         <location filename="../jdTextEdit.py" line="55"/>
         <source>jdTextEdit will run without this modules, but some features are not working. You probably want to install them.</source>
-        <translation>jdTextEdit wird auch ohne siese module starten, allerdings funktionieren ein paar Features nicht. DU willst diese module wahrscheinlich installieren.</translation>
+        <translation>jdTextEdit werkt zonder deze modules, maar enkele optionele functies werken niet.</translation>
     </message>
     <message>
         <location filename="../jdTextEdit.py" line="58"/>
         <source>Don&apos;t show this again</source>
-        <translation>Nicht erneut anzeigen</translation>
+        <translation>Niet meer tonen</translation>
     </message>
     <message>
         <location filename="../jdTextEdit.py" line="61"/>
         <source>Missing optional modules</source>
-        <translation>fehlende optionale Module</translation>
+        <translation>Ontbrekende optionele modules</translation>
     </message>
     <message>
         <location filename="../jdTextEdit.py" line="140"/>
         <source>Enable automatic update search</source>
-        <translation>Automatische Suche nach Updates aktivieren</translation>
+        <translation>Automatisch controleren op updates</translation>
     </message>
     <message>
         <location filename="../jdTextEdit.py" line="140"/>
         <source>jdTextEdit offers the possibility to automatically check for updates every time the programme is started. Do you want to activate this? You can change this behaviour later in the settings.</source>
-        <translation>jdTextEdit bietet die Möglichkeit bei jedem Programmstart automatisch nach Updates zu suchen. Möchtest du dies aktivieren? Du kannst dieses Verhalten später in den Einstellungen noch ändern.</translation>
+        <translation>jdTextEdit kan na het opstarten automatisch controleren op updates. Wilt u dit inschakelen? U kunt dit gedrag aanpassen in de instellingen.</translation>
     </message>
 </context>
 </TS>
