@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QMenu
 from PyQt6.QtCore import QObject
 from typing import TYPE_CHECKING
 import enchant
+import sys
 import os
 
 
@@ -20,10 +21,14 @@ class SpellChecker(QObject):
         self.update_language()
 
     def update_language(self):
-        if self.settings.spellCheckingEnableCustomPwl:
-            self.dict = enchant.DictWithPWL(self.settings.spellCheckingLanguage,self.settings.spellCheckingCustomPwlPath)
-        else:
-            self.dict = enchant.DictWithPWL(self.settings.spellCheckingLanguage, os.path.join(self._env.dataDir, "pwl.txt"))
+        try:
+            if self.settings.spellCheckingEnableCustomPwl:
+                self.dict = enchant.DictWithPWL(self.settings.spellCheckingLanguage, self.settings.spellCheckingCustomPwlPath)
+            else:
+                self.dict = enchant.DictWithPWL(self.settings.spellCheckingLanguage, os.path.join(self._env.dataDir, "pwl.txt"))
+        except enchant.errors.DictNotFoundError:
+            print(self._env.translate("plugin.spellChecker.dictNotFound").replace("{{language}}", self.settings.get("spellCheckingLanguage")), file=sys.stderr)
+
         self.enable_custom_pwl = self.settings.spellCheckingEnableCustomPwl
         self.custom_pwl_path = self.settings.spellCheckingCustomPwlPath
         self.current_language = self.settings.spellCheckingLanguage

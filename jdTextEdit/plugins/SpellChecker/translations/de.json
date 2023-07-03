@@ -1,4 +1,5 @@
 {
+    "plugin.spellChecker.dictNotFound": "Wörterbuch für Sprache '{{language}}' konnte nicht gefunden werden",
     "plugin.spellChecker.contextMenu.addToDict": "Zum Wörterbuch hinzufügen",
     "plugin.spellChecker.settingsTab": "Rechtschreibprüfung",
     "plugin.spellChecker.settingsTab.enableSpellChecking": "Rechtschreibprüfung aktivieren",

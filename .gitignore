@@ -10,7 +10,7 @@ dist/
 jdTextEdit.egg-info/
 
 #portable mode
-jdTextEdit/data
+jdTextEditData/
 
 #options
 jdTextEdit/commands.json

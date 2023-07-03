@@ -1,4 +1,5 @@
 {
+    "plugin.spellChecker.dictNotFound": "Dictionary for language '{{language}}' could not be found",
     "plugin.spellChecker.contextMenu.addToDict": "Add to dictionary",
     "plugin.spellChecker.settingsTab": "Spell check",
     "plugin.spellChecker.settingsTab.enableSpellChecking": "Enable Spell Checking",
