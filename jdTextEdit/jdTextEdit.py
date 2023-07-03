@@ -90,7 +90,7 @@ def main():
 
     env = Environment(app)
 
-    if not env.debugMode and env.distributionSettings.get("enableTranslationWarning", True) and len(glob.glob(os.path.join(env.programDir, "i18n", "*.qm"))) == 0:
+    if not env.debugMode and env.distributionSettings.get("enableTranslationWarning", True) and len(glob.glob(os.path.join(env.programDir, "translations", "*.qm"))) == 0:
         QMessageBox.warning(None, "No translations found", "No translation were found. It looks like the translations of jdTextEdit were not build. jdTextEdit is currently only available in English.")
 
     env.clipboard = QApplication.clipboard()

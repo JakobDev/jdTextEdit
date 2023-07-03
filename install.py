@@ -32,7 +32,7 @@ def gzip_file(in_path: Path, out_path: Path) -> None:
 
 
 def install_locales(current_dir: Path, prefix: Path) -> None:
-    for i in (current_dir / "jdTextEdit" / "i18n").iterdir():
+    for i in (current_dir / "jdTextEdit" / "translations").iterdir():
         if i.suffix != ".ts":
             continue
         lang = i.stem.removeprefix("jdTextEdit_")
