@@ -50,7 +50,7 @@ class TranslatorsTab(QWidget):
             translatorsView.setHtml(translatorsText)
 
         mainLayout = QVBoxLayout()
-        mainLayout.addWidget(QLabel("<center>" + QCoreApplication.translate("AboutWindow", "The following people translated jdAppStreamEdit:") + "</center>"))
+        mainLayout.addWidget(QLabel("<center>" + QCoreApplication.translate("AboutWindow", "The following people translated jdTextEdit:") + "</center>"))
         mainLayout.addWidget(translatorsView)
 
         self.setLayout(mainLayout)
