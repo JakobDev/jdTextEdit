@@ -1,0 +1,12 @@
+steps:
+    freedesktop_check:
+        image: archlinux:latest
+        commands:
+            - pacman -Syyu --noconfirm
+            - pacman -S --noconfirm desktop-file-utils appstream
+            - find -name "*.desktop" | xargs desktop-file-validate
+            - find -name "*.metainfo.xml" | xargs appstreamcli validate --explain
+
+when:
+    - event: tag
+    - path: ["**/*.desktop", "**/*.metainfo.xml", ".woodpecker/**"]
