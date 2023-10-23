@@ -81,11 +81,20 @@ Section
 
     CreateShortcut "$SMPROGRAMS\${APPNAME}.lnk" "${APPBIN}"
 
-     ; Write the installation path into the registry
+    ; Write the installation path into the registry
     WriteRegStr SHCTX "Software\JakobDev\${APPNAME}" "${MULTIUSER_INSTALLMODE_INSTDIR_REGISTRY_VALUENAME}" "$INSTDIR"
     WriteRegStr SHCTX "Software\JakobDev\${APPNAME}" "${MULTIUSER_INSTALLMODE_DEFAULT_REGISTRY_VALUENAME}" "$MultiUser.InstallMode"
 
-    ;Let the App appear in the uninstall menu (https://nsis.sourceforge.io/Add_uninstall_information_to_Add/Remove_Programs)
+    ; Add to Explorer context menu
+    WriteRegStr SHCTX "Software\Classes\*\shell\jdTextEdit" "" "Edit with jdTextEdit"
+    WriteRegStr SHCTX "Software\Classes\*\shell\jdTextEdit" "Icon" "$\"${APPBIN}$\""
+    WriteRegStr SHCTX "Software\Classes\*\shell\jdTextEdit\command" "" "$\"${APPBIN}$\" $\"%1$\""
+
+    ; Add jdTextEdit to path
+     WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\App Paths\${APPNAME}.exe" "" "${APPBIN}"
+    WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\App Paths\${APPNAME}.exe" "Path" "$INSTDIR"
+
+    ; Let the App appear in the uninstall menu (https://nsis.sourceforge.io/Add_uninstall_information_to_Add/Remove_Programs)
     WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\Uninstall.exe$\""
     WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "QuietUninstallString" "$\"$INSTDIR\Uninstall.exe$\" /S"
     WriteRegStr SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$\"${APPBIN}$\""
@@ -110,5 +119,7 @@ Section "Uninstall"
 
     DeleteRegKey SHCTX "Software\JakobDev\${APPNAME}"
     DeleteRegKey /ifempty SHCTX "Software\JakobDev"
+    DeleteRegKey SHCTX "Software\Classes\*\shell\jdTextEdit"
     DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
+    DeleteRegKey SHCTX "Software\Microsoft\Windows\CurrentVersion\App Paths\${APPNAME}.exe"
 SectionEnd
