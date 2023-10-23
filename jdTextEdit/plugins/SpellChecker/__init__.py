@@ -1,6 +1,7 @@
 from .SpellCheckingTab import SpellCheckingTab
 from .SpellChecker import SpellChecker
 from typing import TYPE_CHECKING
+from PyQt6.QtCore import QLocale
 import os
 
 
@@ -12,8 +13,8 @@ def main(env: "Environment") -> None:
     currentDir = os.path.dirname(os.path.realpath(__file__))
     env.pluginAPI.addTranslationDirectory(os.path.join(currentDir, "translations"))
 
-    env.pluginAPI.registerSetting("spellCheckingLanguage","de_DE")
-    env.pluginAPI.registerSetting("spellCheckingCustomPwlPath", os.path.join(env.dataDir,"pwl.txt"))
+    env.pluginAPI.registerSetting("spellCheckingLanguage", QLocale.system().name())
+    env.pluginAPI.registerSetting("spellCheckingCustomPwlPath", os.path.join(env.dataDir, "pwl.txt"))
     env.pluginAPI.registerSetting("spellCheckingEnableCustomPwl", False)
     env.pluginAPI.registerSetting("spellCheckingEnabled", False)
     env.pluginAPI.registerSetting("spellCheckingMinimumWordLength", 3)

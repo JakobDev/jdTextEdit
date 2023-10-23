@@ -22,12 +22,12 @@ class SpellChecker(QObject):
 
     def update_language(self):
         try:
-            if self.settings.spellCheckingEnableCustomPwl:
-                self.dict = enchant.DictWithPWL(self.settings.spellCheckingLanguage, self.settings.spellCheckingCustomPwlPath)
+            if self.settings.get("spellCheckingEnableCustomPwl"):
+                self.dict = enchant.DictWithPWL(self.settings.get("spellCheckingLanguage"), self.settings.get("spellCheckingCustomPwlPath"))
             else:
-                self.dict = enchant.DictWithPWL(self.settings.spellCheckingLanguage, os.path.join(self._env.dataDir, "pwl.txt"))
+                self.dict = enchant.DictWithPWL(self.settings.get("spellCheckingLanguage"), os.path.join(self._env.dataDir, "pwl.txt"))
         except enchant.errors.DictNotFoundError:
-            print(self._env.translate("plugin.spellChecker.dictNotFound").replace("{{language}}", self.settings.get("spellCheckingLanguage")), file=sys.stderr)
+            print(self._env.translate("plugin.spellChecker.dictNotFound").replace("{{language}}", str(self.settings.get("spellCheckingLanguage"))), file=sys.stderr)
 
         self.enable_custom_pwl = self.settings.spellCheckingEnableCustomPwl
         self.custom_pwl_path = self.settings.spellCheckingCustomPwlPath
