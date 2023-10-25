@@ -1,5 +1,6 @@
 depends_on:
     - freedesktop-check
+    - check-data-files
 
 steps:
     pypi_deploy:
