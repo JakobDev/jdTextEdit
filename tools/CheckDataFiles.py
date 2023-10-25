@@ -8,7 +8,7 @@ def check_file(tool: str, path: pathlib.Path, text: str) -> None:
     result = subprocess.run([sys.executable, str(pathlib.Path(__file__).parent / tool), "--stdout"], capture_output=True, text=True)
 
     if result.returncode != 0:
-        print("Error while running {tool}:\n" + result.stderr, file=sys.stderr)
+        print(f"Error while running {tool}:\n" + result.stderr, file=sys.stderr)
         sys.exit(1)
 
     with open(path, "r", encoding="utf-8", newline="\n") as f:
@@ -22,8 +22,8 @@ def check_file(tool: str, path: pathlib.Path, text: str) -> None:
 def main() -> None:
     root_dir = pathlib.Path(__file__).parent.parent
 
-    check_file("UpdateTranslators.py", root_dir / "jdTextEdit" / "data" / "translators.json", "The translators are not up to date. Please run tools/UpdateTranslators.py")
-    check_file("WriteChangelogHtml.py", root_dir / "jdTextEdit" / "data" / "changelog.html", "The changelog is not up to date. Please run tools/WriteChangelogHtml.py")
+    check_file("UpdateTranslators.py", root_dir / "jdTextEdit" / "data" / "translators.json", "The translators are not up to date. Please run tools/UpdateTranslators.py.")
+    check_file("WriteChangelogHtml.py", root_dir / "jdTextEdit" / "data" / "changelog.html", "The changelog is not up to date. Please run tools/WriteChangelogHtml.py.")
 
     print("All data files are up to date")
 
