@@ -2,7 +2,7 @@ steps:
     check_data_files:
         image: python:latest
         commands:
-            - git fetch --unshallow
+            - git fetch --unshallow || true
             - pip install appstream-python
             - python ./tools/CheckDataFiles.py
 
