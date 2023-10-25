@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import subprocess
+import argparse
 import pathlib
 import json
 
@@ -39,6 +40,10 @@ def parse_translation_directory(path: pathlib.Path, prefix: str, suffix: str, tr
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--stdout", action="store_true", help="Print to stdout instead of writing to the file")
+    args = parser.parse_args()
+
     root_dir = pathlib.Path(__file__).parent.parent
 
     translator_dict: dict[str, list[str]] = {}
@@ -51,8 +56,11 @@ def main() -> None:
     for lang, translators in translator_dict.items():
         write_dict[lang] = sorted(list(set(translators)))
 
-    with open(root_dir / "jdTextEdit" / "data" / "translators.json", "w", encoding="utf-8", newline="\n") as f:
-        json.dump(write_dict, f, ensure_ascii=False, indent=4)
+    if args.stdout:
+        print(json.dumps(write_dict, ensure_ascii=False, indent=4))
+    else:
+        with open(root_dir / "jdTextEdit" / "data" / "translators.json", "w", encoding="utf-8", newline="\n") as f:
+            json.dump(write_dict, f, ensure_ascii=False, indent=4)
 
 
 
