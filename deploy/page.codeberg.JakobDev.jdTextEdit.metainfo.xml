@@ -24,10 +24,17 @@
   <screenshots>
     <screenshot type="default">
       <caption>The MainWindow</caption>
-      <image type="source">https://codeberg.org/JakobDev/jdTextEdit/raw/commit/e05be1c5d1ef2364a8d6fec64b069322934fe6a7/screenshots/jdTextEdit_Windows.png</image>
+      <image type="source">https://codeberg.org/JakobDev/jdTextEdit/raw/commit/99ac6a8cf93e4aef69257fe97624bf7828049399/screenshots/jdTextEdit_Manjaro.png</image>
     </screenshot>
   </screenshots>
   <releases>
+    <release version="11.1" date="2023-10-25" type="stable">
+      <description>
+        <ul>
+          <li>Fix crash when no dictionaries are found</li>
+        </ul>
+      </description>
+    </release>
     <release version="11.0" date="2023-07-03" type="stable">
       <description>
         <ul>
