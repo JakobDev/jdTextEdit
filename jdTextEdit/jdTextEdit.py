@@ -1,29 +1,35 @@
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QApplication, QMessageBox, QCheckBox
-from jdTextEdit.gui.MainWindow import MainWindow
-from jdTextEdit.Environment import Environment
-from jdTextEdit.gui.CloseSaveWindow import CloseSaveWindow
-from jdTextEdit.gui.SettingsWindow import SettingsWindow
-from jdTextEdit.gui.SearchWindow import SearchWindow
-from jdTextEdit.gui.SearchAndReplaceWindow import SearchAndReplaceWindow
-from jdTextEdit.gui.GotoLineWindow import GotoLineWindow
-from jdTextEdit.gui.DocumentStatistics import DocumentStatistics
-from jdTextEdit.gui.DateTimeWindow import DateTimeWindow
-from jdTextEdit.gui.ExecuteCommandWindow import ExecuteCommandWindow
-from jdTextEdit.gui.ManageMacrosWindow import ManageMacrosWindow
-from jdTextEdit.gui.EditCommandsWindow import EditCommandsWindow
-from jdTextEdit.gui.DayTipWindow import DayTipWindow
-from jdTextEdit.gui.ActionSearchWindow import ActionSearchWindow
-from jdTextEdit.gui.AboutWindow import AboutWindow
-from jdTextEdit.gui.AddProjectWindow import AddProjectWindow
+from jdTextEdit.Functions import getTempOpenFilePath, compareLists, getGlobalLogger
 from jdTextEdit.gui.Tools.RegExGrep.RegExGrepWindow import RegExGrepWindow
-from jdTextEdit.gui.DebugInfoWindow import DebugInfoWindow
-from jdTextEdit.Functions import getTempOpenFilePath, compareLists
+from jdTextEdit.gui.SearchAndReplaceWindow import SearchAndReplaceWindow
 from jdTextEdit.core.PluginLoader import loadPlugins, loadSinglePlugin
 from jdTextEdit.gui.StatusBarWidgets import addBuiltinStatusBarWidgets
+from jdTextEdit.gui.ExecuteCommandWindow import ExecuteCommandWindow
+from PyQt6.QtWidgets import QApplication, QMessageBox, QCheckBox
+from jdTextEdit.gui.DocumentStatistics import DocumentStatistics
+from jdTextEdit.gui.ManageMacrosWindow import ManageMacrosWindow
+from jdTextEdit.gui.EditCommandsWindow import EditCommandsWindow
+from jdTextEdit.gui.ActionSearchWindow import ActionSearchWindow
+from jdTextEdit.gui.AddProjectWindow import AddProjectWindow
+from jdTextEdit.gui.CloseSaveWindow import CloseSaveWindow
+from jdTextEdit.gui.DebugInfoWindow import DebugInfoWindow
+from jdTextEdit.gui.SettingsWindow import SettingsWindow
+from jdTextEdit.gui.GotoLineWindow import GotoLineWindow
+from jdTextEdit.gui.DateTimeWindow import DateTimeWindow
+from jdTextEdit.gui.SearchWindow import SearchWindow
+from jdTextEdit.gui.DayTipWindow import DayTipWindow
+from jdTextEdit.gui.AboutWindow import AboutWindow
+from jdTextEdit.gui.MainWindow import MainWindow
+from jdTextEdit.Environment import Environment
 from jdTextEdit.Constants import Constants
 from PyQt6.QtCore import QCoreApplication
+from PyQt6.QtGui import QIcon
 import importlib
+import platform
+import tempfile
+import argparse
+import logging
+import ctypes
+import json
 import glob
 import time
 import sys
@@ -69,26 +75,70 @@ def checkOptionalModules(env: Environment):
         env.settings.set("optionalModulesWarningWhitelist", [])
 
 
-def main():
+def _handleWindowsForeground(temp_open_path: str) -> None:
+    """
+    On Windows Programs can't bring themself into focus, so we must do that here.
+    This only works, if jdTextEdit is luanched with pythonw."
+    """
+    file_handle, wid_path = tempfile.mkstemp(prefix="jdTextEditWindowID_")
+    os.close(file_handle)
+
+    with open(temp_open_path, "w", encoding="utf-8") as f:
+        json.dump({"action": "writeWindowID", "file": wid_path}, f)
+
+    time.sleep(0.5)
+
+    if os.path.getsize(wid_path) != 0:
+        try:
+            with open(wid_path, "r", encoding="utf-8") as f:
+                wid = int(f.read().strip())
+                ctypes.windll.user32.SetForegroundWindow(wid)
+        except Exception as e:
+            getGlobalLogger().exception(e)
+
+    os.remove(wid_path)
+
+
+def _writeTempFile(temp_open_path: str, args: argparse.Namespace) -> None:
+    if platform.system() == "Windows":
+        _handleWindowsForeground(temp_open_path)
+
+    with open(temp_open_path, "w", encoding="utf-8") as f:
+        json.dump({"action": "openFile", "path": [os.path.abspath(i) for i in args.path]}, f)
+
+    time.sleep(0.5)
+    if os.path.getsize(temp_open_path) == 0:
+        sys.exit(0)
+    else:
+        os.remove(temp_open_path)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("path", nargs="*")
+    parser.add_argument("-p", "--portable",action="store_true", dest="portable", help="Portable")
+    parser.add_argument("--data-dir", dest="dataDir",help="Sets the data directory")
+    parser.add_argument("--disable-plugins", action="store_true", dest="disablePlugins", help="Disable Plugins")
+    parser.add_argument("--no-session-restore", action="store_true", dest="disableSessionRestore", help="Disable Session Restore")
+    parser.add_argument("--disable-updater", action="store_true", dest="disableUpdater", help="Disable the Updater")
+    parser.add_argument("--distribution-file", dest="distributionFile", help="Sets custom distribution.json")
+    parser.add_argument("--language", dest="language", help="Starts jdTextEdit in the given language")
+    parser.add_argument("--debug", action="store_true", dest="debug", help="Enable Debug mode")
+    parser.add_argument("--debug-plugin", dest="debugPlugin", help="Loads a single Plugin from a directory")
+    args = parser.parse_known_args()[0]
+
+    logger = logging.Logger("jdTextEdit")
+
     temp_open_path = getTempOpenFilePath()
     if os.path.isfile(temp_open_path):
-        with open(temp_open_path, "w") as f:
-            if len(sys.argv) == 2:
-                f.write("openFile" + "\n" + os.path.abspath(sys.argv[1]))
-            else:
-                f.write("focus")
-        time.sleep(0.5)
-        if os.path.getsize(temp_open_path) == 0:
-            sys.exit(0)
-        else:
-            os.remove(temp_open_path)
+        _writeTempFile(temp_open_path, args)
 
     app = QApplication(sys.argv)
 
     app.setApplicationName("jdTextEdit")
     app.setDesktopFileName("page.codeberg.JakobDev.jdTextEdit")
 
-    env = Environment(app)
+    env = Environment(app, args.__dict__)
 
     if not env.debugMode and env.distributionSettings.get("enableTranslationWarning", True) and len(glob.glob(os.path.join(env.programDir, "translations", "*.qm"))) == 0:
         QMessageBox.warning(None, "No translations found", "No translation were found. It looks like the translations of jdTextEdit were not build. jdTextEdit is currently only available in English.")

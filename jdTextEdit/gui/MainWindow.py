@@ -1,9 +1,9 @@
+from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid, saveProjects, clearStatusBar, formatDateTime, getGlobalLogger
 from PyQt6.QtWidgets import QMainWindow, QMenu, QApplication, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog, QMessageBox
 from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciPrinter
 from PyQt6.QtGui import QIcon, QAction, QCloseEvent, QDropEvent
 from PyQt6.QtPrintSupport import QPrintDialog
 from PyQt6.QtCore import Qt, QFileSystemWatcher, QTimer, QCoreApplication
-from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid, saveProjects, clearStatusBar, formatDateTime
 from jdTextEdit.gui.EditTabWidget import EditTabWidget
 from jdTextEdit.gui.SplitViewWidget import SplitViewWidget
 from jdTextEdit.EncodingList import getEncodingList
@@ -22,7 +22,7 @@ from jdTextEdit.Settings import Settings
 from jdTextEdit.Environment import Environment
 from jdTextEdit.api.StatusBarWidgetBase import StatusBarWidgetBase
 from string import ascii_uppercase
-from typing import Optional
+from typing import Optional, Any
 import webbrowser
 import traceback
 import datetime
@@ -69,8 +69,11 @@ class MainWindow(QMainWindow):
             self.splitViewWidget.initTabWidget()
             self.splitViewWidget.getCurrentTabWidget().createTab(QCoreApplication.translate("MainWindow", "Untitled"))
         self.updateLanguageMenu()
-        if len(self.env.args["filename"]) == 1:
-            self.openFileCommandline(os.path.abspath(self.env.args["filename"][0]))
+
+        # Open paths from commandline
+        for current_path in self.env.args["path"]:
+            self.openFileCommandline(os.path.abspath(current_path))
+
         #self.getMenuActions(self.menubar)
         self.sidepane = DockWidget(self.env)
         self.sidepane.hide()
@@ -109,7 +112,7 @@ class MainWindow(QMainWindow):
             found = False
             for tabWidget in self.splitViewWidget.getAllTabWidgets():
                 for i in range(tabWidget.count()):
-                    if tabWidget.widget(i).getCodeEditWidget().getFilePath() == path:
+                    if tabWidget.editWidget(i).getFilePath() == path:
                         tabWidget.setCurrentIndex(i)
                         found = True
             if not found:
@@ -137,16 +140,38 @@ class MainWindow(QMainWindow):
         """
         return self.splitViewWidget.getCurrentTabWidget()
 
+    def _handleTempFileData(self, data: dict[str, Any]) -> None:
+        match data["action"]:
+            case "openFile":
+                for path in data["path"]:
+                    self.openFileCommandline(path)
+            case "writeWindowID":
+                with open(data["file"], "w", encoding="utf-8") as f:
+                    f.write(str(int(self.effectiveWinId())))
+
     def openTempFileSignal(self, path: str):
         if os.path.getsize(path) == 0:
             return
-        with open(path) as f:
-            lines = f.read().splitlines()
-        if lines[0] == "openFile":
-            self.openFileCommandline(lines[1])
+
+        logger = getGlobalLogger()
+
+        data = None
+        with open(path, "r", encoding="utf-8") as f:
+            try:
+                data = json.load(f)
+            except Exception as e:
+                logger.exception(e)
+
+        if data is not None:
+            try:
+                self._handleTempFileData(data)
+            except Exception as e:
+                logger.exception(e)
+
         open(path, "w").close()
         self.tempFileOpenWatcher.addPath(path)
         QApplication.setActiveWindow(self)
+        self.activateWindow()
 
     def setupMenubar(self) -> None:
         """

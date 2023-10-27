@@ -11,14 +11,13 @@ from jdTextEdit.core.api.MainWindowSignals import MainWindowSignals
 from jdTextEdit.core.api.ApplicationSignals import ApplicationSignals
 from jdTextEdit.core.api.TabWidgetSignals import TabWidgetSignals
 from jdTextEdit.core.api.ProjectSignals import ProjectSignals
+from typing import Any, Optional, Callable, TYPE_CHECKING
 from jdTextEdit.core.api.PluginAPI import PluginAPI
 from jdTextEdit.core.DefaultTheme import DefaultTheme
 from jdTextEdit.core.FileTheme import FileTheme
 from jdTextEdit.api.LanguageBase import LanguageBase
 from jdTextEdit.api.Types import LanguageOverwriteEntry
-from typing import Optional, Callable, TYPE_CHECKING
 import importlib
-import argparse
 import shutil
 import json
 import sys
@@ -33,25 +32,14 @@ if TYPE_CHECKING:
 
 
 class Environment():
-    def __init__(self, app: QApplication):
+    def __init__(self, app: QApplication, args: dict[str, Any]) -> None:
         self.programDir = os.path.dirname(os.path.realpath(__file__))
         self.app = app
 
         with open(os.path.join(self.programDir, "version.txt"), "r", encoding="utf-8") as f:
             self.version = f.read().strip()
 
-        parser = argparse.ArgumentParser()
-        parser.add_argument("filename", nargs="*")
-        parser.add_argument("-p", "--portable",action="store_true", dest="portable", help="Portable")
-        parser.add_argument("--data-dir", dest="dataDir",help="Sets the data directory")
-        parser.add_argument("--disable-plugins", action="store_true", dest="disablePlugins", help="Disable Plugins")
-        parser.add_argument("--no-session-restore", action="store_true", dest="disableSessionRestore", help="Disable Session Restore")
-        parser.add_argument("--disable-updater", action="store_true", dest="disableUpdater", help="Disable the Updater")
-        parser.add_argument("--distribution-file", dest="distributionFile", help="Sets custom distribution.json")
-        parser.add_argument("--language", dest="language", help="Starts jdTextEdit in the given language")
-        parser.add_argument("--debug", action="store_true", dest="debug", help="Enable Debug mode")
-        parser.add_argument("--debug-plugin", dest="debugPlugin", help="Loads a single Plugin from a directory")
-        self.args = parser.parse_args().__dict__
+        self.args = args
 
         self.distributionSettings: DistributionSettingsType = readJsonFile(self.args["distributionFile"] or os.path.join(self.programDir, "distribution.json"), {})
 

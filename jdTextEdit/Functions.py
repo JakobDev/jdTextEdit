@@ -9,6 +9,7 @@ import platform
 import tempfile
 import datetime
 import pathlib
+import logging
 import getpass
 import shutil
 import json
@@ -404,3 +405,7 @@ def compareLists(firstList: list, secondList: list) -> bool:
 
 def getParentDirectory(path: str) -> str:
     return str(pathlib.Path(path).parent)
+
+
+def getGlobalLogger() -> logging.Logger:
+    return logging.getLogger("jdTextEdit")
