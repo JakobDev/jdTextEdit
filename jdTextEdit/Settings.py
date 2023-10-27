@@ -65,7 +65,7 @@ class Settings():
         self.editContextMenu = ["undo", "redo", "separator", "cut", "copy", "paste", "delete", "separator", "selectAll"]
         self.toolBar = ["newFile", "openFile", "saveFile", "separator", "cut", "copy", "paste", "delete", "separator", "undo", "redo", "separator", "find", "findReplaceWindow"]
         self.statusBarWidgetsLeft = ["builtin.path"]
-        self.statusBarWidgetsRight = ["builtin.eol", "builtin.encoding", "builtin.language", "builtin.cursorPos"]
+        self.statusBarWidgetsRight = ["builtin.length", "builtin.eol", "builtin.encoding", "builtin.language", "builtin.cursorPos"]
         self.showSidepane = False
         self.sidepaneWidget = "files"
         self.showFileChangedBanner = True
