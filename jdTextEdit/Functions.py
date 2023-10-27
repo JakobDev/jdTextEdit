@@ -380,17 +380,12 @@ def uppercaseFirstLetter(text: str) -> str:
 
 
 def getLexerStyles(lexer: "QsciLexer") -> dict[str, int]:
-    count = 0
     styleDict = {}
-    while True:
-        styleName = lexer.description(count)
-        if styleName == "":
-            return styleDict
-        elif styleName is None:
-            getGlobalLogger().critical("lexer.description() should return ann empty String instead of None")
-            return styleDict
-        styleDict[styleName] = count
-        count += 1
+    for name in dir(lexer):
+        value = getattr(lexer, name)
+        if isinstance(value, int):
+            styleDict[name] = value
+    return styleDict
 
 
 def compareLists(firstList: list, secondList: list) -> bool:

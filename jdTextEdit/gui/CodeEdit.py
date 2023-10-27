@@ -270,7 +270,9 @@ class CodeEdit(QsciScintilla):
 
     def contextMenuEvent(self, event: QContextMenuEvent):
         if self.isPreview:
+            super().contextMenuEvent(event)
             return
+
         event.setAccepted(False)
         self.env.editorSignals.contextMenu.emit(self, event)
         if event.isAccepted():
@@ -481,13 +483,7 @@ class CodeEdit(QsciScintilla):
             self.setAutoCompletionThreshold(settings.get("autocompleteThreshold"))
             self.setAutoCompletionReplaceWord(settings.get("autocompletionReplaceWord"))
             if self.currentLexer and settings.get("autocompletionUseAPI") and self.language:
-                api = self.language.getAPI(self.currentLexer)
-                #if api:
-                    #com
-                #if isinstance(self.apiCompletion, str):
-                    #api = AutocompleteXML(self.currentLexer,self.apiCompletion)
-                #else:
-                    #api = self.apiCompletion(self.currentLexer)
+                self.language.getAPI(self.currentLexer)
         else:
             self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsNone)
         self.settings = settings

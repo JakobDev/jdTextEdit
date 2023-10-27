@@ -23,8 +23,10 @@ class DefaultTheme(ThemeBase):
         editWidget.setMarginsBackgroundColor(QColor("#cccccc"))
         editWidget.setMarginsForegroundColor(QColor("#000000"))
         editWidget.setCaretLineBackgroundColor(QColor("#ffff00"))
+
         if not lexer:
             return
+
         lexer.setPaper(QColor("#FFFFFF"))
         lexer.setColor(QColor("#000000"))
         lexer.setDefaultPaper(QColor("#FFFFFF"))

@@ -80,6 +80,7 @@ class Environment():
         self._qtTranslator: list[QTranslator] = []
         self.loadQtTranslations(os.path.join(self.programDir, "translations"), "jdTextEdit_{{lang}}.qm")
         self.loadQtTranslations(QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath), "qt_{{lang}}.qm")
+        self.loadQtTranslations(QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath), "qscintilla_{{lang}}.qm")
         if self.args["language"]:
             self.translations = jdTranslationHelper(lang=self.args["language"], default_language="en")
         elif self.settings.language == "default":
