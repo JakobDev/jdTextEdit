@@ -66,8 +66,8 @@ class ActionSearchWindow(QWidget):
             pos = self._resultList.currentRow()
             self._actionList[pos].triggered.emit()
             self.close()
-        except Exception:
-            print(traceback.format_exc(), end="", file=sys.stderr)
+        except Exception as ex:
+            self._env.logger.exception(ex)
             showMessageBox(QCoreApplication.translate("ActionSearchWindow", "Unknown error"), QCoreApplication.translate("ActionSearchWindow", "An unknown error occured"))
 
     def openWindow(self):

@@ -1,7 +1,7 @@
 from jdTextEdit.Functions import readJsonFile, getLexerStyles
+from jdTextEdit.core.Logger import getGlobalLogger
 from jdTextEdit.api.ThemeBase import ThemeBase
 from PyQt6.QtGui import QColor
-import traceback
 import sys
 import os
 
@@ -14,10 +14,10 @@ class FileTheme(ThemeBase):
         if not self.themeData:
             raise BaseException
         if "id" not in self.themeData:
-            print(f"{os.path.basename(path)} must contain key id", file=sys.stderr)
+            getGlobalLogger().error(f"{os.path.basename(path)} must contain key id")
             raise BaseException
         if "name" not in self.themeData:
-            print(f"{os.path.basename(path)} must contain key name", file=sys.stderr)
+            getGlobalLogger().error(f"{os.path.basename(path)} must contain key name")
             raise BaseException
 
     @classmethod

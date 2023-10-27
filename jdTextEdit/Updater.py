@@ -56,19 +56,19 @@ def searchForUpdates(parent: "MainWindow", env: "Environment", startup: bool) ->
         if not startup:
             QMessageBox.critical(parent, QCoreApplication.translate("Updater", "requests not found"), QCoreApplication.translate("Updater", "This feature needs the Python requests module installed to work"))
         else:
-            print(QCoreApplication.translate("Updater", "requests not found"), file=sys.stderr)
+            env.logger.critical(QCoreApplication.translate("Updater", "requests not found"))
         return
 
     try:
         latestRelease = requests.get("https://codeberg.org/api/v1/repos/JakobDev/jdTextEdit/releases/latest").json()
     except requests.exceptions.RequestException:
         if startup:
-            print(QCoreApplication.translate("Updater", "You need a internet connection to search for updates"))
+            env.logger.error(QCoreApplication.translate("Updater", "You need a internet connection to search for updates"))
         else:
             QMessageBox.critical(parent, QCoreApplication.translate("Updater", "No internet connection"), QCoreApplication.translate("Updater", "An Internet connection is required for this feature"))
         return
-    except Exception as e:
-        print(e, file=sys.stderr)
+    except Exception as ex:
+        env.logger.exception(ex)
         if not startup:
             QMessageBox.critical(parent, QCoreApplication.translate("Updater", "Unknown error"), QCoreApplication.translate("Updater", "An unknown error has occurred"))
         return

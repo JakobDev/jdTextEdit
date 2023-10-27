@@ -1,12 +1,18 @@
 from PyQt6.QtWidgets import QDialog, QListWidget, QPushButton, QMessageBox, QInputDialog, QFileDialog, QHBoxLayout, QVBoxLayout
 from PyQt6.QtCore import QCoreApplication
+from typing import TYPE_CHECKING
 import shutil
 import sys
 import os
 
 
+if TYPE_CHECKING:
+    from jdTextEdit.gui.MainWindow import MainWindow
+    from jdTextEdit.Environment import Environment
+
+
 class ManageTemplatesWindow(QDialog):
-    def __init__(self, env):
+    def __init__(self, env: "Environment"):
         super().__init__()
         self._env = env
 
@@ -58,7 +64,7 @@ class ManageTemplatesWindow(QDialog):
         try:
             os.remove(os.path.join(self._env.dataDir, "templates", currentName))
         except Exception as ex:
-            print(str(ex), file=sys.stderr)
+            self._env.logger.exception(ex)
             QMessageBox.critical(self, QCoreApplication.translate("ManageTemplatesWindow", "Error"), QCoreApplication.translate("ManageTemplatesWindow", "A error occurred while deleting"))
             return
 
@@ -81,7 +87,7 @@ class ManageTemplatesWindow(QDialog):
         try:
             os.rename(os.path.join(self._env.dataDir, "templates", oldName), os.path.join(self._env.dataDir, "templates", newName))
         except Exception as ex:
-            print(str(ex), file=sys.stderr)
+            self._env.logger.exception(ex)
             QMessageBox.critical(self, QCoreApplication.translate("ManageTemplatesWindow", "Error"), QCoreApplication.translate("ManageTemplatesWindow", "A error occurred while renaming"))
             return
 
@@ -89,7 +95,7 @@ class ManageTemplatesWindow(QDialog):
         self._env.updateTemplates()
         self._mainWindow.updateTemplateMenu()
 
-    def _exportButtonClicked(self):
+    def _exportButtonClicked(self) -> None:
         exportPath = QFileDialog.getSaveFileName(self, directory=self._templateList.currentItem().text())[0]
 
         if exportPath == "":
@@ -99,10 +105,10 @@ class ManageTemplatesWindow(QDialog):
         try:
             shutil.copyfile(templatePath, exportPath)
         except Exception as ex:
-            print(str(ex), file=sys.stderr)
+            self._env.logger.exception(ex)
             QMessageBox.critical(self, QCoreApplication.translate("ManageTemplatesWindow", "Error"), QCoreApplication.translate("ManageTemplatesWindow", "A error occurred while exporting"))
 
-    def openWindow(self, mainWindow):
+    def openWindow(self, mainWindow: "MainWindow") -> None:
         self._mainWindow = mainWindow
         self._updateTemplateList()
         self.exec()

@@ -1,4 +1,4 @@
-import traceback
+from jdTextEdit.core.Logger import getGlobalLogger
 
 
 class SignalBase():
@@ -12,5 +12,5 @@ class SignalBase():
         for i in self.functionList:
             try:
                 i(*arg)
-            except Exception as e:
-                print(traceback.format_exc(), end="")
+            except Exception as ex:
+                getGlobalLogger().exception(ex)

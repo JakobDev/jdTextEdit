@@ -1,14 +1,15 @@
-from jdTextEdit.Functions import getTempOpenFilePath, compareLists, getGlobalLogger
 from jdTextEdit.gui.Tools.RegExGrep.RegExGrepWindow import RegExGrepWindow
 from jdTextEdit.gui.SearchAndReplaceWindow import SearchAndReplaceWindow
 from jdTextEdit.core.PluginLoader import loadPlugins, loadSinglePlugin
 from jdTextEdit.gui.StatusBarWidgets import addBuiltinStatusBarWidgets
 from jdTextEdit.gui.ExecuteCommandWindow import ExecuteCommandWindow
+from jdTextEdit.Functions import getTempOpenFilePath, compareLists
 from PyQt6.QtWidgets import QApplication, QMessageBox, QCheckBox
 from jdTextEdit.gui.DocumentStatistics import DocumentStatistics
 from jdTextEdit.gui.ManageMacrosWindow import ManageMacrosWindow
 from jdTextEdit.gui.EditCommandsWindow import EditCommandsWindow
 from jdTextEdit.gui.ActionSearchWindow import ActionSearchWindow
+from jdTextEdit.core.Logger import setupLogger, getGlobalLogger
 from jdTextEdit.gui.AddProjectWindow import AddProjectWindow
 from jdTextEdit.gui.CloseSaveWindow import CloseSaveWindow
 from jdTextEdit.gui.DebugInfoWindow import DebugInfoWindow
@@ -27,7 +28,6 @@ import importlib
 import platform
 import tempfile
 import argparse
-import logging
 import ctypes
 import json
 import glob
@@ -125,9 +125,12 @@ def main() -> None:
     parser.add_argument("--language", dest="language", help="Starts jdTextEdit in the given language")
     parser.add_argument("--debug", action="store_true", dest="debug", help="Enable Debug mode")
     parser.add_argument("--debug-plugin", dest="debugPlugin", help="Loads a single Plugin from a directory")
+    parser.add_argument("--log-format", choices=["default", "no-color", "unformatted"], dest="logFormat", default="default", help="Set the format for the log messages")
+    parser.add_argument("--log-file", dest="logFile", help="Write the log in this file")
+    parser.add_argument("-v", "--verbose", action="store_true", dest="verbose", help="Print more messages")
     args = parser.parse_known_args()[0]
 
-    logger = logging.Logger("jdTextEdit")
+    setupLogger(args.debug, args.logFormat, args.verbose, args.logFile)
 
     temp_open_path = getTempOpenFilePath()
     if os.path.isfile(temp_open_path):
@@ -141,6 +144,7 @@ def main() -> None:
     env = Environment(app, args.__dict__)
 
     if not env.debugMode and env.distributionSettings.get("enableTranslationWarning", True) and len(glob.glob(os.path.join(env.programDir, "translations", "*.qm"))) == 0:
+        env.logger.warning("No translations found")
         QMessageBox.warning(None, "No translations found", "No translation were found. It looks like the translations of jdTextEdit were not build. jdTextEdit is currently only available in English.")
 
     env.clipboard = QApplication.clipboard()

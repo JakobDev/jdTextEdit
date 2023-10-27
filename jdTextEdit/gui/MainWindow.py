@@ -1,4 +1,4 @@
-from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid, saveProjects, clearStatusBar, formatDateTime, getGlobalLogger
+from jdTextEdit.Functions import executeCommand, getThemeIcon, openFileDefault, showMessageBox, saveWindowState, restoreWindowState, getTempOpenFilePath, isFilenameValid, saveProjects, clearStatusBar, formatDateTime
 from PyQt6.QtWidgets import QMainWindow, QMenu, QApplication, QFileDialog, QStyleFactory, QDialog, QColorDialog, QInputDialog, QMessageBox
 from PyQt6.Qsci import QsciScintilla, QsciScintillaBase, QsciMacro, QsciPrinter
 from PyQt6.QtGui import QIcon, QAction, QCloseEvent, QDropEvent
@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
             try:
                 self.restoreSession()
             except Exception as e:
-                print(traceback.format_exc(),end="",file=sys.stderr)
+                self.env.logger.exception(e)
                 showMessageBox("Error","Could not restore session. This might be happen after an Update. If jdTextEdit crashes just restart it.")
                 os.remove(os.path.join(self.env.dataDir,"session.json"))
                 shutil.rmtree(os.path.join(self.env.dataDir,"session_data"))
@@ -117,7 +117,7 @@ class MainWindow(QMainWindow):
                         found = True
             if not found:
                 if os.path.isdir(path):
-                    print("Can't open directory")
+                    self.env.logger.error("Can't open directory")
                 else:
                     self.getTabWidget().createTab(os.path.basename(path), focus=True)
                     editWidget = self.getTextEditWidget()
@@ -153,20 +153,18 @@ class MainWindow(QMainWindow):
         if os.path.getsize(path) == 0:
             return
 
-        logger = getGlobalLogger()
-
         data = None
         with open(path, "r", encoding="utf-8") as f:
             try:
                 data = json.load(f)
             except Exception as e:
-                logger.exception(e)
+                self.env.logger.exception(e)
 
         if data is not None:
             try:
                 self._handleTempFileData(data)
             except Exception as e:
-                logger.exception(e)
+                self.env.logger.exception(e)
 
         open(path, "w").close()
         self.tempFileOpenWatcher.addPath(path)
@@ -1150,9 +1148,10 @@ class MainWindow(QMainWindow):
             showMessageBox(QCoreApplication.translate("MainWindow", "Can't open file"), QCoreApplication.translate("MainWindow", "You don't have the permission to open {{path}}").replace("{{path}}", path))
             return
         except Exception as e:
-            print(e, file=sys.stderr)
+            self.env.logger.exception(e)
             showMessageBox(QCoreApplication.translate("MainWindow", "Unknown error"), QCoreApplication.translate("MainWindow", "An unknown error has occurred"))
             return
+
         fileBytes = filehandle.read()
         if len(fileBytes) >= self.env.settings.bigFileSize and self.env.settings.enableBigFileLimit:
             isBigFile = True
@@ -1169,7 +1168,7 @@ class MainWindow(QMainWindow):
                     if encoding in i:
                         encoding = i[0]
             else:
-                print("Encoding detection module " + self.env.settings.get("encodingDetectLib") + " was not found", file=sys.stderr)
+                self.env.logger.error("Encoding detection module " + self.env.settings.get("encodingDetectLib") + " was not found")
                 encoding = self.env.settings.get("defaultEncoding")
         else:
             encoding = self.env.settings.get("defaultEncoding")
@@ -1223,9 +1222,7 @@ class MainWindow(QMainWindow):
             for i in self.env.languageList:
                 languageOverwrite = self.env.languageOverwrites.get(i.getID(), {})
 
-                print(languageOverwrite)
                 if "extensions" in languageOverwrite and languageOverwrite["extensions"]["enabled"]:
-                    print("HHHH")
                     extensions = languageOverwrite["extensions"]["textList"]
                 else:
                     extensions = i.getExtensions()
@@ -1318,7 +1315,7 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self, QCoreApplication.translate("MainWindow", "Can't save file"), QCoreApplication.translate("MainWindow", "You don't have the permission to write {{path}}").replace("{{path}}", editWidget.getFilePath()))
             return
         except Exception as e:
-            print(e)
+            self.env.logger.exception(e)
             QMessageBox.critical(self, QCoreApplication.translate("MainWindow", "Unknown error"), QCoreApplication.translate("MainWindow", "An unknown error has occurred"))
             return
 
@@ -1519,7 +1516,6 @@ class MainWindow(QMainWindow):
 
     def sortLinesAlphabetical(self):
         lines = self.getCurrentLines()
-        print(lines)
         lines.sort()
         self.replaceCurrentLines(lines)
 
@@ -1766,8 +1762,8 @@ class MainWindow(QMainWindow):
 
         try:
             shutil.rmtree(self.env.dataDir)
-        except Exception:
-            print(traceback.format_exc(), end="", file=sys.stderr)
+        except Exception as e:
+            self.env.logger.exception(e)
             showMessageBox(QCoreApplication.translate("MainWindow", "Unknown error"), QCoreApplication.translate("MainWindow", "An unknown error has occurred"))
             return
 
@@ -1816,12 +1812,12 @@ class MainWindow(QMainWindow):
             try:
                 self.statusBar().addWidget(self.env.statusBarWidgetDict[i]())
             except KeyError:
-                print(f"StatusBarWidget with ID {i} not found", file=sys.stderr)
+                self.env.logger.error(f"StatusBarWidget with ID {i} not found")
         for i in settings.get("statusBarWidgetsRight"):
             try:
                 self.statusBar().addPermanentWidget(self.env.statusBarWidgetDict[i]())
             except KeyError:
-                print(f"StatusBarWidget with ID {i} not found", file=sys.stderr)
+                self.env.logger.error(f"StatusBarWidget with ID {i} not found")
         self.updateWindowTitle()
         self.updateStatusBar()
 
@@ -1890,7 +1886,7 @@ class MainWindow(QMainWindow):
             try:
                 self.saveSession()
             except Exception as e:
-                print(traceback.format_exc(), end="")
+                self.env.logger.exception(e)
             sys.exit(0)
         else:
             for tabWidget in self.splitViewWidget.getAllTabWidgets():
@@ -1898,7 +1894,7 @@ class MainWindow(QMainWindow):
                     try:
                         tabWidget.tabCloseClicked(i, forceExit=True)
                     except Exception as e:
-                        print(traceback.format_exc(), end="", file=sys.stderr)
+                        self.env.logger.exception(e)
             event.ignore()
 
     def removeTempOpenFile(self):

@@ -66,21 +66,20 @@ class EditTabWidget(QTabWidget):
 
     def tabChange(self) -> None:
         try:
-            currentEditWidget = self.widget(self.currentIndex()).getCodeEditWidget()
+            currentEditWidget = self.editWidget(self.currentIndex())
         except Exception:
             return
         try:
             currentEditWidget.updateOtherWidgets()
-        except Exception as e:
-            pass
-            #print(e)
+        except Exception as ex:
+            self.env.logger.exception(ex)
 
     def tabCloseClicked(self, tabid: int, notCloseProgram: bool = False, forceExit: bool = False) -> None:
-        if self.widget(tabid).getCodeEditWidget().isModified() and self.env.settings.saveClose:
+        if self.editWidget(tabid).isModified() and self.env.settings.saveClose:
             try:
                 self.env.closeSaveWindow.openWindow(tabid,self)
-            except Exception as e:
-                print(traceback.format_exc(), end="")
+            except Exception as ex:
+                self.env.logger.exception(ex)
         else:
             self.removeTab(tabid)
             if self.count() == 0:
@@ -103,7 +102,7 @@ class EditTabWidget(QTabWidget):
             self.tabCloseClicked(tabid)
 
     def updateTabTitle(self, index: int) -> None:
-        editWidget = self.widget(index).getCodeEditWidget()
+        editWidget = self.editWidget(index)
         if editWidget.customTabName != "":
             self.setTabText(index, editWidget.customTabName)
         elif editWidget.filePath == "":

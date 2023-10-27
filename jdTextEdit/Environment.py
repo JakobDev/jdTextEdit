@@ -17,6 +17,7 @@ from jdTextEdit.core.DefaultTheme import DefaultTheme
 from jdTextEdit.core.FileTheme import FileTheme
 from jdTextEdit.api.LanguageBase import LanguageBase
 from jdTextEdit.api.Types import LanguageOverwriteEntry
+from jdTextEdit.core.Logger import getGlobalLogger
 import importlib
 import shutil
 import json
@@ -40,6 +41,8 @@ class Environment():
             self.version = f.read().strip()
 
         self.args = args
+
+        self.logger = getGlobalLogger()
 
         self.distributionSettings: DistributionSettingsType = readJsonFile(self.args["distributionFile"] or os.path.join(self.programDir, "distribution.json"), {})
 
@@ -133,7 +136,7 @@ class Environment():
                 pass
 
         if len(self.encodingDetectFunctions) == 0:
-            print("No libs for encoding detection found", file=sys.stderr)
+            self.logger.warning("No libs for encoding detection found")
 
         self.lastSavePath = ""
         self.lastOpenPath = ""
@@ -217,7 +220,7 @@ class Environment():
                 for i in self.distributionSettings["templateDirectories"]:
                     getTemplates(getFullPath(i), self.templates)
             else:
-                print("templateDirectories in distribution.json must be a list", file=sys.stderr)
+                self.logger.error("templateDirectories in distribution.json must be a list")
 
     def getLanguageByID(self, languageID: str) -> Optional[LanguageBase]:
         for i in self.languageList:

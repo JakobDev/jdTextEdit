@@ -27,7 +27,7 @@ class SpellChecker(QObject):
             else:
                 self.dict = enchant.DictWithPWL(self.settings.get("spellCheckingLanguage"), os.path.join(self._env.dataDir, "pwl.txt"))
         except enchant.errors.DictNotFoundError:
-            print(self._env.translate("plugin.spellChecker.dictNotFound").replace("{{language}}", str(self.settings.get("spellCheckingLanguage"))), file=sys.stderr)
+            self._env.logger.error(self._env.translate("plugin.spellChecker.dictNotFound").replace("{{language}}", str(self.settings.get("spellCheckingLanguage"))))
 
         self.enable_custom_pwl = self.settings.spellCheckingEnableCustomPwl
         self.custom_pwl_path = self.settings.spellCheckingCustomPwlPath

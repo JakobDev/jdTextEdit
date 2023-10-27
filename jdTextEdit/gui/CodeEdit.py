@@ -5,7 +5,6 @@ from PyQt6.QtCore import QPoint, QCoreApplication, pyqtSignal
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase
 from typing import Optional, Any, TYPE_CHECKING
-import traceback
 import copy
 import sys
 import os
@@ -371,10 +370,10 @@ class CodeEdit(QsciScintilla):
         try:
             config = editorconfig.get_properties(self.getFilePath())
         except NameError:
-            print("Trying to load a file with editorconfig enabled while the editorconfig module is not installed", file=sys.stderr)
+            self.env.logger.critical("Trying to load a file with editorconfig enabled while the editorconfig module is not installed")
             return
         except Exception:
-            print("Error occurred while getting .editorconfig properties", file=sys.stderr)
+            self.env.logger.error("Error occurred while getting .editorconfig properties")
             return
         if "indent_style" in config and self.settings.editorConfigUseIndentStyle:
             if config["indent_style"] == "space":
@@ -436,18 +435,18 @@ class CodeEdit(QsciScintilla):
         if self._customTheme is not None:
             try:
                 self._customTheme.applyTheme(self, self.currentLexer)
-            except Exception as e:
-                print(traceback.format_exc(), end="", file=sys.stderr)
+            except Exception as ex:
+                self.env.logger.exception(ex)
                 self.env.themes["builtin.default"].applyTheme(self, self.currentLexer)
         else:
             if settings.get("editTheme") in self.env.themes:
                 try:
                     self.env.themes[settings.get("editTheme")].applyTheme(self, self.currentLexer)
-                except Exception as e:
-                    print(traceback.format_exc(), end="", file=sys.stderr)
+                except Exception as ex:
+                    self.env.logger.exception(ex)
                     self.env.themes["builtin.default"].applyTheme(self, self.currentLexer)
             else:
-                print("The selected Theme could not be found. Falling back to the default Theme.", file=sys.stderr)
+                self.env.logger.warning("The selected Theme could not be found. Falling back to the default Theme.")
                 self.env.themes["builtin.default"].applyTheme(self, self.currentLexer)
 
         if settings.useCustomFont:

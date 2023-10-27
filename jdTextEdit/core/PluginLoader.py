@@ -53,13 +53,15 @@ def installPipPackages(env: "Environment", packageList: list[str], pluginName: s
 
 
 def loadSinglePlugin(pluginDir: str, env: "Environment") -> bool:
+    env.logger.debug(f"Loading plugin from {pluginDir}")
+
     if not os.path.isdir(pluginDir):
-        print(QCoreApplication.translate("PluginLoader", "Directory {{path}} does not exists").replace("{{path}}", pluginDir), file=sys.stderr)
+        env.logger.critical(QCoreApplication.translate("PluginLoader", "Directory {{path}} does not exists").replace("{{path}}", pluginDir))
         return False
 
     manifest_path = os.path.join(pluginDir, "manifest.json")
     if not os.path.isfile(manifest_path):
-        print(QCoreApplication.translate("PluginLoader", "{{path}} has no manifest.json").replace("{{path}}", pluginDir), file=sys.stderr)
+        env.logger.critical(QCoreApplication.translate("PluginLoader", "{{path}} has no manifest.json").replace("{{path}}", pluginDir))
         return False
 
     manifest_data = readJsonFile(manifest_path, None)
@@ -68,20 +70,21 @@ def loadSinglePlugin(pluginDir: str, env: "Environment") -> bool:
 
     for i in ("id", "name", "version", "author"):
         if i not in manifest_data:
-            print(QCoreApplication.translate("PluginLoader", "{{path}} has no key {{key}}").replace("{{path}}", manifest_path).replace("{{key}}", i), file=sys.stderr)
+            env.logger.critical(QCoreApplication.translate("PluginLoader", "{{path}} has no key {{key}}").replace("{{path}}", manifest_path).replace("{{key}}", i))
             return False
 
     manifest_data["version"] = manifest_data["version"].replace("{JDTEXTEDIT_VERSION}", env.version)
     if not shouldPluginLoaded(manifest_data):
-        print(QCoreApplication.translate("PluginLoader", "Skipping loading of Plugin {{id}}").replace("{{id}}", manifest_data["id"]))
+        env.logger.info(QCoreApplication.translate("PluginLoader", "Skipping loading of Plugin {{id}}").replace("{{id}}", manifest_data["id"]))
         return False
 
     plugin_id = manifest_data["id"]
     if plugin_id in env.settings.get("disabledPlugins"):
+        env.logger.info(QCoreApplication.translate("PluginLoader", "Plugin {{plugin}} is disabled. Skipping loading").replace("{{plugin}}", plugin_id))
         return False
 
     if plugin_id in env.plugins:
-        print(QCoreApplication.translate("PluginLoader", "A Plugin with ID {{id}} is already loaded").replace("{{id}}", plugin_id), file=sys.stderr)
+        env.logger.error(QCoreApplication.translate("PluginLoader", "A Plugin with ID {{id}} is already loaded").replace("{{id}}", plugin_id))
         return False
 
     if "requirements" in manifest_data:
@@ -91,7 +94,7 @@ def loadSinglePlugin(pluginDir: str, env: "Environment") -> bool:
         env.plugins[plugin_id] = manifest_data
         env.plugins[plugin_id]["module"] = p
     except Exception as e:
-        print(traceback.format_exc(), end="", file=sys.stderr)
+        env.logger.exception(e)
         return False
 
     env.plugins[plugin_id]["module"].main(env)

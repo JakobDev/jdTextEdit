@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QMessageBox, QWidget, QComboBox, QStatusBar
+from jdTextEdit.core.Logger import getGlobalLogger
 from typing import Any, Optional, TYPE_CHECKING
 from PyQt6.QtCore import Qt, QCoreApplication
 from jdTextEdit.core.Project import Project
@@ -35,7 +36,7 @@ def getTemplates(path: str, templatelist: list[list[str]]):
         try:
             os.makedirs(path)
         except Exception:
-            print(f"Could not create template directory {path}")
+            getGlobalLogger().critical(f"Could not create template directory {path}")
             return
     filelist = os.listdir(path)
     for i in filelist:
@@ -237,10 +238,10 @@ def readJsonFile(path: str, default: Any) -> Any:
                 data = json.load(f)
                 return data
         except json.decoder.JSONDecodeError as e:
-            print(f"Can't parse {os.path.basename(path)}: {e.msg}: line {e.lineno} column {e.colno} (char {e.pos})", file=sys.stderr)
+            getGlobalLogger().critical(f"Can't parse {os.path.basename(path)}: {e.msg}: line {e.lineno} column {e.colno} (char {e.pos})")
             return default
         except Exception:
-            print("Can't read " + os.path.basename(path), file=sys.stderr)
+            getGlobalLogger().critical("Can't read " + os.path.basename(path))
             return default
     else:
         return default
@@ -386,7 +387,7 @@ def getLexerStyles(lexer: "QsciLexer") -> dict[str, int]:
         if styleName == "":
             return styleDict
         elif styleName is None:
-            print("lexer.description() should return ann empty String instead of None", file=sys.stderr)
+            getGlobalLogger().critical("lexer.description() should return ann empty String instead of None")
             return styleDict
         styleDict[styleName] = count
         count += 1
@@ -405,7 +406,3 @@ def compareLists(firstList: list, secondList: list) -> bool:
 
 def getParentDirectory(path: str) -> str:
     return str(pathlib.Path(path).parent)
-
-
-def getGlobalLogger() -> logging.Logger:
-    return logging.getLogger("jdTextEdit")

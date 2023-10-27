@@ -119,8 +119,8 @@ class PluginManagerWindow(QWidget):
                 f.write(r.text)
                 f.close()
                 r.close()
-            except Exception as e:
-                print(e)
+            except Exception as ex:
+                self.env.logger.exception(ex)
                 return False
         self.installedList[self.pluginList[index]["id"]] = True
         return True
@@ -135,8 +135,8 @@ class PluginManagerWindow(QWidget):
                     try:
                         shutil.rmtree(os.path.join(self.env.dataDir, "plugins", self.pluginList[i]["id"]))
                         del self.installedList[self.pluginList[i]["id"]]
-                    except Exception as e:
-                        print(e, file=sys.stderr)
+                    except Exception as ex:
+                        self.env.logger.exception(ex)
 
         with open(os.path.join(self.env.dataDir, "installedPlugins.json"), "w", encoding="utf-8") as f:
             json.dump(self.installedList, f, ensure_ascii=False, indent=4)

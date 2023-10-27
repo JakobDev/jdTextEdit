@@ -21,8 +21,6 @@ class PluginAPI():
         self._env = env
 
     def addLanguage(self, language: LanguageBase):
-        import inspect
-        print(inspect.stack())
         self._env.languageList.append(language)
 
     def getEditorSignals(self) -> EditorSignals:
