@@ -2,7 +2,7 @@ from PyQt6.QtWidgets import QTabWidget, QMenu, QInputDialog
 from PyQt6.QtCore import pyqtSignal, Qt, QCoreApplication
 from jdTextEdit.gui.EditContainer import EditContainer
 from PyQt6.QtGui import QIcon, QContextMenuEvent, QAction
-from typing import Optional, TYPE_CHECKING
+from typing import cast, Optional, TYPE_CHECKING
 import traceback
 import sys
 import os
@@ -10,8 +10,9 @@ import os
 
 if TYPE_CHECKING:
     from jdTextEdit.gui.SplitViewWidget import SplitViewWidget
-    from jdTextEdit.gui.MainWindow import MainWindow
+
     from jdTextEdit.Environment import Environment
+    from jdTextEdit.gui.CodeEdit import CodeEdit
     from jdTextEdit.Settings import Settings
 
 
@@ -215,3 +216,15 @@ class EditTabWidget(QTabWidget):
 
     def getSplitViewWidget(self) -> "SplitViewWidget":
         return self.splitViewWidget
+
+    def containerWidget(self, index: int) -> EditContainer:
+        """
+        Same as widgets(), but casts it to EditContainer
+        """
+        return cast(EditContainer, self.widget(index))
+
+    def editWidget(self, index: int) -> "CodeEdit":
+        """
+        Returns the CodeEdit widget for this index
+        """
+        return self.containerWidget(index).getCodeEditWidget()

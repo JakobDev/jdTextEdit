@@ -27,6 +27,7 @@ import os
 
 if TYPE_CHECKING:
     from jdTextEdit.api.ThemeBase import ThemeBase
+    from .gui.MainWindow import MainWindow
     from jdTextEdit.api.Types import *
     from PyQt6.QtGui import QAction
 
@@ -175,6 +176,8 @@ class Environment():
         ]
 
         self.mimeDatabase = QMimeDatabase()
+
+        self.mainWindow: Optional["MainWindow"] = None
 
     def translate(self, key: str) -> str:
         """

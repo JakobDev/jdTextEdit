@@ -172,11 +172,16 @@
 <context>
     <name>BannerWidgets</name>
     <message>
-        <location filename="../gui/BannerWidgets/BigFileBanner.py" line="16"/>
-        <location filename="../gui/BannerWidgets/EditorconfigBanner.py" line="14"/>
         <location filename="../gui/BannerWidgets/SimpleMessageBanner.py" line="14"/>
+        <location filename="../gui/BannerWidgets/EditorconfigBanner.py" line="14"/>
+        <location filename="../gui/BannerWidgets/BigFileBanner.py" line="16"/>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/BigFileBanner.py" line="21"/>
+        <source>Due to the size of the file some features have been disabled</source>
+        <translation>Aufgrund der Größe der Datei wurden einige Features deaktiviert</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/EditorconfigBanner.py" line="19"/>
@@ -184,27 +189,22 @@
         <translation>Es werden einige Einstellungen aus einer .editorconfig benutzt</translation>
     </message>
     <message>
-        <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="17"/>
-        <source>Change to {{encoding}}</source>
-        <translation>Wechsle zu {{encoding}}</translation>
+        <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="17"/>
+        <source>Reload</source>
+        <translation>Neuladen</translation>
     </message>
     <message>
-        <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="20"/>
         <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="21"/>
-        <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="18"/>
         <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="20"/>
+        <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="18"/>
+        <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="20"/>
         <source>Ignore</source>
         <translation>Ignorieren</translation>
     </message>
     <message>
-        <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="24"/>
-        <source>The encoding does not correspond to the default settings</source>
-        <translation>Die Zeichenkodierung entspricht nicht drn Standardeinstellung</translation>
-    </message>
-    <message>
-        <location filename="../gui/BannerWidgets/BigFileBanner.py" line="21"/>
-        <source>Due to the size of the file some features have been disabled</source>
-        <translation>Aufgrund der Größe der Datei wurden einige Features deaktiviert</translation>
+        <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="24"/>
+        <source>This file was changed by another program</source>
+        <translation>Die Datei wurde auf dem Laufwerk geändert</translation>
     </message>
     <message>
         <location filename="../gui/BannerWidgets/FileDeletedBanner.py" line="15"/>
@@ -217,6 +217,16 @@
         <translation>Die Datei wurde von einem anderen Programm gelöscht</translation>
     </message>
     <message>
+        <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="17"/>
+        <source>Change to {{encoding}}</source>
+        <translation>Wechsle zu {{encoding}}</translation>
+    </message>
+    <message>
+        <location filename="../gui/BannerWidgets/WrongEncodingBanner.py" line="24"/>
+        <source>The encoding does not correspond to the default settings</source>
+        <translation>Die Zeichenkodierung entspricht nicht drn Standardeinstellung</translation>
+    </message>
+    <message>
         <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="18"/>
         <source>Change to {{eol}}</source>
         <translation>Wechsle zu {{eol}}</translation>
@@ -225,16 +235,6 @@
         <location filename="../gui/BannerWidgets/WrongEolBanner.py" line="25"/>
         <source>The end of line does not correspond to the default settings</source>
         <translation>Das Zeilenende entspricht nicht der Standardeinstellung</translation>
-    </message>
-    <message>
-        <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="17"/>
-        <source>Reload</source>
-        <translation>Neuladen</translation>
-    </message>
-    <message>
-        <location filename="../gui/BannerWidgets/FileChangedBanner.py" line="24"/>
-        <source>This file was changed by another program</source>
-        <translation>Die Datei wurde auf dem Laufwerk geändert</translation>
     </message>
 </context>
 <context>
@@ -319,23 +319,23 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../gui/CloseSaveWindow.py" line="64"/>
-        <location filename="../gui/CloseSaveWindow.py" line="46"/>
+        <location filename="../gui/CloseSaveWindow.py" line="63"/>
+        <location filename="../gui/CloseSaveWindow.py" line="47"/>
         <source>Save as ...</source>
         <translation>Speichern unter ...</translation>
     </message>
     <message>
-        <location filename="../gui/CloseSaveWindow.py" line="61"/>
+        <location filename="../gui/CloseSaveWindow.py" line="60"/>
         <source>{{path}} has been edited. Do you want to save it?</source>
-        <translation>66path}} wurde verändert. Möchtest du speichern?</translation>
+        <translation>{{path}} wurde verändert. Möchtest du speichern?</translation>
     </message>
     <message>
-        <location filename="../gui/CloseSaveWindow.py" line="62"/>
+        <location filename="../gui/CloseSaveWindow.py" line="61"/>
         <source>Save {{path}}</source>
         <translation>Speichere {{path}}</translation>
     </message>
     <message>
-        <location filename="../gui/CloseSaveWindow.py" line="66"/>
+        <location filename="../gui/CloseSaveWindow.py" line="65"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
@@ -623,28 +623,28 @@
 <context>
     <name>EditTabWidget</name>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="109"/>
-        <location filename="../gui/EditTabWidget.py" line="91"/>
+        <location filename="../gui/EditTabWidget.py" line="110"/>
+        <location filename="../gui/EditTabWidget.py" line="92"/>
         <source>Untitled</source>
         <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="123"/>
+        <location filename="../gui/EditTabWidget.py" line="124"/>
         <source>Set custom tab name</source>
         <translation>Eigenen Namen festlegen</translation>
     </message>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="128"/>
+        <location filename="../gui/EditTabWidget.py" line="129"/>
         <source>Remove custom tab name</source>
         <translation>Eigenen Namen entfernen</translation>
     </message>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="135"/>
+        <location filename="../gui/EditTabWidget.py" line="136"/>
         <source>Enter name</source>
         <translation>Namen eingeben</translation>
     </message>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="135"/>
+        <location filename="../gui/EditTabWidget.py" line="136"/>
         <source>Please enter a custom name for this tab</source>
         <translation>Bitte gib einen eigenen Namen ein</translation>
     </message>
@@ -786,12 +786,12 @@
 <context>
     <name>Environment</name>
     <message>
-        <location filename="../Environment.py" line="173"/>
+        <location filename="../Environment.py" line="174"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../Environment.py" line="174"/>
+        <location filename="../Environment.py" line="175"/>
         <source>Templates</source>
         <translation>Vorlagen</translation>
     </message>
@@ -1319,7 +1319,7 @@
     <message>
         <location filename="../gui/MainWindow.py" line="329"/>
         <source>Copy URL to Clipboard</source>
-        <translation>opiere URL in Zwischenablage</translation>
+        <translation type="unfinished">Kopiere URL in Zwischenablage</translation>
     </message>
     <message>
         <location filename="../gui/MainWindow.py" line="337"/>
@@ -2321,36 +2321,6 @@
 <context>
     <name>RegExGrepListDialog</name>
     <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
-        <source>Saved RegEx</source>
-        <translation>Gespeicherte RegEx</translation>
-    </message>
-    <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
-        <source>Search</source>
-        <translation>Suche</translation>
-    </message>
-    <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
-        <source>Load</source>
-        <translation>Laden</translation>
-    </message>
-    <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
-        <source>Save</source>
-        <translation>Speichern</translation>
-    </message>
-    <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
-        <source>Remove</source>
-        <translation>Löschen</translation>
-    </message>
-    <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-    <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.py" line="56"/>
         <source>Enter name</source>
         <translation>Namen eingeben</translation>
@@ -2380,44 +2350,39 @@
         <source>Are you sure you want to remove the selected RegEx?</source>
         <translation>Bist du sicher, dass du den ausgewählten RegEx löschen möchtest?</translation>
     </message>
-</context>
-<context>
-    <name>RegExGrepWindow</name>
     <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
-        <source>RegExGrep</source>
-        <translation>RegEx Grep</translation>
-    </message>
-    <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
-        <source>RegEx Grep searches the Document with the given RegEx and puts the output into a List</source>
-        <translation>RegEx Grep durchsucht das Dokument anhand des angegebenen RegEx und schreibt die Ergebnisse in eine Liste</translation>
-    </message>
-    <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
-        <source>RegEx:</source>
-        <translation>RegEx:</translation>
-    </message>
-    <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
         <source>Saved RegEx</source>
         <translation>Gespeicherte RegEx</translation>
     </message>
     <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
-        <source>Copy to Clipboard</source>
-        <translation>In die Zwischenablage kopieren</translation>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
+        <source>Search</source>
+        <translation>Suche</translation>
     </message>
     <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
-        <source>OK</source>
-        <translation>OK</translation>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
+        <source>Load</source>
+        <translation>Laden</translation>
     </message>
     <message>
-        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
+        <source>Remove</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepListDialog.ui" line="0"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
+</context>
+<context>
+    <name>RegExGrepWindow</name>
     <message>
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="25"/>
         <source>No results</source>
@@ -2462,6 +2427,41 @@
         <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.py" line="49"/>
         <source>The given RegEx haven&apos;t found anything</source>
         <translation>Der angegebene RegEx erzielte keine Treffer</translation>
+    </message>
+    <message>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
+        <source>RegExGrep</source>
+        <translation>RegEx Grep</translation>
+    </message>
+    <message>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
+        <source>RegEx Grep searches the Document with the given RegEx and puts the output into a List</source>
+        <translation>RegEx Grep durchsucht das Dokument anhand des angegebenen RegEx und schreibt die Ergebnisse in eine Liste</translation>
+    </message>
+    <message>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
+        <source>RegEx:</source>
+        <translation>RegEx:</translation>
+    </message>
+    <message>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
+        <source>Saved RegEx</source>
+        <translation>Gespeicherte RegEx</translation>
+    </message>
+    <message>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
+        <source>Copy to Clipboard</source>
+        <translation>In die Zwischenablage kopieren</translation>
+    </message>
+    <message>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <location filename="../gui/Tools/RegExGrep/RegExGrepWindow.ui" line="0"/>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -2687,24 +2687,24 @@
         <translation>Z. {line}, Sp. {column}</translation>
     </message>
     <message>
-        <location filename="../gui/StatusBarWidgets/EolWidget.py" line="24"/>
-        <source>End of Line</source>
-        <translation>Zeilenende</translation>
-    </message>
-    <message>
-        <location filename="../gui/StatusBarWidgets/PathWidget.py" line="18"/>
-        <source>Path</source>
-        <translation>Pfad</translation>
-    </message>
-    <message>
         <location filename="../gui/StatusBarWidgets/EncodingWidget.py" line="18"/>
         <source>Encoding</source>
         <translation>Kodierung</translation>
     </message>
     <message>
+        <location filename="../gui/StatusBarWidgets/EolWidget.py" line="24"/>
+        <source>End of Line</source>
+        <translation>Zeilenende</translation>
+    </message>
+    <message>
         <location filename="../gui/StatusBarWidgets/LanguageWidget.py" line="18"/>
         <source>Language</source>
         <translation>Sprache</translation>
+    </message>
+    <message>
+        <location filename="../gui/StatusBarWidgets/PathWidget.py" line="18"/>
+        <source>Path</source>
+        <translation>Pfad</translation>
     </message>
 </context>
 <context>
