@@ -401,3 +401,24 @@ def compareLists(firstList: list, secondList: list) -> bool:
 
 def getParentDirectory(path: str) -> str:
     return str(pathlib.Path(path).parent)
+
+
+def findAllString(text: str, pattern: str) -> list[int]:
+    """
+    Retruns a list of all positions of the pattern in the text
+    """
+    if text == "" or pattern == "":
+        return []
+
+    posList: list[int] = []
+    currentPos = -1
+
+    while True:
+        pos = text.find(pattern)
+        if pos == -1:
+            break
+        text = text[pos+1:]
+        currentPos += pos + 1
+        posList.append(currentPos)
+
+    return posList

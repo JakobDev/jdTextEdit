@@ -5,6 +5,7 @@ from PyQt6.QtCore import QPoint, QCoreApplication, pyqtSignal
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase
 from typing import Optional, Any, TYPE_CHECKING
+from jdTextEdit.Functions import findAllString
 import copy
 import sys
 import os
@@ -59,7 +60,14 @@ class CodeEdit(QsciScintilla):
 
         eolModeList = [QsciScintilla.EolMode.EolWindows, QsciScintilla.EolMode.EolUnix, QsciScintilla.EolMode.EolMac]
         self.changeEolMode(eolModeList[self.settings.defaultEolMode])
+
+         # Highlight all Ocuurences of selcted text
+        self._highlightOccurrencesIndicator = self.getIndicatorNumber()
+        self.indicatorDefine(QsciScintilla.IndicatorStyle.FullBoxIndicator, self._highlightOccurrencesIndicator)
+        self.selectionChanged.connect(self._updateHighlightAllOccurrences)
+
         self.updateSettings(self.settings)
+
         self.setMarginLineNumbers(0, True)
         self.setUtf8(True)
         self.modificationChanged.connect(self.modificationStateChange)
@@ -301,6 +309,25 @@ class CodeEdit(QsciScintilla):
         if event.mimeData().text() != "" and len(event.mimeData().urls()) == 0:
             self.insertText(event.mimeData().text())
 
+    def _updateHighlightAllOccurrences(self) -> None:
+        self.SendScintilla(QsciScintilla.SCI_SETINDICATORCURRENT, self._highlightOccurrencesIndicator)
+        self.SendScintilla(QsciScintilla.SCI_INDICATORCLEARRANGE, 0, self.length())
+
+        if not self.settings.get("editHighlightOccurrencesSelectedText"):
+            return
+
+        highlightedText = self.selectedText()
+
+        if highlightedText == "":
+            return
+
+        startLine, startPos, _, _ = self.getSelection()
+        currentPos = self.positionFromLineIndex(startLine, startPos)
+
+        for pos in findAllString(self.text(), highlightedText):
+            if pos != currentPos:
+                self.SendScintilla(QsciScintilla.SCI_INDICATORFILLRANGE, pos, len(highlightedText))
+
     def getSaveMetaData(self) -> dict[str, Any]:
         if self.language:
             syntax = self.language.getID()
@@ -487,6 +514,7 @@ class CodeEdit(QsciScintilla):
         else:
             self.setAutoCompletionSource(QsciScintilla.AutoCompletionSource.AcsNone)
         self.settings = settings
+        self._updateHighlightAllOccurrences()
 
     def positionFromPoint(self, point: QPoint) -> int:
         return self.SendScintilla(QsciScintilla.SCI_POSITIONFROMPOINTCLOSE, point.x(), point.y())

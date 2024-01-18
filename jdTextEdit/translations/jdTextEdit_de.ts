@@ -343,7 +343,7 @@
 <context>
     <name>CodeEdit</name>
     <message>
-        <location filename="../gui/CodeEdit.py" line="126"/>
+        <location filename="../gui/CodeEdit.py" line="133"/>
         <location filename="../gui/CodeEdit.py" line="53"/>
         <source>Plain Text</source>
         <translation>Reiner Text</translation>
@@ -499,7 +499,7 @@
 <context>
     <name>DefaultTheme</name>
     <message>
-        <location filename="../core/DefaultTheme.py" line="38"/>
+        <location filename="../core/DefaultTheme.py" line="40"/>
         <source>Default</source>
         <translation>Standard</translation>
     </message>
@@ -623,28 +623,28 @@
 <context>
     <name>EditTabWidget</name>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="110"/>
-        <location filename="../gui/EditTabWidget.py" line="92"/>
+        <location filename="../gui/EditTabWidget.py" line="109"/>
+        <location filename="../gui/EditTabWidget.py" line="91"/>
         <source>Untitled</source>
         <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="124"/>
+        <location filename="../gui/EditTabWidget.py" line="123"/>
         <source>Set custom tab name</source>
         <translation>Eigenen Namen festlegen</translation>
     </message>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="129"/>
+        <location filename="../gui/EditTabWidget.py" line="128"/>
         <source>Remove custom tab name</source>
         <translation>Eigenen Namen entfernen</translation>
     </message>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="136"/>
+        <location filename="../gui/EditTabWidget.py" line="135"/>
         <source>Enter name</source>
         <translation>Namen eingeben</translation>
     </message>
     <message>
-        <location filename="../gui/EditTabWidget.py" line="136"/>
+        <location filename="../gui/EditTabWidget.py" line="135"/>
         <source>Please enter a custom name for this tab</source>
         <translation>Bitte gib einen eigenen Namen ein</translation>
     </message>
@@ -705,32 +705,37 @@
         <translation>Zeige Zeilenende</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/EditorTab.py" line="36"/>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="28"/>
+        <source>Highlight all occurrences of selected text</source>
+        <translation>Alle Vorkommen des markierten Textes hervorheben</translation>
+    </message>
+    <message>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="37"/>
         <source>Plain Text</source>
         <translation>Reiner Text</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/EditorTab.py" line="39"/>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="40"/>
         <source>Default encoding:</source>
         <translation>Standardkodierung:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/EditorTab.py" line="41"/>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="42"/>
         <source>Default end of line:</source>
         <translation>Standardzeilenende:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/EditorTab.py" line="43"/>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="44"/>
         <source>Default language:</source>
         <translation>Standardsprache:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/EditorTab.py" line="45"/>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="46"/>
         <source>Default width:</source>
         <translation>Tabulatorbreite:</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/EditorTab.py" line="98"/>
+        <location filename="../gui/SettingsTabs/EditorTab.py" line="102"/>
         <source>Editor</source>
         <translation>Editor</translation>
     </message>
@@ -786,12 +791,12 @@
 <context>
     <name>Environment</name>
     <message>
-        <location filename="../Environment.py" line="174"/>
+        <location filename="../Environment.py" line="166"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../Environment.py" line="175"/>
+        <location filename="../Environment.py" line="167"/>
         <source>Templates</source>
         <translation>Vorlagen</translation>
     </message>
@@ -898,23 +903,23 @@
 <context>
     <name>Functions</name>
     <message>
-        <location filename="../Functions.py" line="95"/>
-        <location filename="../Functions.py" line="90"/>
+        <location filename="../Functions.py" line="97"/>
+        <location filename="../Functions.py" line="92"/>
         <source>Terminal emulator not found</source>
         <translation>Terminalemulator nicht gefunden</translation>
     </message>
     <message>
-        <location filename="../Functions.py" line="91"/>
+        <location filename="../Functions.py" line="93"/>
         <source>Your custom terminal emulator was not found</source>
         <translation>Der benutzerdefinierte Terminalemulator wurde nicht gefunden</translation>
     </message>
     <message>
-        <location filename="../Functions.py" line="96"/>
+        <location filename="../Functions.py" line="98"/>
         <source>The terminal emulator of the system was not found. Try setting a custom one in the Settings.</source>
         <translation>Der Terminalemulator des Systems wurde nicht gefunden. Versuche einen Benutzerdefinierten in den Einstellungen zu setzen.</translation>
     </message>
     <message>
-        <location filename="../Functions.py" line="333"/>
+        <location filename="../Functions.py" line="335"/>
         <source>Line {{line}} Column {{column}}: {{message}}</source>
         <translation>Zeile {{line}} Spalte {{column}}: {{message}}</translation>
     </message>
@@ -1181,726 +1186,726 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../gui/MainWindow.py" line="1415"/>
-        <location filename="../gui/MainWindow.py" line="1332"/>
-        <location filename="../gui/MainWindow.py" line="1162"/>
+        <location filename="../gui/MainWindow.py" line="1437"/>
+        <location filename="../gui/MainWindow.py" line="1354"/>
+        <location filename="../gui/MainWindow.py" line="1186"/>
         <location filename="../gui/MainWindow.py" line="70"/>
         <location filename="../gui/MainWindow.py" line="67"/>
         <source>Untitled</source>
         <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="156"/>
+        <location filename="../gui/MainWindow.py" line="179"/>
         <source>Open Recent Files</source>
         <translation>Zuletzt geöffnete Dateien öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="159"/>
+        <location filename="../gui/MainWindow.py" line="182"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="161"/>
+        <location filename="../gui/MainWindow.py" line="184"/>
         <source>&amp;New</source>
         <translation>&amp;Neu</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="168"/>
+        <location filename="../gui/MainWindow.py" line="191"/>
         <source>New (from Template)</source>
         <translation>Neu (aus Vorlage)</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="175"/>
+        <location filename="../gui/MainWindow.py" line="198"/>
         <source>&amp;Open</source>
         <translation>&amp;Öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1363"/>
-        <location filename="../gui/MainWindow.py" line="182"/>
+        <location filename="../gui/MainWindow.py" line="1385"/>
+        <location filename="../gui/MainWindow.py" line="205"/>
         <source>Open Directory</source>
         <translation>Verzeichnis öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="193"/>
+        <location filename="../gui/MainWindow.py" line="216"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1394"/>
-        <location filename="../gui/MainWindow.py" line="200"/>
+        <location filename="../gui/MainWindow.py" line="1416"/>
+        <location filename="../gui/MainWindow.py" line="223"/>
         <source>Save as ...</source>
         <translation>Speichern unter ...</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="207"/>
+        <location filename="../gui/MainWindow.py" line="230"/>
         <source>Save all</source>
         <translation>Alle speichern</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="216"/>
+        <location filename="../gui/MainWindow.py" line="239"/>
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="223"/>
+        <location filename="../gui/MainWindow.py" line="246"/>
         <source>Close all tabs</source>
         <translation>Schließe alle Tabs</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="232"/>
+        <location filename="../gui/MainWindow.py" line="255"/>
         <source>&amp;Print</source>
         <translation>&amp;Drucken</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="239"/>
+        <location filename="../gui/MainWindow.py" line="262"/>
         <source>&amp;Exit</source>
         <translation>&amp;Beenden</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="247"/>
+        <location filename="../gui/MainWindow.py" line="270"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="249"/>
+        <location filename="../gui/MainWindow.py" line="272"/>
         <source>&amp;Undo</source>
         <translation>&amp;Rückgängig</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="257"/>
+        <location filename="../gui/MainWindow.py" line="280"/>
         <source>&amp;Redo</source>
         <translation>&amp;Wiederherstellen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="267"/>
+        <location filename="../gui/MainWindow.py" line="290"/>
         <source>&amp;Cut</source>
         <translation>&amp;Ausschneiden</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="275"/>
+        <location filename="../gui/MainWindow.py" line="298"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopieren</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="283"/>
+        <location filename="../gui/MainWindow.py" line="306"/>
         <source>&amp;Paste</source>
         <translation>&amp;Einfügen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="290"/>
+        <location filename="../gui/MainWindow.py" line="313"/>
         <source>&amp;Delete</source>
         <translation>&amp;Löschen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="300"/>
+        <location filename="../gui/MainWindow.py" line="323"/>
         <source>&amp;Select All</source>
         <translation>&amp;Alles auswählen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="309"/>
+        <location filename="../gui/MainWindow.py" line="332"/>
         <source>Copy to Clipboard</source>
         <translation>In die Zwischenablage kopieren</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="311"/>
+        <location filename="../gui/MainWindow.py" line="334"/>
         <source>Copy Full Path to Clipboard</source>
         <translation>Kopiere absoluten Pfad in Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="317"/>
+        <location filename="../gui/MainWindow.py" line="340"/>
         <source>Copy Directory to Clipboard</source>
         <translation>Kopiere Verzeichnisnamen in Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="323"/>
+        <location filename="../gui/MainWindow.py" line="346"/>
         <source>Copy Filename to Clipboard</source>
         <translation>Kopiere Dateinamen in Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="329"/>
+        <location filename="../gui/MainWindow.py" line="352"/>
         <source>Copy URL to Clipboard</source>
-        <translation type="unfinished">Kopiere URL in Zwischenablage</translation>
+        <translation>Kopiere URL in Zwischenablage</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="337"/>
+        <location filename="../gui/MainWindow.py" line="360"/>
         <source>Convert Case to</source>
         <translation>Ändere Schreibweise in</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="339"/>
+        <location filename="../gui/MainWindow.py" line="362"/>
         <source>Uppercase</source>
         <translation>Großbuchstaben</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="345"/>
+        <location filename="../gui/MainWindow.py" line="368"/>
         <source>Lowercase</source>
         <translation>Kleinbuchstaben</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="351"/>
+        <location filename="../gui/MainWindow.py" line="374"/>
         <source>Title</source>
         <translation>Titel</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="357"/>
+        <location filename="../gui/MainWindow.py" line="380"/>
         <source>Swap</source>
         <translation>Schreibweise tauschen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="363"/>
+        <location filename="../gui/MainWindow.py" line="386"/>
         <source>Random</source>
         <translation>Zufällig</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="371"/>
+        <location filename="../gui/MainWindow.py" line="394"/>
         <source>Line operations</source>
         <translation>Zeilen bearbeiten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="373"/>
+        <location filename="../gui/MainWindow.py" line="396"/>
         <source>Duplicate Current Line</source>
         <translation>Aktuelle Zeile verdoppeln</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="379"/>
+        <location filename="../gui/MainWindow.py" line="402"/>
         <source>Delete Current Line</source>
         <translation>Aktuelle Zeile löschen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="385"/>
+        <location filename="../gui/MainWindow.py" line="408"/>
         <source>Sort lines alphabetically</source>
         <translation>Zeilen alphabetisch sortieren</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="391"/>
+        <location filename="../gui/MainWindow.py" line="414"/>
         <source>Shuffle Lines</source>
         <translation>Zeilen zufällig sortieren</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="399"/>
+        <location filename="../gui/MainWindow.py" line="422"/>
         <source>End of line</source>
         <translation>Zeilenende</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="424"/>
+        <location filename="../gui/MainWindow.py" line="447"/>
         <source>&amp;View</source>
         <translation>&amp;Ansicht</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="426"/>
+        <location filename="../gui/MainWindow.py" line="449"/>
         <source>Zoom</source>
         <translation>Zoom</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="428"/>
+        <location filename="../gui/MainWindow.py" line="451"/>
         <source>Zoom in</source>
         <translation>Vergrößern</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="435"/>
+        <location filename="../gui/MainWindow.py" line="458"/>
         <source>Zoom out</source>
         <translation>Verkleinern</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="488"/>
+        <location filename="../gui/MainWindow.py" line="511"/>
         <source>Default Zoom</source>
         <translation>Standardzoom</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="495"/>
+        <location filename="../gui/MainWindow.py" line="518"/>
         <source>Custom</source>
         <translation>Eigen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="503"/>
+        <location filename="../gui/MainWindow.py" line="526"/>
         <source>Fullscreen</source>
         <translation>Vollbild</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="510"/>
+        <location filename="../gui/MainWindow.py" line="533"/>
         <source>Sidebar</source>
         <translation>Seitenleiste</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="519"/>
+        <location filename="../gui/MainWindow.py" line="542"/>
         <source>Fold All</source>
         <translation>Alle einklappen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="525"/>
+        <location filename="../gui/MainWindow.py" line="548"/>
         <source>Unfold All</source>
         <translation>Alle ausklappen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="533"/>
+        <location filename="../gui/MainWindow.py" line="556"/>
         <source>Split View</source>
         <translation>Geteilte Ansicht</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="535"/>
+        <location filename="../gui/MainWindow.py" line="558"/>
         <source>Split Vertical</source>
         <translation>Senkrecht teilen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="541"/>
+        <location filename="../gui/MainWindow.py" line="564"/>
         <source>Close Current View</source>
         <translation>Aktuelle Ansicht schließen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="550"/>
+        <location filename="../gui/MainWindow.py" line="573"/>
         <source>&amp;Search</source>
         <translation>&amp;Suchen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="552"/>
+        <location filename="../gui/MainWindow.py" line="575"/>
         <source>&amp;Find</source>
         <translation>&amp;Suchen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="559"/>
+        <location filename="../gui/MainWindow.py" line="582"/>
         <source>Advanced Search</source>
         <translation>Erweiterte Suche</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="565"/>
+        <location filename="../gui/MainWindow.py" line="588"/>
         <source>&amp;Find and Replace</source>
         <translation>Suchen und &amp;Ersetzen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="572"/>
+        <location filename="../gui/MainWindow.py" line="595"/>
         <source>Goto Line</source>
         <translation>Gehe zu Zeile</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="578"/>
+        <location filename="../gui/MainWindow.py" line="601"/>
         <source>&amp;Tools</source>
         <translation>&amp;Werkzeuge</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="580"/>
+        <location filename="../gui/MainWindow.py" line="603"/>
         <source>Pick Color</source>
         <translation>Farbe auswählen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="586"/>
+        <location filename="../gui/MainWindow.py" line="609"/>
         <source>&amp;Document Statistics</source>
         <translation>&amp;Statistiken zum Dokument</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="592"/>
+        <location filename="../gui/MainWindow.py" line="615"/>
         <source>&amp;Insert Date and Time</source>
         <translation>&amp;datum und Uhrzeit einfügen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="600"/>
+        <location filename="../gui/MainWindow.py" line="623"/>
         <source>Strip Trailing Spaces</source>
         <translation>Leerzeichen am Zeilenende entfernen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="606"/>
+        <location filename="../gui/MainWindow.py" line="629"/>
         <source>Replace Tabs with Spaces</source>
         <translation>Tabulatoren durch Leerzeichen ersetze</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="612"/>
+        <location filename="../gui/MainWindow.py" line="635"/>
         <source>Replace Spaces with Tabs</source>
         <translation>Leerzeichen durch Tabulatoren ersetzen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="620"/>
+        <location filename="../gui/MainWindow.py" line="643"/>
         <source>RegExGrep</source>
         <translation>RegExGrep</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="626"/>
+        <location filename="../gui/MainWindow.py" line="649"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="628"/>
+        <location filename="../gui/MainWindow.py" line="651"/>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="635"/>
+        <location filename="../gui/MainWindow.py" line="658"/>
         <source>Manage languages</source>
         <translation>Sprachen verwalten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="641"/>
+        <location filename="../gui/MainWindow.py" line="664"/>
         <source>Manage custom themes</source>
         <translation>Eigene Themen verwalten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="649"/>
+        <location filename="../gui/MainWindow.py" line="672"/>
         <source>Export data</source>
         <translation>Daten exportieren</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1715"/>
-        <location filename="../gui/MainWindow.py" line="655"/>
+        <location filename="../gui/MainWindow.py" line="1736"/>
+        <location filename="../gui/MainWindow.py" line="678"/>
         <source>Import data</source>
         <translation>Daten importieren</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="661"/>
+        <location filename="../gui/MainWindow.py" line="684"/>
         <source>&amp;Language</source>
         <translation>&amp;Sprache</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="665"/>
+        <location filename="../gui/MainWindow.py" line="688"/>
         <source>Encoding</source>
         <translation>Kodierung</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="668"/>
+        <location filename="../gui/MainWindow.py" line="691"/>
         <source>Bookmarks</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="670"/>
+        <location filename="../gui/MainWindow.py" line="693"/>
         <source>Set/delete bookmark</source>
         <translation>Lesezeichen setzen/löschen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="676"/>
+        <location filename="../gui/MainWindow.py" line="699"/>
         <source>Next bookmark</source>
         <translation>Nächstes Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="682"/>
+        <location filename="../gui/MainWindow.py" line="705"/>
         <source>Previous bookmark</source>
         <translation>Vorheriges Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="688"/>
+        <location filename="../gui/MainWindow.py" line="711"/>
         <source>Clear all bookmarks</source>
         <translation>Alle Lesezeichen löschen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="694"/>
+        <location filename="../gui/MainWindow.py" line="717"/>
         <source>Macros</source>
         <translation>Makros</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="696"/>
+        <location filename="../gui/MainWindow.py" line="719"/>
         <source>Start recording</source>
         <translation>Aufzeichnung starten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="701"/>
+        <location filename="../gui/MainWindow.py" line="724"/>
         <source>Stop recording</source>
         <translation>Aufzeichnung stoppen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="707"/>
+        <location filename="../gui/MainWindow.py" line="730"/>
         <source>Execute macro</source>
         <translation>Makro ausführen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1664"/>
-        <location filename="../gui/MainWindow.py" line="713"/>
+        <location filename="../gui/MainWindow.py" line="1685"/>
+        <location filename="../gui/MainWindow.py" line="736"/>
         <source>Save macro</source>
         <translation>Aufgenommenes Makro speichern</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="719"/>
+        <location filename="../gui/MainWindow.py" line="742"/>
         <source>Manage Macros</source>
         <translation>Makros verwalten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="726"/>
+        <location filename="../gui/MainWindow.py" line="749"/>
         <source>Execute</source>
         <translation>Ausführen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="728"/>
+        <location filename="../gui/MainWindow.py" line="751"/>
         <source>Execute Command</source>
         <translation>Befehl ausführen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="733"/>
+        <location filename="../gui/MainWindow.py" line="756"/>
         <source>Edit Commands</source>
         <translation>Befehle bearbeiten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="742"/>
+        <location filename="../gui/MainWindow.py" line="765"/>
         <source>Search Action</source>
         <translation>Aktion suchen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="750"/>
+        <location filename="../gui/MainWindow.py" line="773"/>
         <source>Open data directory</source>
         <translation>Speicherordner öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="756"/>
+        <location filename="../gui/MainWindow.py" line="779"/>
         <source>Open program directory</source>
         <translation>Installationsordner öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="763"/>
+        <location filename="../gui/MainWindow.py" line="786"/>
         <source>Search for Updates</source>
         <translation>Nach Updates suchen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="769"/>
+        <location filename="../gui/MainWindow.py" line="792"/>
         <source>Tip of the Day</source>
         <translation>Tipp des Tages</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="777"/>
+        <location filename="../gui/MainWindow.py" line="800"/>
         <source>Debug information</source>
         <translation>Debuginformationen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1739"/>
-        <location filename="../gui/MainWindow.py" line="783"/>
+        <location filename="../gui/MainWindow.py" line="1760"/>
+        <location filename="../gui/MainWindow.py" line="806"/>
         <source>Delete all data</source>
         <translation>Alle Daten löschen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="791"/>
+        <location filename="../gui/MainWindow.py" line="814"/>
         <source>View Source</source>
         <translation>Quelltext anzeigen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="797"/>
+        <location filename="../gui/MainWindow.py" line="820"/>
         <source>Report Bug</source>
         <translation>Fehler melden</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="803"/>
+        <location filename="../gui/MainWindow.py" line="826"/>
         <source>View Documentation</source>
         <translation>Dokumentation</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="809"/>
+        <location filename="../gui/MainWindow.py" line="832"/>
         <source>Donate</source>
         <translation>Spenden</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="817"/>
+        <location filename="../gui/MainWindow.py" line="840"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="823"/>
+        <location filename="../gui/MainWindow.py" line="846"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="830"/>
+        <location filename="../gui/MainWindow.py" line="853"/>
         <source>Seperator</source>
         <translation>Trenner</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="856"/>
+        <location filename="../gui/MainWindow.py" line="879"/>
         <source>No Templates found</source>
         <translation>Keine Vorlagen verfügbar</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="867"/>
+        <location filename="../gui/MainWindow.py" line="890"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="869"/>
+        <location filename="../gui/MainWindow.py" line="892"/>
         <source>Save current document as template</source>
         <translation>Aktuelles Dokument als Vorlage speichern</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="873"/>
+        <location filename="../gui/MainWindow.py" line="896"/>
         <source>Add file as template</source>
         <translation>Datei als Vorlage hinzufügen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="877"/>
+        <location filename="../gui/MainWindow.py" line="900"/>
         <source>Manage</source>
         <translation>Verwalten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="909"/>
-        <location filename="../gui/MainWindow.py" line="890"/>
+        <location filename="../gui/MainWindow.py" line="932"/>
+        <location filename="../gui/MainWindow.py" line="913"/>
         <source>Enter name</source>
         <translation>Namen eingeben</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="909"/>
-        <location filename="../gui/MainWindow.py" line="890"/>
+        <location filename="../gui/MainWindow.py" line="932"/>
+        <location filename="../gui/MainWindow.py" line="913"/>
         <source>Please enter a name for the template</source>
         <translation>Bitte gib einen Namen für die Vorlage ein</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="914"/>
-        <location filename="../gui/MainWindow.py" line="894"/>
+        <location filename="../gui/MainWindow.py" line="937"/>
+        <location filename="../gui/MainWindow.py" line="917"/>
         <source>Invalid filename</source>
         <translation>Ungültiger Dateiname</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="914"/>
-        <location filename="../gui/MainWindow.py" line="894"/>
+        <location filename="../gui/MainWindow.py" line="937"/>
+        <location filename="../gui/MainWindow.py" line="917"/>
         <source>The Filename is invalid</source>
         <translation>Der Dateiname ist ungültig</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="929"/>
+        <location filename="../gui/MainWindow.py" line="952"/>
         <source>No recent files</source>
         <translation>Keine zuletzt geöffneten Dateien</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="941"/>
+        <location filename="../gui/MainWindow.py" line="964"/>
         <source>Clear</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="944"/>
+        <location filename="../gui/MainWindow.py" line="967"/>
         <source>Open all</source>
         <translation>Alle öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="967"/>
+        <location filename="../gui/MainWindow.py" line="990"/>
         <source>All files</source>
         <translation>Alle Dateien</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1003"/>
-        <location filename="../gui/MainWindow.py" line="998"/>
+        <location filename="../gui/MainWindow.py" line="1026"/>
+        <location filename="../gui/MainWindow.py" line="1021"/>
         <source>Plain Text</source>
         <translation>Reiner Text</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1125"/>
+        <location filename="../gui/MainWindow.py" line="1148"/>
         <source>Can&apos;t open file</source>
         <translation>Kann Datei nicht öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1125"/>
+        <location filename="../gui/MainWindow.py" line="1148"/>
         <source>You don&apos;t have the permission to open {{path}}</source>
         <translation>Du hast nicht die Berechtigung, um {{path}} zu öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1746"/>
-        <location filename="../gui/MainWindow.py" line="1696"/>
-        <location filename="../gui/MainWindow.py" line="1297"/>
-        <location filename="../gui/MainWindow.py" line="1129"/>
+        <location filename="../gui/MainWindow.py" line="1767"/>
+        <location filename="../gui/MainWindow.py" line="1717"/>
+        <location filename="../gui/MainWindow.py" line="1319"/>
+        <location filename="../gui/MainWindow.py" line="1152"/>
         <source>Unknown error</source>
         <translation>Unbekannter Fehler</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1746"/>
-        <location filename="../gui/MainWindow.py" line="1297"/>
-        <location filename="../gui/MainWindow.py" line="1129"/>
+        <location filename="../gui/MainWindow.py" line="1767"/>
+        <location filename="../gui/MainWindow.py" line="1319"/>
+        <location filename="../gui/MainWindow.py" line="1152"/>
         <source>An unknown error has occurred</source>
         <translation>Ein Unbekannter Fehler ist aufgetreten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1259"/>
+        <location filename="../gui/MainWindow.py" line="1281"/>
         <source>This file has some decoding errors</source>
         <translation>Diese Datei hat einige Fehler in ihrer Kodierung</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1293"/>
+        <location filename="../gui/MainWindow.py" line="1315"/>
         <source>Can&apos;t save file</source>
         <translation>Kann Datei nicht speichern</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1293"/>
+        <location filename="../gui/MainWindow.py" line="1315"/>
         <source>You don&apos;t have the permission to write {{path}}</source>
         <translation>Du hast nicht die Berechtigung, um {{path}} zu schreiben</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1346"/>
+        <location filename="../gui/MainWindow.py" line="1368"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1424"/>
+        <location filename="../gui/MainWindow.py" line="1446"/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1529"/>
+        <location filename="../gui/MainWindow.py" line="1550"/>
         <source>Custom zoom</source>
         <translation>Eigener Zoom</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1529"/>
+        <location filename="../gui/MainWindow.py" line="1550"/>
         <source>Please enter a value for the zoom in percent</source>
         <translation>Gib einen Wert für den Zoom in Prozent an</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1664"/>
+        <location filename="../gui/MainWindow.py" line="1685"/>
         <source>Please enter a name for the macro</source>
         <translation>Bitte gib einen Namen für das Makro ein</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1673"/>
+        <location filename="../gui/MainWindow.py" line="1694"/>
         <source>Zip Files</source>
         <translation>Zip Dateien</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1674"/>
+        <location filename="../gui/MainWindow.py" line="1695"/>
         <source>All Files</source>
         <translation>Alle Dateien</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1689"/>
+        <location filename="../gui/MainWindow.py" line="1710"/>
         <source>Invalid file</source>
         <translation>Ungültige Datei</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1689"/>
+        <location filename="../gui/MainWindow.py" line="1710"/>
         <source>This file does not contains valid exported data from jdTextEdit</source>
         <translation>Diese Datei enthält nicht valide Exportdaten von jdTextEdit</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1696"/>
+        <location filename="../gui/MainWindow.py" line="1717"/>
         <source>An unknown error happened</source>
         <translation>Ein unbekannter Fehler ist aufgetreten</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1699"/>
+        <location filename="../gui/MainWindow.py" line="1720"/>
         <source>Are you sure you want to import the following data?</source>
         <translation>Bist du sicher, dass du die folgenden Daten importieren willst?</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1701"/>
+        <location filename="../gui/MainWindow.py" line="1722"/>
         <source>Date and Time: {{DateTime}}</source>
         <translation>datum und Uhrzeit: {{DateTime}}</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1702"/>
+        <location filename="../gui/MainWindow.py" line="1723"/>
         <source>Platform: {{Platform}}</source>
         <translation>Platform: {{Platform}}</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1703"/>
+        <location filename="../gui/MainWindow.py" line="1724"/>
         <source>Version: {{Version}}</source>
         <translation>Version: {{Version}}</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1705"/>
+        <location filename="../gui/MainWindow.py" line="1726"/>
         <source>It includes the following:</source>
         <translation>Sie enthalten das folgende:</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1713"/>
+        <location filename="../gui/MainWindow.py" line="1734"/>
         <source>If you continue, your data will be overwritten and jdTextEdit will be closed</source>
         <translation>Wenn du fortfährst, werden deine Daten überschreiben und jdTextEdit wird sich schließen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1731"/>
+        <location filename="../gui/MainWindow.py" line="1752"/>
         <source>Import complete</source>
         <translation>Import abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1731"/>
+        <location filename="../gui/MainWindow.py" line="1752"/>
         <source>The Import is now completed. jdTextEdit will now close.</source>
         <translation>Der import ist jetzt abgeschlossen. jdTextEdit wird sich jetzt schließen.</translation>
     </message>
     <message>
-        <location filename="../gui/MainWindow.py" line="1739"/>
+        <location filename="../gui/MainWindow.py" line="1760"/>
         <source>This will delete all data of jdTextEdit. After that, jdTextEdit will behave like the first run. jdTexEdit will exit after doing that. Are you sure?</source>
         <translation>Alle Daten von jdTextEdit werden gelöscht. Danch wird sich jdTextEdit wie beim ersten Start verhalten. jdTextEdit beendet sich nach dem löschen. Willst du Fortfahren?</translation>
     </message>
@@ -1941,79 +1946,79 @@
 <context>
     <name>ManageTemplatesWindow</name>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="14"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="20"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="15"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="21"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="16"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="22"/>
         <source>Export</source>
         <translation>Exportieren</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="17"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="23"/>
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="36"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="42"/>
         <source>Manage templates</source>
         <translation>Vorlagen verwalten</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="55"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="61"/>
         <source>Delete {{name}}</source>
         <translation>{{name}} löschen</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="55"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="61"/>
         <source>Are you sure you want to delete {{name}}?</source>
         <translation>Bist du sicher, dass du {{name}} löschen willst?</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="103"/>
-        <location filename="../gui/ManageTemplatesWindow.py" line="85"/>
-        <location filename="../gui/ManageTemplatesWindow.py" line="62"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="109"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="91"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="68"/>
         <source>Error</source>
         <translation>Fehler</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="62"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="68"/>
         <source>A error occurred while deleting</source>
         <translation>Während des Löschens ist ein Fehler aufgetreten</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="72"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="78"/>
         <source>Enter name</source>
         <translation>Namen eingeben</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="72"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="78"/>
         <source>Please enter the new name</source>
         <translation>Bitte gib einen Namen ein</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="78"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="84"/>
         <source>Name exists</source>
         <translation>name existiert</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="78"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="84"/>
         <source>There is already a template with this name</source>
         <translation>Es gibt bereits eine Vorlage mit diesem Namen</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="85"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="91"/>
         <source>A error occurred while renaming</source>
         <translation>Während des Umbenennens ist ein Fehler aufgetreten</translation>
     </message>
     <message>
-        <location filename="../gui/ManageTemplatesWindow.py" line="103"/>
+        <location filename="../gui/ManageTemplatesWindow.py" line="109"/>
         <source>A error occurred while exporting</source>
         <translation>Während des exportierens ist ein Fehler aufgetreten</translation>
     </message>
@@ -2246,27 +2251,32 @@
         <translation>Die Instalation der Pakete ist fehlgeschlage</translation>
     </message>
     <message>
-        <location filename="../core/PluginLoader.py" line="57"/>
+        <location filename="../core/PluginLoader.py" line="59"/>
         <source>Directory {{path}} does not exists</source>
         <translation>Verzeichnis {{path}} existiert nicht</translation>
     </message>
     <message>
-        <location filename="../core/PluginLoader.py" line="62"/>
+        <location filename="../core/PluginLoader.py" line="64"/>
         <source>{{path}} has no manifest.json</source>
         <translation>{{path}} hat keine manifest.json</translation>
     </message>
     <message>
-        <location filename="../core/PluginLoader.py" line="71"/>
+        <location filename="../core/PluginLoader.py" line="73"/>
         <source>{{path}} has no key {{key}}</source>
         <translation>{{path}} hat keinen Schlüssel {{key}}</translation>
     </message>
     <message>
-        <location filename="../core/PluginLoader.py" line="76"/>
+        <location filename="../core/PluginLoader.py" line="78"/>
         <source>Skipping loading of Plugin {{id}}</source>
         <translation>Überspringe laden von Plugin {{id}}</translation>
     </message>
     <message>
-        <location filename="../core/PluginLoader.py" line="84"/>
+        <location filename="../core/PluginLoader.py" line="83"/>
+        <source>Plugin {{plugin}} is disabled. Skipping loading</source>
+        <translation>Plugin {{plugin}} ist deaktiviert. Überspringe laden.</translation>
+    </message>
+    <message>
+        <location filename="../core/PluginLoader.py" line="87"/>
         <source>A Plugin with ID {{id}} is already loaded</source>
         <translation>EIn Plugin mit der ID {{id}} ist bereits geladen</translation>
     </message>
@@ -2274,27 +2284,27 @@
 <context>
     <name>PluginTab</name>
     <message>
-        <location filename="../gui/SettingsTabs/PluginTab.py" line="19"/>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="26"/>
         <source>Enabled</source>
         <translation>Aktiviert</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/PluginTab.py" line="20"/>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="27"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/PluginTab.py" line="21"/>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="28"/>
         <source>Version</source>
         <translation>Version</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/PluginTab.py" line="22"/>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="29"/>
         <source>Author</source>
         <translation>Autor</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsTabs/PluginTab.py" line="65"/>
+        <location filename="../gui/SettingsTabs/PluginTab.py" line="77"/>
         <source>Plugins</source>
         <translation>Plugins</translation>
     </message>
@@ -2700,6 +2710,16 @@
         <location filename="../gui/StatusBarWidgets/LanguageWidget.py" line="18"/>
         <source>Language</source>
         <translation>Sprache</translation>
+    </message>
+    <message>
+        <location filename="../gui/StatusBarWidgets/LengthWidget.py" line="18"/>
+        <source>Document length</source>
+        <translation>Dokumentenlänge</translation>
+    </message>
+    <message>
+        <location filename="../gui/StatusBarWidgets/LengthWidget.py" line="27"/>
+        <source>Length: {{length}} Lines: {{lines}}</source>
+        <translation>Länge: {{length}} Zeilen: {{lines}}</translation>
     </message>
     <message>
         <location filename="../gui/StatusBarWidgets/PathWidget.py" line="18"/>
@@ -3204,32 +3224,32 @@
 <context>
     <name>jdTextEdit</name>
     <message>
-        <location filename="../jdTextEdit.py" line="52"/>
+        <location filename="../jdTextEdit.py" line="58"/>
         <source>The following optional Python modules are missing:</source>
         <translation>Die folgenden python Module fehlen:</translation>
     </message>
     <message>
-        <location filename="../jdTextEdit.py" line="55"/>
+        <location filename="../jdTextEdit.py" line="61"/>
         <source>jdTextEdit will run without this modules, but some features are not working. You probably want to install them.</source>
         <translation>jdTextEdit wird auch ohne siese module starten, allerdings funktionieren ein paar Features nicht. DU willst diese module wahrscheinlich installieren.</translation>
     </message>
     <message>
-        <location filename="../jdTextEdit.py" line="58"/>
+        <location filename="../jdTextEdit.py" line="64"/>
         <source>Don&apos;t show this again</source>
         <translation>Nicht erneut anzeigen</translation>
     </message>
     <message>
-        <location filename="../jdTextEdit.py" line="61"/>
+        <location filename="../jdTextEdit.py" line="67"/>
         <source>Missing optional modules</source>
         <translation>fehlende optionale Module</translation>
     </message>
     <message>
-        <location filename="../jdTextEdit.py" line="140"/>
+        <location filename="../jdTextEdit.py" line="194"/>
         <source>Enable automatic update search</source>
         <translation>Automatische Suche nach Updates aktivieren</translation>
     </message>
     <message>
-        <location filename="../jdTextEdit.py" line="140"/>
+        <location filename="../jdTextEdit.py" line="194"/>
         <source>jdTextEdit offers the possibility to automatically check for updates every time the programme is started. Do you want to activate this? You can change this behaviour later in the settings.</source>
         <translation>jdTextEdit bietet die Möglichkeit bei jedem Programmstart automatisch nach Updates zu suchen. Möchtest du dies aktivieren? Du kannst dieses Verhalten später in den Einstellungen noch ändern.</translation>
     </message>

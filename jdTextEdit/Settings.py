@@ -88,6 +88,7 @@ class Settings():
         self.editorConfigTrimWhitespace = True
         self.editorConfigInsertNewline = True
         self.editorConfigShowBanner = False
+        self.editHighlightOccurrencesSelectedText = True
         self.settingsWindowUseModernDesign = True
         self.enableUserChrome = True
         self.swapOkCancel = True

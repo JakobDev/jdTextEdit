@@ -25,6 +25,7 @@ class EditorTab(QWidget, SettingsTabBase):
         self.autoIndent = QCheckBox(QCoreApplication.translate("EditorTab", "Automatic indentation"))
         self.showIndentationGuides = QCheckBox(QCoreApplication.translate("EditorTab", "Show indentation guides"))
         self.showEol = QCheckBox(QCoreApplication.translate("EditorTab", "Show end of line"))
+        self._highlightOccurrencesSelectedText = QCheckBox(QCoreApplication.translate("EditorTab", "Highlight all occurrences of selected text"))
 
         for i in getEncodingList():
             self.defaultEncodingComboBox.addItem(i[0])
@@ -53,6 +54,7 @@ class EditorTab(QWidget, SettingsTabBase):
         mainLayout.addWidget(self.autoIndent)
         mainLayout.addWidget(self.showIndentationGuides)
         mainLayout.addWidget(self.showEol)
+        mainLayout.addWidget(self._highlightOccurrencesSelectedText)
         mainLayout.addStretch(1)
 
         self.setLayout(mainLayout)
@@ -77,6 +79,7 @@ class EditorTab(QWidget, SettingsTabBase):
         self.autoIndent.setChecked(settings.editAutoIndent)
         self.showIndentationGuides.setChecked(settings.showIndentationGuides)
         self.showEol.setChecked(settings.editShowEol)
+        self._highlightOccurrencesSelectedText.setChecked(settings.get("editHighlightOccurrencesSelectedText"))
 
     def getSettings(self, settings: Settings) -> None:
         settings.set("defaultEncoding", self.defaultEncodingComboBox.currentText())
@@ -89,6 +92,7 @@ class EditorTab(QWidget, SettingsTabBase):
         settings.set("editAutoIndent", self.autoIndent.isChecked())
         settings.set("showIndentationGuides", self.showIndentationGuides.isChecked())
         settings.set("editShowEol", self.showEol.isChecked())
+        settings.set("editHighlightOccurrencesSelectedText", self._highlightOccurrencesSelectedText.isChecked())
 
     def setup(self) -> None:
         for i in self.env.languageList:
