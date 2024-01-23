@@ -5,7 +5,7 @@ from PyQt6.QtCore import QPoint, QCoreApplication, pyqtSignal
 from jdTextEdit.gui.BannerWidgets.EditorconfigBanner import EditorconfigBanner
 from jdTextEdit.api.LanguageBase import LanguageBase
 from typing import Optional, Any, TYPE_CHECKING
-from jdTextEdit.Functions import findAllString
+from jdTextEdit.Functions import findAllText
 import copy
 import sys
 import os
@@ -61,7 +61,7 @@ class CodeEdit(QsciScintilla):
         eolModeList = [QsciScintilla.EolMode.EolWindows, QsciScintilla.EolMode.EolUnix, QsciScintilla.EolMode.EolMac]
         self.changeEolMode(eolModeList[self.settings.defaultEolMode])
 
-         # Highlight all Ocuurences of selcted text
+        # Highlight all Ocuurences of selcted text
         self._highlightOccurrencesIndicator = self.getIndicatorNumber()
         self.indicatorDefine(QsciScintilla.IndicatorStyle.FullBoxIndicator, self._highlightOccurrencesIndicator)
         self.selectionChanged.connect(self._updateHighlightAllOccurrences)
@@ -316,15 +316,15 @@ class CodeEdit(QsciScintilla):
         if not self.settings.get("editHighlightOccurrencesSelectedText"):
             return
 
-        highlightedText = self.selectedText()
+        highlightedText = self.selectedText().encode("utf-8")
 
-        if highlightedText == "":
+        if len(highlightedText) == 0:
             return
 
         startLine, startPos, _, _ = self.getSelection()
         currentPos = self.positionFromLineIndex(startLine, startPos)
 
-        for pos in findAllString(self.text(), highlightedText):
+        for pos in findAllText(self.text().encode("utf-8"), highlightedText):
             if pos != currentPos:
                 self.SendScintilla(QsciScintilla.SCI_INDICATORFILLRANGE, pos, len(highlightedText))
 

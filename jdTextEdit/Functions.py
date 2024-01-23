@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QMessageBox, QWidget, QComboBox, QStatusBar
+from typing import Any, Optional, Union, TYPE_CHECKING
 from jdTextEdit.core.Logger import getGlobalLogger
-from typing import Any, Optional, TYPE_CHECKING
 from PyQt6.QtCore import Qt, QCoreApplication
 from jdTextEdit.core.Project import Project
 from jdTextEdit.Constants import Constants
@@ -403,11 +403,11 @@ def getParentDirectory(path: str) -> str:
     return str(pathlib.Path(path).parent)
 
 
-def findAllString(text: str, pattern: str) -> list[int]:
+def findAllText(text: Union[str, bytes], pattern: Union[str, bytes]) -> list[int]:
     """
     Retruns a list of all positions of the pattern in the text
     """
-    if text == "" or pattern == "":
+    if len(text) == 0 or len(pattern) == 0:
         return []
 
     posList: list[int] = []
