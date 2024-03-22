@@ -1,0 +1,16 @@
+{
+    "pluginManagerWindow.title": "",
+    "pluginManagerWindow.button.ok": "",
+    "pluginManagerWindow.button.cancel": "",
+    "pluginManagerWindow.header.installed": "",
+    "pluginManagerWindow.header.name": "",
+    "pluginManagerWindow.header.version": "",
+    "pluginManagerWindow.header.author": "",
+    "pluginManagerWindow.welcomeMessage": "",
+    "pluginManagerWindow.messageBox.noInternet.title": "",
+    "pluginManagerWindow.messageBox.noInternet.text": "",
+    "pluginManagerWindow.messageBox.error.title": "",
+    "pluginManagerWindow.messageBox.outdatedVersion.title": "",
+    "pluginManagerWindow.messageBox.outdatedVersion.text": "",
+    "dayTip.pluginmanager": ""
+}
