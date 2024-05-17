@@ -14,6 +14,7 @@ def check_file(tool: str, path: pathlib.Path, text: str) -> None:
     with open(path, "r", encoding="utf-8", newline="\n") as f:
         content = f.read()
 
+    print( result.stdout.strip() )
     if result.stdout.strip() != content.strip():
         print(text, file=sys.stderr)
         sys.exit(1)
