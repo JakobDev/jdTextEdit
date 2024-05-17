@@ -53,8 +53,8 @@ def main() -> None:
     parse_translation_directory(root_dir / "deploy" / "translations", "", ".po", translator_dict)
 
     write_dict = {}
-    for lang, translators in translator_dict.items():
-        write_dict[lang] = sorted(list(set(translators)))
+    for lang in sorted(translator_dict.keys()):
+        write_dict[lang] = sorted(list(set(translator_dict[lang])))
 
     if args.stdout:
         print(json.dumps(write_dict, ensure_ascii=False, indent=4))
