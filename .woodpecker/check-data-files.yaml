@@ -5,7 +5,3 @@ steps:
             - git fetch --unshallow || true
             - pip install appstream-python
             - python ./tools/CheckDataFiles.py
-
-when:
-    - event: tag
-    - path: ["**/*.ts", "**/*.metainfo.xml", "jdTextEdit/data/**", "tools/**", ".woodpecker/**"]
