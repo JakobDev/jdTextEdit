@@ -1,0 +1,12 @@
+{
+    "plugin.spellChecker.dictNotFound": "Nie można znaleźć słownika dla języka '{{language}}'",
+    "plugin.spellChecker.contextMenu.addToDict": "Dodaj do słownika",
+    "plugin.spellChecker.settingsTab": "Sprawdzanie pisowni",
+    "plugin.spellChecker.settingsTab.enableSpellChecking": "Włącz sprawdzanie pisowni",
+    "plugin.spellChecker.settingsTab.dictonary": "Słownik:",
+    "plugin.spellChecker.settingsTab.minimumWordLength": "Minimalna długość słowa:",
+    "plugin.spellChecker.settingsTab.enableCustomPwl": "Włącz niestandardową listę słów",
+    "plugin.spellChecker.settingsTab.customPwlPath": "Niestandardowa lista słów:",
+    "plugin.spellChecker.bigFilesSetting": "Wyłącz sprawdzanie pisowni",
+    "dayTip.spellChecker": "jdTextEdit posiada sprawdzanie pisowni. Można ją włączyć w ustawieniach."
+}

@@ -1,0 +1,16 @@
+{
+    "pluginManagerWindow.title": "Zarządzanie wtyczkami",
+    "pluginManagerWindow.button.ok": "Ok",
+    "pluginManagerWindow.button.cancel": "Anuluj",
+    "pluginManagerWindow.header.installed": "Zainstalowane",
+    "pluginManagerWindow.header.name": "Nazwa",
+    "pluginManagerWindow.header.version": "Wersja",
+    "pluginManagerWindow.header.author": "Autor",
+    "pluginManagerWindow.welcomeMessage": "Dzięki menedżerowi wtyczek możesz instalować wtyczki z {{link}}. Zaznacz wtyczkę, aby ją zainstalować i odznacz, aby ją odinstalować. Kliknij OK, aby zastosować zmiany.<br><br>Ta lista zawiera tylko wtyczki z repozytorium. Jeśli chcesz zarządzać wszystkimi wtyczkami, znajdziesz taką opcję w ustawieniach.",
+    "pluginManagerWindow.messageBox.noInternet.title": "Brak połączenia z internetem",
+    "pluginManagerWindow.messageBox.noInternet.text": "Nie można się połączyć z {{url}}",
+    "pluginManagerWindow.messageBox.error.title": "Błąd",
+    "pluginManagerWindow.messageBox.outdatedVersion.title": "Stara wersja",
+    "pluginManagerWindow.messageBox.outdatedVersion.text": "Ta wtyczka wymaga nowszej wersji jdTextEdit do działania.",
+    "dayTip.pluginmanager": "Dzięki Menedżerowi wtyczek możesz łatwo pobierać i instalować wtyczki z Internetu. Znajdziesz go w menu Edycja."
+}
