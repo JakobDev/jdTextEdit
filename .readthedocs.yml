@@ -2,6 +2,11 @@ version: 2
 
 formats: all
 
+build:
+    os: ubuntu-lts-latest
+    tools:
+        python: "3.12"
+
 python:
     install:
         - requirements: doc/requirements.txt

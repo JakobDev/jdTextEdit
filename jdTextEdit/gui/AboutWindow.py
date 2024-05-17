@@ -21,7 +21,7 @@ class AboutTab(QWidget):
         text += QCoreApplication.translate("AboutWindow", "The logo was made by Axel-Erfurt") + "<br><br>"
         if "aboutMessage" in env.distributionSettings:
             text += env.distributionSettings["aboutMessage"] + "<br><br>"
-        text += "Copyright © 2019-2023 JakobDev</center>"
+        text += "Copyright © 2019-2024 JakobDev</center>"
 
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(QLabel(text))
