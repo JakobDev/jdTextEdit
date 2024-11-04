@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <component type="desktop-application">
-  <!--Created with jdAppStreamEdit 9.0-->
+  <!--Created with jdAppStreamEdit 9.2-->
   <id>page.codeberg.JakobDev.jdTextEdit</id>
   <name>jdTextEdit</name>
   <summary>An advanced text editor</summary>
@@ -25,7 +25,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>The MainWindow</caption>
-      <image type="source">https://codeberg.org/JakobDev/jdTextEdit/raw/commit/99ac6a8cf93e4aef69257fe97624bf7828049399/screenshots/jdTextEdit_Manjaro.png</image>
+      <image type="source">https://codeberg.org/JakobDev/jdTextEdit/raw/commit/03722f849ed0b652cfe8a39ab4f5e78472671e93/screenshots/jdTextEdit_Manjaro.png</image>
     </screenshot>
   </screenshots>
   <releases>
