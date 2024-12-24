@@ -1,0 +1,12 @@
+{
+    "plugin.spellChecker.dictNotFound": "",
+    "plugin.spellChecker.contextMenu.addToDict": "",
+    "plugin.spellChecker.settingsTab": "",
+    "plugin.spellChecker.settingsTab.enableSpellChecking": "",
+    "plugin.spellChecker.settingsTab.dictonary": "",
+    "plugin.spellChecker.settingsTab.minimumWordLength": "",
+    "plugin.spellChecker.settingsTab.enableCustomPwl": "",
+    "plugin.spellChecker.settingsTab.customPwlPath": "",
+    "plugin.spellChecker.bigFilesSetting": "",
+    "dayTip.spellChecker": ""
+}
