@@ -850,7 +850,7 @@ class MainWindow(QMainWindow):
         self.env.pluginAPI.addAction(aboutQt)
 
         self.updateRecentFilesMenu()
-        separator = QAction(QCoreApplication.translate("MainWindow", "Seperator"))
+        separator = QAction(QCoreApplication.translate("MainWindow", "Separator"))
         separator.setData(["separator"])
         self.env.menuActions["separator"] = separator
 
