@@ -45,7 +45,7 @@ class DayTipWindow(QWidget):
             QCoreApplication.translate("TipOfTheDay", "You can edit the Context menu and the toolbar in the preferences."),
             QCoreApplication.translate("TipOfTheDay", "You can add your own templates to the templates menu by putting them into the templates folder in the data directory."),
             QCoreApplication.translate("TipOfTheDay", "Don't like the default shortcuts? You can edit all shortcuts in the \"Shortcuts\" tab of the \"Preferences\" window."),
-            QCoreApplication.translate("TipOfTheDay", "jdTextEdit has a sidebar with a lot of features! You can enabled it in the \"View\" menu."),
+            QCoreApplication.translate("TipOfTheDay", "jdTextEdit has a sidebar with a lot of features! You can enable it in the \"View\" menu."),
             QCoreApplication.translate("TipOfTheDay", "Start jdTextEdit with -p to use it in portable mode."),
             QCoreApplication.translate("TipOfTheDay", "You can use bookmarks to quickly jump to important points in the code."),
             QCoreApplication.translate("TipOfTheDay", "By clicking on the border you can set or remove bookmarks."),

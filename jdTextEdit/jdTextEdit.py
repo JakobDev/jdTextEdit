@@ -58,7 +58,7 @@ def checkOptionalModules(env: Environment):
     text = QCoreApplication.translate("jdTextEdit", "The following optional Python modules are missing:") + "<br>"
     for i in notFoundModules:
         text += i + "<br>"
-    text += "<br>" + QCoreApplication.translate("jdTextEdit", "jdTextEdit will run without this modules, but some features are not working. You probably want to install them.")
+    text += "<br>" + QCoreApplication.translate("jdTextEdit", "jdTextEdit will run without these modules, but some features are not working. You probably want to install them.")
 
     messageBox = QMessageBox()
     checkBox = QCheckBox(QCoreApplication.translate("jdTextEdit", "Don't show this again"))
