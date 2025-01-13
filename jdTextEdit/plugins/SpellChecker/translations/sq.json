@@ -1,0 +1,12 @@
+{
+    "plugin.spellChecker.dictNotFound": "S’u gjet dot fjalor për gjuhën “{{language}}”",
+    "plugin.spellChecker.contextMenu.addToDict": "Shtoje në fjalor",
+    "plugin.spellChecker.settingsTab": "Kontroll drejtshkrimi",
+    "plugin.spellChecker.settingsTab.enableSpellChecking": "Aktivizo Kontroll Drejtshkrimi",
+    "plugin.spellChecker.settingsTab.dictonary": "Fjalor:",
+    "plugin.spellChecker.settingsTab.minimumWordLength": "Gjatësi minimum fjalësh:",
+    "plugin.spellChecker.settingsTab.enableCustomPwl": "Aktivizo listë vetjake fjalësh",
+    "plugin.spellChecker.settingsTab.customPwlPath": "Listë vetjake fjalësh:",
+    "plugin.spellChecker.bigFilesSetting": "Çaktivizo Kontroll Drejtshkrimi",
+    "dayTip.spellChecker": "jdTextEdit përmban një kontrollor drejtshkrimi. Mund ta aktivizoni përmes rregullimeve."
+}
