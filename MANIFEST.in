@@ -5,8 +5,8 @@ include jdTextEdit/icons/*
 include jdTextEdit/translations/*.ts
 include jdTextEdit/autocompletion/*
 include jdTextEdit/templates/*
-include jdTextEdit/plugins/PluginManager/manifest.json
-include jdTextEdit/plugins/PluginManager/translations/*
+include jdTextEdit/plugins/Pluginmanager/manifest.json
+include jdTextEdit/plugins/Pluginmanager/translations/*
 include jdTextEdit/plugins/SpellChecker/manifest.json
 include jdTextEdit/plugins/SpellChecker/translations/*
 include jdTextEdit/plugins/DBus/manifest.json
