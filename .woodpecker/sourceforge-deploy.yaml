@@ -5,13 +5,22 @@ depends_on:
 steps:
     sourceforge_deploy:
         image: codeberg.org/jakobdev/python-ci-build-container:latest
+        pull: true
         commands:
             - init-container
             - source set-file-env VERSION jdTextEdit/version.txt
             - full-python-build --name jdTextEdit --version $VERSION
             - write-changelog-readme --name jdTextEdit --version $VERSION --output-file Output/README.md
-            - sourceforge-upload --upload-dir ./Output --project jdtextedit --version $VERSION --app-name jdTextEdit
-        secrets: [SOURCEFORGE_USERNAME, SOURCEFORGE_PASSWORD, SOURCEFORGE_API_KEY]
+            - sourceforge-upload --upload-dir ./Output --project jdtextedit --version $VERSION --app-name jdTextEdit --codeberg-release
+        environment:
+            SOURCEFORGE_USERNAME:
+                from_secret: SOURCEFORGE_USERNAME
+            SOURCEFORGE_PASSWORD:
+                from_secret: SOURCEFORGE_PASSWORD
+            SOURCEFORGE_API_KEY:
+                from_secret: SOURCEFORGE_API_KEY
+            CODEBERG_API_TOKEN:
+                from_secret: CODEBERG_API_TOKEN
 
 when:
     event: tag
